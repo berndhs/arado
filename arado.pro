@@ -5,13 +5,19 @@ QT		+= gui network
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall -Werror
 
-FORMS		=	aradomain.ui \
+UI_DIR = tmp/ui
+MOC_DIR = tmp/moc
+RCC_DIR = tmp/rcc
+OBJECTS_DIR = tmp/obj
 
-HEADERS		=	aradomain.h \
+FORMS		=	ui/aradomain.ui \
+
+HEADERS		=	src/aradomain.h \
 
 
-SOURCES		=	aradomain.cc \
+SOURCES		=	src/aradomain.cpp \
+			src/main.cpp
 
 
-TARGET		= ARADO
+TARGET		= bin/arado
 PROJECTNAME	= ARADO
