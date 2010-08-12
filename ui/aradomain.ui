@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>AradoWin</class>
+ <widget class="QMainWindow" name="AradoWin">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -70,8 +70,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>899</width>
-       <height>359</height>
+       <width>901</width>
+       <height>361</height>
       </rect>
      </property>
      <widget class="QListView" name="listView">
