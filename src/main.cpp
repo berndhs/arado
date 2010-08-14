@@ -13,4 +13,8 @@ main (int argc, char *argv[])
   int appresult = app.exec ();
 
   return appresult + 42;
+
+// connect(ui.actionAbout_Arado, SIGNAL(triggered(void)), this,
+//	  SLOT(slotAbout(void)));
+
 }

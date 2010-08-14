@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>Press the logo and add the entered URL to your local database.</string>
+     <string>Add URL: Press the logo and add the entered URL to your local database. A pop-up window asks you to add keywords seperated by blanks or a short URL title description.</string>
     </property>
     <property name="text">
      <string/>
@@ -398,7 +398,7 @@
      <string>Open the marked URL in the browser.</string>
     </property>
     <property name="text">
-     <string>Open URL in your Browser</string>
+     <string>Browse URL</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelmyport">

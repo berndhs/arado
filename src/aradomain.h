@@ -8,10 +8,10 @@
 class QCloseEvent;
 class QApplication;
 
-namespace arado 
+namespace arado
 {
 
-class AradoMain : public QMainWindow 
+class AradoMain : public QMainWindow
 {
 Q_OBJECT
 
@@ -27,8 +27,10 @@ public slots:
 
   void Quit ();
 
+
 private:
 
+  void slotAbout(void);
   void  Connect ();
 
   Ui_AradoWin     mainUi;

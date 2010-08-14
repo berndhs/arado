@@ -1,6 +1,7 @@
 #include "aradomain.h"
 #include <QCloseEvent>
 #include <QApplication>
+#include <QMessageBox>
 
 namespace arado
 {
@@ -263,7 +264,26 @@ AradoMain::closeEvent(QCloseEvent *event)
 //
 // ABOUT MESSAGE WINDOW
 //
-
+//
+// void arado::slotAbout(void)
+// {
+//  QMessageBox mb(this);
+//
+//  mb.setWindowTitle(tr("ARADO - URL Database"));
+//  mb.setTextFormat(Qt::RichText);
+//  mb.setText("<html>"
+//             "Version 0.81.<br><br>"
+//             "Open Source software for Linux, Mac, and Windows.<br><br>"
+//             "Copyright (c) 2010<br>"
+//             "The Arado Team."
+//	     "<hr>"
+//             "Please visit <a href='http://arado.sf.net'>"
+//             "http://arado.sf.net</a><br>for more information."
+//             "</html>");
+//  mb.setStandardButtons(QMessageBox::Ok);
+//  mb.setIconPixmap(QPixmap("arado-logo-coloured.png"));
+//  mb.exec();
+// }
 
 
 
