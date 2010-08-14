@@ -443,7 +443,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>URLs are transferred each X second to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
+     <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelurldelay">
