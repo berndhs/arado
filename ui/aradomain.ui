@@ -17,17 +17,27 @@
    <widget class="QPushButton" name="buttonaddurl">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>75</width>
-      <height>25</height>
+      <x>15</x>
+      <y>15</y>
+      <width>90</width>
+      <height>90</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>Add the entered URL to your local database.</string>
+     <string>Press the logo and add the entered URL to your local database.</string>
     </property>
     <property name="text">
-     <string>Add URL</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../arado-logo-coloured.png</normaloff>../arado-logo-coloured.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>90</width>
+      <height>90</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="buttonsearch">
@@ -65,7 +75,7 @@
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>15</x>
       <y>120</y>
       <width>901</width>
       <height>361</height>
@@ -111,9 +121,9 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>150</x>
       <y>20</y>
-      <width>400</width>
+      <width>381</width>
       <height>45</height>
      </rect>
     </property>
@@ -215,6 +225,9 @@
     <property name="inputMask">
      <string>999.999.999.999; </string>
     </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QSpinBox" name="addport">
     <property name="geometry">
@@ -224,6 +237,12 @@
       <width>35</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="palette">
      <palette>
@@ -291,6 +310,9 @@
     </property>
     <property name="toolTip">
      <string>Add the referring port of the entered IP.</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
     </property>
     <property name="buttonSymbols">
      <enum>QAbstractSpinBox::NoButtons</enum>
@@ -366,9 +388,9 @@
    <widget class="QPushButton" name="buttonopenurl">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>569</x>
       <y>20</y>
-      <width>400</width>
+      <width>341</width>
       <height>40</height>
      </rect>
     </property>
