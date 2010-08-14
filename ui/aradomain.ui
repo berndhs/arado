@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>Add URL: Press the logo and add the entered URL to your local database. A pop-up window asks you to add keywords seperated by blanks or a short URL title description.</string>
+     <string>Add URL: Press the logo and add the entered URL to your local database. A pop-up window asks you to add a short URL description or keywords seperated by blanks.</string>
     </property>
     <property name="text">
      <string/>
