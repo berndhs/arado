@@ -40,7 +40,7 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonsearch">
+   <widget class="QPushButton" name="buttonfilter">
     <property name="geometry">
      <rect>
       <x>750</x>
@@ -50,7 +50,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>Search for the entered keyword in your local URL-database.</string>
+     <string>Filter your local URL-database for the entered keyword(s).</string>
     </property>
     <property name="text">
      <string>Search</string>
