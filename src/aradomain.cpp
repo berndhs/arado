@@ -2,6 +2,8 @@
 #include <QCloseEvent>
 #include <QApplication>
 #include <QMessageBox>
+#include "deliberate.h"
+#include "version.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -48,7 +50,9 @@ AradoMain::Start ()
 void
 AradoMain::Connect ()
 {
-  connect (mainUi.actionExit, SIGNAL (triggered()), this, SLOT (Quit ()));
+  connect (mainUi.actionExit, SIGNAL (triggered ()), this, SLOT (Quit ()));
+  connect(mainUi.actionAbout, SIGNAL(triggered ()), this,
+	  SLOT(slotAbout ()));
 }
 
 void
@@ -69,6 +73,12 @@ AradoMain::closeEvent(QCloseEvent *event)
   if (event) {
     event->accept ();
   }
+}
+
+void
+AradoMain::slotAbout ()
+{
+  deliberate::ProgramVersion::ShowVersionWindow ();
 }
 
 //

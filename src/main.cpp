@@ -49,8 +49,7 @@ main (int argc, char *argv[])
   QTranslator  translate;
   QString xlateFile (QString ("arado_") + locale);
   QString langDir (":/translate");
-  bool found = translate.load (xlateFile, langDir);
-  qDebug () << " translator " << xlateFile << "  found ? " << found;
+  translate.load (xlateFile, langDir);
   QTextCodec::setCodecForTr (QTextCodec::codecForName ("utf8"));
   app.installTranslator (&translate);
   deliberate::CmdOptions  opts ("Arado");
@@ -63,6 +62,43 @@ main (int argc, char *argv[])
 
   deliberate::UseMyOwnMessageHandler ();
 
+  bool optsOk = opts.Parse (argc, argv);
+  if (!optsOk) {
+    opts.Usage ();
+    exit(1);
+  }
+  if (opts.WantHelp ()) {
+    opts.Usage ();
+    exit (0);
+  }
+  pv.CLIVersion ();
+  if (opts.WantVersion ()) {
+    exit (0);
+  }
+  bool showDebug = opts.SeenOpt ("debug");
+
+  deliberate::StartDebugLog (showDebug);
+  bool logDebug = opts.SeenOpt ("logdebug");
+  if (logDebug) {
+    QString logfile ("/dev/null");
+    opts.SetStringOpt ("logdebug",logfile);
+    deliberate::StartFileLog (logfile);
+  }
+
+
+  if (opts.SeenOpt ("lang")) {
+    QString newlocale (locale);
+    opts.SetStringOpt ("lang",newlocale);
+    if (newlocale != locale) {   
+      QString xlateFile (QString ("arado_") + newlocale);
+      QString langDir (":/translate");
+      bool found = translate.load (xlateFile, langDir);
+      QTextCodec::setCodecForTr (QTextCodec::codecForName ("utf8"));
+      app.installTranslator (&translate);
+    }
+  }
+
+  /** the real main program starts here **/
 
   arado.Start ();
 
@@ -70,7 +106,5 @@ main (int argc, char *argv[])
 
   return appresult + 42;
 
-// connect(ui.actionAbout_Arado, SIGNAL(triggered(void)), this,
-//	  SLOT(slotAbout(void)));
 
 }

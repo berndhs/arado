@@ -46,11 +46,11 @@ public:
 public slots:
 
   void Quit ();
+  void slotAbout();
 
 
 private:
 
-  void slotAbout(void);
   void  Connect ();
 
   Ui_AradoWin     mainUi;
