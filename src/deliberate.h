@@ -1,10 +1,10 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef DELIBERATE_H
+#define DELIBERATE_H
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, Bernd Stramm
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,44 +21,38 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
+ 
+#include <qapplication.h>
+#include <stdio.h>
+#include <QTextStream>
+#include <QSettings>
 
-#include <QMainWindow>
+#define DELIBERATE_QT_NUM (((DELIBERATE_QTM1)*10000)+((DELIBERATE_QTM2)*100)+(DELIBERATE_QTP))
+#if DELIBERATE_QT_NUM > 40600
+#define DELIBERATE_HAVE_WEBELT 1
+#else
+#define DELIBERATE_HAVE_WEBELT 0
+#endif
 
-class QCloseEvent;
-class QApplication;
-
-namespace arado
-{
-
-class AradoMain : public QMainWindow
-{
-Q_OBJECT
-
-public:
-
-  AradoMain (QWidget *parent, QApplication * pa);
-
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
-
-public slots:
-
-  void Quit ();
+namespace deliberate {
 
 
-private:
+QTextStream  & StdOut();
 
-  void slotAbout(void);
-  void  Connect ();
+void SetSettings (QSettings & settings);
 
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
+QSettings & Settings ();
 
-};
+bool IsMaemo ();
 
-} // namespace
+bool IsFingerInterface ();
+
+bool IsIp6Address (QString addr);
+bool IsIp4Address (QString addr);
+
+void Rot1 (QByteArray & data, const QByteArray & key);
+void Rot2 (QByteArray & data, const QByteArray & key);
+}
+
 
 #endif

@@ -1,10 +1,9 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, 
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,44 +20,4 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
 
-#include <QMainWindow>
-
-class QCloseEvent;
-class QApplication;
-
-namespace arado
-{
-
-class AradoMain : public QMainWindow
-{
-Q_OBJECT
-
-public:
-
-  AradoMain (QWidget *parent, QApplication * pa);
-
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
-
-public slots:
-
-  void Quit ();
-
-
-private:
-
-  void slotAbout(void);
-  void  Connect ();
-
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-
-};
-
-} // namespace
-
-#endif

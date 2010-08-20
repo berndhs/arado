@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+  <file alias="arado-logo.png">images/arado-logo.png</file>
+</qresource>
+<qresource prefix="/help">
+  <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
+  <file alias="helpman.html">helpfiles/helpman.html</file>
+</qresource>
+<qresource prefix="/translate">
+  <file alias="egalite_de.qm">translate/arado_de.qm</file>
+</qresource>
+</RCC>
+

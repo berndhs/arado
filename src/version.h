@@ -1,5 +1,5 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef ARADO_VERSION_H
+#define ARADO_VERSION_H
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -21,44 +21,32 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
 
-#include <QMainWindow>
+#include <QString>
+#include "delib-debug.h"
 
-class QCloseEvent;
-class QApplication;
+namespace deliberate {
 
-namespace arado
-{
-
-class AradoMain : public QMainWindow
-{
-Q_OBJECT
+class ProgramVersion {
 
 public:
 
-  AradoMain (QWidget *parent, QApplication * pa);
-
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
-
-public slots:
-
-  void Quit ();
-
-
+  ProgramVersion (QString pgmname);
+  
+  static QString Version (); 
+  static QString MyName ();
+  
+  static void ShowVersionWindow ();
+  static void CLIVersion ();
+  
 private:
 
-  void slotAbout(void);
-  void  Connect ();
-
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
+  static QString VersionNumber;
+  static QString ProgramName;
+  static QString copyright;
 
 };
 
-} // namespace
+}
 
 #endif
