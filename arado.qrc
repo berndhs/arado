@@ -7,7 +7,7 @@
   <file alias="helpman.html">helpfiles/helpman.html</file>
 </qresource>
 <qresource prefix="/translate">
-  <file alias="egalite_de.qm">translate/arado_de.qm</file>
+  <file alias="arado_de.qm">translate/arado_de.qm</file>
 </qresource>
 </RCC>
 
