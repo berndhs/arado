@@ -18,12 +18,14 @@ RESOURCES   = arado.qrc
 
 FORMS		=	ui/aradomain.ui \
                         ui/DebugLog.ui \
+	                ui/config-edit.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
                    src/delib-debug.h \
                    src/deliberate.h \
                    src/version.h \
+	           src/config-edit.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -32,6 +34,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/delib-debug.cpp \
                    src/deliberate.cpp \   
                    src/version.cpp \
+	           src/config-edit.cpp \
 
 
 TARGET		= bin/arado

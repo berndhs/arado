@@ -89,8 +89,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>899</width>
-       <height>359</height>
+       <width>901</width>
+       <height>361</height>
       </rect>
      </property>
      <widget class="QListView" name="listView">
@@ -507,15 +507,16 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuExit">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Exit</string>
+     <string>File</string>
     </property>
+    <addaction name="actionSettings"/>
     <addaction name="actionAbout"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <addaction name="menuExit"/>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -526,6 +527,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About Arado</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

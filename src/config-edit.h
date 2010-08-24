@@ -1,10 +1,10 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef CONFIG_EDIT_H
+#define CONFIG_EDIT_H
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, Bernd Stramm
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,48 +21,42 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
+#include <QDialog>
+#include <QStandardItemModel>
+#include <QItemDelegate>
+#include "ui_config-edit.h"
 
-#include <QMainWindow>
+namespace arado {
 
-class QCloseEvent;
-class QApplication;
-
-namespace arado
-{
-
-class ConfigEdit;
-
-class AradoMain : public QMainWindow
-{
+class ConfigEdit : public QDialog, public Ui_ConfigEdit {
 Q_OBJECT
 
 public:
 
-  AradoMain (QWidget *parent, QApplication * pa);
+  ConfigEdit (QWidget *parent);
+  ~ConfigEdit ();
 
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
 
 public slots:
 
-  void Quit ();
-  void slotAbout();
-  void DoConfigEdit ();
+  void Load ();
+  void Cancel ();
+  void Save ();
+  void Exec ();
 
 
 private:
 
-  void  Connect ();
 
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-  ConfigEdit     *configEdit;
+  QStandardItemModel   *configModel;
+  QStringList          exemptGroups;
+
+
 
 };
 
+
 } // namespace
+
 
 #endif

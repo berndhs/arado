@@ -146,6 +146,24 @@
     </message>
 </context>
 <context>
+    <name>ConfigEdit</name>
+    <message>
+        <location filename="../ui/config-edit.ui" line="21"/>
+        <source>Preference Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/config-edit.ui" line="42"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../ui/config-edit.ui" line="55"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+</context>
+<context>
     <name>LogDialog</name>
     <message>
         <location filename="../ui/DebugLog.ui" line="15"/>
@@ -236,17 +254,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="57"/>
+        <location filename="../src/main.cpp" line="56"/>
         <source>show Debug log window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="58"/>
+        <location filename="../src/main.cpp" line="57"/>
         <source>write Debug log to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="60"/>
+        <location filename="../src/main.cpp" line="59"/>
         <source>language (2-letter lower case)</source>
         <translation type="unfinished"></translation>
     </message>

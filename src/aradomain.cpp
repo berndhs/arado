@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include "deliberate.h"
 #include "version.h"
+#include "config-edit.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -32,10 +33,12 @@ namespace arado
 AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   :QMainWindow (parent),
    app (0),
-   setupDone (false)
+   setupDone (false),
+   configEdit (0)
 {
   app = pa;
   mainUi.setupUi (this);
+  configEdit = new ConfigEdit (this);
 }
 
 void
@@ -53,6 +56,8 @@ AradoMain::Connect ()
   connect (mainUi.actionExit, SIGNAL (triggered ()), this, SLOT (Quit ()));
   connect(mainUi.actionAbout, SIGNAL(triggered ()), this,
 	  SLOT(slotAbout ()));
+  connect (mainUi.actionSettings, SIGNAL (triggered ()), this,
+          SLOT (DoConfigEdit()));
 }
 
 void
@@ -75,10 +80,38 @@ AradoMain::closeEvent(QCloseEvent *event)
   }
 }
 
+
+//
+// ABOUT MESSAGE WINDOW
+//
+//
 void
 AradoMain::slotAbout ()
 {
-  deliberate::ProgramVersion::ShowVersionWindow ();
+  QMessageBox mb(this);
+
+  mb.setWindowTitle(tr("ARADO - URL Database"));
+  mb.setTextFormat(Qt::RichText);
+  QString text = QString("<html>"
+             "%1"
+             "<br><hr>Open Source software for Linux, Mac, and Windows.<br><br>"
+	     "<hr>"
+             "Please visit <a href='http://arado.sf.net'>"
+             "http://arado.sf.net</a><br>for more information."
+             "</html>")
+             .arg (deliberate::ProgramVersion::Version());
+  mb.setText(text);
+  mb.setStandardButtons(QMessageBox::Ok);
+  mb.setIconPixmap(QPixmap(":/arado-logo-colo-128.png"));
+  mb.exec();
+}
+
+void
+AradoMain::DoConfigEdit ()
+{
+  if (configEdit) {
+    configEdit->Exec ();
+  }
 }
 
 //
@@ -342,31 +375,6 @@ AradoMain::slotAbout ()
 // USERS THEN CAN ADD MANUALLY A DYNDNS HTTP IP STRING INTO TO THE NODECACHE.TXT
 //
 
-
-
-//
-// ABOUT MESSAGE WINDOW
-//
-//
-// void arado::slotAbout(void)
-// {
-//  QMessageBox mb(this);
-//
-//  mb.setWindowTitle(tr("ARADO - URL Database"));
-//  mb.setTextFormat(Qt::RichText);
-//  mb.setText("<html>"
-//             "Version 0.81.<br><br>"
-//             "Open Source software for Linux, Mac, and Windows.<br><br>"
-//             "Copyright (c) 2010<br>"
-//             "The Arado Team."
-//	     "<hr>"
-//             "Please visit <a href='http://arado.sf.net'>"
-//             "http://arado.sf.net</a><br>for more information."
-//             "</html>");
-//  mb.setStandardButtons(QMessageBox::Ok);
-//  mb.setIconPixmap(QPixmap("arado-logo-coloured.png"));
-//  mb.exec();
-// }
 
 
 
