@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>926</width>
+    <width>1015</width>
     <height>556</height>
    </rect>
   </property>
@@ -43,7 +43,7 @@
    <widget class="QPushButton" name="buttonfilter">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>820</x>
       <y>80</y>
       <width>80</width>
       <height>25</height>
@@ -59,7 +59,7 @@
    <widget class="QPushButton" name="buttonrecent">
     <property name="geometry">
      <rect>
-      <x>834</x>
+      <x>920</x>
       <y>80</y>
       <width>80</width>
       <height>25</height>
@@ -77,7 +77,7 @@
      <rect>
       <x>15</x>
       <y>120</y>
-      <width>901</width>
+      <width>991</width>
       <height>361</height>
      </rect>
     </property>
@@ -89,8 +89,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>901</width>
-       <height>361</height>
+       <width>989</width>
+       <height>359</height>
       </rect>
      </property>
      <widget class="QListView" name="listView">
@@ -98,7 +98,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>881</width>
+        <width>971</width>
         <height>341</height>
        </rect>
       </property>
@@ -110,12 +110,12 @@
      <rect>
       <x>120</x>
       <y>80</y>
-      <width>621</width>
+      <width>691</width>
       <height>25</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>Enter a keyword for a search in your local URL-database or enter any URL to add it to your database.</string>
+     <string>Enter a keyword or SHA1 for a search in your local URL-database or enter any URL to add it to your database.</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -123,7 +123,7 @@
      <rect>
       <x>150</x>
       <y>20</y>
-      <width>381</width>
+      <width>421</width>
       <height>45</height>
      </rect>
     </property>
@@ -340,7 +340,7 @@
    <widget class="QLabel" name="labelconnections">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>870</x>
       <y>490</y>
       <width>141</width>
       <height>20</height>
@@ -356,7 +356,7 @@
    <widget class="QSpinBox" name="ipcachesize">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>350</x>
       <y>490</y>
       <width>50</width>
       <height>20</height>
@@ -378,7 +378,7 @@
    <widget class="QLabel" name="labelipcachesize">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>270</x>
       <y>489</y>
       <width>81</width>
       <height>20</height>
@@ -391,7 +391,7 @@
    <widget class="QPushButton" name="buttonopenurl">
     <property name="geometry">
      <rect>
-      <x>569</x>
+      <x>660</x>
       <y>20</y>
       <width>341</width>
       <height>40</height>
@@ -407,7 +407,7 @@
    <widget class="QLabel" name="labelmyport">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>730</x>
       <y>490</y>
       <width>51</width>
       <height>20</height>
@@ -420,7 +420,7 @@
    <widget class="QSpinBox" name="myport">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>790</x>
       <y>490</y>
       <width>60</width>
       <height>20</height>
@@ -439,7 +439,7 @@
    <widget class="QSpinBox" name="urldelay">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>520</x>
       <y>490</y>
       <width>40</width>
       <height>20</height>
@@ -452,7 +452,7 @@
    <widget class="QLabel" name="labelurldelay">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>430</x>
       <y>490</y>
       <width>81</width>
       <height>20</height>
@@ -465,7 +465,7 @@
    <widget class="QSpinBox" name="ipdrop">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>680</x>
       <y>490</y>
       <width>40</width>
       <height>20</height>
@@ -487,7 +487,7 @@
    <widget class="QLabel" name="labelipdrop">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>580</x>
       <y>490</y>
       <width>101</width>
       <height>20</height>
@@ -503,7 +503,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>926</width>
+     <width>1015</width>
      <height>21</height>
     </rect>
    </property>
