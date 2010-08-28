@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1093</width>
+    <width>970</width>
     <height>605</height>
    </rect>
   </property>
@@ -17,9 +17,9 @@
    <widget class="QTabWidget" name="tabWidgetDatabase">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
-      <width>1071</width>
+      <width>941</width>
       <height>561</height>
      </rect>
     </property>
@@ -36,7 +36,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_database">
      <attribute name="title">
@@ -45,7 +45,7 @@
      <widget class="QPushButton" name="buttonrecent">
       <property name="geometry">
        <rect>
-        <x>920</x>
+        <x>830</x>
         <y>90</y>
         <width>80</width>
         <height>25</height>
@@ -61,7 +61,7 @@
      <widget class="QPushButton" name="buttonfilter">
       <property name="geometry">
        <rect>
-        <x>820</x>
+        <x>720</x>
         <y>90</y>
         <width>80</width>
         <height>25</height>
@@ -108,7 +108,7 @@
        <rect>
         <x>120</x>
         <y>90</y>
-        <width>691</width>
+        <width>571</width>
         <height>25</height>
        </rect>
       </property>
@@ -119,7 +119,7 @@
      <widget class="QLabel" name="labelconnections">
       <property name="geometry">
        <rect>
-        <x>860</x>
+        <x>770</x>
         <y>500</y>
         <width>151</width>
         <height>20</height>
@@ -135,7 +135,7 @@
      <widget class="QPushButton" name="buttonopenurl">
       <property name="geometry">
        <rect>
-        <x>660</x>
+        <x>580</x>
         <y>30</y>
         <width>341</width>
         <height>40</height>
@@ -179,7 +179,7 @@
        <rect>
         <x>15</x>
         <y>130</y>
-        <width>991</width>
+        <width>901</width>
         <height>361</height>
        </rect>
       </property>
@@ -191,7 +191,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>989</width>
+         <width>899</width>
          <height>359</height>
         </rect>
        </property>
@@ -200,10 +200,13 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>971</width>
+          <width>881</width>
           <height>341</height>
          </rect>
         </property>
+        <attribute name="headerDefaultSectionSize">
+         <number>200</number>
+        </attribute>
         <attribute name="headerDefaultSectionSize">
          <number>200</number>
         </attribute>
@@ -238,17 +241,20 @@
     </widget>
     <widget class="QWidget" name="tab_devices">
      <attribute name="title">
-      <string>Devices</string>
+      <string>Connections</string>
      </attribute>
      <widget class="QTreeWidget" name="treeWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>40</y>
-        <width>311</width>
-        <height>351</height>
+        <y>70</y>
+        <width>301</width>
+        <height>201</height>
        </rect>
       </property>
+      <attribute name="headerDefaultSectionSize">
+       <number>100</number>
+      </attribute>
       <attribute name="headerDefaultSectionSize">
        <number>100</number>
       </attribute>
@@ -272,11 +278,14 @@
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>40</y>
+        <y>70</y>
         <width>281</width>
-        <height>481</height>
+        <height>411</height>
        </rect>
       </property>
+      <attribute name="headerDefaultSectionSize">
+       <number>100</number>
+      </attribute>
       <attribute name="headerDefaultSectionSize">
        <number>100</number>
       </attribute>
@@ -299,12 +308,15 @@
      <widget class="QTreeWidget" name="treeWidget_3">
       <property name="geometry">
        <rect>
-        <x>660</x>
-        <y>40</y>
+        <x>640</x>
+        <y>70</y>
         <width>281</width>
-        <height>481</height>
+        <height>361</height>
        </rect>
       </property>
+      <attribute name="headerDefaultSectionSize">
+       <number>100</number>
+      </attribute>
       <attribute name="headerDefaultSectionSize">
        <number>100</number>
       </attribute>
@@ -333,6 +345,13 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Trusted Devices:</string>
       </property>
@@ -346,6 +365,13 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Recommended Devices:</string>
       </property>
@@ -353,11 +379,18 @@
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>670</x>
+        <x>640</x>
         <y>20</y>
         <width>281</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>Random Devices:</string>
@@ -367,7 +400,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>400</y>
+        <y>370</y>
         <width>120</width>
         <height>20</height>
        </rect>
@@ -455,7 +488,7 @@
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>400</y>
+        <y>370</y>
         <width>141</width>
         <height>20</height>
        </rect>
@@ -464,14 +497,14 @@
        <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
       </property>
       <property name="text">
-       <string>Boot IP</string>
+       <string>Boot IPv4</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="addport_2">
       <property name="geometry">
        <rect>
         <x>140</x>
-        <y>400</y>
+        <y>370</y>
         <width>35</width>
         <height>20</height>
        </rect>
@@ -578,9 +611,9 @@
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>350</x>
         <y>500</y>
-        <width>101</width>
+        <width>571</width>
         <height>23</height>
        </rect>
       </property>
@@ -595,7 +628,7 @@
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>430</y>
+        <y>400</y>
         <width>141</width>
         <height>21</height>
        </rect>
@@ -611,7 +644,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>430</y>
+        <y>400</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -715,147 +748,11 @@
        <string>IP-Transfer</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_settings">
-     <attribute name="title">
-      <string>Settings</string>
-     </attribute>
-     <widget class="QSpinBox" name="ipcachesize_2">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>31</y>
-        <width>50</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
-      </property>
-      <property name="minimum">
-       <number>1500</number>
-      </property>
-      <property name="maximum">
-       <number>5000</number>
-      </property>
-      <property name="value">
-       <number>1500</number>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labelipcachesize_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>30</y>
-        <width>101</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>IP-Cache Size:</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="urldelay_2">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>330</y>
-        <width>40</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labelurldelay_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>330</y>
-        <width>91</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>URL-Delay (Sec):</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="ipdrop_2">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>220</y>
-        <width>40</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
-      </property>
-      <property name="locale">
-       <locale language="German" country="Germany"/>
-      </property>
-      <property name="minimum">
-       <number>10</number>
-      </property>
-      <property name="maximum">
-       <number>30</number>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labelipdrop_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>220</y>
-        <width>261</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>IP-Drop-Time for Random Devices (1 - 9 Min):</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="ipdrop_3">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>170</y>
-        <width>40</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
-      </property>
-      <property name="locale">
-       <locale language="German" country="Germany"/>
-      </property>
-      <property name="minimum">
-       <number>10</number>
-      </property>
-      <property name="maximum">
-       <number>30</number>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labelipdrop_3">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>170</y>
-        <width>261</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>IP-Drop-Time for Recommended Devices (10 - 29 Min):</string>
-      </property>
-     </widget>
      <widget class="QSpinBox" name="ipdrop_4">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>120</y>
+        <x>280</x>
+        <y>40</y>
         <width>40</width>
         <height>20</height>
        </rect>
@@ -867,114 +764,119 @@
        <locale language="German" country="Germany"/>
       </property>
       <property name="minimum">
-       <number>10</number>
+       <number>30</number>
       </property>
       <property name="maximum">
-       <number>30</number>
+       <number>120</number>
       </property>
      </widget>
      <widget class="QLabel" name="labelipdrop_4">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>120</y>
+        <x>20</x>
+        <y>40</y>
         <width>251</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>IP-Drop-Time for Trusted Devices (30 - 60 Min):</string>
+       <string>IP-Drop-Time (30 - 120 Min):</string>
       </property>
      </widget>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QSpinBox" name="ipdrop_3">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>421</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>IP Cache</string>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>100</y>
-        <width>421</width>
-        <height>171</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>IP-Drop-Time</string>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>300</y>
-        <width>421</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>URL Delay</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="myport">
-      <property name="geometry">
-       <rect>
-        <x>630</x>
+        <x>580</x>
         <y>40</y>
-        <width>60</width>
+        <width>40</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
+       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
+      </property>
+      <property name="locale">
+       <locale language="German" country="Germany"/>
+      </property>
+      <property name="minimum">
+       <number>10</number>
       </property>
       <property name="maximum">
-       <number>65535</number>
+       <number>29</number>
       </property>
       <property name="value">
-       <number>4430</number>
+       <number>15</number>
       </property>
      </widget>
-     <widget class="QLabel" name="labelmyport">
+     <widget class="QLabel" name="labelipdrop_3">
       <property name="geometry">
        <rect>
-        <x>570</x>
+        <x>350</x>
         <y>40</y>
-        <width>51</width>
+        <width>231</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>My Port:</string>
+       <string>IP-Drop-Time (10 - 29 Min):</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_savesettings">
+     <widget class="QLabel" name="labelipdrop_2">
       <property name="geometry">
        <rect>
-        <x>694</x>
-        <y>490</y>
-        <width>271</width>
-        <height>23</height>
+        <x>640</x>
+        <y>40</y>
+        <width>221</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>Save</string>
+       <string>IP-Drop-Time (1 - 9 Min):</string>
       </property>
      </widget>
-     <widget class="QSpinBox" name="addport_4">
+     <widget class="QSpinBox" name="ipdrop_2">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>80</y>
+        <x>880</x>
+        <y>40</y>
+        <width>40</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
+      </property>
+      <property name="locale">
+       <locale language="German" country="Germany"/>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>9</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>430</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Add DynDNS URL for any IP to the trusted Cache.</string>
+      </property>
+      <property name="text">
+       <string>Add DynDNS</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="addport_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>430</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -1062,17 +964,252 @@
        <number>65535</number>
       </property>
      </widget>
-     <widget class="QLabel" name="labelmyport_2">
+     <widget class="QSpinBox" name="addport_6">
       <property name="geometry">
        <rect>
-        <x>640</x>
-        <y>80</y>
-        <width>111</width>
+        <x>20</x>
+        <y>460</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="Text">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>85</red>
+            <green>170</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Text">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>85</red>
+            <green>170</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Text">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>190</red>
+            <green>190</green>
+            <blue>190</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>239</red>
+            <green>235</green>
+            <blue>231</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="toolTip">
+       <string>Add the referring port of the entered IP.</string>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::NoButtons</enum>
+      </property>
+      <property name="maximum">
+       <number>65535</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>460</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Boot with any online IPv6 Adress</string>
+      </property>
+      <property name="text">
+       <string>Boot IPv6</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="ipcachesize_3">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>450</y>
+        <width>50</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
+      </property>
+      <property name="minimum">
+       <number>1500</number>
+      </property>
+      <property name="maximum">
+       <number>5000</number>
+      </property>
+      <property name="value">
+       <number>1500</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelipcachesize_3">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>449</y>
+        <width>101</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>My Device-ID</string>
+       <string>IP-Cache Size:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelurldelay_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>310</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>URL-Delay (Sec):</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="urldelay_3">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>310</y>
+        <width>40</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="myport_2">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>290</y>
+        <width>60</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
+      </property>
+      <property name="maximum">
+       <number>65535</number>
+      </property>
+      <property name="value">
+       <number>4430</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelmyport_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>290</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>My Port:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_savesettings_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>340</y>
+        <width>301</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Save current Settings.</string>
+      </property>
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>500</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Copy your Device-ID to the clipboard</string>
+      </property>
+      <property name="text">
+       <string>Copy ID</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Settings-Overview</string>
+     </attribute>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>881</width>
+        <height>501</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -1083,7 +1220,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1093</width>
+     <width>970</width>
      <height>21</height>
     </rect>
    </property>
