@@ -1,0 +1,31 @@
+Things to implement:
+
+- database of URLs  - 1 of these
+
+- communicator to collect/send URLs  - 3 of these
+  - testing communicator that reads from stream, writes to stream
+  - direct communicator that uses TCP/SSL sockets
+  - gnutella (or alternative) that uses shared database
+
+- collector that collects communicator peer addresses - 1 for each communicator
+
+Things to define:
+
+- address types
+  - this is per communicator
+
+- URL data type
+  - contains:
+    - URL (standard definition)
+    - keyword list
+    - descriptive text
+
+- address type, this can contain ANY type of address
+  - specific address types
+    - testing stream communicator addresses
+    - direct communicator addresses
+    - gnutella addresses
+
+- communicator throtteling mechanisms
+  - bucket algorithms for good/bad/unknown sources of data
+

@@ -100,6 +100,8 @@ main (int argc, char *argv[])
 
   /** the real main program starts here **/
 
+  arado.setWindowIcon (QIcon (":/arado-logo-colo-128.png"));
+  app.setWindowIcon (arado.windowIcon());
   arado.Start ();
 
   int appresult = app.exec ();
