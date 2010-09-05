@@ -27,6 +27,7 @@
 #include <QString>
 #include <QVariant>
 #include <QStringList>
+#include <QList>
 #include <map>
 
 using namespace std;
@@ -46,7 +47,7 @@ enum OptType { Opt_None,
                Opt_Bad
              };
 
-CmdOptions (const QString pgmname);
+CmdOptions (QString pgmname);
 
 bool Parse (int argc, char*argv[]);
 bool Bad ();
@@ -58,19 +59,19 @@ void Usage ();
 bool WantHelp ();
 bool WantVersion ();
 
-void AddStrOption  (const QString longName, 
-                    const QString shortName, 
-                    const QString msg);
-void AddStringOption (const QString longName, 
-                    const QString shortName, 
-                    const QString msg)
+void AddStrOption  (QString longName, 
+                    QString shortName, 
+                    QString msg);
+void AddStringOption (QString longName, 
+                    QString shortName, 
+                    QString msg)
                     { AddStrOption (longName, shortName, msg); }
-void AddIntOption  (const QString longName, 
-                    const QString shortname, 
-                    const QString msg);
-void AddSoloOption (const QString longName, 
-                    const QString shortname, 
-                    const QString msg);
+void AddIntOption  (QString longName, 
+                    QString shortname, 
+                    QString msg);
+void AddSoloOption (QString longName, 
+                    QString shortname, 
+                    QString msg);
 
 /** @brief these SetSomething functions set the option variable
   * if it was specified on the command line, otherwise they leave
@@ -78,10 +79,12 @@ void AddSoloOption (const QString longName,
   * parameter was changed
   */
   
-bool SeenOpt (const QString name);
-bool SetStringOpt (const QString longName, QString & opt);
-bool SetIntOpt    (const QString longName, int & opt);
-bool SetSoloOpt   (const QString longName, bool & seenIt);
+int  SeenOpt (QString longName);
+bool SetStringOpt (QString longName, QString & opt);
+bool SetIntOpt    (QString longName, int & opt);
+bool SetSoloOpt   (QString longName, bool & seenIt);
+
+QList<QVariant> ValueList (QString longName);
 
 private:
 
@@ -89,12 +92,12 @@ private:
     
     public:
     
-       OptType  theType;
-       QVariant theValue;
-       QString  theMsg;
-       QString  longName;
-       QString  shortName;
-       bool     seenIt;
+       OptType           theType;
+       QList<QVariant>   theValue;
+       QString           theMsg;
+       QString           longName;
+       QString           shortName;
+       bool              seenIt;
    };
 
    
@@ -117,9 +120,9 @@ private:
    bool    bad;
    
    bool Seen (QString name);
-   Option * AddOption  (const QString longName, 
-                    const QString shortname, 
-                    const QString msg);
+   Option * AddOption  (QString longName, 
+                        QString shortname, 
+                        QString msg);
    
    static QString  trHelp;
    static QString  trH;
