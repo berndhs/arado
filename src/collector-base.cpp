@@ -1,5 +1,3 @@
-#ifndef COMM_BASE_H
-#define COMM_BASE_H
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -21,31 +19,26 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "arado-address.h"
 
-class QString;
+#include "collector-base.h"
+
+#include <QString>
 
 namespace arado
 {
 
-class CommBase 
+
+QString
+CollectorBase::Protocol ()
 {
-public:
+  return QString ("null");
+}
 
-  CommBase () {}
-
-  virtual QString    Protocol ();
-  virtual QString    ProtoVersion ();
-  virtual bool       Connect (AradoAddress * addr) = 0;
-  virtual bool       Listen () = 0;
-  virtual bool       IsConnected () = 0;
-  virtual void       Disconnect () = 0;
-  virtual AradoUrl * Read () = 0;
-  virtual void       Write (AradoUrl * url) = 0;
-  virtual bool       IsEnd () = 0;
-
-};
+QString
+CollectorBase::ProtoVersion ()
+{
+  return QString ("0");
+}
 
 } // namespace
 
-#endif

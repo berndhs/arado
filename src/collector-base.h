@@ -23,6 +23,8 @@
  ****************************************************************/
 #include "arado-address.h"
 
+class QString;
+
 namespace arado
 {
 
@@ -32,6 +34,9 @@ public:
 
   CollectorBase ()  {}
   virtual ~CollectorBase () = 0;
+
+  virtual QString    Protocol ();
+  virtual QString    ProtoVersion ();
 
   virtual bool              Connect () = 0;
   virtual void              Pull (int numAddresses=1 ) = 0;

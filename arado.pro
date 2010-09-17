@@ -66,6 +66,8 @@ SOURCES		=	src/aradomain.cpp \
 	           src/config-edit.cpp \
                    src/arado-address.cpp \
                    src/arado-url.cpp \
+                   src/comm-base.cpp \
+                   src/collector-base.cpp \
 
 
 TARGET		= bin/arado
