@@ -53,6 +53,8 @@ HEADERS		=	src/aradomain.h \
 	           src/config-edit.h \
 		   src/arado-address.h \
                    src/arado-url.h \
+                   src/comm-base.h \
+                   src/collector-base.h \
 
 
 SOURCES		=	src/aradomain.cpp \
