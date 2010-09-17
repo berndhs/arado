@@ -19,6 +19,7 @@ Things to define:
     - URL (standard definition)
     - keyword list
     - descriptive text
+    - key (sha1 or something similar)
 
 - address type, this can contain ANY type of address
   - specific address types
@@ -26,6 +27,6 @@ Things to define:
     - direct communicator addresses
     - gnutella addresses
 
-- communicator throtteling mechanisms
+- communicator throttling mechanisms
   - bucket algorithms for good/bad/unknown sources of data
 

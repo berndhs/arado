@@ -36,7 +36,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_database">
      <attribute name="title">
@@ -207,9 +207,6 @@
         <attribute name="headerDefaultSectionSize">
          <number>200</number>
         </attribute>
-        <attribute name="headerDefaultSectionSize">
-         <number>200</number>
-        </attribute>
         <column>
          <property name="text">
           <string>SHA1</string>
@@ -255,9 +252,6 @@
       <attribute name="headerDefaultSectionSize">
        <number>100</number>
       </attribute>
-      <attribute name="headerDefaultSectionSize">
-       <number>100</number>
-      </attribute>
       <column>
        <property name="text">
         <string>Device-ID</string>
@@ -286,9 +280,6 @@
       <attribute name="headerDefaultSectionSize">
        <number>100</number>
       </attribute>
-      <attribute name="headerDefaultSectionSize">
-       <number>100</number>
-      </attribute>
       <column>
        <property name="text">
         <string>Device-ID</string>
@@ -314,9 +305,6 @@
         <height>351</height>
        </rect>
       </property>
-      <attribute name="headerDefaultSectionSize">
-       <number>100</number>
-      </attribute>
       <attribute name="headerDefaultSectionSize">
        <number>100</number>
       </attribute>
@@ -1442,7 +1430,7 @@
      <x>0</x>
      <y>0</y>
      <width>970</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
