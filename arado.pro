@@ -55,6 +55,7 @@ HEADERS		=	src/aradomain.h \
                    src/arado-url.h \
                    src/comm-base.h \
                    src/collector-base.h \
+                   src/file-comm.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -68,6 +69,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/arado-url.cpp \
                    src/comm-base.cpp \
                    src/collector-base.cpp \
+                   src/file-comm.cpp \
 
 
 TARGET		= bin/arado

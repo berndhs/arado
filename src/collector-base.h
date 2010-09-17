@@ -32,7 +32,7 @@ class CollectorBase
 {
 public:
 
-  CollectorBase ()  {}
+  CollectorBase ();
   virtual ~CollectorBase () = 0;
 
   virtual QString    Protocol ();

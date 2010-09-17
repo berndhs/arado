@@ -27,6 +27,9 @@
 namespace arado
 {
 
+CollectorBase::CollectorBase ()
+{
+}
 
 QString
 CollectorBase::Protocol ()

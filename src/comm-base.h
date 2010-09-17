@@ -22,6 +22,7 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 #include "arado-address.h"
+#include "arado-url.h"
 
 class QString;
 
@@ -32,17 +33,17 @@ class CommBase
 {
 public:
 
-  CommBase () {}
+  CommBase ();
 
-  virtual QString    Protocol ();
-  virtual QString    ProtoVersion ();
-  virtual bool       Connect (AradoAddress * addr) = 0;
-  virtual bool       Listen () = 0;
-  virtual bool       IsConnected () = 0;
-  virtual void       Disconnect () = 0;
-  virtual AradoUrl * Read () = 0;
-  virtual void       Write (AradoUrl * url) = 0;
-  virtual bool       IsEnd () = 0;
+  virtual QString        Protocol ();
+  virtual QString        ProtoVersion ();
+  virtual bool           Connect (AradoAddress * addr) = 0;
+  virtual bool           Listen () = 0;
+  virtual bool           IsConnected () = 0;
+  virtual void           Disconnect () = 0;
+  virtual AradoUrl       Read () = 0;
+  virtual void           Write (const AradoUrl & url) = 0;
+  virtual bool           IsEnd () = 0;
 
 };
 

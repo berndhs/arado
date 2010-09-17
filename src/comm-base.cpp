@@ -25,6 +25,10 @@
 namespace arado
 {
 
+CommBase::CommBase ()
+{
+}
+
 QString
 CommBase::Protocol ()
 {

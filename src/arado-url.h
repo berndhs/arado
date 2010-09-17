@@ -34,14 +34,16 @@ class AradoUrl
 public:
 
   AradoUrl ();
-  AradoUrl (const QUrl & u):url(u) {}
+  AradoUrl (const QUrl & u);
+  AradoUrl (const AradoUrl & other );
+  AradoUrl & operator = (const AradoUrl & other);
 
-  QUrl Url ()                { return url; }
-  QStringList Keywords ()    { return keywords; }
-  QString     Description () { return description; }
-  QByteArray  Hash ()        { return hash; }
+  QUrl Url ()                const { return url; }
+  QStringList Keywords ()    const { return keywords; }
+  QString     Description () const { return description; }
+  QByteArray  Hash ()       const { return hash; }
 
-  void SetUrl ( const QUrl & u ) { url = u; }
+  void SetUrl ( const QUrl & u ) { url = u; valid = true; }
   void SetKeywords ( const QStringList & kws ) { keywords = kws; }
   void SetDescription ( const QString & desc ) { description = desc; }
 
@@ -52,6 +54,7 @@ public:
 
 private:
 
+  bool               valid;
   QUrl               url;
   QStringList        keywords;
   QString            description;

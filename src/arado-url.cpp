@@ -28,16 +28,43 @@ namespace arado
 {
 
 AradoUrl::AradoUrl ()
+  :valid (false)
 {
 }
 
+AradoUrl::AradoUrl (const QUrl & u)
+  :valid (true),
+   url (u)
+{
+}
+
+AradoUrl::AradoUrl (const AradoUrl & other)
+  :valid (other.valid),
+   url (other.url),
+   keywords (other.keywords),
+   description (other.description),
+   hash (other.hash)
+{
+}
+
+AradoUrl &
+AradoUrl::operator = (const AradoUrl & other)
+{
+  if (this != &other) {
+    valid = other.valid;
+    url = other.url;
+    keywords = other.keywords;
+    description = other.description;
+    hash = other.hash;
+  }
+  return *this;
+}
+ 
 void
 AradoUrl::ComputeHash ()
 {
   QCryptographicHash  hashData (QCryptographicHash::Sha1);
   hashData.addData (url.toEncoded ());
-  hashData.addData (keywords.join ("\n").toUtf8());
-  hashData.addData (description.toUtf8());
   hash = hashData.result();
 }
 
