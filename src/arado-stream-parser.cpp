@@ -60,108 +60,127 @@ AradoStreamParser::SetDevice (QIODevice * dev)
   xmlin.setDevice (dev);
 }
 
-AradoUrl
-AradoStreamParser::ReadAradoUrl ()
+AradoUrlList
+AradoStreamParser::ReadAradoUrlList ()
 {
-  qDebug () << " ---vv---- Start Reading ----vv---- ";
+  qDebug () << "ASP " << " ---vv---- Start Reading ----vv---- ";
   AradoUrl url;
+  AradoUrlList  list;
   QXmlStreamReader::TokenType tok;
   tok = SkipWhite (xmlin);
-  qDebug () << __LINE__ << " token " << tok << Info (xmlin) ;
+  qDebug () << "ASP " << __LINE__ << " token " << tok << Info (xmlin) ;
   if (tok == QXmlStreamReader::StartDocument) {
-    ParseAradoMsg (url, xmlin);
-  qDebug () << __LINE__ << " token " << tok << Info (xmlin) ;
+    ParseAradoMsg (list, xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << tok << Info (xmlin) ;
   }
-  qDebug () << " ---^^---- Done Reading ----^^---- ";
-  return url;
+  qDebug () << "ASP " << " ---^^---- Done Reading ----^^---- ";
+  return list;
 }
 
-void
-AradoStreamParser::ParseAradoMsg (AradoUrl & url, QXmlStreamReader & xmlin)
+bool
+AradoStreamParser::ParseAradoMsg (AradoUrlList & list, QXmlStreamReader & xmlin)
 {
   QXmlStreamReader::TokenType tok = ReadToken (xmlin);
-  qDebug () << __LINE__ << " token " << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
+  bool ok (false);
   if (tok == QXmlStreamReader::StartElement) {
     QString tag = xmlin.name ().toString();
     if (tag.toLower() == "arado") {
-      tok = SkipWhite (xmlin);  
-      if (tok == QXmlStreamReader::StartElement
-          && xmlin.name() == QString("aradourl")) {
-        ParseAradoUrl (url, xmlin);
-      }
+      do {
+        AradoUrl  url;
+        tok = SkipWhite (xmlin);  
+        if (tok == QXmlStreamReader::StartElement
+            && xmlin.name() == QString("aradourl")) {
+          ok = ParseAradoUrl (url, xmlin);
+        }
+        if (xmlin.tokenType() == QXmlStreamReader::EndElement
+            && xmlin.name() == QString ("arado")) {
+          break;
+        }
+        if (url.IsValid ()) {
+          list.append (url);
+        }
+      } while (ok);
     }
   }
   SkipWhite (xmlin);
-  qDebug () << __LINE__ << " token " << tok << Info (xmlin) ;
+  qDebug () << "ASP " << __LINE__ << " ok " << ok << " token " << tok << Info (xmlin) ;
+  return ok;
 }
 
-void
+bool
 AradoStreamParser::ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin)
 {
-qDebug () << " Parse AradoUrl";
+qDebug () << "ASP " << " Parse AradoUrl";
   QXmlStreamReader::TokenType  tok = SkipWhite (xmlin);
+  bool ok (false);
   while (tok == QXmlStreamReader::StartElement) {
     QString kind = xmlin.name().toString();
-qDebug () << " start element kind " << kind;
+qDebug () << "ASP " << " start element kind " << kind;
     if (kind == QString ("keyword")) {
-      ParseKeywordElt (url, xmlin);
+      ok &= ParseKeywordElt (url, xmlin);
     } else if (kind == QString ("url")) {
-      ParseUrlElt (url, xmlin);
+      ok |= ParseUrlElt (url, xmlin);
     } else if (kind == QString ("description")) {
-      ParseDescElt (url, xmlin);
+      ok &= ParseDescElt (url, xmlin);
     } else {
-      qDebug () << " error at " << kind << " text " << xmlin.text();
+      qDebug () << "ASP " << " error at " << kind << " text " << xmlin.text();
     }
-    qDebug () << " after parse element " << Info (xmlin);
+    qDebug () << "ASP " << " after parse element " << Info (xmlin);
     tok = SkipEnd (xmlin);
-    qDebug () << " bottom of element loop " << Info (xmlin);
+    qDebug () << "ASP " << " bottom of element loop " << Info (xmlin);
   }
-  qDebug () << " dropped out with " << tok << " " << Info (xmlin);
+  qDebug () << "ASP " << "ok " << ok << " dropped out with " << tok << " " << Info (xmlin);
+  return ok && url.IsValid ();
 }
 
-void
+bool
 AradoStreamParser::ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin)
 {
-qDebug () << " Parse Keyword";
+qDebug () << "ASP " << " Parse Keyword";
   ReadToken (xmlin);
-  qDebug () << __LINE__ << " token " << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
   QString value = xmlin.text().toString();
   url.AddKeyword (value);
-qDebug () << " added keyword " << value;
+qDebug () << "ASP " << " added keyword " << value;
+  return true;
 }
 
-void
+bool
 AradoStreamParser::ParseUrlElt (AradoUrl & url, QXmlStreamReader & xmlin)
 {
-qDebug () << " Parse Url ";
+qDebug () << "ASP " << " Parse Url ";
   ReadToken (xmlin);
-  qDebug () << __LINE__ << " token " << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
   QString value = xmlin.text().toString  ();
   url.SetUrl (QUrl (value));
+  qDebug () << "ASP " << " set Url " << url.Url();
+  return QUrl (value).isValid ();
 }
 
-void
+bool
 AradoStreamParser::ParseDescElt (AradoUrl & url, QXmlStreamReader & xmlin)
 {
-qDebug () << " Parse Description ";
+qDebug () << "ASP " << " Parse Description ";
   ReadToken (xmlin);
-  qDebug () << __LINE__ << " token " << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
   QString value = xmlin.text().toString  ();
   url.SetDescription (value);
-qDebug () << " added description " << value;
+qDebug () << "ASP " << " added description " << value;
+  return true;
 }
 
 QXmlStreamReader::TokenType
 AradoStreamParser::SkipWhite (QXmlStreamReader & xmlin)
 {
   QXmlStreamReader::TokenType tok = ReadToken (xmlin);
-  qDebug () << __LINE__ << " token " << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
   if (tok == QXmlStreamReader::Characters
       && xmlin.isWhitespace ()) {
     tok = ReadToken (xmlin);
-  qDebug () << __LINE__ << " token " << tok << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << tok << Info (xmlin);
   }
-  qDebug () << " return " << tok;
+  qDebug () << "ASP " << " return " << tok;
   return tok;
 }
 
@@ -169,13 +188,13 @@ QXmlStreamReader::TokenType
 AradoStreamParser::SkipEnd (QXmlStreamReader & xmlin)
 {
   QXmlStreamReader::TokenType tok = SkipWhite (xmlin);
-  qDebug () << __LINE__ << " token " << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
   if (tok == QXmlStreamReader::EndElement) {
-qDebug () << " was end of " << xmlin.name();
+qDebug () << "ASP " << " was end of " << xmlin.name();
     tok = SkipWhite (xmlin);
-  qDebug () << __LINE__ << " token " << tok << Info (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << tok << Info (xmlin);
   }
-  qDebug () << " return " << tok;
+  qDebug () << "ASP " << " return " << tok;
   return tok;
 }
 
@@ -183,8 +202,8 @@ QXmlStreamReader::TokenType
 AradoStreamParser::ReadToken (QXmlStreamReader & xmlin)
 {  
   QXmlStreamReader::TokenType tok = xmlin.readNext ();
-  qDebug () << __LINE__ << " read token " << tok << " " << Info (xmlin);
-  qDebug () << " return " << tok;
+  qDebug () << "ASP " << __LINE__ << " read token " << tok << " " << Info (xmlin);
+  qDebug () << "ASP " << " return " << tok;
   return tok;
 }
 

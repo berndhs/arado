@@ -38,9 +38,9 @@ public:
 
   AradoStreamParser ();
 
-  void      SetDevice (QIODevice * dev);
-  AradoUrl  ReadAradoUrl ();
-  void      Write (const AradoUrl & url);
+  void              SetDevice (QIODevice * dev);
+  AradoUrlList      ReadAradoUrlList ();
+  void              Write (const AradoUrl & url);
 
 private:
 
@@ -49,11 +49,11 @@ private:
 
   QXmlStreamReader::TokenType ReadToken (QXmlStreamReader & xmlin);
 
-  void ParseAradoMsg (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseAradoMsg (AradoUrlList & list, QXmlStreamReader & xmlin);
+  bool ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
 
   QXmlStreamReader   xmlin;
 

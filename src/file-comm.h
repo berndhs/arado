@@ -27,6 +27,7 @@
 #include "file-buffer.h"
 #include <QFile>
 #include <QXmlStreamWriter>
+#include <QList>
 
 
 namespace arado
@@ -44,8 +45,9 @@ public:
   bool      Listen ();
   bool      IsConnected ();
   void      Disconnect ();
-  AradoUrl  Read ();
-  void      Write (const AradoUrl & url);
+  AradoUrlList  Read ();
+  void      Write (const AradoUrl & url, bool isPartial=false);
+  void      Write (const AradoUrlList & list);
   bool      IsEnd ();
 
   bool      Open (QString filename, QIODevice::OpenMode mode);

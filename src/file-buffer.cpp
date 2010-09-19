@@ -70,11 +70,6 @@ FileBuffer::close ()
   file.close ();
 }
 
-bool
-FileBuffer::isSequential ()
-{
-  return true;
-}
 
 void
 FileBuffer::SkipWhite ()
@@ -92,11 +87,16 @@ FileBuffer::SkipWhite ()
 qint64
 FileBuffer::readData ( char * data, qint64 maxSize )
 {
-  static const int realMax (2);
+  static const int realMax (512);
   static qint64 total (0);
   qint64 myMax = (maxSize < realMax ? maxSize :  realMax);
   qint64 actual = file.read (data,myMax);
   total += actual;
+  qDebug () << "F-B " << " readData max they " 
+            << maxSize
+            << " mine " << realMax
+            << " actual " << actual 
+            << " total " << total;
   return actual;
 }
 
@@ -105,6 +105,86 @@ FileBuffer::writeData ( const char * data, qint64 maxSize )
 {
   return file.write (data, maxSize);
 }
+
+bool
+FileBuffer::atEnd () const
+{
+  return file.atEnd ();
+}
+
+qint64
+FileBuffer::bytesAvailable () const
+{
+  qint64 nbytes = QIODevice::bytesAvailable ();
+  return nbytes;
+}
+
+qint64
+FileBuffer::bytesToWrite () const
+{
+  return QIODevice::bytesToWrite ();
+}
+
+bool
+FileBuffer::canReadLine () const
+{
+  return QIODevice::canReadLine () && file.canReadLine ();
+}
+
+QString 
+FileBuffer::errorString () const
+{
+  return file.errorString ();
+}
+
+qint64
+FileBuffer::pos () const
+{
+  qint64 p = QIODevice::pos ();
+  qDebug () << "F-B " << " pos " << p;
+  return p;
+}
+
+bool
+FileBuffer::reset ()
+{
+  bool ok = file.reset ();
+  ok &= QIODevice::reset ();
+  return ok;
+}
+
+bool
+FileBuffer::seek ( qint64 pos )
+{
+  qDebug () << "F-B " << " seek to " << pos;
+  return file.seek (pos);
+}
+
+qint64
+FileBuffer::size () const
+{
+  return file.size ();
+}
+
+bool
+FileBuffer::waitForBytesWritten (int msecs)
+{
+  return file.waitForBytesWritten (msecs);
+}
+
+bool
+FileBuffer::waitForReadyRead (int msecs)
+{
+  return file.waitForReadyRead (msecs);
+}
+
+
+bool
+FileBuffer::isSequential () const
+{
+  return true;
+}
+
 
 } // namespace
 

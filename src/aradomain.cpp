@@ -138,31 +138,14 @@ qDebug () << " they want file " << filename;
   if (!fileComm) {
     fileComm = new FileComm;
   }
-  QList <AradoUrl>  urlist;
+  AradoUrlList  urlist;
   if (fileComm) {
     fileComm->Open (filename, QFile::ReadOnly);
-    AradoUrl newurl = fileComm->Read ();
-    AradoUrl firsturl = newurl;
-qDebug () << " new url " << newurl.Url();
-    while (newurl.IsValid ()) {
-      qDebug () << " got valid url " << newurl.Url();
-#if 0
-      if (fileComm->IsEnd()) {
-        qDebug () << " end of file ";
-        break;
-      }
-#endif
-      urlist.append (newurl);
-      newurl = fileComm->Read ();
-    }
-   qDebug () << " last url " << newurl.Url();
-   fileComm->Close ();
-   qDebug () << " first url " << firsturl.Url();
-   fileComm->Open ("out.xml",QFile::WriteOnly);
-   for (int u=0; u<urlist.size(); u++) {
-     fileComm->Write (urlist[u]);
-   }
-   fileComm->Close ();
+    urlist = fileComm->Read ();
+    fileComm->Close ();
+    fileComm->Open ("out.xml",QFile::WriteOnly);
+    fileComm->Write (urlist);
+    fileComm->Close ();
   }
   
 }

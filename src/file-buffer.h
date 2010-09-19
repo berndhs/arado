@@ -37,14 +37,29 @@ public:
   FileBuffer (QObject *parent);
   ~FileBuffer ();
 
-  void    setFileName ( const QString & name );
-  QString fileName () const;
-  bool    open ( OpenMode mode );
-  void    close ();
-  bool    isSequential ();
-  qint64  readData ( char * data, qint64 maxSize );
-  qint64  writeData ( const char * data, qint64 maxSize );
+  void       setFileName ( const QString & name );
+  QString    fileName () const;
+  bool       open ( OpenMode mode );
+  void       close ();
+  qint64     readData ( char * data, qint64 maxSize );
+  qint64     writeData ( const char * data, qint64 maxSize );
+
+  bool       atEnd () const;
+  qint64     bytesAvailable () const;
+  qint64     bytesToWrite () const;
+  bool       canReadLine () const;
+  QString    errorString () const;
+  bool       isSequential () const ;
+  qint64     pos () const ;
+  bool       reset ();
+  bool       seek ( qint64 pos );
+  qint64     size () const;
+  bool       waitForBytesWritten ( int msecs );
+  bool       waitForReadyRead    ( int msecs );
+  
   void    SkipWhite ();
+  
+
 
 private:
 

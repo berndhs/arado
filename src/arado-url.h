@@ -64,6 +64,8 @@ private:
 
 } ;
 
+typedef QList<AradoUrl>   AradoUrlList;
+
 } // namespace
 
 #endif

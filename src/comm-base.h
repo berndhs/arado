@@ -23,6 +23,7 @@
  ****************************************************************/
 #include "arado-address.h"
 #include "arado-url.h"
+#include <QList>
 
 class QString;
 
@@ -41,8 +42,9 @@ public:
   virtual bool           Listen () = 0;
   virtual bool           IsConnected () = 0;
   virtual void           Disconnect () = 0;
-  virtual AradoUrl       Read () = 0;
-  virtual void           Write (const AradoUrl & url) = 0;
+  virtual QList<AradoUrl>       Read () = 0;
+  virtual void           Write (const AradoUrl & url, bool isPartial = true) 
+                         = 0;
   virtual bool           IsEnd () = 0;
 
 };

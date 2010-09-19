@@ -23,21 +23,6 @@
 #include "file-comm.h"
 #include <QDebug>
 
-void
-LookAhead (QFile & fileBuf, int count=1)
-{
-  QByteArray data;
-  char byte;
-  for (int i=0;i<count;i++) {
-    fileBuf.getChar (&byte);
-    data.append (byte);
-  }
-  qDebug () << " look ahead " << count << ": [" << data << "]";
-  for (int j=count-1; j>=0; j--) {
-    fileBuf.ungetChar (data[j]);
-  }
-}
-
 namespace arado
 {
 
@@ -112,11 +97,13 @@ FileComm::Close ()
 }
 
 void
-FileComm::Write (const AradoUrl & url)
+FileComm::Write (const AradoUrl & url, bool isPartial)
 {
   if (fileBuf.isWritable ()) {
-    xmlout.writeStartDocument ();
-    xmlout.writeStartElement ("arado");
+    if (!isPartial) {
+      xmlout.writeStartDocument ();
+      xmlout.writeStartElement ("arado");
+    }
     xmlout.writeStartElement ("aradourl");
     xmlout.writeAttribute ("hash",url.Hash());
     xmlout.writeTextElement ("url",url.Url().toString());
@@ -126,22 +113,38 @@ FileComm::Write (const AradoUrl & url)
     }
     xmlout.writeTextElement ("description",url.Description());
     xmlout.writeEndElement (); // aradourl
+    if (!isPartial) {
+      xmlout.writeEndElement (); // arado
+      xmlout.writeEndDocument ();
+    }
+  }
+}
+
+void
+FileComm::Write (const AradoUrlList & list)
+{
+  if (fileBuf.isWritable ()) {
+    xmlout.writeStartDocument ();
+    xmlout.writeStartElement ("arado");
+    for (int i=0;i<list.size();i++) {
+      Write (list.at(i), true);
+    }
     xmlout.writeEndElement (); // arado
     xmlout.writeEndDocument ();
   }
 }
 
-AradoUrl
+AradoUrlList
 FileComm::Read ()
 {
 qDebug () << " +++ Before Read pos " << fileBuf.pos();
-  AradoUrl url;
+  AradoUrlList urlList;
   if (fileBuf.isReadable()) {
     fileBuf.SkipWhite ();
     parser.SetDevice (&fileBuf);
-    url = parser.ReadAradoUrl ();
+    urlList = parser.ReadAradoUrlList ();
   }
-  return url;
+  return urlList;
 }
 
 } // namespace
