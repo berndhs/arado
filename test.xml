@@ -1,0 +1,31 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<arado version="0.0">
+<aradourl>
+  <url>http://no.com</url>
+</aradourl>
+ <aradourl>
+  <keyword>english</keyword>
+  <keyword>deutsch</keyword>
+  <keyword>history</keyword>
+  <keyword>futbol</keyword>
+  <description lang="en">now i the time for all good men</description>
+  <url>http://foo1.com/links?topic=computers</url>
+ </aradourl>
+ <aradourl>
+  <url>http://foo2.com/links?topic=dogs</url>
+  <keyword>denglish</keyword>
+  <keyword>ddeutsch</keyword>
+  <keyword>dhistory</keyword>
+  <keyword>dog</keyword>
+  <description lang="en">now s the time for all good dogs</description>
+ </aradourl>
+ <aradourl>
+  <url>http://foo2.com/links?topic=cats</url>
+  <keyword>cenglish</keyword>
+  <keyword>cdeutsch</keyword>
+  <keyword>chistory</keyword>
+  <keyword>cat</keyword>
+  <description lang="en">now is the time for all good cats</description>
+ </aradourl>
+</arado>
