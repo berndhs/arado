@@ -41,8 +41,10 @@ public:
   QString fileName () const;
   bool    open ( OpenMode mode );
   void    close ();
+  bool    isSequential ();
   qint64  readData ( char * data, qint64 maxSize );
   qint64  writeData ( const char * data, qint64 maxSize );
+  void    SkipWhite ();
 
 private:
 

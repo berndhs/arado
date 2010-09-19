@@ -23,6 +23,7 @@
  ****************************************************************/
 
 #include "file-buffer.h"
+#include <string.h>
 #include <QDebug>
 
 namespace arado
@@ -69,17 +70,39 @@ FileBuffer::close ()
   file.close ();
 }
 
+bool
+FileBuffer::isSequential ()
+{
+  return true;
+}
+
+void
+FileBuffer::SkipWhite ()
+{
+  char w (' ');
+  bool ok = file.getChar (&w);
+  while (ok && (w == ' ' || w == '\n' || w == '\t')) {
+    ok = file.getChar (&w);
+  }
+  if (!(w == ' ' || w == '\n' || w == '\t')) {
+    file.ungetChar (w);
+  }
+}
+
 qint64
 FileBuffer::readData ( char * data, qint64 maxSize )
 {
-  qDebug () << " read " << maxSize << " max";
-  return file.read (data, maxSize);
+  static const int realMax (2);
+  static qint64 total (0);
+  qint64 myMax = (maxSize < realMax ? maxSize :  realMax);
+  qint64 actual = file.read (data,myMax);
+  total += actual;
+  return actual;
 }
 
 qint64
 FileBuffer::writeData ( const char * data, qint64 maxSize )
 {
-  qDebug () << " write " << maxSize << " max";
   return file.write (data, maxSize);
 }
 

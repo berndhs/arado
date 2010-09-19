@@ -137,6 +137,8 @@ FileComm::Read ()
 qDebug () << " +++ Before Read pos " << fileBuf.pos();
   AradoUrl url;
   if (fileBuf.isReadable()) {
+    fileBuf.SkipWhite ();
+    parser.SetDevice (&fileBuf);
     url = parser.ReadAradoUrl ();
   }
   return url;

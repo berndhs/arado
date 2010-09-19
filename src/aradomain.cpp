@@ -138,6 +138,7 @@ qDebug () << " they want file " << filename;
   if (!fileComm) {
     fileComm = new FileComm;
   }
+  QList <AradoUrl>  urlist;
   if (fileComm) {
     fileComm->Open (filename, QFile::ReadOnly);
     AradoUrl newurl = fileComm->Read ();
@@ -151,13 +152,16 @@ qDebug () << " new url " << newurl.Url();
         break;
       }
 #endif
+      urlist.append (newurl);
       newurl = fileComm->Read ();
     }
    qDebug () << " last url " << newurl.Url();
    fileComm->Close ();
    qDebug () << " first url " << firsturl.Url();
    fileComm->Open ("out.xml",QFile::WriteOnly);
-   fileComm->Write (firsturl);
+   for (int u=0; u<urlist.size(); u++) {
+     fileComm->Write (urlist[u]);
+   }
    fileComm->Close ();
   }
   

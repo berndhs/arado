@@ -91,6 +91,7 @@ AradoStreamParser::ParseAradoMsg (AradoUrl & url, QXmlStreamReader & xmlin)
       }
     }
   }
+  SkipWhite (xmlin);
   qDebug () << __LINE__ << " token " << tok << Info (xmlin) ;
 }
 
