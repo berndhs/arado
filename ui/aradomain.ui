@@ -1442,7 +1442,14 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuDevel">
+    <property name="title">
+     <string>Devel..</string>
+    </property>
+    <addaction name="actionFileComm"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuDevel"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -1458,6 +1465,11 @@
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionFileComm">
+   <property name="text">
+    <string>FileComm</string>
    </property>
   </action>
  </widget>

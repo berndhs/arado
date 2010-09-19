@@ -1,10 +1,10 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef FILE_BUFFER_H
+#define FILE_BUFFER_H
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, Arado Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,48 +21,32 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
-
-#include <QMainWindow>
-
-class QCloseEvent;
-class QApplication;
+#include <QIODevice>
+#include <QFile>
 
 namespace arado
 {
 
-class ConfigEdit;
-class FileComm;
-
-class AradoMain : public QMainWindow
+class FileBuffer : public QIODevice
 {
 Q_OBJECT
 
 public:
 
-  AradoMain (QWidget *parent, QApplication * pa);
+  FileBuffer ();
+  FileBuffer (QObject *parent);
+  ~FileBuffer ();
 
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
-
-public slots:
-
-  void Quit ();
-  void slotAbout();
-  void DoConfigEdit ();
-  void DoFileComm ();
-
+  void    setFileName ( const QString & name );
+  QString fileName () const;
+  bool    open ( OpenMode mode );
+  void    close ();
+  qint64  readData ( char * data, qint64 maxSize );
+  qint64  writeData ( const char * data, qint64 maxSize );
 
 private:
 
-  void  Connect ();
-
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-  ConfigEdit     *configEdit;
-  FileComm       *fileComm;
+  QFile    file;
 
 };
 

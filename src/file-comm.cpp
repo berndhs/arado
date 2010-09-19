@@ -1,6 +1,6 @@
 
 /****************************************************************
- * This file is distributed under the following license:
+ * This fileBuf is distributed under the following license:
  *
  * Copyright (C) 2010, Arado Team
  *
@@ -23,6 +23,21 @@
 #include "file-comm.h"
 #include <QDebug>
 
+void
+LookAhead (QFile & fileBuf, int count=1)
+{
+  QByteArray data;
+  char byte;
+  for (int i=0;i<count;i++) {
+    fileBuf.getChar (&byte);
+    data.append (byte);
+  }
+  qDebug () << " look ahead " << count << ": [" << data << "]";
+  for (int j=count-1; j>=0; j--) {
+    fileBuf.ungetChar (data[j]);
+  }
+}
+
 namespace arado
 {
 
@@ -33,7 +48,7 @@ FileComm::FileComm ()
 QString
 FileComm::Protocol ()
 {
-  return QString ("File");
+  return QString ("AradoFile");
 }
 
 QString
@@ -58,7 +73,7 @@ FileComm::Listen ()
 bool
 FileComm::IsConnected ()
 {
-  return file.isOpen ();
+  return fileBuf.isOpen ();
 }
 
 void
@@ -67,16 +82,25 @@ FileComm::Disconnect ()
 }
 
 bool
+FileComm::IsEnd ()
+{
+  return fileBuf.atEnd();
+}
+
+bool
 FileComm::Open (QString filename, QIODevice::OpenMode mode)
 {
-  file.setFileName (filename);
-  bool  open = file.open (mode);
-  if (file.isWritable()) {
-    xmlout.setDevice (&file);
+  fileBuf.setFileName (filename);
+  bool  open = fileBuf.open (mode);
+  if (fileBuf.isWritable()) {
+    xmlout.setDevice (&fileBuf);
     xmlout.setAutoFormatting (true);
     xmlout.setAutoFormattingIndent (1);
+  } else if (fileBuf.isReadable()) {
+    parser.SetDevice (&fileBuf);
+    restartHere = fileBuf.pos ();
   } else {
-    xmlin.setDevice (&file);
+    return false;
   }
   return open;
 }
@@ -84,13 +108,13 @@ FileComm::Open (QString filename, QIODevice::OpenMode mode)
 void
 FileComm::Close ()
 {
-  file.close ();
+  fileBuf.close ();
 }
 
 void
 FileComm::Write (const AradoUrl & url)
 {
-  if (file.isWritable ()) {
+  if (fileBuf.isWritable ()) {
     xmlout.writeStartDocument ();
     xmlout.writeStartElement ("arado");
     xmlout.writeStartElement ("aradourl");
@@ -110,94 +134,12 @@ FileComm::Write (const AradoUrl & url)
 AradoUrl
 FileComm::Read ()
 {
+qDebug () << " +++ Before Read pos " << fileBuf.pos();
   AradoUrl url;
-  if (file.isReadable()) {
-    QXmlStreamReader::TokenType tokt;
-    tokt = xmlin.readNext ();
-    if (tokt == QXmlStreamReader::StartDocument) {
-      ParseAradoMsg (url, xmlin);
-    }
+  if (fileBuf.isReadable()) {
+    url = parser.ReadAradoUrl ();
   }
   return url;
-}
-
-void
-FileComm::ParseAradoMsg (AradoUrl & url, QXmlStreamReader & xmlin)
-{
-  QXmlStreamReader::TokenType tok = xmlin.readNext ();
-  if (tok == QXmlStreamReader::StartElement) {
-    QString tag = xmlin.name ().toString();
-    if (tag.toLower() == "arado") {
-      tok = SkipWhite (xmlin);  
-      if (tok == QXmlStreamReader::StartElement
-          && xmlin.name() == QString("aradourl")) {
-        ParseAradoUrl (url, xmlin);
-      }
-    }
-  }
-}
-
-void
-FileComm::ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin)
-{
-  QXmlStreamReader::TokenType  tok = SkipWhite (xmlin);
-  while (tok == QXmlStreamReader::StartElement) {
-    QString kind = xmlin.name().toString();
-    if (kind == QString ("keyword")) {
-      ParseKeywordElt (url, xmlin);
-    } else if (kind == QString ("url")) {
-      ParseUrlElt (url, xmlin);
-    } else if (kind == QString ("description")) {
-      ParseDescElt (url, xmlin);
-    } else {
-      qDebug () << " error at " << kind << " text " << xmlin.text();
-    }
-    tok = SkipEnd (xmlin);
-  }
-}
-
-void
-FileComm::ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin)
-{
-  xmlin.readNext();
-  QString value = xmlin.text().toString();
-  url.AddKeyword (value);
-}
-
-void
-FileComm::ParseUrlElt (AradoUrl & url, QXmlStreamReader & xmlin)
-{
-  xmlin.readNext ();
-  QString value = xmlin.text().toString  ();
-  url.SetUrl (QUrl (value));
-}
-
-void
-FileComm::ParseDescElt (AradoUrl & url, QXmlStreamReader & xmlin)
-{
-  xmlin.readNext ();
-  QString value = xmlin.text().toString  ();
-  url.SetDescription (value);
-}
-
-QXmlStreamReader::TokenType
-FileComm::SkipWhite (QXmlStreamReader & xmlin)
-{
-  QXmlStreamReader::TokenType tok = xmlin.readNext();
-  if (tok == QXmlStreamReader::Characters
-      && xmlin.isWhitespace ()) {
-    tok = xmlin.readNext();
-  }
-  return tok;
-}
-
-QXmlStreamReader::TokenType
-FileComm::SkipEnd (QXmlStreamReader & xmlin)
-{
-  QXmlStreamReader::TokenType tok = SkipWhite (xmlin);
-  if (tok == QXmlStreamReader::EndElement) {
-    tok == SkipWhite (xmlin);
-  }
 }
 
 } // namespace

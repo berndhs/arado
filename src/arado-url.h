@@ -43,6 +43,8 @@ public:
   QString     Description () const { return description; }
   QByteArray  Hash ()       const { return hash; }
 
+  bool IsValid () const { return valid; }
+
   void SetUrl ( const QUrl & u ) { url = u; valid = true; }
   void SetKeywords ( const QStringList & kws ) { keywords = kws; }
   void SetDescription ( const QString & desc ) { description = desc; }

@@ -23,9 +23,10 @@
  ****************************************************************/
 
 #include "comm-base.h"
+#include "arado-stream-parser.h"
+#include "file-buffer.h"
 #include <QFile>
 #include <QXmlStreamWriter>
-#include <QXmlStreamReader>
 
 
 namespace arado
@@ -45,25 +46,18 @@ public:
   void      Disconnect ();
   AradoUrl  Read ();
   void      Write (const AradoUrl & url);
+  bool      IsEnd ();
 
   bool      Open (QString filename, QIODevice::OpenMode mode);
   void      Close ();
 
 private:
 
-  QXmlStreamReader::TokenType SkipWhite (QXmlStreamReader & xmlin);
-  QXmlStreamReader::TokenType SkipEnd (QXmlStreamReader & xmlin);
 
-  void ParseAradoMsg (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
-  void ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
-
-  QFile             file;
+  FileBuffer        fileBuf;
   QXmlStreamWriter  xmlout;
-  QXmlStreamReader  xmlin;
-
+  AradoStreamParser parser;
+  int               restartHere;
 
 };
 

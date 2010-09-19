@@ -1,10 +1,11 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef ARADO_STREAM_PARSER_H
+#define ARADO_STREAM_PARSER_H
+
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, Arado Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,51 +22,44 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
 
-#include <QMainWindow>
+#include <QXmlStreamReader>
 
-class QCloseEvent;
-class QApplication;
+#include "arado-url.h"
+
+class QIODevice;
 
 namespace arado
 {
 
-class ConfigEdit;
-class FileComm;
-
-class AradoMain : public QMainWindow
+class AradoStreamParser 
 {
-Q_OBJECT
-
 public:
 
-  AradoMain (QWidget *parent, QApplication * pa);
+  AradoStreamParser ();
 
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
-
-public slots:
-
-  void Quit ();
-  void slotAbout();
-  void DoConfigEdit ();
-  void DoFileComm ();
-
+  void      SetDevice (QIODevice * dev);
+  AradoUrl  ReadAradoUrl ();
+  void      Write (const AradoUrl & url);
 
 private:
 
-  void  Connect ();
+  QXmlStreamReader::TokenType SkipWhite (QXmlStreamReader & xmlin);
+  QXmlStreamReader::TokenType SkipEnd (QXmlStreamReader & xmlin);
 
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-  ConfigEdit     *configEdit;
-  FileComm       *fileComm;
+  QXmlStreamReader::TokenType ReadToken (QXmlStreamReader & xmlin);
+
+  void ParseAradoMsg (AradoUrl & url, QXmlStreamReader & xmlin);
+  void ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin);
+  void ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin);
+  void ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
+  void ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
+
+  QXmlStreamReader   xmlin;
 
 };
 
 } // namespace
 
 #endif
+

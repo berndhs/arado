@@ -29,6 +29,7 @@ CONFIG		+= qt warn_on release
 QT		+= gui network
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
+DEFINES         += DELIBERATE_DEBUG=1
 
 
 TRANS_DIR = translate
@@ -56,6 +57,8 @@ HEADERS		=	src/aradomain.h \
                    src/comm-base.h \
                    src/collector-base.h \
                    src/file-comm.h \
+                   src/arado-stream-parser.h \
+                   src/file-buffer.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -70,7 +73,8 @@ SOURCES		=	src/aradomain.cpp \
                    src/comm-base.cpp \
                    src/collector-base.cpp \
                    src/file-comm.cpp \
-
+                   src/arado-stream-parser.cpp \
+                   src/file-buffer.cpp \
 
 TARGET		= bin/arado
 PROJECTNAME	= ARADO

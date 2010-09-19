@@ -1,10 +1,10 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+
+/// FileBuffer
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, Arado Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,51 +21,67 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
 
-#include <QMainWindow>
-
-class QCloseEvent;
-class QApplication;
+#include "file-buffer.h"
+#include <QDebug>
 
 namespace arado
 {
 
-class ConfigEdit;
-class FileComm;
+FileBuffer::FileBuffer ()
+  :QIODevice()
+{}
 
-class AradoMain : public QMainWindow
+FileBuffer::FileBuffer (QObject *parent)
+  :QIODevice (parent)
+  {}
+
+FileBuffer::~FileBuffer ()
+{}
+
+void
+FileBuffer::setFileName (const QString & name )
 {
-Q_OBJECT
+  file.setFileName (name);
+}
 
-public:
+QString
+FileBuffer::fileName () const
+{
+  return file.fileName ();
+}
 
-  AradoMain (QWidget *parent, QApplication * pa);
+bool
+FileBuffer::open ( OpenMode mode)
+{
+  bool isopen;
+  isopen = file.open (mode);
+  if (isopen) {
+    isopen = QIODevice::open (mode);
+  }
+  return isopen;
+}
 
-  void Start ();
+void
+FileBuffer::close ()
+{
+  QIODevice::close ();
+  file.close ();
+}
 
-  void closeEvent (QCloseEvent * event);
+qint64
+FileBuffer::readData ( char * data, qint64 maxSize )
+{
+  qDebug () << " read " << maxSize << " max";
+  return file.read (data, maxSize);
+}
 
-public slots:
-
-  void Quit ();
-  void slotAbout();
-  void DoConfigEdit ();
-  void DoFileComm ();
-
-
-private:
-
-  void  Connect ();
-
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-  ConfigEdit     *configEdit;
-  FileComm       *fileComm;
-
-};
+qint64
+FileBuffer::writeData ( const char * data, qint64 maxSize )
+{
+  qDebug () << " write " << maxSize << " max";
+  return file.write (data, maxSize);
+}
 
 } // namespace
 
-#endif
