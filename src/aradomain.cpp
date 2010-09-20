@@ -130,7 +130,7 @@ AradoMain::DoConfigEdit ()
 void
 AradoMain::DoFileComm ()
 {
-  QString filename = QString("./test.xml"); //QFileDialog::getOpenFileName (this);
+  QString filename = QFileDialog::getOpenFileName (this);
 qDebug () << " they want file " << filename;
   if (filename.length() <= 0) {
     return;
@@ -143,9 +143,12 @@ qDebug () << " they want file " << filename;
     fileComm->Open (filename, QFile::ReadOnly);
     urlist = fileComm->Read ();
     fileComm->Close ();
-    fileComm->Open ("out.xml",QFile::WriteOnly);
-    fileComm->Write (urlist);
-    fileComm->Close ();
+    QString savehere = QFileDialog::getSaveFileName (this);
+    if (savehere.length() > 0) {
+      fileComm->Open ("out.xml",QFile::WriteOnly);
+      fileComm->Write (urlist);
+      fileComm->Close ();
+    }
   }
   
 }

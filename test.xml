@@ -2,7 +2,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <arado version="0.0">
 <aradourl>
-  <url>http://no.com</url>
+  <url>http://nyet.com</url>
 </aradourl>
  <aradourl>
   <keyword>english</keyword>
@@ -16,13 +16,12 @@
   <url>http://foo2.com/links?topic=dogs</url>
   <keyword>denglish</keyword>
   <keyword>ddeutsch</keyword>
-  <keyword>dhistory</keyword>
   <keyword>dog</keyword>
   <description lang="en">now s the time for all good dogs</description>
  </aradourl>
  <aradourl>
-  <url>http://foo2.com/links?topic=cats</url>
   <keyword>cenglish</keyword>
+  <url>http://bar.com/links?topic=cats</url>
   <keyword>cdeutsch</keyword>
   <keyword>chistory</keyword>
   <keyword>cat</keyword>
