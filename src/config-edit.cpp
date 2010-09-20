@@ -55,7 +55,7 @@ ConfigEdit::~ConfigEdit ()
 void
 ConfigEdit::Cancel ()
 {
-  reject ();
+  Done (false);
 }
 
 void
@@ -65,6 +65,23 @@ ConfigEdit::Exec ()
   exec ();
 }
 
+void
+ConfigEdit::Run ()
+{
+  Load ();
+  show ();
+}
+
+void
+ConfigEdit::Done (bool saved)
+{
+  if (saved) {
+    accept ();
+  } else {
+    reject ();
+  }
+  emit Finished (saved);
+}
 
 
 void
@@ -149,7 +166,7 @@ ConfigEdit::Save ()
     }
   }
   Zett.sync();
-  accept ();
+  Done (true);
 }
 
 

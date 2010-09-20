@@ -69,6 +69,10 @@ AradoMain::Connect ()
           SLOT (DoConfigEdit()));
   connect (mainUi.actionFileComm, SIGNAL (triggered ()),
           this, SLOT (DoFileComm ()));
+  if (configEdit) {
+    connect (configEdit, SIGNAL (Finished(bool)), 
+             this, SLOT (DoneConfigEdit (bool)));
+  }
 }
 
 /// \brief Close down
@@ -124,8 +128,21 @@ AradoMain::DoConfigEdit ()
 {
   if (configEdit) {
     int tabnum = mainUi.tabWidgetDatabase->addTab (configEdit, tr("Settings"));
-    configEdit->Exec ();
+    mainUi.tabWidgetDatabase->setCurrentIndex (tabnum);
+    configEdit->Run ();
+  }
+}
+
+void
+AradoMain::DoneConfigEdit (bool saved)
+{
+  if (configEdit) {
+    int tabnum = mainUi.tabWidgetDatabase->indexOf (configEdit);
     mainUi.tabWidgetDatabase->removeTab (tabnum);
+    if (saved) {
+      // reload settings 
+      qDebug () << " Settings editor saved, should reload settings";
+    }
   }
 }
 

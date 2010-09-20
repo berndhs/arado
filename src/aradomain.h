@@ -51,6 +51,7 @@ public slots:
   void Quit ();
   void slotAbout();
   void DoConfigEdit ();
+  void DoneConfigEdit (bool saved);
   void DoFileComm ();
 
 

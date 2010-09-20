@@ -43,9 +43,16 @@ public slots:
   void Cancel ();
   void Save ();
   void Exec ();
+  void Run ();
+
+signals:
+
+  void Finished (bool saved);
 
 
 private:
+
+  void  Done (bool saved=false);
 
 
   QStandardItemModel   *configModel;
