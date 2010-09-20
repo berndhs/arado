@@ -36,7 +36,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_database">
      <attribute name="title">
@@ -1404,21 +1404,6 @@
       </property>
       <property name="text">
        <string>External IP+Port</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>Settings-Overview</string>
-     </attribute>
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>881</width>
-        <height>501</height>
-       </rect>
       </property>
      </widget>
     </widget>

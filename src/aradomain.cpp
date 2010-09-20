@@ -123,7 +123,9 @@ void
 AradoMain::DoConfigEdit ()
 {
   if (configEdit) {
+    int tabnum = mainUi.tabWidgetDatabase->addTab (configEdit, tr("Settings"));
     configEdit->Exec ();
+    mainUi.tabWidgetDatabase->removeTab (tabnum);
   }
 }
 
