@@ -29,6 +29,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QDebug>
 
 using namespace deliberate;
@@ -65,7 +66,10 @@ DBManager::Start ()
   urlElements << "urltable"
               << "urlhashindex"
               << "urldescindex"
-              << "urlurlindex";
+              << "urlurlindex"
+              << "keywords"
+              << "keyindex"
+              ;
   CheckDBComplete (urlBase, urlElements);
   
 }
@@ -148,12 +152,10 @@ DBManager::MakeElement (QSqlDatabase & db, const QString & element)
 bool
 DBManager::AddUrl (AradoUrl & url)
 {
-  qDebug () << " adding url " << url.Url() << " to db " << urlBase.databaseName();
   QSqlQuery add (urlBase);
   QString cmd ("insert or replace into urltable"
                " (hashid, url, description) "
                " values (?, ?, ?)");
-  add.prepare (cmd);
   QString hash (url.Hash());
   if (hash.length() < 1) {
     url.ComputeHash ();
@@ -163,11 +165,33 @@ DBManager::AddUrl (AradoUrl & url)
   if (desc.length() < 1) {
     desc = tr("no description");
   }
+  add.prepare (cmd);
   add.bindValue (0, QVariant (hash));
   add.bindValue (1, QVariant (url.Url().toString()));
   add.bindValue (2, QVariant (desc));
   bool ok = add.exec ();
+  ok &= AddKeywords (url);
   return ok;
+}
+
+bool
+DBManager::AddKeywords (AradoUrl & url)
+{
+  QStringList keys = url.Keywords ();
+  QString hash = QString (url.Hash());
+  bool allok (true);
+  for (int k=0; k < keys.size(); k++) {
+    QSqlQuery add (urlBase);
+    QString cmd ("insert or replace into keywords"
+                 " (hashid, keyword) "
+                 " values (?, ?)");
+    add.prepare (cmd);
+    add.bindValue (0, hash);
+    add.bindValue (1, keys.at(k));
+    bool ok = add.exec ();
+    allok &= ok;
+  }
+  return allok;
 }
 
 } // namespace

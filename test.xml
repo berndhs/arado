@@ -30,4 +30,8 @@
   <hash>cat</hash>
   <description lang="en">now is the time for all good cats</description>
  </aradourl>
+ <aradourl>
+   <url>http://nyet.com</url>
+   <keyword>Krasnoyarsk</keyword>
+ </aradourl>
 </arado>

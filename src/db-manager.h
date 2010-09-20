@@ -42,6 +42,7 @@ public:
    void  Close ();
 
    bool  AddUrl (AradoUrl & url);
+   bool  AddKeywords (AradoUrl & url);
 
 private:
 
