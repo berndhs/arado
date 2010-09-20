@@ -11,11 +11,13 @@
   <keyword>futbol</keyword>
   <description lang="en">now i the time for all good men</description>
   <url>http://foo1.com/links?topic=computers</url>
+  <hash>5</hash>
  </aradourl>
  <aradourl>
   <url>http://foo2.com/links?topic=dogs</url>
   <keyword>denglish</keyword>
   <keyword>ddeutsch</keyword>
+  <hash>7</hash>
   <keyword>dog</keyword>
   <description lang="en">now s the time for all good dogs</description>
  </aradourl>
@@ -25,6 +27,7 @@
   <keyword>cdeutsch</keyword>
   <keyword>chistory</keyword>
   <keyword>cat</keyword>
+  <hash>cat</hash>
   <description lang="en">now is the time for all good cats</description>
  </aradourl>
 </arado>

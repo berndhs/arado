@@ -54,6 +54,7 @@ private:
   bool ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseHashElt    (AradoUrl & url, QXmlStreamReader & xmlin);
 
   QXmlStreamReader   xmlin;
 

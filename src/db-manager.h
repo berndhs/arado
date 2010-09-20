@@ -1,10 +1,10 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef DB_MANAGER_H
+#define DB_MANAGER_H
 
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, 
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,51 +21,41 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-#include "ui_aradomain.h"
-#include "db-manager.h"
 
-#include <QMainWindow>
-
-class QCloseEvent;
-class QApplication;
+#include <QObject>
+#include <QSqlDatabase>
 
 namespace arado
 {
 
-class ConfigEdit;
-class FileComm;
+class AradoUrl;
 
-class AradoMain : public QMainWindow
+class DBManager : public QObject
 {
 Q_OBJECT
 
 public:
+  
+   DBManager (QObject *parent =0);
 
-  AradoMain (QWidget *parent, QApplication * pa);
+   void  Start ();
+   void  Close ();
 
-  void Start ();
-
-  void closeEvent (QCloseEvent * event);
-
-public slots:
-
-  void Quit ();
-  void slotAbout();
-  void DoConfigEdit ();
-  void DoneConfigEdit (bool saved);
-  void DoFileComm ();
-
+   bool  AddUrl (AradoUrl & url);
 
 private:
 
-  void  Connect ();
+  void StartDB  (QSqlDatabase & db, 
+                 const QString & conName, 
+                 const QString & dbFilename);
+  void CheckFileExists (const QString & filename);
+  void CheckDBComplete (QSqlDatabase & db,
+                        const QStringList & elements);
+  QString ElementType (QSqlDatabase & db, const QString & name);
+  void    MakeElement (QSqlDatabase & db, const QString & element);
 
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-  ConfigEdit     *configEdit;
-  FileComm       *fileComm;
-  DBManager      dbMgr;
+  QSqlDatabase     ipBase;
+  QSqlDatabase     urlBase;
 
 };
 

@@ -26,7 +26,7 @@
 TEMPLATE	= app
 LANGUAGE	= C++
 CONFIG		+= qt warn_on debug
-QT		+= gui network
+QT		+= gui network sql
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1
@@ -59,6 +59,7 @@ HEADERS		=	src/aradomain.h \
                    src/file-comm.h \
                    src/arado-stream-parser.h \
                    src/file-buffer.h \
+                   src/db-manager.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -75,6 +76,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/file-comm.cpp \
                    src/arado-stream-parser.cpp \
                    src/file-buffer.cpp \
+                   src/db-manager.cpp \
 
 TARGET		= bin/arado
 PROJECTNAME	= ARADO

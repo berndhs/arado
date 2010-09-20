@@ -10,5 +10,11 @@
 <qresource prefix="/translate">
   <file alias="arado_de.qm">translate/arado_de.qm</file>
 </qresource>
+<qresource prefix="/schemas">
+  <file alias="urltable.sql">schemafiles/urltable.sql</file>
+  <file alias="urlurlindex.sql">schemafiles/urlurlindex.sql</file>
+  <file alias="urldescindex.sql">schemafiles/urldescindex.sql</file>
+  <file alias="urlhashindex.sql">schemafiles/urlhashindex.sql</file>
+</qresource>
 </RCC>
 

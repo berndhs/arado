@@ -123,6 +123,8 @@ qDebug () << "ASP " << " start element kind " << kind;
       ok |= ParseUrlElt (url, xmlin);
     } else if (kind == QString ("description")) {
       ok &= ParseDescElt (url, xmlin);
+    } else if (kind == QString ("hash")) {
+      ok &= ParseHashElt (url, xmlin);
     } else {
       qDebug () << "ASP " << " error at " << kind << " text " << xmlin.text();
     }
@@ -167,6 +169,18 @@ qDebug () << "ASP " << " Parse Description ";
   QString value = xmlin.text().toString  ();
   url.SetDescription (value);
 qDebug () << "ASP " << " added description " << value;
+  return true;
+}
+
+bool
+AradoStreamParser::ParseHashElt (AradoUrl & url, QXmlStreamReader & xmlin)
+{
+qDebug () << "ASP " << " Parse Hash ";
+  ReadToken (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
+  QString value = xmlin.text().toString  ();
+  url.SetHash (value.toUtf8());
+qDebug () << "ASP " << " added Hash " << value;
   return true;
 }
 

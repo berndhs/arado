@@ -105,7 +105,7 @@ FileComm::Write (const AradoUrl & url, bool isPartial)
       xmlout.writeStartElement ("arado");
     }
     xmlout.writeStartElement ("aradourl");
-    xmlout.writeAttribute ("hash",url.Hash());
+    xmlout.writeTextElement ("hash",url.Hash());
     xmlout.writeTextElement ("url",url.Url().toString());
     QStringList kws = url.Keywords ();
     for (int k=0; k< kws.size(); k++) {

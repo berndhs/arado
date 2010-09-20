@@ -65,7 +65,7 @@ AradoUrl::ComputeHash ()
 {
   QCryptographicHash  hashData (QCryptographicHash::Sha1);
   hashData.addData (url.toEncoded ());
-  hash = hashData.result();
+  hash = hashData.result().toHex();
 }
 
 } // namespace

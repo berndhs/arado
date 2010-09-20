@@ -40,7 +40,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    app (0),
    setupDone (false),
    configEdit (0),
-   fileComm (0)
+   fileComm (0),
+   dbMgr (this)
 {
   app = pa;
   mainUi.setupUi (this);
@@ -54,6 +55,7 @@ AradoMain::Start ()
 {
   if (!setupDone) {
     Connect ();
+    dbMgr.Start ();
     setupDone = true;
   }
   show ();
@@ -80,6 +82,7 @@ AradoMain::Connect ()
 void
 AradoMain::Quit ()
 {
+  dbMgr.Close ();
   if (app) {
     app->quit ();
   }
@@ -162,6 +165,9 @@ qDebug () << " they want file " << filename;
     fileComm->Open (filename, QFile::ReadOnly);
     urlist = fileComm->Read ();
     fileComm->Close ();
+    for (int u=0; u<urlist.size(); u++) {
+      dbMgr.AddUrl (urlist[u]);
+    }
     QString savehere = QFileDialog::getSaveFileName (this);
     if (savehere.length() > 0) {
       fileComm->Open ("out.xml",QFile::WriteOnly);
