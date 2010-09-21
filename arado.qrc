@@ -16,7 +16,10 @@
   <file alias="urldescindex.sql">schemafiles/urldescindex.sql</file>
   <file alias="urlhashindex.sql">schemafiles/urlhashindex.sql</file>
   <file alias="keywords.sql">schemafiles/keywords.sql</file>
-  <file alias="kyeindex.sql">schemafiles/keyindex.sql</file>
+  <file alias="keyindex.sql">schemafiles/keyindex.sql</file>
+  <file alias="timestamps.sql">schemafiles/timestamps.sql</file>
+  <file alias="timeindex.sql">schemafiles/timeindex.sql</file>
+  <file alias="uniquetimeindex.sql">schemafiles/uniquetimeindex.sql</file>
 </qresource>
 </RCC>
 

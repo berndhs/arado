@@ -30,6 +30,7 @@
 #include <QFileInfo>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QDateTime>
 #include <QDebug>
 
 using namespace deliberate;
@@ -69,6 +70,9 @@ DBManager::Start ()
               << "urlurlindex"
               << "keywords"
               << "keyindex"
+              << "timestamps"
+              << "uniquetimeindex"
+              << "timeindex"
               ;
   CheckDBComplete (urlBase, urlElements);
   
@@ -152,6 +156,11 @@ DBManager::MakeElement (QSqlDatabase & db, const QString & element)
 bool
 DBManager::AddUrl (AradoUrl & url)
 {
+  QSqlQuery transact (urlBase);
+  bool started = transact.exec ("BEGIN TRANSACTION");
+  if (!started) {
+    return false;
+  }
   QSqlQuery add (urlBase);
   QString cmd ("insert or replace into urltable"
                " (hashid, url, description) "
@@ -170,7 +179,9 @@ DBManager::AddUrl (AradoUrl & url)
   add.bindValue (1, QVariant (url.Url().toString()));
   add.bindValue (2, QVariant (desc));
   bool ok = add.exec ();
+  ok &= AddUrlTimestamp (url.Hash());
   ok &= AddKeywords (url);
+  transact.exec ("COMMIT TRANSACTION");
   return ok;
 }
 
@@ -192,6 +203,22 @@ DBManager::AddKeywords (AradoUrl & url)
     allok &= ok;
   }
   return allok;
+}
+
+bool
+DBManager::AddUrlTimestamp (const QString & hash)
+{
+  QDateTime now = QDateTime::currentDateTime();
+  quint64 secs = now.toTime_t();
+  QSqlQuery  stamp (urlBase);
+  QString cmd ("insert or replace into timestamps "
+               " (hashid, lastseen) "
+               " values (?, ?)");
+  stamp.prepare (cmd);
+  stamp.bindValue (0, hash);
+  stamp.bindValue (1, secs);
+  bool ok = stamp.exec ();
+  return ok;
 }
 
 } // namespace

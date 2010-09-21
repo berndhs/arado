@@ -36,13 +36,12 @@ Q_OBJECT
 
 public:
   
-   DBManager (QObject *parent =0);
+  DBManager (QObject *parent =0);
 
-   void  Start ();
-   void  Close ();
+  void  Start ();
+  void  Close ();
 
-   bool  AddUrl (AradoUrl & url);
-   bool  AddKeywords (AradoUrl & url);
+  bool  AddUrl (AradoUrl & url);
 
 private:
 
@@ -54,6 +53,8 @@ private:
                         const QStringList & elements);
   QString ElementType (QSqlDatabase & db, const QString & name);
   void    MakeElement (QSqlDatabase & db, const QString & element);
+  bool    AddKeywords (AradoUrl & url);
+  bool    AddUrlTimestamp (const QString & hash);
 
   QSqlDatabase     ipBase;
   QSqlDatabase     urlBase;
