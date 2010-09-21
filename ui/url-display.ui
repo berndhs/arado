@@ -113,8 +113,14 @@
          <height>341</height>
         </rect>
        </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
        <property name="showGrid">
-        <bool>false</bool>
+        <bool>true</bool>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
        </property>
        <property name="columnCount">
         <number>4</number>
@@ -130,7 +136,7 @@
        </attribute>
        <column>
         <property name="text">
-         <string>Hash Id</string>
+         <string>ARADO-Hash-ID (Sha1)</string>
         </property>
        </column>
        <column>
@@ -140,7 +146,7 @@
        </column>
        <column>
         <property name="text">
-         <string>Url</string>
+         <string>URL</string>
         </property>
        </column>
        <column>
