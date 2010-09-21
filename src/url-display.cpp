@@ -58,6 +58,7 @@ UrlDisplay::ShowRecent (int howmany)
     StampedUrlList urls = db->GetRecent (howmany);
     ui.urlTable->clearContents ();
     ui.urlTable->setRowCount (urls.size());
+    ui.urlTable->setEditTriggers (0);
     for (int u=0; u<urls.size(); u++) {
       quint64 stamp = urls[u].first;
       AradoUrl url = urls[u].second;
@@ -81,7 +82,9 @@ qDebug () << " url " << url.Url() << " keys " << url.Keywords();
       item->setData (Url_Celltype, Cell_Url);
       ui.urlTable->setItem (u,2,item);
 
-      item = new QTableWidgetItem (QDateTime::fromTime_t(stamp).toString());
+      QString time = QDateTime::fromTime_t (stamp).toString(Qt::ISODate);
+      time.replace ('T'," ");
+      item = new QTableWidgetItem (time);
       item->setData (Url_Celltype, Cell_Time);
       ui.urlTable->setItem (u,3,item);
     }
