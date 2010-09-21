@@ -1,4 +1,8 @@
-
+#ifndef CONNECTION_DISPLAY_H
+#define CONNECTION_DISPLAY_H
+///
+/// Connection-Display
+///
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -21,3 +25,31 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
+#include "ui_connection-display.h"
+
+namespace arado
+{
+
+class DBManager;
+
+class ConnectionDisplay : public QWidget 
+{
+Q_OBJECT
+
+public:
+  
+  ConnectionDisplay (QWidget *parent=0);
+
+  void SetDB (DBManager *dbm) { db = dbm; }
+
+private:
+
+  Ui_ConnectionDisplay   ui;
+
+  DBManager             *db;
+
+};
+
+} // arado
+
+#endif

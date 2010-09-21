@@ -25,6 +25,7 @@
 #include <QString>
 #include <QStringList>
 #include <QByteArray>
+#include <QPair>
 
 namespace arado
 {
@@ -65,7 +66,9 @@ private:
 
 } ;
 
-typedef QList<AradoUrl>   AradoUrlList;
+typedef QList<AradoUrl>           AradoUrlList;
+typedef QPair<quint64, AradoUrl>  StampedUrl;
+typedef QList<StampedUrl>         StampedUrlList;
 
 } // namespace
 

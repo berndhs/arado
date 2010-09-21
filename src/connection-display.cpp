@@ -21,3 +21,16 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
+#include "connection-display.h"
+
+namespace arado
+{
+
+ConnectionDisplay::ConnectionDisplay (QWidget *parent)
+  :QWidget (parent),
+   db (0)
+{
+  ui.setupUi (this);
+}
+
+} // namespace

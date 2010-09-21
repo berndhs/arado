@@ -45,6 +45,8 @@ RESOURCES   = arado.qrc
 FORMS		=	ui/aradomain.ui \
                         ui/DebugLog.ui \
 	                ui/config-edit.ui \
+                        ui/url-display.ui \
+                        ui/connection-display.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
@@ -60,6 +62,8 @@ HEADERS		=	src/aradomain.h \
                    src/arado-stream-parser.h \
                    src/file-buffer.h \
                    src/db-manager.h \
+                   src/url-display.h \
+                   src/connection-display.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -77,6 +81,9 @@ SOURCES		=	src/aradomain.cpp \
                    src/arado-stream-parser.cpp \
                    src/file-buffer.cpp \
                    src/db-manager.cpp \
+                   src/url-display.cpp \
+                   src/connection-display.cpp \
 
 TARGET		= bin/arado
 PROJECTNAME	= ARADO
+

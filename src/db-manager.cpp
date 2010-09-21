@@ -3,7 +3,7 @@
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, 
+ * Copyright (C) 2010, Arado Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -212,13 +212,79 @@ DBManager::AddUrlTimestamp (const QString & hash)
   quint64 secs = now.toTime_t();
   QSqlQuery  stamp (urlBase);
   QString cmd ("insert or replace into timestamps "
-               " (hashid, lastseen) "
+               " (hashid, incoming) "
                " values (?, ?)");
   stamp.prepare (cmd);
   stamp.bindValue (0, hash);
   stamp.bindValue (1, secs);
   bool ok = stamp.exec ();
   return ok;
+}
+
+bool
+DBManager::ReadKeywords (const QString & hash, QStringList & list)
+{
+  list.clear ();
+  QSqlQuery select (urlBase);
+  QString cmd = QString ("select keyword from keywords "
+                         " where hash = \"%1\"").arg (hash);
+  bool ok = select.exec (cmd);
+  QString word;
+  while (ok && select.next()) {
+    word = select.value(0).toString();
+    list.append (word);
+  }
+  return ok;
+}
+
+bool
+DBManager::ReadUrl (const QString & hash, AradoUrl & url)
+{
+  QSqlQuery  select (urlBase);
+  QString  cmd = QString ("select url, description from urltable "
+                          " where hashid = \"%1\"").arg (hash);
+  bool ok = select.exec (cmd);
+qDebug () << " try read url " << ok << "  " << cmd;
+
+  if (ok && select.next()) {
+    QString textUrl = select.value (0).toString ();
+    QString desc = select.value (1).toString ();
+qDebug () << " got for hash " << hash << " url " << textUrl << " desc " << desc;
+    AradoUrl newurl;
+    newurl.SetUrl (QUrl(textUrl));
+    newurl.SetDescription (desc);
+    newurl.SetHash (hash.toUtf8());
+    QStringList keywords;
+    ReadKeywords (hash, keywords);
+    newurl.SetKeywords (keywords);
+    url = newurl;
+    return true;
+  }
+  return false;
+}
+
+StampedUrlList
+DBManager::GetRecent (int howmany)
+{
+  StampedUrlList list;
+  QSqlQuery  select (urlBase);
+  QString cmd = QString ("select hashid, incoming from timestamps where 1 "
+               " order by incoming "
+               " limit %1").arg (howmany);
+  bool ok = select.exec (cmd);
+  QString hash;
+  quint64 stamp;
+  AradoUrl url;
+  while (ok && select.next()) {
+    hash = select.value (0).toString();
+    stamp = select.value (1).toULongLong();
+    bool haveUrl = ReadUrl (hash, url);
+    if (haveUrl) {
+      StampedUrl  pair (stamp,url);
+      list.append (pair);
+    }
+  }
+  return list;
 }
 
 } // namespace

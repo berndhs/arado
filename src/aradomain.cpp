@@ -7,9 +7,12 @@
 #include "file-comm.h"
 #include <QDebug>
 #include <QUrl>
+#include <QTimer>
 #include "deliberate.h"
 #include "version.h"
 #include "config-edit.h"
+#include "url-display.h"
+#include "connection-display.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -41,11 +44,20 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    setupDone (false),
    configEdit (0),
    fileComm (0),
+   urlDisplay (0),
+   connDisplay (0),
    dbMgr (this)
 {
   app = pa;
   mainUi.setupUi (this);
   configEdit = new ConfigEdit (this);
+  urlDisplay = new UrlDisplay (this);
+  urlDisplay->SetDB (&dbMgr);
+  mainUi.tabWidget->addTab (urlDisplay, tr("Database"));
+  connDisplay = new ConnectionDisplay (this);
+  connDisplay->SetDB (&dbMgr);
+  mainUi.tabWidget->addTab (connDisplay, tr("Connections"));
+  refreshUrls = new QTimer (this);
 }
 
 /// \brief Start the main window, initialize
@@ -56,6 +68,9 @@ AradoMain::Start ()
   if (!setupDone) {
     Connect ();
     dbMgr.Start ();
+    if (refreshUrls) {
+      refreshUrls->start (15000);
+    }
     setupDone = true;
   }
   show ();
@@ -74,6 +89,10 @@ AradoMain::Connect ()
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));
+  }
+  if (refreshUrls && urlDisplay) {
+    connect (refreshUrls, SIGNAL (timeout()), 
+             urlDisplay, SLOT (Refresh()));
   }
 }
 
@@ -130,8 +149,8 @@ void
 AradoMain::DoConfigEdit ()
 {
   if (configEdit) {
-    int tabnum = mainUi.tabWidgetDatabase->addTab (configEdit, tr("Settings"));
-    mainUi.tabWidgetDatabase->setCurrentIndex (tabnum);
+    int tabnum = mainUi.tabWidget->addTab (configEdit, tr("Settings"));
+    mainUi.tabWidget->setCurrentIndex (tabnum);
     configEdit->Run ();
   }
 }
@@ -140,8 +159,8 @@ void
 AradoMain::DoneConfigEdit (bool saved)
 {
   if (configEdit) {
-    int tabnum = mainUi.tabWidgetDatabase->indexOf (configEdit);
-    mainUi.tabWidgetDatabase->removeTab (tabnum);
+    int tabnum = mainUi.tabWidget->indexOf (configEdit);
+    mainUi.tabWidget->removeTab (tabnum);
     if (saved) {
       // reload settings 
       qDebug () << " Settings editor saved, should reload settings";

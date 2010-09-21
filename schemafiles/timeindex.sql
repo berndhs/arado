@@ -1,2 +1,2 @@
-CREATE INDEX "timeindex" on timestamps (lastseen DESC)
+CREATE INDEX "timeindex" on timestamps (incoming DESC)
 

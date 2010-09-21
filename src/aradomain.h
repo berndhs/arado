@@ -28,12 +28,15 @@
 
 class QCloseEvent;
 class QApplication;
+class QTimer;
 
 namespace arado
 {
 
 class ConfigEdit;
 class FileComm;
+class UrlDisplay;
+class ConnectionDisplay;
 
 class AradoMain : public QMainWindow
 {
@@ -60,12 +63,15 @@ private:
 
   void  Connect ();
 
-  Ui_AradoWin     mainUi;
-  QApplication   *app;
-  bool            setupDone;
-  ConfigEdit     *configEdit;
-  FileComm       *fileComm;
-  DBManager      dbMgr;
+  Ui_AradoWin         mainUi;
+  QApplication       *app;
+  bool                setupDone;
+  ConfigEdit         *configEdit;
+  FileComm           *fileComm;
+  UrlDisplay         *urlDisplay;
+  ConnectionDisplay  *connDisplay;
+  DBManager           dbMgr;
+  QTimer             *refreshUrls;
 
 };
 

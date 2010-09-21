@@ -1,3 +1,5 @@
+#ifndef URL_DISPLAY_H
+#define URL_DISPLAY_H
 
 
 /****************************************************************
@@ -21,3 +23,36 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
+#include "ui_url-display.h"
+
+namespace arado
+{
+
+class DBManager;
+
+class UrlDisplay : public QWidget 
+{
+Q_OBJECT
+
+public:
+
+  UrlDisplay (QWidget *parent);
+  
+  void  SetDB (DBManager *dbm) { db = dbm; }
+
+  void  ShowRecent (int howmany);
+
+public slots:
+
+  void  Refresh ();
+
+private:
+
+  Ui_UrlDisplay     ui;
+  DBManager        *db;
+
+};
+
+} // namespace
+
+#endif

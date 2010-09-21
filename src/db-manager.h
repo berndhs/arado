@@ -4,7 +4,7 @@
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, 
+ * Copyright (C) 2010, Arado Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -24,11 +24,10 @@
 
 #include <QObject>
 #include <QSqlDatabase>
+#include "arado-url.h"
 
 namespace arado
 {
-
-class AradoUrl;
 
 class DBManager : public QObject
 {
@@ -42,6 +41,12 @@ public:
   void  Close ();
 
   bool  AddUrl (AradoUrl & url);
+  
+  StampedUrlList  GetRecent (int howmany);
+
+  bool  ReadKeywords (const QString & hash, QStringList & list);
+  bool  ReadUrl   (const QString & hash, AradoUrl & url);
+  
 
 private:
 
