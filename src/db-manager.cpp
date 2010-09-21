@@ -227,13 +227,15 @@ DBManager::ReadKeywords (const QString & hash, QStringList & list)
   list.clear ();
   QSqlQuery select (urlBase);
   QString cmd = QString ("select keyword from keywords "
-                         " where hash = \"%1\"").arg (hash);
+                         " where hashid = \"%1\"").arg (hash);
   bool ok = select.exec (cmd);
   QString word;
+qDebug ()<< " keyword search " << ok << " cmd " << cmd;
   while (ok && select.next()) {
     word = select.value(0).toString();
     list.append (word);
   }
+qDebug () << " keywords for " << hash << " are " << list;
   return ok;
 }
 
@@ -244,12 +246,10 @@ DBManager::ReadUrl (const QString & hash, AradoUrl & url)
   QString  cmd = QString ("select url, description from urltable "
                           " where hashid = \"%1\"").arg (hash);
   bool ok = select.exec (cmd);
-qDebug () << " try read url " << ok << "  " << cmd;
 
   if (ok && select.next()) {
     QString textUrl = select.value (0).toString ();
     QString desc = select.value (1).toString ();
-qDebug () << " got for hash " << hash << " url " << textUrl << " desc " << desc;
     AradoUrl newurl;
     newurl.SetUrl (QUrl(textUrl));
     newurl.SetDescription (desc);

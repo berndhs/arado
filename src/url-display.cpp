@@ -26,6 +26,10 @@
 #include "arado-url.h"
 #include <QTableWidgetItem>
 #include <QDateTime>
+#include <QEvent>
+#include <QHelpEvent>
+#include <QToolTip>
+#include <QCursor>
 #include <QDebug>
 
 namespace arado
@@ -36,6 +40,8 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    db (0)
 {
   ui.setupUi (this);
+  connect (ui.urlTable, SIGNAL (itemActivated (QTableWidgetItem *)),
+           this, SLOT (Picked (QTableWidgetItem*)));
 }
 
 void
@@ -55,14 +61,40 @@ UrlDisplay::ShowRecent (int howmany)
     for (int u=0; u<urls.size(); u++) {
       quint64 stamp = urls[u].first;
       AradoUrl url = urls[u].second;
+qDebug () << " url " << url.Url() << " keys " << url.Keywords();
       QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
+      item->setData (Url_Celltype, Cell_Hash);
+      item->setToolTip (tr("SHA1 hash of the Url"));
       ui.urlTable->setItem (u,0,item);
+
       item = new QTableWidgetItem (url.Description ());
+      item->setData (Url_Celltype, Cell_Desc);
+      item->setData (Url_Keywords, url.Keywords ());
+      QString words = url.Keywords().join("\n");
+      if (words.length() < 1) {
+        words = tr ("no keywords");
+      }
+      item->setToolTip (words);
       ui.urlTable->setItem (u,1,item);
+
       item = new QTableWidgetItem (url.Url().toString());
+      item->setData (Url_Celltype, Cell_Url);
       ui.urlTable->setItem (u,2,item);
+
       item = new QTableWidgetItem (QDateTime::fromTime_t(stamp).toString());
+      item->setData (Url_Celltype, Cell_Time);
       ui.urlTable->setItem (u,3,item);
+    }
+  }
+}
+
+void
+UrlDisplay::Picked (QTableWidgetItem *item)
+{
+  if (item) {
+    CellType  tipo;
+    tipo = CellType (item->data(Url_Celltype).toInt());
+    if (tipo == Cell_Desc) {
     }
   }
 }

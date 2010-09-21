@@ -72,6 +72,9 @@ AradoMain::Start ()
       refreshUrls->start (15000);
     }
     setupDone = true;
+    if (urlDisplay) {
+      urlDisplay->Refresh();
+    }
   }
   show ();
 }

@@ -22,8 +22,11 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-
+#include <Qt>
 #include "ui_url-display.h"
+
+class QTableWidgetItem;
+class QEvent;
 
 namespace arado
 {
@@ -36,6 +39,18 @@ Q_OBJECT
 
 public:
 
+  enum ModelData {
+       Url_Keywords = Qt::UserRole + 1,
+       Url_Celltype = Qt::UserRole + 2
+       };
+  enum CellType {
+       Cell_None = 0,
+       Cell_Hash = 1,
+       Cell_Desc = 2,
+       Cell_Url = 3,
+       Cell_Time = 4
+       };
+
   UrlDisplay (QWidget *parent);
   
   void  SetDB (DBManager *dbm) { db = dbm; }
@@ -45,6 +60,8 @@ public:
 public slots:
 
   void  Refresh ();
+  void  Picked (QTableWidgetItem *item);
+
 
 private:
 
