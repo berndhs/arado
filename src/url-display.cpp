@@ -60,6 +60,8 @@ UrlDisplay::ShowRecent (int howmany)
     ui.urlTable->setRowCount (urls.size());
     ui.urlTable->setEditTriggers (0);
     for (int u=0; u<urls.size(); u++) {
+      bool allowSort = ui.urlTable->isSortingEnabled ();
+      ui.urlTable->setSortingEnabled (false);
       quint64 stamp;
       AradoUrl url = urls[u];
       stamp = url.Timestamp ();
@@ -88,6 +90,7 @@ qDebug () << " url " << url.Url() << " keys " << url.Keywords();
       item = new QTableWidgetItem (time);
       item->setData (Url_Celltype, Cell_Time);
       ui.urlTable->setItem (u,3,item);
+      ui.urlTable->setSortingEnabled (allowSort);
     }
   }
 }
