@@ -39,12 +39,12 @@
    </widget>
    <widget class="QMenu" name="menuDevel">
     <property name="title">
-     <string>Devel..</string>
+     <string>Develop</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help...</string>
+     <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>
