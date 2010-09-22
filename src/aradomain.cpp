@@ -13,6 +13,7 @@
 #include "config-edit.h"
 #include "url-display.h"
 #include "connection-display.h"
+#include "entry-form.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -46,6 +47,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    fileComm (0),
    urlDisplay (0),
    connDisplay (0),
+   entryForm (0),
    dbMgr (this)
 {
   app = pa;
@@ -57,6 +59,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Connections"));
+  entryForm = new EntryForm (this);
+  entryForm->SetDB (&dbMgr);
   refreshUrls = new QTimer (this);
 }
 
@@ -96,6 +100,13 @@ AradoMain::Connect ()
   if (refreshUrls && urlDisplay) {
     connect (refreshUrls, SIGNAL (timeout()), 
              urlDisplay, SLOT (Refresh()));
+  }
+  if (entryForm) {
+    connect (mainUi.actionEnterData, SIGNAL (triggered()),
+             this, SLOT (DoEntry ()));
+    connect (entryForm, SIGNAL (Finished ()), this, SLOT (DoneEntry()));
+    connect (entryForm, SIGNAL (NewUrl (const AradoUrl &)),
+             this, SLOT (NewUrl (const AradoUrl &)));
   }
 }
 
@@ -168,6 +179,34 @@ AradoMain::DoneConfigEdit (bool saved)
       // reload settings 
       qDebug () << " Settings editor saved, should reload settings";
     }
+  }
+}
+
+void
+AradoMain::DoEntry ()
+{
+  if (entryForm) {
+    int tabnum = mainUi.tabWidget->addTab (entryForm,tr("Enter Data"));
+    mainUi.tabWidget->setCurrentIndex (tabnum);
+    entryForm->Start ();
+  }
+}
+
+void
+AradoMain::DoneEntry ()
+{
+  if (entryForm) {
+    int tabnum = mainUi.tabWidget->indexOf (entryForm);
+    mainUi.tabWidget->removeTab (tabnum);
+  }
+}
+
+void
+AradoMain::NewUrl (const AradoUrl & newurl)
+{
+  if (urlDisplay) {
+    Q_UNUSED (urlDisplay)
+    //urlDisplay->InsertUrl (newurl);
   }
 }
 

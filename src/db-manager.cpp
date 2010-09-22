@@ -179,7 +179,11 @@ DBManager::AddUrl (AradoUrl & url)
   add.bindValue (1, QVariant (url.Url().toString()));
   add.bindValue (2, QVariant (desc));
   bool ok = add.exec ();
-  ok &= AddUrlTimestamp (url.Hash());
+  quint64 ts;
+  ok &= AddUrlTimestamp (url.Hash(), ts);
+  if (ok) {
+    url.SetTimestamp (ts);
+  }
   ok &= AddKeywords (url);
   transact.exec ("COMMIT TRANSACTION");
   return ok;
@@ -206,7 +210,7 @@ DBManager::AddKeywords (AradoUrl & url)
 }
 
 bool
-DBManager::AddUrlTimestamp (const QString & hash)
+DBManager::AddUrlTimestamp (const QString & hash, quint64 & ts)
 {
   QDateTime now = QDateTime::currentDateTime();
   quint64 secs = now.toTime_t();
@@ -218,6 +222,7 @@ DBManager::AddUrlTimestamp (const QString & hash)
   stamp.bindValue (0, hash);
   stamp.bindValue (1, secs);
   bool ok = stamp.exec ();
+  ts = secs;
   return ok;
 }
 
@@ -257,19 +262,35 @@ DBManager::ReadUrl (const QString & hash, AradoUrl & url)
     QStringList keywords;
     ReadKeywords (hash, keywords);
     newurl.SetKeywords (keywords);
+    quint64 stamp (0);
+    ReadTime (hash, stamp);
+    newurl.SetTimestamp (stamp);
     url = newurl;
     return true;
   }
   return false;
 }
 
-StampedUrlList
+bool
+DBManager::ReadTime (const QString & hash, quint64 & stamp)
+{
+  QSqlQuery select (urlBase);
+  QString cmd = QString ("select incoming from timestamps "
+                         " where hashid = \"%1\"").arg (hash);
+  bool ok = select.exec (cmd);
+  if (ok && select.next ()) {
+    stamp = select.value(0).toULongLong();
+  }
+  return ok;
+}
+
+AradoUrlList
 DBManager::GetRecent (int howmany)
 {
-  StampedUrlList list;
+  AradoUrlList list;
   QSqlQuery  select (urlBase);
   QString cmd = QString ("select hashid, incoming from timestamps where 1 "
-               " order by incoming "
+               " order by incoming DESC"
                " limit %1").arg (howmany);
   bool ok = select.exec (cmd);
   QString hash;
@@ -280,8 +301,8 @@ DBManager::GetRecent (int howmany)
     stamp = select.value (1).toULongLong();
     bool haveUrl = ReadUrl (hash, url);
     if (haveUrl) {
-      StampedUrl  pair (stamp,url);
-      list.append (pair);
+      url.SetTimestamp (stamp);
+      list.append (url);
     }
   }
   return list;

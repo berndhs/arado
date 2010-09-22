@@ -54,14 +54,15 @@ UrlDisplay::Refresh ()
 void
 UrlDisplay::ShowRecent (int howmany)
 {
-  if (db) {
-    StampedUrlList urls = db->GetRecent (howmany);
+  if (db && isVisible ()) {
+    AradoUrlList urls = db->GetRecent (howmany);
     ui.urlTable->clearContents ();
     ui.urlTable->setRowCount (urls.size());
     ui.urlTable->setEditTriggers (0);
     for (int u=0; u<urls.size(); u++) {
-      quint64 stamp = urls[u].first;
-      AradoUrl url = urls[u].second;
+      quint64 stamp;
+      AradoUrl url = urls[u];
+      stamp = url.Timestamp ();
 qDebug () << " url " << url.Url() << " keys " << url.Keywords();
       QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
       item->setData (Url_Celltype, Cell_Hash);

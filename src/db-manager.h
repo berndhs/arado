@@ -42,10 +42,11 @@ public:
 
   bool  AddUrl (AradoUrl & url);
   
-  StampedUrlList  GetRecent (int howmany);
+  AradoUrlList  GetRecent (int howmany);
 
   bool  ReadKeywords (const QString & hash, QStringList & list);
   bool  ReadUrl   (const QString & hash, AradoUrl & url);
+  bool  ReadTime  (const QString & hash, quint64 & timestamp);
   
 
 private:
@@ -59,7 +60,7 @@ private:
   QString ElementType (QSqlDatabase & db, const QString & name);
   void    MakeElement (QSqlDatabase & db, const QString & element);
   bool    AddKeywords (AradoUrl & url);
-  bool    AddUrlTimestamp (const QString & hash);
+  bool    AddUrlTimestamp (const QString & hash, quint64 & ts);
 
   QSqlDatabase     ipBase;
   QSqlDatabase     urlBase;

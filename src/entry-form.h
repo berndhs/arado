@@ -1,5 +1,5 @@
-
-#include "arado-url.h"
+#ifndef ENTRY_FORM_H
+#define ENTRY_FORM_H
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -22,55 +22,45 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#include <QCryptographicHash>
+#include "ui_entry-form.h"
+#include <QWidget>
+#include "arado-url.h"
 
 namespace arado
 {
 
-AradoUrl::AradoUrl ()
-  :valid (false),
-   timestamp (0)
-{
-}
+class DBManager;
 
-AradoUrl::AradoUrl (const QUrl & u)
-  :valid (true),
-   url (u),
-   timestamp (0)
+class EntryForm : public QWidget
 {
-}
+Q_OBJECT
 
-AradoUrl::AradoUrl (const AradoUrl & other)
-  :valid (other.valid),
-   url (other.url),
-   keywords (other.keywords),
-   description (other.description),
-   hash (other.hash),
-   timestamp (other.timestamp)
-{
-}
+public:
 
-AradoUrl &
-AradoUrl::operator = (const AradoUrl & other)
-{
-  if (this != &other) {
-    valid = other.valid;
-    url = other.url;
-    keywords = other.keywords;
-    description = other.description;
-    hash = other.hash;
-    timestamp = other.timestamp;
-  }
-  return *this;
-}
+  EntryForm (QWidget *parent);
+
+  void SetDB (DBManager *dbm) { db = dbm; }
  
-void
-AradoUrl::ComputeHash ()
-{
-  QCryptographicHash  hashData (QCryptographicHash::Sha1);
-  hashData.addData (url.toEncoded ());
-  hash = hashData.result().toHex();
-}
+  void Start ();
+
+private slots:
+
+  void Done ();
+  void Clear ();
+  void Save ();
+
+signals:
+
+  void Finished ();
+  void NewUrl (const AradoUrl & url);
+
+private:
+
+  Ui_EntryForm      ui;
+  DBManager        *db;
+
+};
 
 } // namespace
 
+#endif

@@ -47,6 +47,7 @@ FORMS		=	ui/aradomain.ui \
 	                ui/config-edit.ui \
                         ui/url-display.ui \
                         ui/connection-display.ui \
+                        ui/entry-form.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
@@ -64,6 +65,7 @@ HEADERS		=	src/aradomain.h \
                    src/db-manager.h \
                    src/url-display.h \
                    src/connection-display.h \
+                   src/entry-form.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -83,6 +85,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/db-manager.cpp \
                    src/url-display.cpp \
                    src/connection-display.cpp \
+                   src/entry-form.cpp \
 
 TARGET		= bin/arado
 PROJECTNAME	= ARADO

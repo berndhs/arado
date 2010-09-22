@@ -43,6 +43,7 @@ public:
   QStringList Keywords ()    const { return keywords; }
   QString     Description () const { return description; }
   QByteArray  Hash ()       const { return hash; }
+  quint64     Timestamp ()  const { return timestamp; }
 
   bool IsValid () const { return valid; }
 
@@ -50,6 +51,7 @@ public:
   void SetKeywords ( const QStringList & kws ) { keywords = kws; }
   void SetDescription ( const QString & desc ) { description = desc; }
   void SetHash (const QByteArray & h ) { hash = h; }
+  void SetTimestamp (const quint64 & ts ) { timestamp = ts; }
 
   void AddKeyword ( const QString & kw ) { keywords.append (kw); }
 
@@ -63,12 +65,11 @@ private:
   QStringList        keywords;
   QString            description;
   QByteArray         hash;
+  quint64            timestamp;
 
 } ;
 
 typedef QList<AradoUrl>           AradoUrlList;
-typedef QPair<quint64, AradoUrl>  StampedUrl;
-typedef QList<StampedUrl>         StampedUrlList;
 
 } // namespace
 

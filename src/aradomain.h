@@ -37,6 +37,8 @@ class ConfigEdit;
 class FileComm;
 class UrlDisplay;
 class ConnectionDisplay;
+class EntryForm;
+class AradoUrl;
 
 class AradoMain : public QMainWindow
 {
@@ -57,6 +59,9 @@ public slots:
   void DoConfigEdit ();
   void DoneConfigEdit (bool saved);
   void DoFileComm ();
+  void DoEntry ();
+  void DoneEntry ();
+  void NewUrl (const AradoUrl & newurl);
 
 
 private:
@@ -70,6 +75,7 @@ private:
   FileComm           *fileComm;
   UrlDisplay         *urlDisplay;
   ConnectionDisplay  *connDisplay;
+  EntryForm          *entryForm;
   DBManager           dbMgr;
   QTimer             *refreshUrls;
 

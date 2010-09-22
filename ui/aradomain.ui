@@ -33,9 +33,10 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSettings"/>
-    <addaction name="actionAbout"/>
     <addaction name="separator"/>
+    <addaction name="actionEnterData"/>
+    <addaction name="separator"/>
+    <addaction name="actionSettings"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuDevel">
@@ -44,8 +45,15 @@
     </property>
     <addaction name="actionFileComm"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help...</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDevel"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -66,6 +74,11 @@
   <action name="actionFileComm">
    <property name="text">
     <string>FileComm</string>
+   </property>
+  </action>
+  <action name="actionEnterData">
+   <property name="text">
+    <string>Enter Data</string>
    </property>
   </action>
  </widget>
