@@ -196,6 +196,8 @@ AradoMain::DoneConfigEdit (bool saved)
     if (saved) {
       // reload settings 
       qDebug () << " Settings editor saved, should reload settings";
+      dbMgr.Close ();
+      dbMgr.Start ();
     }
   }
 }
