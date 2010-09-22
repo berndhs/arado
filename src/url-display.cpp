@@ -69,14 +69,12 @@ UrlDisplay::Refresh (bool whenHidden)
 void
 UrlDisplay::Lock ()
 {
-  ui.urlTable->setSortingEnabled (false);
   locked = true;
 }
 
 void
 UrlDisplay::Unlock ()
 {
-  ui.urlTable->setSortingEnabled (allowSort);
   locked = false;
 }
 
@@ -93,6 +91,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
       AradoUrl url = urls[u];
       stamp = url.Timestamp ();
       Lock ();
+      ui.urlTable->setSortingEnabled (false);
       QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
       item->setData (Url_Celltype, Cell_Hash);
       item->setToolTip (tr("SHA1 hash of the Url"));
@@ -118,6 +117,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
       item->setData (Url_Celltype, Cell_Time);
       ui.urlTable->setItem (u,3,item);
       Unlock ();
+      ui.urlTable->setSortingEnabled (allowSort);
     }
   }
 }
@@ -148,8 +148,13 @@ UrlDisplay::CellMenu (const QTableWidgetItem *item,
     return 0;
   }
   QMenu menu (this);
-  QAction * copyAction = new QAction (tr("Copy"),this);
+  QAction * copyAction = new QAction (tr("Copy Text"),this);
+  QAction * mailAction = new QAction (tr("Mail Text"),this);
   menu.addAction (copyAction);
+  menu.addAction (mailAction);
+  if (extraActions.size() > 0) {
+    menu.addSeparator ();
+  }
   for (int a=0; a < extraActions.size(); a++) {
     menu.addAction (extraActions.at (a));
   }
@@ -161,6 +166,11 @@ UrlDisplay::CellMenu (const QTableWidgetItem *item,
       clip->setText (item->text());  
     }
     return 0;
+  } else if (select == mailAction) {
+    QString mailBody = item->text();
+    QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
+                      .arg (mailBody);
+    QDesktopServices::openUrl (urltext);
   } else {
     return select;
   }
@@ -173,22 +183,16 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
     return;
   }
   QAction * openAction = new QAction (tr("Open Link"),this);
-  QAction * mailAction = new QAction (tr("Mail Link"),this);
   QList<QAction*> list;
   list.append (openAction);
-  list.append (mailAction);
 
   QAction * select = CellMenu (item, list);
   if (select == openAction) {
     QUrl url (item->text());
     QDesktopServices::openUrl (url);
-  } else if (select == mailAction) {
-    QString mailBody = item->text();
-    QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
-                      .arg (mailBody);
-    QDesktopServices::openUrl (urltext);
   }
 }
+
 
 void
 UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
@@ -198,11 +202,9 @@ UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
   }
   QAction *copyKeysAction = new QAction (tr("Copy Keywords"), this);
   QAction *mailKeysAction = new QAction (tr("Mail Keywords"), this);
-  QAction *mailDescAction = new QAction (tr("Mail Description"), this);
   QList <QAction*> list;
   list.append (copyKeysAction);
   list.append (mailKeysAction);
-  list.append (mailDescAction);
 
   QAction * select = CellMenu (item, list);
   QString mailBody;
@@ -215,9 +217,6 @@ UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
     }
   } else if (select == mailKeysAction) {
     mailBody = item->data (Url_Keywords).toStringList().join("\n");
-    mailit = (mailBody.length() > 0);
-  } else if (select == mailDescAction) {
-    mailBody = item->text();
     mailit = (mailBody.length() > 0);
   }
   if (mailit) {
