@@ -50,7 +50,7 @@
       </font>
      </property>
      <property name="toolTip">
-      <string>ARADO is a networked URL Database, which saves your added URLs and syncs newest URLs with your connected devices.</string>
+      <string>Arado is a networked URL Database, which saves your added URLs and syncs newest URLs with your connected devices.</string>
      </property>
      <property name="text">
       <string>ARADO - URL Database</string>
@@ -139,7 +139,7 @@
        </attribute>
        <column>
         <property name="text">
-         <string>ARADO-Hash-ID (Sha1)</string>
+         <string>Arado-Hash-ID (Sha1)</string>
         </property>
        </column>
        <column>
