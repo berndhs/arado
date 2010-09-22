@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" rowspan="2">
-    <widget class="QPushButton" name="buttonaddurl">
+    <widget class="QPushButton" name="addUrlButton">
      <property name="toolTip">
       <string>Add URL: Press the logo and add the entered URL to your local database. A pop-up window asks you to add a short URL description or keywords seperated by blanks.</string>
      </property>
@@ -65,7 +65,7 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QPushButton" name="buttonfilter">
+    <widget class="QPushButton" name="filterButtton">
      <property name="toolTip">
       <string>Filter your local URL-database for the entered keyword(s).</string>
      </property>
@@ -75,7 +75,7 @@
     </widget>
    </item>
    <item row="1" column="3">
-    <widget class="QPushButton" name="buttonrecent">
+    <widget class="QPushButton" name="recentButton">
      <property name="toolTip">
       <string>Show the latest added URLs on top.</string>
      </property>
@@ -172,7 +172,7 @@
     </widget>
    </item>
   </layout>
-  <widget class="QPushButton" name="buttonopenurl">
+  <widget class="QPushButton" name="openUrlButton">
    <property name="geometry">
     <rect>
      <x>585</x>

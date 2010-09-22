@@ -31,6 +31,10 @@
 #include <QToolTip>
 #include <QCursor>
 #include <QDesktopServices>
+#include <QClipboard>
+#include <QApplication>
+#include <QMenu>
+#include <QAction>
 #include <QDebug>
 
 namespace arado
@@ -38,11 +42,22 @@ namespace arado
 
 UrlDisplay::UrlDisplay (QWidget * parent)
   :QWidget (parent),
-   db (0)
+   db (0),
+   allowSort (false),
+   locked (false)
 {
   ui.setupUi (this);
-  connect (ui.urlTable, SIGNAL (itemActivated (QTableWidgetItem *)),
+  allowSort = ui.urlTable->isSortingEnabled ();
+  connect (ui.urlTable, SIGNAL (itemClicked (QTableWidgetItem *)),
            this, SLOT (Picked (QTableWidgetItem*)));
+  connect (ui.addUrlButton, SIGNAL (clicked()),
+           this, SLOT (AddButton ()));
+}
+
+void
+UrlDisplay::AddButton ()
+{
+  emit AddUrl ();
 }
 
 void
@@ -52,19 +67,32 @@ UrlDisplay::Refresh (bool whenHidden)
 }
 
 void
+UrlDisplay::Lock ()
+{
+  ui.urlTable->setSortingEnabled (false);
+  locked = true;
+}
+
+void
+UrlDisplay::Unlock ()
+{
+  ui.urlTable->setSortingEnabled (allowSort);
+  locked = false;
+}
+
+void
 UrlDisplay::ShowRecent (int howmany, bool whenHidden)
 {
-  if (db && (whenHidden || isVisible ())) {
+  if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ui.urlTable->clearContents ();
     ui.urlTable->setRowCount (urls.size());
     ui.urlTable->setEditTriggers (0);
     for (int u=0; u<urls.size(); u++) {
-      bool allowSort = ui.urlTable->isSortingEnabled ();
-      ui.urlTable->setSortingEnabled (false);
       quint64 stamp;
       AradoUrl url = urls[u];
       stamp = url.Timestamp ();
+      Lock ();
       QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
       item->setData (Url_Celltype, Cell_Hash);
       item->setToolTip (tr("SHA1 hash of the Url"));
@@ -89,7 +117,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
       item = new QTableWidgetItem (time);
       item->setData (Url_Celltype, Cell_Time);
       ui.urlTable->setItem (u,3,item);
-      ui.urlTable->setSortingEnabled (allowSort);
+      Unlock ();
     }
   }
 }
@@ -98,14 +126,107 @@ void
 UrlDisplay::Picked (QTableWidgetItem *item)
 {
   if (item) {
+    Lock ();
     CellType  tipo;
     tipo = CellType (item->data(Url_Celltype).toInt());
     if (tipo == Cell_Url) {
-      QUrl url (item->text());
-      QDesktopServices::openUrl (url);
-    }
+      CellMenuUrl (item);
+    } else if (tipo == Cell_Desc) {
+      CellMenuDesc (item);
+    } else {
+      CellMenu (item);
+    } 
+    Unlock ();
   }
 }
+
+QAction *
+UrlDisplay::CellMenu (const QTableWidgetItem *item,
+                      const QList<QAction *>  extraActions)
+{
+  if (item == 0) {
+    return 0;
+  }
+  QMenu menu (this);
+  QAction * copyAction = new QAction (tr("Copy"),this);
+  menu.addAction (copyAction);
+  for (int a=0; a < extraActions.size(); a++) {
+    menu.addAction (extraActions.at (a));
+  }
+  
+  QAction * select = menu.exec (QCursor::pos());
+  if (select == copyAction) {
+    QClipboard *clip = QApplication::clipboard ();
+    if (clip) {
+      clip->setText (item->text());  
+    }
+    return 0;
+  } else {
+    return select;
+  }
+}
+
+void
+UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
+{
+  if (item == 0) {
+    return;
+  }
+  QAction * openAction = new QAction (tr("Open Link"),this);
+  QAction * mailAction = new QAction (tr("Mail Link"),this);
+  QList<QAction*> list;
+  list.append (openAction);
+  list.append (mailAction);
+
+  QAction * select = CellMenu (item, list);
+  if (select == openAction) {
+    QUrl url (item->text());
+    QDesktopServices::openUrl (url);
+  } else if (select == mailAction) {
+    QString mailBody = item->text();
+    QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
+                      .arg (mailBody);
+    QDesktopServices::openUrl (urltext);
+  }
+}
+
+void
+UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
+{
+  if (item == 0) {
+    return;
+  }
+  QAction *copyKeysAction = new QAction (tr("Copy Keywords"), this);
+  QAction *mailKeysAction = new QAction (tr("Mail Keywords"), this);
+  QAction *mailDescAction = new QAction (tr("Mail Description"), this);
+  QList <QAction*> list;
+  list.append (copyKeysAction);
+  list.append (mailKeysAction);
+  list.append (mailDescAction);
+
+  QAction * select = CellMenu (item, list);
+  QString mailBody;
+  bool    mailit (false);
+  if (select == copyKeysAction) {
+    QClipboard * clip = QApplication::clipboard ();
+    if (clip) {
+      QString keytext = item->data (Url_Keywords).toStringList().join("\n");
+      clip->setText (keytext);
+    }
+  } else if (select == mailKeysAction) {
+    mailBody = item->data (Url_Keywords).toStringList().join("\n");
+    mailit = (mailBody.length() > 0);
+  } else if (select == mailDescAction) {
+    mailBody = item->text();
+    mailit = (mailBody.length() > 0);
+  }
+  if (mailit) {
+    QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
+                      .arg (mailBody);
+    QDesktopServices::openUrl (urltext);
+  }
+}
+
 
 } // namespace
 

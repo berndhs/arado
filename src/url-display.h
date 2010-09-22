@@ -26,6 +26,7 @@
 #include "ui_url-display.h"
 
 class QTableWidgetItem;
+class QAction;
 class QEvent;
 
 namespace arado
@@ -61,12 +62,27 @@ public slots:
 
   void  Refresh (bool whenHidden = false);
   void  Picked (QTableWidgetItem *item);
+  void  AddButton ();
+
+signals:
+
+  void AddUrl ();
 
 
 private:
 
+  void     Lock ();
+  void     Unlock ();
+  void     CellMenuUrl (const QTableWidgetItem * item);
+  void     CellMenuDesc (const QTableWidgetItem * item);
+  QAction* CellMenu (const QTableWidgetItem *item,
+                    const QList <QAction*> extraActions
+                          = QList <QAction*>() );
+
   Ui_UrlDisplay     ui;
   DBManager        *db;
+  bool              allowSort;
+  bool              locked;
 
 };
 

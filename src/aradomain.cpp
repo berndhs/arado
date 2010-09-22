@@ -79,7 +79,7 @@ AradoMain::Start ()
     }
     setupDone = true;
     if (urlDisplay) {
-      urlDisplay->Refresh();
+      QTimer::singleShot (1200, urlDisplay, SLOT (Refresh()));
     }
   }
   show ();
@@ -97,6 +97,8 @@ AradoMain::Connect ()
           this, SLOT (DoFileImport ()));
   connect (mainUi.actionExportFile, SIGNAL (triggered ()),
           this, SLOT (DoFileExport ()));
+  connect (mainUi.actionEnterData, SIGNAL (triggered()),
+           this, SLOT (DoEntry ()));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));
@@ -106,11 +108,13 @@ AradoMain::Connect ()
              urlDisplay, SLOT (Refresh()));
   }
   if (entryForm) {
-    connect (mainUi.actionEnterData, SIGNAL (triggered()),
-             this, SLOT (DoEntry ()));
     connect (entryForm, SIGNAL (Finished ()), this, SLOT (DoneEntry()));
     connect (entryForm, SIGNAL (NewUrl (const AradoUrl &)),
              this, SLOT (NewUrl (const AradoUrl &)));
+  }
+  if (urlDisplay) {
+    connect (urlDisplay, SIGNAL (AddUrl()),
+             this, SLOT (DoEntry ()));
   }
 }
 
