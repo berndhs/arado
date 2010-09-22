@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QDesktopServices>
+#include <QFileInfo>
 #include "arado-url.h"
 #include "file-comm.h"
 #include <QDebug>
@@ -91,8 +93,10 @@ AradoMain::Connect ()
 	  SLOT(slotAbout ()));
   connect (mainUi.actionSettings, SIGNAL (triggered ()), this,
           SLOT (DoConfigEdit()));
-  connect (mainUi.actionFileComm, SIGNAL (triggered ()),
-          this, SLOT (DoFileComm ()));
+  connect (mainUi.actionImportFile, SIGNAL (triggered ()),
+          this, SLOT (DoFileImport ()));
+  connect (mainUi.actionExportFile, SIGNAL (triggered ()),
+          this, SLOT (DoFileExport ()));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));
@@ -211,13 +215,19 @@ AradoMain::NewUrl (const AradoUrl & newurl)
 }
 
 void
-AradoMain::DoFileComm ()
+AradoMain::DoFileImport ()
 {
-  QString filename = QFileDialog::getOpenFileName (this);
-qDebug () << " they want file " << filename;
+  static QString dir ( QDesktopServices::storageLocation
+                    (QDesktopServices::HomeLocation));
+  QString filename = QFileDialog::getOpenFileName (this,
+                     tr("Import File"),
+                     dir,
+                     tr ("Arado Url Files (*.xml);; All Files (*)")
+                     );
   if (filename.length() <= 0) {
     return;
   }
+  dir = QFileInfo (filename).absolutePath ();
   if (!fileComm) {
     fileComm = new FileComm;
   }
@@ -229,14 +239,33 @@ qDebug () << " they want file " << filename;
     for (int u=0; u<urlist.size(); u++) {
       dbMgr.AddUrl (urlist[u]);
     }
-    QString savehere = QFileDialog::getSaveFileName (this);
-    if (savehere.length() > 0) {
-      fileComm->Open ("out.xml",QFile::WriteOnly);
-      fileComm->Write (urlist);
-      fileComm->Close ();
+    if (urlDisplay) {
+      urlDisplay->Refresh (true);
     }
   }
-  
+}
+
+void
+AradoMain::DoFileExport ()
+{
+  static QString dir ( QDesktopServices::storageLocation
+                    (QDesktopServices::HomeLocation));
+  QString savehere = QFileDialog::getSaveFileName (this,
+                     tr("Export File"),
+                     dir,
+                     tr ("Arado Url Files (*.xml);; All Files (*)")
+                     );
+  dir = QFileInfo (savehere).absolutePath ();
+  if (savehere.length() > 0) {
+    if (!fileComm) {
+      fileComm = new FileComm;
+    }
+    fileComm->Open (savehere,QFile::WriteOnly);
+    /// \brief ToDo: select urls to export
+    AradoUrlList urlist = dbMgr.GetRecent (10000);
+    fileComm->Write (urlist);
+    fileComm->Close ();
+  }
 }
 
 

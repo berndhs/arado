@@ -58,7 +58,8 @@ public slots:
   void slotAbout();
   void DoConfigEdit ();
   void DoneConfigEdit (bool saved);
-  void DoFileComm ();
+  void DoFileImport ();
+  void DoFileExport ();
   void DoEntry ();
   void DoneEntry ();
   void NewUrl (const AradoUrl & newurl);

@@ -34,8 +34,6 @@
      <string>File</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="actionEnterData"/>
-    <addaction name="separator"/>
     <addaction name="actionSettings"/>
     <addaction name="actionExit"/>
    </widget>
@@ -43,7 +41,6 @@
     <property name="title">
      <string>Devel..</string>
     </property>
-    <addaction name="actionFileComm"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -51,7 +48,17 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <addaction name="actionEnterData"/>
+    <addaction name="separator"/>
+    <addaction name="actionImportFile"/>
+    <addaction name="actionExportFile"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuData"/>
    <addaction name="menuDevel"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -71,14 +78,19 @@
     <string>Settings</string>
    </property>
   </action>
-  <action name="actionFileComm">
+  <action name="actionImportFile">
    <property name="text">
-    <string>FileComm</string>
+    <string>Import File</string>
    </property>
   </action>
   <action name="actionEnterData">
    <property name="text">
     <string>Enter Data</string>
+   </property>
+  </action>
+  <action name="actionExportFile">
+   <property name="text">
+    <string>Export File</string>
    </property>
   </action>
  </widget>

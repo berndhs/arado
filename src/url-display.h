@@ -55,11 +55,11 @@ public:
   
   void  SetDB (DBManager *dbm) { db = dbm; }
 
-  void  ShowRecent (int howmany);
+  void  ShowRecent (int howmany, bool whenHidden = false);
 
 public slots:
 
-  void  Refresh ();
+  void  Refresh (bool whenHidden = false);
   void  Picked (QTableWidgetItem *item);
 
 

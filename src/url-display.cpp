@@ -45,16 +45,15 @@ UrlDisplay::UrlDisplay (QWidget * parent)
 }
 
 void
-UrlDisplay::Refresh ()
+UrlDisplay::Refresh (bool whenHidden)
 {
-  qDebug () << " Refresh " << QDateTime::currentDateTime ();
-  ShowRecent (10);
+  ShowRecent (10, whenHidden);
 }
 
 void
-UrlDisplay::ShowRecent (int howmany)
+UrlDisplay::ShowRecent (int howmany, bool whenHidden)
 {
-  if (db && isVisible ()) {
+  if (db && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ui.urlTable->clearContents ();
     ui.urlTable->setRowCount (urls.size());
