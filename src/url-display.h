@@ -62,6 +62,7 @@ public slots:
 
   void  Refresh (bool whenHidden = false);
   void  Picked (QTableWidgetItem *item);
+  void  DoubleClicked (QTableWidgetItem *item);
   void  AddButton ();
 
 signals:

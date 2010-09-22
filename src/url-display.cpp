@@ -140,6 +140,18 @@ UrlDisplay::Picked (QTableWidgetItem *item)
   }
 }
 
+void
+UrlDisplay::DoubleClicked (QTableWidgetItem *item)
+{
+  if (item) {
+    CellType tipo = CellType (item->data (Url_Celltype).toInt());
+    if (tipo == Cell_Url) {
+      QUrl url (item->text());
+      QDesktopServices::openUrl (url);
+    }
+  }
+}
+
 QAction *
 UrlDisplay::CellMenu (const QTableWidgetItem *item,
                       const QList<QAction *>  extraActions)

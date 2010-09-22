@@ -38,6 +38,8 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
+using namespace deliberate;
+
 namespace arado
 {
 
@@ -72,6 +74,11 @@ void
 AradoMain::Start ()
 {
   if (!setupDone) {
+    if (Settings().contains("sizes/main")) {
+      QSize defaultSize = size ();
+      QSize newSize = Settings().value ("sizes/main", defaultSize).toSize();
+      resize (newSize);
+    }
     Connect ();
     dbMgr.Start ();
     if (refreshUrls) {
@@ -123,6 +130,9 @@ AradoMain::Connect ()
 void
 AradoMain::Quit ()
 {
+  QSize currentSize = size();
+  Settings().setValue ("sizes/main",currentSize);
+  Settings().sync();
   dbMgr.Close ();
   if (app) {
     app->quit ();
@@ -160,7 +170,7 @@ AradoMain::slotAbout ()
              "Please visit <a href='http://arado.sf.net'>"
              "http://arado.sf.net</a><br>for more information."
              "</html>")
-             .arg (deliberate::ProgramVersion::Version());
+             .arg (ProgramVersion::Version());
   mb.setText(text);
   mb.setStandardButtons(QMessageBox::Ok);
   mb.setIconPixmap(QPixmap(":/arado-logo-colo-128.png"));

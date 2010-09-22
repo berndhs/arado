@@ -960,6 +960,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <layoutdefault spacing="2" margin="2"/>
+ <resources>
+  <include location="../arado.qrc"/>
+ </resources>
  <connections/>
 </ui>
