@@ -30,6 +30,7 @@
 #include <QHelpEvent>
 #include <QToolTip>
 #include <QCursor>
+#include <QDesktopServices>
 #include <QDebug>
 
 namespace arado
@@ -47,7 +48,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
 void
 UrlDisplay::Refresh (bool whenHidden)
 {
-  ShowRecent (10, whenHidden);
+  ShowRecent (100, whenHidden);
 }
 
 void
@@ -64,7 +65,6 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
       quint64 stamp;
       AradoUrl url = urls[u];
       stamp = url.Timestamp ();
-qDebug () << " url " << url.Url() << " keys " << url.Keywords();
       QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
       item->setData (Url_Celltype, Cell_Hash);
       item->setToolTip (tr("SHA1 hash of the Url"));
@@ -100,7 +100,9 @@ UrlDisplay::Picked (QTableWidgetItem *item)
   if (item) {
     CellType  tipo;
     tipo = CellType (item->data(Url_Celltype).toInt());
-    if (tipo == Cell_Desc) {
+    if (tipo == Cell_Url) {
+      QUrl url (item->text());
+      QDesktopServices::openUrl (url);
     }
   }
 }
