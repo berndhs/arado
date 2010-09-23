@@ -19,12 +19,6 @@ setOutPath $INSTDIR
 
 # Specify files to go in output path.
 
-file /r .\release\Icons
-file /r .\release\Images
-file /r .\release\plugins
-file /r .\release\Resources
-file /r .\release\translations
-file .\release\qt.conf
 file .\release\*.dll
 file .\release\Arado.exe
 
