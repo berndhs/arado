@@ -194,7 +194,7 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
   if (item == 0) {
     return;
   }
-  QAction * openAction = new QAction (tr("Open Link"),this);
+  QAction * openAction = new QAction (tr("Browse URL"),this);
   QList<QAction*> list;
   list.append (openAction);
 
