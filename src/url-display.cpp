@@ -183,6 +183,7 @@ UrlDisplay::CellMenu (const QTableWidgetItem *item,
     QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
                       .arg (mailBody);
     QDesktopServices::openUrl (urltext);
+    return 0;
   } else {
     return select;
   }
