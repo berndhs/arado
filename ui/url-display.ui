@@ -20,7 +20,7 @@
    <string>Arado Url Display</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" rowspan="3">
+   <item row="0" column="0" rowspan="4">
     <widget class="QPushButton" name="addUrlButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -73,41 +73,12 @@
      <property name="text">
       <string>Arado - URL Database</string>
      </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="filterButtton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip">
-      <string>Filter your local URL-database for the entered keyword(s).</string>
-     </property>
-     <property name="text">
-      <string>Search</string>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="2" column="3">
-    <widget class="QPushButton" name="recentButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip">
-      <string>Show the latest added URLs on top.</string>
-     </property>
-     <property name="text">
-      <string>Show Recent</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="4">
+   <item row="4" column="0" colspan="4">
     <widget class="QScrollArea" name="scrollArea">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -204,6 +175,48 @@
      </widget>
     </widget>
    </item>
+   <item row="0" column="3">
+    <widget class="QLineEdit" name="lineEdit"/>
+   </item>
+   <item row="5" column="0" colspan="4">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Connections (in/out): 30/30</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="filterButtton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Filter your local URL-database for the entered keyword(s).</string>
+     </property>
+     <property name="text">
+      <string>Search</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="recentButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Show the latest added URLs on top.</string>
+     </property>
+     <property name="text">
+      <string>Show Recent</string>
+     </property>
+    </widget>
+   </item>
    <item row="2" column="1">
     <widget class="QPushButton" name="openUrlButton">
      <property name="sizePolicy">
@@ -217,16 +230,6 @@
      </property>
      <property name="text">
       <string>Browse URL</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3">
-    <widget class="QLineEdit" name="lineEdit"/>
-   </item>
-   <item row="4" column="0" colspan="4">
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Connections (in/out): 30/30</string>
      </property>
     </widget>
    </item>
