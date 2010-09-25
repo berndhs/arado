@@ -39,9 +39,10 @@ EntryForm::EntryForm (QWidget *parent)
 }
 
 void
-EntryForm::Start ()
+EntryForm::Start (QString urlText)
 {
   Clear ();
+  ui.urlEdit->setText (urlText);
   show ();
 }
 

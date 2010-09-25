@@ -48,16 +48,20 @@ UrlDisplay::UrlDisplay (QWidget * parent)
 {
   ui.setupUi (this);
   allowSort = ui.urlTable->isSortingEnabled ();
-  connect (ui.urlTable, SIGNAL (itemClicked (QTableWidgetItem *)),
+  connect (ui.urlTable, SIGNAL (itemDoubleClicked (QTableWidgetItem *)),
            this, SLOT (Picked (QTableWidgetItem*)));
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
+  connect (ui.openUrlButton, SIGNAL (clicked ()),
+           this, SLOT (OpenUrl ()));
+  connect (ui.recentButton, SIGNAL (clicked ()),
+           this, SLOT (Refresh ()));
 }
 
 void
 UrlDisplay::AddButton ()
 {
-  emit AddUrl ();
+  emit AddUrl (ui.textInput->text());
 }
 
 void
@@ -118,9 +122,27 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
       ui.urlTable->setItem (u,3,item);
       Unlock ();
       ui.urlTable->setSortingEnabled (allowSort);
+      QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
+      labelTime.replace ('T'," ");
+      QString labelText (tr("Recent to %1").arg (labelTime));
+      ui.bottomLabel->setText (labelText);
     }
   }
 }
+
+void
+UrlDisplay::OpenUrl ()
+{
+  QTableWidgetItem * current = ui.urlTable->currentItem ();
+  if (current) {
+    if (CellType (current->data(Url_Celltype).toInt()) 
+        == Cell_Url) {
+      QUrl target (current->text ());    
+      QDesktopServices::openUrl (target);
+    }
+  }
+}
+
 
 void
 UrlDisplay::Picked (QTableWidgetItem *item)
@@ -140,17 +162,6 @@ UrlDisplay::Picked (QTableWidgetItem *item)
   }
 }
 
-void
-UrlDisplay::DoubleClicked (QTableWidgetItem *item)
-{
-  if (item) {
-    CellType tipo = CellType (item->data (Url_Celltype).toInt());
-    if (tipo == Cell_Url) {
-      QUrl url (item->text());
-      QDesktopServices::openUrl (url);
-    }
-  }
-}
 
 QAction *
 UrlDisplay::CellMenu (const QTableWidgetItem *item,

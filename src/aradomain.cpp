@@ -123,8 +123,8 @@ AradoMain::Connect ()
              this, SLOT (NewUrl (const AradoUrl &)));
   }
   if (urlDisplay) {
-    connect (urlDisplay, SIGNAL (AddUrl()),
-             this, SLOT (DoEntry ()));
+    connect (urlDisplay, SIGNAL (AddUrl(QString)),
+             this, SLOT (DoEntry (QString)));
   }
 }
 
@@ -206,12 +206,12 @@ AradoMain::DoneConfigEdit (bool saved)
 }
 
 void
-AradoMain::DoEntry ()
+AradoMain::DoEntry (QString urlText)
 {
   if (entryForm) {
     int tabnum = mainUi.tabWidget->addTab (entryForm,tr("Enter Data"));
     mainUi.tabWidget->setCurrentIndex (tabnum);
-    entryForm->Start ();
+    entryForm->Start (urlText);
   }
 }
 

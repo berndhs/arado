@@ -41,7 +41,7 @@ public:
 
   void SetDB (DBManager *dbm) { db = dbm; }
  
-  void Start ();
+  void Start (QString urlText = QString());
 
 private slots:
 

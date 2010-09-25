@@ -62,12 +62,12 @@ public slots:
 
   void  Refresh (bool whenHidden = false);
   void  Picked (QTableWidgetItem *item);
-  void  DoubleClicked (QTableWidgetItem *item);
   void  AddButton ();
+  void  OpenUrl ();
 
 signals:
 
-  void AddUrl ();
+  void AddUrl (QString urlString);
 
 
 private:

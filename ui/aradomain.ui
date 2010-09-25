@@ -38,7 +38,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>700</width>
+     <width>800</width>
      <height>25</height>
     </rect>
    </property>
@@ -75,7 +75,6 @@
    <addaction name="menuDevel"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
@@ -108,7 +107,7 @@
   </action>
  </widget>
  <layoutdefault spacing="2" margin="2"/>
-<resources>
+ <resources>
   <include location="../arado.qrc"/>
  </resources>
  <connections/>

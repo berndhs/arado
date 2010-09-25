@@ -61,7 +61,7 @@ public slots:
   void DoneConfigEdit (bool saved);
   void DoFileImport ();
   void DoFileExport ();
-  void DoEntry ();
+  void DoEntry (QString urlText);
   void DoneEntry ();
   void NewUrl (const AradoUrl & newurl);
 
