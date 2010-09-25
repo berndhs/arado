@@ -52,7 +52,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Random Devices:</string>
+      <string>Episodic Devices:</string>
      </property>
     </widget>
    </item>
@@ -172,7 +172,7 @@
      </column>
     </widget>
    </item>
-   <item row="2" column="10" rowspan="5" colspan="2">
+   <item row="2" column="10" rowspan="4" colspan="2">
     <widget class="QTreeWidget" name="treeWidget_3">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -686,13 +686,6 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="10" colspan="2">
-    <widget class="QCheckBox" name="checkBox">
-     <property name="text">
-      <string>Disable Random Device Connections</string>
-     </property>
-    </widget>
-   </item>
    <item row="8" column="0" colspan="3">
     <widget class="QSpinBox" name="addport_5">
      <property name="sizePolicy">
@@ -802,7 +795,7 @@
    <item row="8" column="7">
     <widget class="QPushButton" name="pushButton_5">
      <property name="toolTip">
-      <string>Asks connected devices for their trusted, recommended and random Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Random List.</string>
+      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
      </property>
      <property name="text">
       <string>IP-Transfer</string>
@@ -816,29 +809,6 @@
      </property>
      <property name="text">
       <string>Copy ID</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="10">
-    <widget class="QLabel" name="labelipcachesize_3">
-     <property name="text">
-      <string>IP-Cache Size:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="11">
-    <widget class="QSpinBox" name="ipcachesize_3">
-     <property name="toolTip">
-      <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
-     </property>
-     <property name="minimum">
-      <number>1500</number>
-     </property>
-     <property name="maximum">
-      <number>5000</number>
-     </property>
-     <property name="value">
-      <number>1500</number>
      </property>
     </widget>
    </item>
@@ -941,7 +911,7 @@
    <item row="9" column="6" colspan="4">
     <widget class="QPushButton" name="pushButton_2">
      <property name="toolTip">
-      <string>Adds an IP from recommended or random list to trusted list.</string>
+      <string>Adds an IP from recommended or episodic list to trusted list.</string>
      </property>
      <property name="text">
       <string>Add to Trusted</string>
@@ -950,6 +920,9 @@
    </item>
    <item row="9" column="10" colspan="2">
     <widget class="QPushButton" name="pushButton_savesettings_2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="toolTip">
       <string>Save current Settings.</string>
      </property>
@@ -958,11 +931,39 @@
      </property>
     </widget>
    </item>
+   <item row="6" column="10">
+    <widget class="QCheckBox" name="checkBox">
+     <property name="text">
+      <string>Disable Episodic Device Connections</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="10">
+    <widget class="QLabel" name="labelipcachesize_3">
+     <property name="text">
+      <string>IP-Cache Size:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="11">
+    <widget class="QSpinBox" name="ipcachesize_3">
+     <property name="toolTip">
+      <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
+     </property>
+     <property name="minimum">
+      <number>1500</number>
+     </property>
+     <property name="maximum">
+      <number>5000</number>
+     </property>
+     <property name="value">
+      <number>1500</number>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="2" margin="2"/>
- <resources>
-  <include location="../arado.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
