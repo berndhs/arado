@@ -61,7 +61,7 @@ public slots:
   void DoneConfigEdit (bool saved);
   void DoFileImport ();
   void DoFileExport ();
-  void DoEntry (QString urlText);
+  void DoEntry (QString urlText = QString());
   void DoneEntry ();
   void NewUrl (const AradoUrl & newurl);
 
