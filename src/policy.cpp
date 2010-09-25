@@ -1,5 +1,4 @@
 
-#include "arado-url.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -21,54 +20,27 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
-
+#include "policy.h"
 
 namespace arado
 {
 
-AradoUrl::AradoUrl ()
-  :valid (false),
-   timestamp (0)
+Policy::Policy (QObject *parent)
+  :QObject (parent)
 {
 }
 
-AradoUrl::AradoUrl (const QUrl & u)
-  :valid (true),
-   url (u),
-   timestamp (0)
+bool
+Policy::AddUrl (DBManager &dbm, AradoUrl &url)
 {
-}
-
-AradoUrl::AradoUrl (const AradoUrl & other)
-  :valid (other.valid),
-   url (other.url),
-   keywords (other.keywords),
-   description (other.description),
-   hash (other.hash),
-   timestamp (other.timestamp)
-{
-}
-
-AradoUrl &
-AradoUrl::operator = (const AradoUrl & other)
-{
-  if (this != &other) {
-    valid = other.valid;
-    url = other.url;
-    keywords = other.keywords;
-    description = other.description;
-    hash = other.hash;
-    timestamp = other.timestamp;
+  QByteArray hashOrig = url.Hash ();
+  url.ComputeHash ();
+  QByteArray hashNew = url.Hash ();
+  if (hashNew == hashOrig) {
+    return dbm.AddUrl (url);
+  } else {
+    return false;
   }
-  return *this;
-}
- 
-void
-AradoUrl::ComputeHash (QCryptographicHash::Algorithm  hashType)
-{
-  QCryptographicHash  hashData (hashType);
-  hashData.addData (url.toEncoded ());
-  hash = hashData.result().toHex();
 }
 
 } // namespace

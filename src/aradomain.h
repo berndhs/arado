@@ -39,6 +39,7 @@ class UrlDisplay;
 class ConnectionDisplay;
 class EntryForm;
 class AradoUrl;
+class Policy;
 
 class AradoMain : public QMainWindow
 {
@@ -78,6 +79,7 @@ private:
   ConnectionDisplay  *connDisplay;
   EntryForm          *entryForm;
   DBManager           dbMgr;
+  Policy             *policy;
   QTimer             *refreshUrls;
 
 };

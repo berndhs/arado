@@ -1,5 +1,5 @@
-
-#include "arado-url.h"
+#ifndef POLICY_H
+#define POLICY_H
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -22,54 +22,28 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
+#include <QObject>
+#include "db-manager.h"
+#include "arado-url.h"
 
 namespace arado
 {
 
-AradoUrl::AradoUrl ()
-  :valid (false),
-   timestamp (0)
-{
-}
+/** \brief Default Policy class
+*/
 
-AradoUrl::AradoUrl (const QUrl & u)
-  :valid (true),
-   url (u),
-   timestamp (0)
+class Policy : public QObject 
 {
-}
+Q_OBJECT
 
-AradoUrl::AradoUrl (const AradoUrl & other)
-  :valid (other.valid),
-   url (other.url),
-   keywords (other.keywords),
-   description (other.description),
-   hash (other.hash),
-   timestamp (other.timestamp)
-{
-}
+public:
 
-AradoUrl &
-AradoUrl::operator = (const AradoUrl & other)
-{
-  if (this != &other) {
-    valid = other.valid;
-    url = other.url;
-    keywords = other.keywords;
-    description = other.description;
-    hash = other.hash;
-    timestamp = other.timestamp;
-  }
-  return *this;
-}
- 
-void
-AradoUrl::ComputeHash (QCryptographicHash::Algorithm  hashType)
-{
-  QCryptographicHash  hashData (hashType);
-  hashData.addData (url.toEncoded ());
-  hash = hashData.result().toHex();
-}
+  Policy (QObject *parent);
+
+  virtual bool AddUrl (DBManager & dbm, AradoUrl & url);
+  
+} ;
 
 } // namespace
 
+#endif

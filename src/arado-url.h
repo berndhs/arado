@@ -26,6 +26,7 @@
 #include <QStringList>
 #include <QByteArray>
 #include <QPair>
+#include <QCryptographicHash>
 
 namespace arado
 {
@@ -55,7 +56,8 @@ public:
 
   void AddKeyword ( const QString & kw ) { keywords.append (kw); }
 
-  void ComputeHash ();
+  void ComputeHash (QCryptographicHash::Algorithm  hashType 
+                               = QCryptographicHash::Sha1);
 
 
 private:

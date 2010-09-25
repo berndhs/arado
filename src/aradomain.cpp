@@ -16,6 +16,7 @@
 #include "url-display.h"
 #include "connection-display.h"
 #include "entry-form.h"
+#include "policy.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -52,7 +53,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    urlDisplay (0),
    connDisplay (0),
    entryForm (0),
-   dbMgr (this)
+   dbMgr (this),
+   policy (0)
 {
   app = pa;
   mainUi.setupUi (this);
@@ -65,6 +67,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   mainUi.tabWidget->addTab (connDisplay, tr("Connections"));
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
+  policy = new Policy (this);
   refreshUrls = new QTimer (this);
 }
 
@@ -248,12 +251,12 @@ AradoMain::DoFileImport ()
     fileComm = new FileComm;
   }
   AradoUrlList  urlist;
-  if (fileComm) {
+  if (fileComm && policy) {
     fileComm->Open (filename, QFile::ReadOnly);
     urlist = fileComm->Read ();
     fileComm->Close ();
     for (int u=0; u<urlist.size(); u++) {
-      dbMgr.AddUrl (urlist[u]);
+      policy->AddUrl (dbMgr, urlist[u]);
     }
     if (urlDisplay) {
       urlDisplay->Refresh (true);
