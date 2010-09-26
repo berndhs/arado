@@ -67,6 +67,7 @@ HEADERS		=	src/aradomain.h \
                    src/connection-display.h \
                    src/entry-form.h \
                    src/policy.h \
+                   src/search.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -88,6 +89,8 @@ SOURCES		=	src/aradomain.cpp \
                    src/connection-display.cpp \
                    src/entry-form.cpp \
                    src/policy.cpp \
+                   src/search.cpp \
+
 
 TARGET		= bin/arado
 PROJECTNAME	= ARADO
