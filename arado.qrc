@@ -1,25 +1,27 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-  <file alias="arado-logo.png">images/arado-logo.png</file>
-  <file alias="arado-logo-colo-128.png">images/arado-logo-colo-128.png</file>
-</qresource>
-<qresource prefix="/help">
-  <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
-  <file alias="helpman.html">helpfiles/helpman.html</file>
-</qresource>
-<qresource prefix="/translate">
-  <file alias="arado_de.qm">translate/arado_de.qm</file>
-</qresource>
-<qresource prefix="/schemas">
-  <file alias="urltable.sql">schemafiles/urltable.sql</file>
-  <file alias="urlurlindex.sql">schemafiles/urlurlindex.sql</file>
-  <file alias="urldescindex.sql">schemafiles/urldescindex.sql</file>
-  <file alias="urlhashindex.sql">schemafiles/urlhashindex.sql</file>
-  <file alias="keywords.sql">schemafiles/keywords.sql</file>
-  <file alias="keyindex.sql">schemafiles/keyindex.sql</file>
-  <file alias="timestamps.sql">schemafiles/timestamps.sql</file>
-  <file alias="timeindex.sql">schemafiles/timeindex.sql</file>
-  <file alias="uniquetimeindex.sql">schemafiles/uniquetimeindex.sql</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file alias="arado-logo.png">images/arado-logo.png</file>
+        <file alias="arado-logo-colo-128.png">images/arado-logo-colo-128.png</file>
+        <file>images/viewmag.png</file>
+        <file>images/kugar.png</file>
+        <file>images/clock.png</file>
+    </qresource>
+    <qresource prefix="/help">
+        <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
+        <file alias="helpman.html">helpfiles/helpman.html</file>
+    </qresource>
+    <qresource prefix="/translate">
+        <file alias="arado_de.qm">translate/arado_de.qm</file>
+    </qresource>
+    <qresource prefix="/schemas">
+        <file alias="urltable.sql">schemafiles/urltable.sql</file>
+        <file alias="urlurlindex.sql">schemafiles/urlurlindex.sql</file>
+        <file alias="urldescindex.sql">schemafiles/urldescindex.sql</file>
+        <file alias="urlhashindex.sql">schemafiles/urlhashindex.sql</file>
+        <file alias="keywords.sql">schemafiles/keywords.sql</file>
+        <file alias="keyindex.sql">schemafiles/keyindex.sql</file>
+        <file alias="timestamps.sql">schemafiles/timestamps.sql</file>
+        <file alias="timeindex.sql">schemafiles/timeindex.sql</file>
+        <file alias="uniquetimeindex.sql">schemafiles/uniquetimeindex.sql</file>
+    </qresource>
 </RCC>
-
