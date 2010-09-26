@@ -208,6 +208,16 @@
      <property name="text">
       <string>Show Recent</string>
      </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/clock.png</normaloff>:/images/clock.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
    </item>
    <item row="1" column="3">
@@ -223,6 +233,16 @@
      </property>
      <property name="text">
       <string>Browse URL</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/kugar.png</normaloff>:/images/kugar.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
@@ -249,6 +269,16 @@
      </property>
      <property name="text">
       <string>Search</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/viewmag.png</normaloff>:/images/viewmag.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
