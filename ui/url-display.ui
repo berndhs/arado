@@ -44,6 +44,9 @@
        <height>90</height>
       </size>
      </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
@@ -72,6 +75,9 @@
      </property>
      <property name="text">
       <string>Arado - URL Database</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
