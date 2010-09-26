@@ -25,7 +25,10 @@
 #include "db-manager.h"
 #include "arado-url.h"
 #include "search.h"
+<<<<<<< HEAD
 #include <QtGlobal>
+=======
+>>>>>>> elementary search for 1 keyword, exact match
 #include <QTableWidgetItem>
 #include <QDateTime>
 #include <QEvent>
@@ -41,7 +44,10 @@
 #include <QSizePolicy>
 #include <QAction>
 #include <QTimer>
+<<<<<<< HEAD
 #include <QResizeEvent>
+=======
+>>>>>>> elementary search for 1 keyword, exact match
 #include <QDebug>
 
 namespace arado
@@ -53,9 +59,13 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    search (0),
    allowSort (false),
    locked (false),
+<<<<<<< HEAD
    searchId (-1),
    refreshUrls (0),
    refreshPeriod (30000)
+=======
+   searchId (-1)
+>>>>>>> elementary search for 1 keyword, exact match
 {
   search = new Search (this);
   ui.setupUi (this);
@@ -75,7 +85,11 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
   refreshUrls = new QTimer (this);
   connect (refreshUrls, SIGNAL (timeout()), this, SLOT (Refresh()));
+<<<<<<< HEAD
   refreshUrls->start (refreshPeriod);
+=======
+  refreshUrls->start (15000);
+>>>>>>> elementary search for 1 keyword, exact match
 }
 
 void
@@ -98,7 +112,11 @@ UrlDisplay::Refresh (bool whenHidden)
 {
   ShowRecent (100, whenHidden);
   if (refreshUrls && !refreshUrls->isActive()) {
+<<<<<<< HEAD
     refreshUrls->start (refreshPeriod);
+=======
+    refreshUrls->start (15000);
+>>>>>>> elementary search for 1 keyword, exact match
   }
 }
 
@@ -157,10 +175,13 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString labelText (tr("Recent to %1").arg (labelTime));
     ui.bottomLabel->setText (labelText);
   }
+<<<<<<< HEAD
   if (ui.urlTable->rowCount() > 0) {
     normalRowHeight = ui.urlTable->rowHeight (0);
     bigRowHeight = qMin (3*normalRowHeight, ui.urlTable->size().height());
   }
+=======
+>>>>>>> elementary search for 1 keyword, exact match
 }
 
 void
@@ -169,6 +190,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
   if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ShowUrls (urls);
+<<<<<<< HEAD
   }
 }
 
@@ -185,6 +207,8 @@ UrlDisplay::ActiveCell (int row, int col, int oldRow, int oldCol)
     if (ctype == Cell_Desc) {
       ui.urlTable->setRowHeight (row, bigRowHeight);
     }
+=======
+>>>>>>> elementary search for 1 keyword, exact match
   }
 }
 
