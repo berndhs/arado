@@ -62,10 +62,10 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   configEdit = new ConfigEdit (this);
   urlDisplay = new UrlDisplay (this);
   urlDisplay->SetDB (&dbMgr);
-  mainUi.tabWidget->addTab (urlDisplay, tr("Database"));
+  mainUi.tabWidget->addTab (urlDisplay, tr("Search"));
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
-  mainUi.tabWidget->addTab (connDisplay, tr("Connections"));
+  mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
   policy = new Policy (this);
