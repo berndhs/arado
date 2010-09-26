@@ -48,7 +48,7 @@ public:
 
   bool IsValid () const { return valid; }
 
-  void SetUrl ( const QUrl & u ) { url = u; valid = true; }
+  void SetUrl ( const QUrl & u ) { url = u; valid = url.isValid(); }
   void SetKeywords ( const QStringList & kws ) { keywords = kws; }
   void SetDescription ( const QString & desc ) { description = desc; }
   void SetHash (const QByteArray & h ) { hash = h; }

@@ -23,6 +23,7 @@
 
 #include "entry-form.h"
 #include "db-manager.h"
+#include <QMessageBox>
 
 namespace arado
 {
@@ -66,7 +67,15 @@ void
 EntryForm::Save ()
 {
   AradoUrl  newurl;
-  newurl.SetUrl (QUrl (ui.urlEdit->text()));
+  QString urlText = ui.urlEdit->text ();
+  newurl.SetUrl (QUrl (urlText, QUrl::TolerantMode));
+  if (!newurl.IsValid ()) {
+    QMessageBox box (this);
+    QString message (tr("Invalid URL stirng \"%2\"\nWill not be saved").arg(urlText));
+    box.setText (message);
+    box.exec ();
+    return ;
+  }
   newurl.SetDescription (ui.descEdit->toPlainText ());
   QString words = ui.keyEdit->toPlainText ();
   QStringList wordList = words.split (QRegExp ("[\n,;]"),
