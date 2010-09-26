@@ -98,11 +98,7 @@ UrlDisplay::Refresh (bool whenHidden)
 {
   ShowRecent (100, whenHidden);
   if (refreshUrls && !refreshUrls->isActive()) {
-<<<<<<< HEAD
     refreshUrls->start (refreshPeriod);
-=======
-    refreshUrls->start (15000);
->>>>>>> elementary search for 1 keyword, exact match
   }
 }
 
