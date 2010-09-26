@@ -48,6 +48,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuDevel">
@@ -69,6 +70,8 @@
     <addaction name="separator"/>
     <addaction name="actionImportFile"/>
     <addaction name="actionExportFile"/>
+    <addaction name="separator"/>
+    <addaction name="editNewFeed"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuData"/>
@@ -76,33 +79,66 @@
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/messagebox_info.png</normaloff>:/images/messagebox_info.png</iconset>
+   </property>
    <property name="text">
     <string>About Arado</string>
    </property>
   </action>
   <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/misc.png</normaloff>:/images/misc.png</iconset>
+   </property>
    <property name="text">
     <string>Settings</string>
    </property>
   </action>
   <action name="actionImportFile">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/usbpendrive_unmount.png</normaloff>:/images/usbpendrive_unmount.png</iconset>
+   </property>
    <property name="text">
     <string>Import File</string>
    </property>
   </action>
   <action name="actionEnterData">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
+   </property>
    <property name="text">
     <string>Enter Data</string>
    </property>
   </action>
   <action name="actionExportFile">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/cdrom_mount.png</normaloff>:/images/cdrom_mount.png</iconset>
+   </property>
    <property name="text">
     <string>Export File</string>
+   </property>
+  </action>
+  <action name="editNewFeed">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/rss.png</normaloff>:/images/rss.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edit RSS-Import-URL</string>
    </property>
   </action>
  </widget>
