@@ -47,6 +47,10 @@ public:
   bool  ReadKeywords (const QString & hash, QStringList & list);
   bool  ReadUrl   (const QString & hash, AradoUrl & url);
   bool  ReadTime  (const QString & hash, quint64 & timestamp);
+
+  bool  GetMatching (QStringList & hashList, 
+                     const QStringList & keys,
+                     bool combineAnd = true);
   
 
 private:

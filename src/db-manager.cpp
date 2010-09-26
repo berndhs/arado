@@ -308,5 +308,31 @@ DBManager::GetRecent (int howmany)
   return list;
 }
 
+bool
+DBManager::GetMatching (QStringList & hashList, 
+                        const QStringList & keys,
+                        bool combineAnd)
+{
+  hashList.clear ();
+  if (keys.size() < 1) {
+    return false;
+  }
+  QString cmd ("select hashid from keywords where ");
+  cmd.append (QString ("keyword = \"%1\"").arg (keys.at(0)));
+  QString combine (combineAnd ? " AND " : " OR ");
+  for (int i=1; i<keys.size(); i++) {
+    cmd.append (combine);
+    cmd.append (QString (" keyword = \"%1\"").arg (keys.at(i)));
+  }
+  QSqlQuery select (urlBase);
+  bool ok = select.exec (cmd);
+  QString hash;
+  while (ok && select.next ()) {
+    hash = select.value(0).toString();
+    hashList.append (hash);
+  }
+  return (ok);
+}
+
 } // namespace
 

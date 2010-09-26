@@ -22,12 +22,17 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
+#include <QTimer>
+#include <QDebug>
+
 namespace arado
 {
 
 Search::Search (QObject * parent)
   :QObject (parent),
-   db (0)
+   db (0),
+   searchId (0),
+   busy (false)
 {
 }
 
@@ -42,6 +47,7 @@ Search::ExactKeywords  (const QStringList & keyList,
                            Combine combine,
                            Result resType )
 {
+qDebug () << " they want search for list " << keyList;
   return -1;
 }
 
@@ -50,7 +56,16 @@ Search::ExactKeyword (const QString & key,
                            Combine combine ,
                            Result resType )
 {
-  return -1;
+qDebug () << " they want search for single " << key;
+  if (busy) {
+    return -1;
+  }
+  keys.clear ();
+  keys.append (key);
+  results.clear ();
+  searchId++;
+  QTimer::singleShot (10, this, SLOT (DoSearch()));
+  return searchId;
 }
 
 bool
@@ -75,21 +90,39 @@ Search::ResultTable (int resultId, QString & tableName)
 bool
 Search::ResultList (int resultId, QStringList & hashList)
 {
-  hashList.clear ();
-  return false;
+  hashList = results;
+  return true;
 }
 
 bool
 Search::Clear (int resultId)
 {
+  keys.clear ();
+  busy = false;
   return true;
 }
 
 void
 Search::ClearAll ()
 {
+  keys.clear ();
+  busy = false;
 }
 
+void
+Search::DoSearch ()
+{
+  if (db) {
+    results.clear ();
+    db->GetMatching (results, keys);
+    emit Ready (searchId);
+    busy = false;
+  } else {
+    results.clear ();
+    emit Ready (searchId);
+    busy = false;
+  }
+}
 
 } // namespace
 

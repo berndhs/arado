@@ -80,7 +80,6 @@ private:
   EntryForm          *entryForm;
   DBManager           dbMgr;
   Policy             *policy;
-  QTimer             *refreshUrls;
 
 };
 

@@ -24,15 +24,18 @@
  ****************************************************************/
 #include <Qt>
 #include "ui_url-display.h"
+#include "arado-url.h"
 
 class QTableWidgetItem;
 class QAction;
 class QEvent;
+class QTimer;
 
 namespace arado
 {
 
 class DBManager;
+class Search ;
 
 class UrlDisplay : public QWidget 
 {
@@ -54,7 +57,7 @@ public:
 
   UrlDisplay (QWidget *parent);
   
-  void  SetDB (DBManager *dbm) { db = dbm; }
+  void  SetDB (DBManager *dbm);
 
   void  ShowRecent (int howmany, bool whenHidden = false);
 
@@ -64,6 +67,8 @@ public slots:
   void  Picked (QTableWidgetItem *item);
   void  AddButton ();
   void  OpenUrl ();
+  void  DoSearch ();
+  void  GetSearchResult (int resultid);
 
 signals:
 
@@ -74,6 +79,7 @@ private:
 
   void     Lock ();
   void     Unlock ();
+  void     ShowUrls (AradoUrlList & urls);
   void     CellMenuUrl (const QTableWidgetItem * item);
   void     CellMenuDesc (const QTableWidgetItem * item);
   QAction* CellMenu (const QTableWidgetItem *item,
@@ -82,8 +88,12 @@ private:
 
   Ui_UrlDisplay     ui;
   DBManager        *db;
+  Search           *search;
   bool              allowSort;
   bool              locked;
+  int               searchId;
+  QString           searchData;
+  QTimer           *refreshUrls;
 
 };
 

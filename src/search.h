@@ -70,6 +70,10 @@ public:
   virtual bool  Clear (int resultId);
   virtual void  ClearAll ();
 
+private slots:
+
+  virtual void  DoSearch ();
+
 signals:
 
   void Ready (int searchId);
@@ -77,6 +81,12 @@ signals:
 private:
 
   DBManager  *db;
+
+  QStringList  keys;
+  QStringList  results;
+  int          searchId;
+  bool         busy;
+  
 
 };
 

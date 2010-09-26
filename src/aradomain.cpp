@@ -17,6 +17,7 @@
 #include "connection-display.h"
 #include "entry-form.h"
 #include "policy.h"
+#include "search.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -68,7 +69,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
   policy = new Policy (this);
-  refreshUrls = new QTimer (this);
 }
 
 /// \brief Start the main window, initialize
@@ -84,9 +84,6 @@ AradoMain::Start ()
     }
     Connect ();
     dbMgr.Start ();
-    if (refreshUrls) {
-      refreshUrls->start (15000);
-    }
     setupDone = true;
     if (urlDisplay) {
       QTimer::singleShot (1200, urlDisplay, SLOT (Refresh()));
@@ -112,10 +109,6 @@ AradoMain::Connect ()
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));
-  }
-  if (refreshUrls && urlDisplay) {
-    connect (refreshUrls, SIGNAL (timeout()), 
-             urlDisplay, SLOT (Refresh()));
   }
   if (entryForm) {
     connect (entryForm, SIGNAL (Finished ()), this, SLOT (DoneEntry()));

@@ -24,6 +24,7 @@
 #include "url-display.h"
 #include "db-manager.h"
 #include "arado-url.h"
+#include "search.h"
 #include <QTableWidgetItem>
 #include <QDateTime>
 #include <QEvent>
@@ -35,6 +36,7 @@
 #include <QApplication>
 #include <QMenu>
 #include <QAction>
+#include <QTimer>
 #include <QDebug>
 
 namespace arado
@@ -43,9 +45,12 @@ namespace arado
 UrlDisplay::UrlDisplay (QWidget * parent)
   :QWidget (parent),
    db (0),
+   search (0),
    allowSort (false),
-   locked (false)
+   locked (false),
+   searchId (-1)
 {
+  search = new Search (this);
   ui.setupUi (this);
   allowSort = ui.urlTable->isSortingEnabled ();
   connect (ui.urlTable, SIGNAL (itemDoubleClicked (QTableWidgetItem *)),
@@ -56,6 +61,21 @@ UrlDisplay::UrlDisplay (QWidget * parent)
            this, SLOT (OpenUrl ()));
   connect (ui.recentButton, SIGNAL (clicked ()),
            this, SLOT (Refresh ()));
+  connect (ui.searchButton, SIGNAL (clicked ()),
+           this, SLOT (DoSearch ()));
+  connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
+  refreshUrls = new QTimer (this);
+  connect (refreshUrls, SIGNAL (timeout()), this, SLOT (Refresh()));
+  refreshUrls->start (15000);
+}
+
+void
+UrlDisplay::SetDB (DBManager *dbm)
+{
+  db = dbm;
+  if (search) {
+    search->SetDB (db);
+  }
 }
 
 void
@@ -68,6 +88,9 @@ void
 UrlDisplay::Refresh (bool whenHidden)
 {
   ShowRecent (100, whenHidden);
+  if (refreshUrls && !refreshUrls->isActive()) {
+    refreshUrls->start (15000);
+  }
 }
 
 void
@@ -83,50 +106,56 @@ UrlDisplay::Unlock ()
 }
 
 void
+UrlDisplay::ShowUrls (AradoUrlList & urls)
+{
+  ui.urlTable->clearContents ();
+  ui.urlTable->setRowCount (urls.size());
+  ui.urlTable->setEditTriggers (0);
+  for (int u=0; u<urls.size(); u++) {
+    quint64 stamp;
+    AradoUrl url = urls[u];
+    stamp = url.Timestamp ();
+    Lock ();
+    ui.urlTable->setSortingEnabled (false);
+    QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
+    item->setData (Url_Celltype, Cell_Hash);
+    item->setToolTip (tr("SHA1 hash of the Url"));
+    ui.urlTable->setItem (u,0,item);
+
+    item = new QTableWidgetItem (url.Description ());
+    item->setData (Url_Celltype, Cell_Desc);
+    item->setData (Url_Keywords, url.Keywords ());
+    QString words = url.Keywords().join("\n");
+    if (words.length() < 1) {
+      words = tr ("no keywords");
+    }
+    item->setToolTip (words);
+    ui.urlTable->setItem (u,1,item);
+
+    item = new QTableWidgetItem (url.Url().toString());
+    item->setData (Url_Celltype, Cell_Url);
+    ui.urlTable->setItem (u,2,item);
+
+    QString time = QDateTime::fromTime_t (stamp).toString(Qt::ISODate);
+    time.replace ('T'," ");
+    item = new QTableWidgetItem (time);
+    item->setData (Url_Celltype, Cell_Time);
+    ui.urlTable->setItem (u,3,item);
+    Unlock ();
+    ui.urlTable->setSortingEnabled (allowSort);
+    QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
+    labelTime.replace ('T'," ");
+    QString labelText (tr("Recent to %1").arg (labelTime));
+    ui.bottomLabel->setText (labelText);
+  }
+}
+
+void
 UrlDisplay::ShowRecent (int howmany, bool whenHidden)
 {
   if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
-    ui.urlTable->clearContents ();
-    ui.urlTable->setRowCount (urls.size());
-    ui.urlTable->setEditTriggers (0);
-    for (int u=0; u<urls.size(); u++) {
-      quint64 stamp;
-      AradoUrl url = urls[u];
-      stamp = url.Timestamp ();
-      Lock ();
-      ui.urlTable->setSortingEnabled (false);
-      QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
-      item->setData (Url_Celltype, Cell_Hash);
-      item->setToolTip (tr("SHA1 hash of the Url"));
-      ui.urlTable->setItem (u,0,item);
-
-      item = new QTableWidgetItem (url.Description ());
-      item->setData (Url_Celltype, Cell_Desc);
-      item->setData (Url_Keywords, url.Keywords ());
-      QString words = url.Keywords().join("\n");
-      if (words.length() < 1) {
-        words = tr ("no keywords");
-      }
-      item->setToolTip (words);
-      ui.urlTable->setItem (u,1,item);
-
-      item = new QTableWidgetItem (url.Url().toString());
-      item->setData (Url_Celltype, Cell_Url);
-      ui.urlTable->setItem (u,2,item);
-
-      QString time = QDateTime::fromTime_t (stamp).toString(Qt::ISODate);
-      time.replace ('T'," ");
-      item = new QTableWidgetItem (time);
-      item->setData (Url_Celltype, Cell_Time);
-      ui.urlTable->setItem (u,3,item);
-      Unlock ();
-      ui.urlTable->setSortingEnabled (allowSort);
-      QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
-      labelTime.replace ('T'," ");
-      QString labelText (tr("Recent to %1").arg (labelTime));
-      ui.bottomLabel->setText (labelText);
-    }
+    ShowUrls (urls);
   }
 }
 
@@ -140,6 +169,41 @@ UrlDisplay::OpenUrl ()
       QUrl target (current->text ());    
       QDesktopServices::openUrl (target);
     }
+  }
+}
+
+void
+UrlDisplay::DoSearch ()
+{
+  searchId = -1;
+  if (search) {
+    searchData = ui.textInput->text();
+    searchId = search->ExactKeyword (searchData);
+    ui.bottomLabel->setText (tr("Searching %1").arg (searchData));
+  }
+}
+
+void
+UrlDisplay::GetSearchResult (int resultId)
+{
+  if (db && search) {
+    if (refreshUrls) {
+      refreshUrls->stop ();
+    }
+    QStringList  hashList;
+    search->ResultList (resultId, hashList);
+    AradoUrlList urls;
+    QStringList::const_iterator lit;
+    AradoUrl url;
+    bool haveit;
+    for (lit = hashList.constBegin(); lit != hashList.constEnd(); ++lit) {
+      haveit = db->ReadUrl (*lit, url);
+      if (haveit) {
+        urls.append (url);
+      }
+    }
+    ShowUrls (urls);
+    ui.bottomLabel->setText (tr("Search Results %1").arg (searchData));
   }
 }
 
