@@ -25,6 +25,7 @@
 #include "db-manager.h"
 #include "arado-url.h"
 #include "search.h"
+#include <QtGlobal>
 #include <QTableWidgetItem>
 #include <QDateTime>
 #include <QEvent>
@@ -35,8 +36,12 @@
 #include <QClipboard>
 #include <QApplication>
 #include <QMenu>
+#include <QTextBrowser>
+#include <QLineEdit>
+#include <QSizePolicy>
 #include <QAction>
 #include <QTimer>
+#include <QResizeEvent>
 #include <QDebug>
 
 namespace arado
@@ -48,11 +53,15 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    search (0),
    allowSort (false),
    locked (false),
-   searchId (-1)
+   searchId (-1),
+   refreshUrls (0),
+   refreshPeriod (30000)
 {
   search = new Search (this);
   ui.setupUi (this);
   allowSort = ui.urlTable->isSortingEnabled ();
+  connect (ui.urlTable, SIGNAL (currentCellChanged (int, int, int, int)),
+           this, SLOT (ActiveCell (int, int, int, int)));
   connect (ui.urlTable, SIGNAL (itemDoubleClicked (QTableWidgetItem *)),
            this, SLOT (Picked (QTableWidgetItem*)));
   connect (ui.addUrlButton, SIGNAL (clicked()),
@@ -66,7 +75,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
   refreshUrls = new QTimer (this);
   connect (refreshUrls, SIGNAL (timeout()), this, SLOT (Refresh()));
-  refreshUrls->start (15000);
+  refreshUrls->start (refreshPeriod);
 }
 
 void
@@ -89,7 +98,7 @@ UrlDisplay::Refresh (bool whenHidden)
 {
   ShowRecent (100, whenHidden);
   if (refreshUrls && !refreshUrls->isActive()) {
-    refreshUrls->start (15000);
+    refreshUrls->start (refreshPeriod);
   }
 }
 
@@ -148,6 +157,10 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString labelText (tr("Recent to %1").arg (labelTime));
     ui.bottomLabel->setText (labelText);
   }
+  if (ui.urlTable->rowCount() > 0) {
+    normalRowHeight = ui.urlTable->rowHeight (0);
+    bigRowHeight = qMin (3*normalRowHeight, ui.urlTable->size().height());
+  }
 }
 
 void
@@ -156,6 +169,30 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
   if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ShowUrls (urls);
+  }
+}
+
+void
+UrlDisplay::ActiveCell (int row, int col, int oldRow, int oldCol)
+{
+  QTableWidgetItem * item = ui.urlTable->item (row, col);
+  QTableWidgetItem * oldItem = ui.urlTable->item (oldRow, oldCol);
+  if (oldItem) {
+    ui.urlTable->setRowHeight (oldRow, normalRowHeight);
+  }
+  if (item) {
+    CellType ctype = CellType (item->data (Url_Celltype).toInt());
+    if (ctype == Cell_Desc) {
+      ui.urlTable->setRowHeight (row, bigRowHeight);
+    }
+  }
+}
+
+void
+UrlDisplay::resizeEvent (QResizeEvent * event)
+{
+  if (event) {
+    bigRowHeight = qMin (3*normalRowHeight, ui.urlTable->size().height());
   }
 }
 

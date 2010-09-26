@@ -156,6 +156,9 @@ DBManager::MakeElement (QSqlDatabase & db, const QString & element)
 bool
 DBManager::AddUrl (AradoUrl & url)
 {
+  if (!url.IsValid ()) {
+    return false;         // don't want known bad URLs in the database
+  }
   QSqlQuery transact (urlBase);
   bool started = transact.exec ("BEGIN TRANSACTION");
   if (!started) {

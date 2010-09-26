@@ -30,6 +30,8 @@ class QTableWidgetItem;
 class QAction;
 class QEvent;
 class QTimer;
+class QTextBrowser;
+class QResizeEvent;
 
 namespace arado
 {
@@ -70,9 +72,17 @@ public slots:
   void  DoSearch ();
   void  GetSearchResult (int resultid);
 
+private slots:
+
+  void ActiveCell (int row, int col, int oldRow, int oldCol);
+
 signals:
 
   void AddUrl (QString urlString);
+
+protected:
+ 
+  void resizeEvent ( QResizeEvent * event );
 
 
 private:
@@ -94,6 +104,9 @@ private:
   int               searchId;
   QString           searchData;
   QTimer           *refreshUrls;
+  int               refreshPeriod;
+  int               normalRowHeight;
+  int               bigRowHeight;
 
 };
 
