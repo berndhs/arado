@@ -56,5 +56,8 @@ Things to define:
 
 20) this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
 
+21) if the search box is empty and the search button is pressed, act like recent button and show latest results.
+
+22) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
 
 
