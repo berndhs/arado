@@ -150,7 +150,7 @@
      </column>
     </widget>
    </item>
-   <item row="2" column="6" rowspan="6" colspan="4">
+   <item row="2" column="6" rowspan="8" colspan="4">
     <widget class="QTreeWidget" name="treeWidget_2">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -172,7 +172,7 @@
      </column>
     </widget>
    </item>
-   <item row="2" column="10" rowspan="4" colspan="2">
+   <item row="2" column="10" rowspan="7" colspan="2">
     <widget class="QTreeWidget" name="treeWidget_3">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -412,7 +412,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="2">
+   <item row="8" column="0" colspan="2">
     <widget class="QLineEdit" name="addip_2">
      <property name="palette">
       <palette>
@@ -494,7 +494,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="2">
+   <item row="8" column="2">
     <widget class="QSpinBox" name="addport_2">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -580,7 +580,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="3" colspan="3">
+   <item row="8" column="3" colspan="3">
     <widget class="QPushButton" name="buttonboot_2">
      <property name="toolTip">
       <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
@@ -590,7 +590,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="3">
+   <item row="9" column="0" colspan="3">
     <widget class="QSpinBox" name="addport_3">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -676,7 +676,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="3" colspan="3">
+   <item row="9" column="3" colspan="3">
     <widget class="QPushButton" name="pushButton_3">
      <property name="toolTip">
       <string>Enter the Device-IP, the DHT will find the current IP.</string>
@@ -686,7 +686,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="3">
+   <item row="11" column="0" colspan="3">
     <widget class="QSpinBox" name="addport_5">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -772,7 +772,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="3" colspan="3">
+   <item row="11" column="3" colspan="3">
     <widget class="QPushButton" name="pushButton_4">
      <property name="toolTip">
       <string>Add DynDNS URL for any IP to the trusted Cache.</string>
@@ -782,7 +782,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="6">
+   <item row="11" column="6">
     <widget class="QPushButton" name="pushButton">
      <property name="toolTip">
       <string>Removes a trusted IP from the list.</string>
@@ -792,7 +792,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="7">
+   <item row="11" column="7">
     <widget class="QPushButton" name="pushButton_5">
      <property name="toolTip">
       <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
@@ -802,7 +802,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="8" colspan="2">
+   <item row="11" column="8" colspan="2">
     <widget class="QPushButton" name="pushButton_7">
      <property name="toolTip">
       <string>Copy your Device-ID to the clipboard</string>
@@ -812,7 +812,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="0" colspan="3">
+   <item row="12" column="0" colspan="3">
     <widget class="QSpinBox" name="addport_6">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -898,7 +898,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="3" colspan="3">
+   <item row="12" column="3" colspan="3">
     <widget class="QPushButton" name="pushButton_6">
      <property name="toolTip">
       <string>Boot with any online IPv6 Adress</string>
@@ -908,7 +908,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="6" colspan="4">
+   <item row="12" column="6" colspan="4">
     <widget class="QPushButton" name="pushButton_2">
      <property name="toolTip">
       <string>Adds an IP from recommended or episodic list to trusted list.</string>
@@ -918,34 +918,14 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="10" colspan="2">
-    <widget class="QPushButton" name="pushButton_savesettings_2">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="toolTip">
-      <string>Save current Settings.</string>
-     </property>
-     <property name="text">
-      <string>Save</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="10">
-    <widget class="QCheckBox" name="checkBox">
-     <property name="text">
-      <string>Disable Episodic Device Connections</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="10">
+   <item row="12" column="10">
     <widget class="QLabel" name="labelipcachesize_3">
      <property name="text">
       <string>IP-Cache Size:</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="11">
+   <item row="12" column="11">
     <widget class="QSpinBox" name="ipcachesize_3">
      <property name="toolTip">
       <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
@@ -958,6 +938,32 @@
      </property>
      <property name="value">
       <number>1500</number>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="10" colspan="2">
+    <widget class="QCheckBox" name="checkBox">
+     <property name="text">
+      <string>Disable Episodic Device Connections</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="10" colspan="2">
+    <widget class="QPushButton" name="pushButton_savesettings_2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Save current Settings.</string>
+     </property>
+     <property name="text">
+      <string>Save</string>
      </property>
     </widget>
    </item>
