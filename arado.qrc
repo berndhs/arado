@@ -5,6 +5,17 @@
         <file>images/viewmag.png</file>
         <file>images/kugar.png</file>
         <file>images/clock.png</file>
+        <file>images/filesaveas.png</file>
+        <file>images/back.png</file>
+        <file>images/wizard.png</file>
+        <file>images/edit_add.png</file>
+        <file>images/exit.png</file>
+        <file>images/misc.png</file>
+        <file>images/usbpendrive_unmount.png</file>
+        <file>images/cdrom_mount.png</file>
+        <file>images/usb.png</file>
+        <file>images/messagebox_info.png</file>
+        <file>images/rss.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
