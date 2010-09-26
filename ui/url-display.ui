@@ -159,7 +159,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Description</string>
+           <string>Title/Description</string>
           </property>
          </column>
          <column>
@@ -169,7 +169,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Incoming Time</string>
+           <string>Time</string>
           </property>
          </column>
         </widget>
