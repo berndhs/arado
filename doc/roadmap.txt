@@ -1,32 +1,58 @@
 Things to implement:
 
-- database of URLs  - 1 of these
+1) database of URLs  - 1 of these (DONE)
 
-- communicator to collect/send URLs  - 3 of these
+2) communicator to collect/send URLs  - 3 of these
   - testing communicator that reads from stream, writes to stream
   - direct communicator that uses TCP/SSL sockets
   - gnutella (or alternative) that uses shared database
 
-- collector that collects communicator peer addresses - 1 for each communicator
+4) collector that collects communicator peer addresses - 1 for each communicator
 
 Things to define:
 
-- address types
+5) address types
   - this is per communicator
 
-- URL data type
+6) URL data type (DONE)
   - contains:
     - URL (standard definition)
     - keyword list
     - descriptive text
     - key (sha1 or something similar)
 
-- address type, this can contain ANY type of address
+7) address type, this can contain ANY type of address
   - specific address types
     - testing stream communicator addresses
     - direct communicator addresses
     - gnutella addresses
 
-- communicator throttling mechanisms
-  - bucket algorithms for good/bad/unknown sources of data
+8)  communicator throttling mechanisms
+  - bucket algorithms for trusted/recommended/episodic sources of data
+
+9) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
+
+10) copy out of the sha1 can have the prefix "Arado-ID:"
+
+11) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
+
+12) highlighting the description cell could expand the table line hight, so that the full description can be read? does Qt allow that?
+
+13) status bar: show recent button deletes the connection info, maybe this should be added?
+
+14) about help message:  Date could be like in the table and a new line (paragraph) after the version number.
+
+15) a top pulldown menu to copy out or mail the whole line of the data entry, not only a cell
+
+16) Save button in connections/devices tab closes the tab, opening over command like settings or status bar click
+
+17) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
+
+18) Status bar shows always the connection status "30/30", as well in the recent & search results, or appears back after a few seconds
+
+19) Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
+
+
+
+
 
