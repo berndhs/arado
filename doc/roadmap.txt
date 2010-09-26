@@ -2,6 +2,8 @@ Things to implement:
 
 1) database of URLs  - 1 of these (DONE)
 
+1a) Search for 2 or more keywords.
+
 2) communicator to collect/send URLs  - 3 of these
   - testing communicator that reads from stream, writes to stream
   - direct communicator that uses TCP/SSL sockets
@@ -52,7 +54,7 @@ Things to define:
 
 19) Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
 
-
+20) this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
 
 
 
