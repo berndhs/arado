@@ -70,7 +70,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Done</string>
+      <string>Close</string>
      </property>
     </widget>
    </item>
