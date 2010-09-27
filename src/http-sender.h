@@ -23,13 +23,29 @@
  ****************************************************************/
 
 #include <QThread>
+#include <QList>
+#include <QPair>
+#include <QString>
+
+#ifndef ARADO_HTTP_THREAD
+#define ARADO_HTTP_THREAD 0
+#endif
+
+class QTcpSocket;
 
 namespace arado
 {
 
 class DBManager;
 
-class HttpSender : public QThread 
+class HttpSender
+
+#if ARADO_HTTP_THREAD
+ : public QThread 
+#else
+ : public QObject
+#endif
+
 {
 Q_OBJECT
 
@@ -37,11 +53,30 @@ public:
 
   HttpSender (int sock, QObject *parent, DBManager *dbm);
 
+#if ARADO_HTTP_THREAD
   void  run ();
+#else
+  void  start ();
+
+signals:
+  
+  void finished ();
+#endif
+
+public slots:
+
+  void  Read ();
 
 private:
 
+  void  HandleRequest (const QList < QPair <QString,QString > > & items);
+  void  ReplyRecent (int maxItems);
+  void  ReplyRange (bool useNewest, quint64 newest, 
+                    bool useOldest, quint64 oldest);
+  void  ReplyInvalid (const QString & message);
+
   int         socket;
+  QTcpSocket  *tcpSocket;
   DBManager   *db;
 };
 

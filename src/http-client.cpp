@@ -111,7 +111,7 @@ HttpClient::Poll (HttpAddress & addr)
     }
     url.setPort (addr.port);
     url.setPath ("/arado");
-    url.addQueryItem (QString ("request"),QString ("fresh"));
+    url.addQueryItem (QString ("request"),QString ("newest"));
     url.addQueryItem (QString ("count"),QString::number(1000));
     qDebug () << " network query " << url;
     network->get (QNetworkRequest (url));
