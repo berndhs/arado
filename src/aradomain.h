@@ -40,6 +40,8 @@ class ConnectionDisplay;
 class EntryForm;
 class AradoUrl;
 class Policy;
+class HttpServer;
+class HttpClient;
 
 class AradoMain : public QMainWindow
 {
@@ -80,6 +82,9 @@ private:
   EntryForm          *entryForm;
   DBManager           dbMgr;
   Policy             *policy;
+  HttpServer         *httpServer;
+  HttpClient         *httpClient;
+  QTimer             *httpPoll;
 
 };
 

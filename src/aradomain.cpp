@@ -18,6 +18,8 @@
 #include "entry-form.h"
 #include "policy.h"
 #include "search.h"
+#include "http-server.h"
+#include "http-client.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -55,7 +57,9 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    connDisplay (0),
    entryForm (0),
    dbMgr (this),
-   policy (0)
+   policy (0),
+   httpServer (0),
+   httpClient (0)
 {
   app = pa;
   mainUi.setupUi (this);
@@ -69,6 +73,9 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
   policy = new Policy (this);
+  httpServer = new HttpServer (this);
+  httpClient = new HttpClient (this);
+  httpPoll = new QTimer (this);
 }
 
 /// \brief Start the main window, initialize
@@ -81,7 +88,7 @@ AradoMain::Start ()
       QSize defaultSize = size ();
       QSize newSize = Settings().value ("sizes/main", defaultSize).toSize();
       resize (newSize);
-    }
+    }//
     Connect ();
     dbMgr.Start ();
     setupDone = true;
@@ -90,6 +97,22 @@ AradoMain::Start ()
     }
   }
   show ();
+  if (httpServer) {
+    httpServer->SetDB (&dbMgr);
+    httpServer->Start ();
+  }
+  if (httpPoll && httpClient) {
+    httpPoll->start (5*60*1000);
+    httpClient->AddServer (
+                  QHostAddress("2001:4830:1135:1:250:baff:fe18:fce6")
+                  ,80);
+    httpClient->AddServer (
+                  QHostAddress ("178.77.66.196")
+                  ,80);
+    httpClient->AddServer (QUrl ("http://bernd.reflective-computing.com"),
+                  80);
+    httpClient->Poll ();
+  }
 }
 
 void
@@ -118,6 +141,9 @@ AradoMain::Connect ()
   if (urlDisplay) {
     connect (urlDisplay, SIGNAL (AddUrl(QString)),
              this, SLOT (DoEntry (QString)));
+  }
+  if (httpClient && httpPoll) {
+    connect (httpPoll, SIGNAL (triggered()), httpClient, SLOT (Poll()));
   }
 }
 
@@ -194,6 +220,10 @@ AradoMain::DoneConfigEdit (bool saved)
       qDebug () << " Settings editor saved, should reload settings";
       dbMgr.Close ();
       dbMgr.Start ();
+      if (httpServer) {
+        httpServer->Stop ();
+        httpServer->Start ();
+      }
     }
   }
 }
