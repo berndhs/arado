@@ -125,6 +125,7 @@ HttpClient::HandleReply (QNetworkReply * reply)
   QStringList replyMsg;
   replyMsg << QString ("Network Reply");
   replyMsg << QString ("URL %1").arg(reply->url().toString());
+  replyMsg << QString ("remote port %1").arg(reply->url().port());
   replyMsg << QString ("error %1").arg (reply->error());
   QList <QNetworkReply::RawHeaderPair>  hdrs = reply->rawHeaderPairs();
   for (int i=0; i<hdrs.size (); i++) {
