@@ -160,6 +160,7 @@ void
 HttpSender::ReplyInvalid (const QString & message)
 {
   QTextStream ostream (tcpSocket);
+  ostream.setAutoDetectUnicode (true);
   QStringList lines;
   lines << "HTTP/1.0 400 Bad\r\n";
   lines << "\r\n";
@@ -183,7 +184,18 @@ HttpSender::ReplyRange (bool useNewest, quint64 newest,
 void
 HttpSender::ReplyRecent (int maxItems)
 {
-  ReplyInvalid (QString ("Later Today"));
+  QTextStream ostream (tcpSocket);
+  ostream.setAutoDetectUnicode (true);
+  QStringList lines;
+  lines << "HTTP/1.0 200 Ok\r\n";
+  lines << "\r\n";
+  lines << "Content-Type: text/<xml>; charset=\"utf-8\"\r\n";
+  lines << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  lines << "<arado>\r\n";
+  lines << "</arado>\r\n";
+  qDebug () << " sending GOOD reply " << lines;
+  ostream << lines.join ("");
+  tcpSocket->flush ();
 }
 
 
