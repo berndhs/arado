@@ -85,6 +85,7 @@ public:
   int AddServer (const QHostAddress & addr, quint16 port=80);
   int AddServer (const QUrl & serverUrl, quint16 port=80);
   void DropServer (int server);
+  void DropAllServers ();
   void PollServer (int server);
 
 public slots:

@@ -24,8 +24,10 @@
  ****************************************************************/
 
 #include "http-server.h"
-#include <QTcpServer>
 #include "deliberate.h"
+#include "db-manager.h"
+#include "http-sender.h"
+#include <QTcpServer>
 
 using namespace deliberate;
 
@@ -33,8 +35,8 @@ namespace arado
 {
 
 HttpServer::HttpServer (QObject *parent)
-  :QObject (parent),
-   serverAddr ("localhost"),
+  :QTcpServer (parent),
+   serverAddrString ("localhost"),
    serverPort (80),
    runServer (false),
    running (false),
@@ -47,12 +49,12 @@ HttpServer::Start ()
 {
   runServer = Settings().value ("http/run",runServer).toBool ();
   Settings().setValue ("http/run",runServer);
-  serverAddr = Settings().value ("http/address",serverAddr).toString();
-  Settings().setValue ("http/address",serverAddr);
+  serverAddrString = Settings().value ("http/address",serverAddrString).toString();
+  Settings().setValue ("http/address",serverAddrString);
   serverPort = Settings().value ("http/port",serverPort).toUInt();
   Settings().setValue ("http/port",serverPort);
   if (runServer) {
-    Listen (QHostAddress (serverAddr), serverPort);
+    Listen (QHostAddress (serverAddrString), serverPort);
   }
   return false;
 }
@@ -65,11 +67,20 @@ HttpServer::Stop ()
 
 bool
 HttpServer::Listen (const QHostAddress & address, 
-                          quint16)
+                          quint16 port)
 {
-  running = false;
-  return false;
+  running = listen (address, port);
+  return running;
 }
+
+void
+HttpServer::incomingConnection (int sock)
+{
+  HttpSender * sender = new HttpSender (sock, this, db);
+  connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
+  sender->start ();
+}
+
 
 } // namespace
 

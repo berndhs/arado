@@ -71,6 +71,10 @@ public slots:
 private:
 
   void  Connect ();
+  void  StartServers ();
+  void  StartClients ();
+  void  StopServers ();
+  void  StopClients ();
 
   Ui_AradoWin         mainUi;
   QApplication       *app;

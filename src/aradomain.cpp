@@ -97,23 +97,54 @@ AradoMain::Start ()
     }
   }
   show ();
+  StartServers ();
+  StartClients ();
+}
+
+void
+AradoMain::StartServers ()
+{
   if (httpServer) {
     httpServer->SetDB (&dbMgr);
     httpServer->Start ();
   }
+}
+
+void
+AradoMain::StopServers ()
+{
+  if (httpServer) {
+    httpServer->Stop ();
+  }
+}
+
+void
+AradoMain::StartClients ()
+{
   if (httpPoll && httpClient) {
     connect (httpPoll, SIGNAL (timeout()),
              httpClient, SLOT (Poll()));
     httpPoll->start (2*60*1000);
     httpClient->AddServer (
                   QHostAddress("2001:4830:1135:1:250:baff:fe18:fce6")
-                  ,80);
+                  ,29998);
     httpClient->AddServer (
                   QHostAddress ("178.77.66.196")
                   ,80);
     httpClient->AddServer (QUrl ("http://bernd.reflective-computing.com"),
-                  80);
+                  29998);
     httpClient->Poll ();
+  }
+}
+
+void
+AradoMain::StopClients ()
+{
+  if (httpPoll) {
+    httpPoll->stop ();
+  }
+  if (httpClient) {
+    httpClient->DropAllServers ();
   }
 }
 
@@ -222,10 +253,10 @@ AradoMain::DoneConfigEdit (bool saved)
       qDebug () << " Settings editor saved, should reload settings";
       dbMgr.Close ();
       dbMgr.Start ();
-      if (httpServer) {
-        httpServer->Stop ();
-        httpServer->Start ();
-      }
+      StopServers ();
+      StopClients ();
+      StartServers ();
+      StartClients ();
     }
   }
 }

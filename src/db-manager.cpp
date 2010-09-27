@@ -150,7 +150,6 @@ DBManager::MakeElement (QSqlDatabase & db, const QString & element)
   QSqlQuery query (db);
   query.prepare (cmd);
   query.exec ();
-  qDebug () << " tried to make " << cmd ;
 }
 
 bool
@@ -238,12 +237,10 @@ DBManager::ReadKeywords (const QString & hash, QStringList & list)
                          " where hashid = \"%1\"").arg (hash);
   bool ok = select.exec (cmd);
   QString word;
-qDebug ()<< " keyword search " << ok << " cmd " << cmd;
   while (ok && select.next()) {
     word = select.value(0).toString();
     list.append (word);
   }
-qDebug () << " keywords for " << hash << " are " << list;
   return ok;
 }
 

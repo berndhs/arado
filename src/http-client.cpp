@@ -83,6 +83,12 @@ HttpClient::DropServer (int server)
 }
 
 void
+HttpClient::DropAllServers ()
+{
+  servers.clear ();
+}
+
+void
 HttpClient::Poll ()
 {
   ServerMap::iterator sit;
@@ -116,9 +122,6 @@ void
 HttpClient::HandleReply (QNetworkReply * reply)
 {
   qDebug () << " network reply " << reply;
-  qDebug () << " reply from " << reply->url ();
-  qDebug () << " reply error " << reply->error ();
-  qDebug () << " reply raw header list " << reply->rawHeaderPairs ();
   QStringList replyMsg;
   replyMsg << QString ("Network Reply");
   replyMsg << QString ("URL %1").arg(reply->url().toString());
@@ -130,6 +133,7 @@ HttpClient::HandleReply (QNetworkReply * reply)
                       .arg (QString (hdrs[i].second)));
     replyMsg << hdrLine;                    
   }
+  qDebug () << replyMsg;
   QMessageBox box;
   box.setText (replyMsg.join ("\n"));
   QTimer::singleShot (15000, &box, SLOT (accept()));

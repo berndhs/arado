@@ -22,15 +22,16 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#include <QObject>
+#include <QTcpServer>
 #include <QHostAddress>
+#include <QString>
 
 namespace arado
 {
 
 class DBManager;
 
-class HttpServer : public QObject
+class HttpServer : public QTcpServer
 {
 Q_OBJECT
 
@@ -44,16 +45,21 @@ public:
   bool Stop ();
   bool Running () { return running; }
 
-  bool Listen ( const QHostAddress & address = QHostAddress::Any, 
-                quint16 port = 0 );
+protected:
+
+  void incomingConnection(int sock);
 
 private:
 
-  QString     serverAddr;
-  quint16     serverPort;
-  bool        runServer;
-  bool        running;
-  DBManager  *db;
+  bool Listen ( const QHostAddress & address = QHostAddress::Any, 
+                quint16 port = 0 );
+
+
+  QString        serverAddrString;
+  quint16        serverPort;
+  bool           runServer;
+  bool           running;
+  DBManager     *db;
 
 };
 

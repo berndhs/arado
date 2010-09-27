@@ -70,6 +70,7 @@ HEADERS		=	src/aradomain.h \
                    src/search.h \
                    src/http-server.h \
                    src/http-client.h \
+                   src/http-sender.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -94,6 +95,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/search.cpp \
                    src/http-server.cpp \
                    src/http-client.cpp \
+                   src/http-sender.cpp \
 
 
 TARGET		= bin/arado
