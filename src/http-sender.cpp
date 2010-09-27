@@ -116,7 +116,7 @@ HttpSender::Read ()
 #if ARADO_HTTP_THREAD
 
 #else
-  emit finished ();
+ // emit finished ();
 #endif
 }
 
@@ -162,7 +162,7 @@ HttpSender::ReplyInvalid (const QString & message)
   QTextStream ostream (tcpSocket);
   ostream.setAutoDetectUnicode (true);
   QStringList lines;
-  lines << "HTTP/1.0 400 Bad\r\n";
+  lines << "HTTP/1.1 400 Bad\r\n";
   lines << "\r\n";
   lines << "Content-Type: text/html\n";
   lines << "Connection: close\n";
@@ -172,6 +172,7 @@ HttpSender::ReplyInvalid (const QString & message)
   qDebug () << " sending error message " << lines;
   ostream << lines.join ("");
   tcpSocket->flush ();
+  tcpSocket->close ();
 }
 
 void
@@ -187,15 +188,26 @@ HttpSender::ReplyRecent (int maxItems)
   QTextStream ostream (tcpSocket);
   ostream.setAutoDetectUnicode (true);
   QStringList lines;
-  lines << "HTTP/1.0 200 Ok\r\n";
+  lines << "HTTP/1.1 200 OK\r\n";
   lines << "\r\n";
-  lines << "Content-Type: text/<xml>; charset=\"utf-8\"\r\n";
+  lines << "Connection: close\r\n";
+  lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
+  lines << "\r\n";
   lines << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
   lines << "<arado>\r\n";
+  lines << "<aradourl>\n";
+  lines << "<hash>c1b8dd6da1aeec60aa2fbec7655dfd726ee45acf</hash>\n";
+  lines << "<url>http://www.meego.com</url>\n";
+  lines << "<keyword>automotive</keyword>\n";
+  lines << "<keyword>linux</keyword>\n";
+  lines << "<keyword>mobile</keyword>\n";
+  lines << "<description>Meego Stuff, a little more free than iphone and android but not much</description>\n";
+  lines << "</aradourl>\n";
   lines << "</arado>\r\n";
-  qDebug () << " sending GOOD reply " << lines;
+  qDebug () << " sending GOOD reply " << lines.join ("");
   ostream << lines.join ("");
   tcpSocket->flush ();
+  tcpSocket->close ();
 }
 
 

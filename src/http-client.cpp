@@ -113,8 +113,10 @@ HttpClient::Poll (HttpAddress & addr)
     url.setPath ("/arado");
     url.addQueryItem (QString ("request"),QString ("recent"));
     url.addQueryItem (QString ("count"),QString::number(1000));
+    QNetworkRequest  req (url);
+    req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
     qDebug () << " network query " << url;
-    network->get (QNetworkRequest (url));
+    network->get (req);
   }
 }
 
@@ -126,13 +128,18 @@ HttpClient::HandleReply (QNetworkReply * reply)
   replyMsg << QString ("Network Reply");
   replyMsg << QString ("URL %1").arg(reply->url().toString());
   replyMsg << QString ("remote port %1").arg(reply->url().port());
-  replyMsg << QString ("error %1").arg (reply->error());
+  int err = reply->error ();
+  replyMsg << QString ("error %1").arg (err);
   QList <QNetworkReply::RawHeaderPair>  hdrs = reply->rawHeaderPairs();
   for (int i=0; i<hdrs.size (); i++) {
     QString hdrLine (QString ("%1 => %2")
                       .arg (QString (hdrs[i].first))
                       .arg (QString (hdrs[i].second)));
     replyMsg << hdrLine;                    
+  }
+  if (err == 0) {
+    QByteArray data = reply->readAll ();
+    replyMsg << data;
   }
   qDebug () << replyMsg;
   QMessageBox box;

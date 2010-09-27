@@ -69,8 +69,9 @@ bool
 HttpServer::Listen (const QHostAddress & address, 
                           quint16 port)
 {
-  running = listen (address, port);
-  return running;
+  bool ok = listen (address, port);
+  running |= ok;
+  return ok;
 }
 
 void

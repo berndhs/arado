@@ -133,7 +133,7 @@ AradoMain::StartClients ()
                   ,80);
     httpClient->AddServer (QUrl ("http://bernd.reflective-computing.com"),
                   29998);
-    httpClient->Poll ();
+    QTimer::singleShot (3000, httpClient, SLOT (Poll()));
   }
 }
 

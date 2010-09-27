@@ -44,6 +44,8 @@ public:
   bool Start ();
   bool Stop ();
   bool Running () { return running; }
+  bool Listen ( const QHostAddress & address = QHostAddress::Any, 
+                quint16 port = 0 );
 
 protected:
 
@@ -51,8 +53,6 @@ protected:
 
 private:
 
-  bool Listen ( const QHostAddress & address = QHostAddress::Any, 
-                quint16 port = 0 );
 
 
   QString        serverAddrString;
