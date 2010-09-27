@@ -24,6 +24,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QMessageBox>
+#include <QTimer>
 
 namespace arado
 {
@@ -131,6 +132,7 @@ HttpClient::HandleReply (QNetworkReply * reply)
   }
   QMessageBox box;
   box.setText (replyMsg.join ("\n"));
+  QTimer::singleShot (15000, &box, SLOT (accept()));
   box.exec ();
 }
 

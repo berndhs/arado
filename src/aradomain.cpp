@@ -102,7 +102,9 @@ AradoMain::Start ()
     httpServer->Start ();
   }
   if (httpPoll && httpClient) {
-    httpPoll->start (5*60*1000);
+    connect (httpPoll, SIGNAL (timeout()),
+             httpClient, SLOT (Poll()));
+    httpPoll->start (2*60*1000);
     httpClient->AddServer (
                   QHostAddress("2001:4830:1135:1:250:baff:fe18:fce6")
                   ,80);
