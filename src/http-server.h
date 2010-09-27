@@ -54,7 +54,6 @@ protected:
 private:
 
 
-
   QString        serverAddrString;
   quint16        serverPort;
   bool           runServer;

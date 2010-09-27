@@ -162,7 +162,7 @@ HttpSender::ReplyInvalid (const QString & message)
   QTextStream ostream (tcpSocket);
   ostream.setAutoDetectUnicode (true);
   QStringList lines;
-  lines << "HTTP/1.1 400 Bad\r\n";
+  lines << "HTTP/1.0 400 Bad\r\n";
   lines << "\r\n";
   lines << "Content-Type: text/html\n";
   lines << "Connection: close\n";
