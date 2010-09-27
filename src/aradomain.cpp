@@ -149,17 +149,6 @@ AradoMain::StopClients ()
 }
 
 void
-AradoMain::StopClients ()
-{
-  if (httpPoll) {
-    httpPoll->stop ();
-  }
-  if (httpClient) {
-    httpClient->DropAllServers ();
-  }
-}
-
-void
 AradoMain::Connect ()
 {
   connect (mainUi.actionExit, SIGNAL (triggered ()), this, SLOT (Quit ()));
