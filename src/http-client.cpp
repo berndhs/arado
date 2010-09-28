@@ -20,9 +20,12 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 #include "http-client.h"
+#include "arado-stream-parser.h"
+#include "policy.h"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QIODevice>
 #include <QMessageBox>
 #include <QTimer>
 
@@ -32,6 +35,7 @@ namespace arado
 HttpClient::HttpClient (QObject *parent)
   :QObject (parent),
    db(0),
+   policy (0),
    nextServer (1),
    network (0)
 {
@@ -44,6 +48,12 @@ void
 HttpClient::SetDB (DBManager * dbm)
 {
   db = dbm;
+}
+
+void
+HttpClient::SetPolicy (Policy * pol)
+{
+  policy = pol;
 }
 
 int
@@ -112,7 +122,7 @@ HttpClient::Poll (HttpAddress & addr)
     url.setPort (addr.port);
     url.setPath ("/arado");
     url.addQueryItem (QString ("request"),QString ("recent"));
-    url.addQueryItem (QString ("count"),QString::number(1000));
+    url.addQueryItem (QString ("count"),QString::number(20));
     QNetworkRequest  req (url);
     req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
     qDebug () << " network query " << url;
@@ -138,14 +148,41 @@ HttpClient::HandleReply (QNetworkReply * reply)
     replyMsg << hdrLine;                    
   }
   if (err == 0) {
-    QByteArray data = reply->readAll ();
-    replyMsg << data;
+    AradoStreamParser parser;
+    SkipWhite (reply);
+    parser.SetInDevice (reply, false);
+    AradoUrlList urls = parser.ReadAradoUrlList ();
+qDebug () << " got " << urls.size() << " URLs in message ";
+    AradoUrlList::iterator  cuit;
+    if (db) {
+      for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
+        if (policy) {
+          policy->AddUrl (*db, *cuit);
+        } else {
+          db->AddUrl (*cuit);
+        }
+      }
+    }
   }
   qDebug () << replyMsg;
   QMessageBox box;
   box.setText (replyMsg.join ("\n"));
   QTimer::singleShot (15000, &box, SLOT (accept()));
   box.exec ();
+}
+
+void
+HttpClient::SkipWhite (QIODevice *dev)
+{
+  char w (' ');
+  bool ok = dev->getChar (&w);
+  while (ok && (w == ' ' || w == '\n' || w == '\t')) {
+    ok = dev->getChar (&w);
+  }
+  if (!(w == ' ' || w == '\n' || w == '\t')) {
+    dev->ungetChar (w);
+  }
+
 }
 
 

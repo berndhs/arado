@@ -78,11 +78,9 @@ FileComm::Open (QString filename, QIODevice::OpenMode mode)
   fileBuf.setFileName (filename);
   bool  open = fileBuf.open (mode);
   if (fileBuf.isWritable()) {
-    xmlout.setDevice (&fileBuf);
-    xmlout.setAutoFormatting (true);
-    xmlout.setAutoFormattingIndent (1);
+    parser.SetOutDevice (&fileBuf);
   } else if (fileBuf.isReadable()) {
-    parser.SetDevice (&fileBuf);
+    parser.SetInDevice (&fileBuf);
     restartHere = fileBuf.pos ();
   } else {
     return false;
@@ -100,23 +98,7 @@ void
 FileComm::Write (const AradoUrl & url, bool isPartial)
 {
   if (fileBuf.isWritable ()) {
-    if (!isPartial) {
-      xmlout.writeStartDocument ();
-      xmlout.writeStartElement ("arado");
-    }
-    xmlout.writeStartElement ("aradourl");
-    xmlout.writeTextElement ("hash",url.Hash());
-    xmlout.writeTextElement ("url",url.Url().toString());
-    QStringList kws = url.Keywords ();
-    for (int k=0; k< kws.size(); k++) {
-      xmlout.writeTextElement ("keyword",kws.at(k));
-    }
-    xmlout.writeTextElement ("description",url.Description());
-    xmlout.writeEndElement (); // aradourl
-    if (!isPartial) {
-      xmlout.writeEndElement (); // arado
-      xmlout.writeEndDocument ();
-    }
+    parser.Write (url, isPartial);
   }
 }
 
@@ -124,13 +106,7 @@ void
 FileComm::Write (const AradoUrlList & list)
 {
   if (fileBuf.isWritable ()) {
-    xmlout.writeStartDocument ();
-    xmlout.writeStartElement ("arado");
-    for (int i=0;i<list.size();i++) {
-      Write (list.at(i), true);
-    }
-    xmlout.writeEndElement (); // arado
-    xmlout.writeEndDocument ();
+    parser.Write (list);
   }
 }
 
@@ -141,7 +117,7 @@ qDebug () << " +++ Before Read pos " << fileBuf.pos();
   AradoUrlList urlList;
   if (fileBuf.isReadable()) {
     fileBuf.SkipWhite ();
-    parser.SetDevice (&fileBuf);
+    parser.SetInDevice (&fileBuf);
     urlList = parser.ReadAradoUrlList ();
   }
   return urlList;

@@ -31,9 +31,12 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QIODevice;
 
 namespace arado
 {
+
+class Policy;
 
 class HttpAddress {
 public:
@@ -81,6 +84,7 @@ public:
   HttpClient (QObject *parent = 0);
 
   void SetDB (DBManager * dbm);
+  void SetPolicy (Policy * pol);
   
   int AddServer (const QHostAddress & addr, quint16 port=80);
   int AddServer (const QUrl & serverUrl, quint16 port=80);
@@ -99,10 +103,12 @@ private slots:
 private:
 
   void Poll (HttpAddress & addr);
+  void SkipWhite (QIODevice *dev);
 
   typedef std::map <int, HttpAddress>  ServerMap;
 
   DBManager   *db;
+  Policy      *policy;
 
   ServerMap   servers;
   int         nextServer;

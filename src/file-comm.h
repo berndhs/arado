@@ -57,7 +57,6 @@ private:
 
 
   FileBuffer        fileBuf;
-  QXmlStreamWriter  xmlout;
   AradoStreamParser parser;
   int               restartHere;
 

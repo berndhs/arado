@@ -54,11 +54,22 @@ AradoStreamParser::AradoStreamParser ()
 }
 
 void
-AradoStreamParser::SetDevice (QIODevice * dev)
+AradoStreamParser::SetInDevice (QIODevice * dev, bool clear)
 {
-  xmlin.clear ();
+  if (clear) {
+    xmlin.clear ();
+  }
   xmlin.setDevice (dev);
 }
+
+void
+AradoStreamParser::SetOutDevice (QIODevice * dev)
+{
+  xmlout.setDevice (dev);
+  xmlout.setAutoFormatting (true);
+  xmlout.setAutoFormattingIndent (1);
+}
+
 
 AradoUrlList
 AradoStreamParser::ReadAradoUrlList ()
@@ -221,6 +232,44 @@ AradoStreamParser::ReadToken (QXmlStreamReader & xmlin)
   return tok;
 }
 
+
+void
+AradoStreamParser::Write (const AradoUrl & url, bool isPartial)
+{
+  if (xmlout.device()->isWritable ()) {
+    if (!isPartial) {
+      xmlout.writeStartDocument ();
+      xmlout.writeStartElement ("arado");
+    }
+    xmlout.writeStartElement ("aradourl");
+    xmlout.writeTextElement ("hash",url.Hash());
+    xmlout.writeTextElement ("url",url.Url().toString());
+    QStringList kws = url.Keywords ();
+    for (int k=0; k< kws.size(); k++) {
+      xmlout.writeTextElement ("keyword",kws.at(k));
+    }
+    xmlout.writeTextElement ("description",url.Description());
+    xmlout.writeEndElement (); // aradourl
+    if (!isPartial) {
+      xmlout.writeEndElement (); // arado
+      xmlout.writeEndDocument ();
+    }
+  }
+}
+
+void
+AradoStreamParser::Write (const AradoUrlList & list)
+{
+  if (xmlout.device()->isWritable ()) {
+    xmlout.writeStartDocument ();
+    xmlout.writeStartElement ("arado");
+    for (int i=0;i<list.size();i++) {
+      Write (list.at(i), true);
+    }
+    xmlout.writeEndElement (); // arado
+    xmlout.writeEndDocument ();
+  }
+}
 
 } // namespace
 

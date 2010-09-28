@@ -125,13 +125,12 @@ AradoMain::StartClients ()
     connect (httpPoll, SIGNAL (timeout()),
              httpClient, SLOT (Poll()));
     httpPoll->start (2*60*1000);
-    httpClient->AddServer (
-                  QHostAddress("2001:4830:1135:1:250:baff:fe18:fce6")
-                  ,29998);
+    httpClient->SetDB (&dbMgr);
+    httpClient->SetPolicy (policy);
     httpClient->AddServer (
                   QHostAddress ("178.77.66.196")
                   ,80);
-    httpClient->AddServer (QUrl ("http://bernd.reflective-computing.com"),
+    httpClient->AddServer (QUrl ("http://barbados.reflective-computing.com"),
                   29998);
     QTimer::singleShot (3000, httpClient, SLOT (Poll()));
   }

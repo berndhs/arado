@@ -25,6 +25,7 @@
 
 #include "http-sender.h"
 #include "db-manager.h"
+#include "arado-stream-parser.h"
 #include <QTcpSocket>
 #include <QByteArray>
 #include <QHostAddress>
@@ -85,6 +86,13 @@ HttpSender::Read ()
   qDebug () << " socket state " << tcpSocket->state ();
   qDebug () << " bytes available " << tcpSocket->bytesAvailable ();
   qDebug () << " open mode " << tcpSocket->openMode ();
+  QHostAddress us = tcpSocket->localAddress ();
+  QHostAddress them = tcpSocket->peerAddress ();
+  if (0 && us == them) {
+    qDebug () << " talking to myself, WILL NOT reply";
+    tcpSocket->close ();
+    return; 
+  }
   QByteArray msgBytes = tcpSocket->read (1024);
   QString  request (msgBytes);
   qDebug () << " Sender Thread incoming message " << msgBytes;
@@ -163,9 +171,9 @@ HttpSender::ReplyInvalid (const QString & message)
   ostream.setAutoDetectUnicode (true);
   QStringList lines;
   lines << "HTTP/1.0 400 Bad\r\n";
+  lines << "Connection: close\r\n";
+  lines << "Content-Type: text/html\r\n";
   lines << "\r\n";
-  lines << "Content-Type: text/html\n";
-  lines << "Connection: close\n";
   lines << message;
   lines << "\r\n";
   lines << QDateTime::currentDateTime().toString () << "\n";
@@ -185,27 +193,17 @@ HttpSender::ReplyRange (bool useNewest, quint64 newest,
 void
 HttpSender::ReplyRecent (int maxItems)
 {
-  QTextStream ostream (tcpSocket);
-  ostream.setAutoDetectUnicode (true);
   QStringList lines;
   lines << "HTTP/1.1 200 OK\r\n";
-  lines << "\r\n";
   lines << "Connection: close\r\n";
   lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
   lines << "\r\n";
-  lines << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-  lines << "<arado>\r\n";
-  lines << "<aradourl>\n";
-  lines << "<hash>c1b8dd6da1aeec60aa2fbec7655dfd726ee45acf</hash>\n";
-  lines << "<url>http://www.meego.com</url>\n";
-  lines << "<keyword>automotive</keyword>\n";
-  lines << "<keyword>linux</keyword>\n";
-  lines << "<keyword>mobile</keyword>\n";
-  lines << "<description>Meego Stuff, a little more free than iphone and android but not much</description>\n";
-  lines << "</aradourl>\n";
-  lines << "</arado>\r\n";
   qDebug () << " sending GOOD reply " << lines.join ("");
-  ostream << lines.join ("");
+  tcpSocket->write (lines.join("").toUtf8());
+  AradoUrlList urls = db->GetRecent (maxItems);
+  AradoStreamParser parse;
+  parse.SetOutDevice (tcpSocket);
+  parse.Write (urls);
   tcpSocket->flush ();
   tcpSocket->close ();
 }
