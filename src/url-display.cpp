@@ -164,6 +164,13 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
 }
 
 void
+UrlDisplay::UrlsAdded (int numAdded)
+{
+  QString labelText (tr("%1 URLs added from network").arg (numAdded));
+  ui.bottomLabel->setText (labelText);
+}
+
+void
 UrlDisplay::ShowRecent (int howmany, bool whenHidden)
 {
   if (db && !locked && (whenHidden || isVisible ())) {

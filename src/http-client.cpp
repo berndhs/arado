@@ -153,15 +153,23 @@ HttpClient::HandleReply (QNetworkReply * reply)
     parser.SetInDevice (reply, false);
     AradoUrlList urls = parser.ReadAradoUrlList ();
 qDebug () << " got " << urls.size() << " URLs in message ";
+    int numAdded (0);
+    bool added (false);
     AradoUrlList::iterator  cuit;
     if (db) {
       for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
         if (policy) {
-          policy->AddUrl (*db, *cuit);
+          added = policy->AddUrl (*db, *cuit);
         } else {
-          db->AddUrl (*cuit);
+          added = db->AddUrl (*cuit);
+        }
+        if (added) {
+          numAdded++;
         }
       }
+    }
+    if (numAdded > 0) {
+      emit AddedUrls (numAdded);
     }
   }
   qDebug () << replyMsg;

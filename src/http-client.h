@@ -100,6 +100,10 @@ private slots:
 
   void HandleReply (QNetworkReply * reply);
 
+signals:
+
+  void AddedUrls (int numAdded);
+
 private:
 
   void Poll (HttpAddress & addr);

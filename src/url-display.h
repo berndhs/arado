@@ -71,6 +71,7 @@ public slots:
   void  OpenUrl ();
   void  DoSearch ();
   void  GetSearchResult (int resultid);
+  void  UrlsAdded (int numAdded);
 
 private slots:
 

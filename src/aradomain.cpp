@@ -59,7 +59,9 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    dbMgr (this),
    policy (0),
    httpServer (0),
-   httpClient (0)
+   httpClient (0),
+   httpPoll (0),
+   httpDefaultPort (29998)
 {
   app = pa;
   mainUi.setupUi (this);
@@ -128,10 +130,13 @@ AradoMain::StartClients ()
     httpClient->SetDB (&dbMgr);
     httpClient->SetPolicy (policy);
     httpClient->AddServer (
+                  QHostAddress ("2001:4830:1135:1:250:baff:fe18:fce6"),
+                  httpDefaultPort);
+    httpClient->AddServer (
                   QHostAddress ("178.77.66.196")
                   ,80);
     httpClient->AddServer (QUrl ("http://barbados.reflective-computing.com"),
-                  29998);
+                  httpDefaultPort);
     QTimer::singleShot (3000, httpClient, SLOT (Poll()));
   }
 }
@@ -173,6 +178,10 @@ AradoMain::Connect ()
   if (urlDisplay) {
     connect (urlDisplay, SIGNAL (AddUrl(QString)),
              this, SLOT (DoEntry (QString)));
+    if (httpClient) {
+      connect (httpClient, SIGNAL (AddedUrls (int)),
+               urlDisplay, SLOT (UrlsAdded (int)));
+    }
   }
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (triggered()), httpClient, SLOT (Poll()));

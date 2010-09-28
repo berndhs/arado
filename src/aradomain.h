@@ -89,6 +89,7 @@ private:
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;
+  int                 httpDefaultPort;
 
 };
 
