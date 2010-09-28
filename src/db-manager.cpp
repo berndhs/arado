@@ -217,7 +217,7 @@ DBManager::AddUrlTimestamp (const QString & hash, quint64 & ts)
   QDateTime now = QDateTime::currentDateTime();
   quint64 secs = now.toTime_t();
   QSqlQuery  stamp (urlBase);
-  QString cmd ("insert or replace into timestamps "
+  QString cmd ("insert into timestamps "
                " (hashid, incoming) "
                " values (?, ?)");
   stamp.prepare (cmd);

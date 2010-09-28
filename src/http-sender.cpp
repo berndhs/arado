@@ -88,8 +88,7 @@ HttpSender::Read ()
   qDebug () << " open mode " << tcpSocket->openMode ();
   QHostAddress us = tcpSocket->localAddress ();
   QHostAddress them = tcpSocket->peerAddress ();
-  if (0 && us == them) {
-    qDebug () << " talking to myself, WILL NOT reply";
+  if (us == them) {
     tcpSocket->close ();
     return; 
   }

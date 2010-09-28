@@ -166,7 +166,8 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
 void
 UrlDisplay::UrlsAdded (int numAdded)
 {
-  QString labelText (tr("%1 URLs added from network").arg (numAdded));
+  QString labelText = tr("Network update at %1")
+                       .arg(QDateTime::currentDateTime().toString("hh:mm:ss"));
   ui.bottomLabel->setText (labelText);
 }
 
