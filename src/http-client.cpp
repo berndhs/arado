@@ -165,10 +165,6 @@ qDebug () << " got " << urls.size() << " URLs in message ";
     }
   }
   qDebug () << replyMsg;
-  QMessageBox box;
-  box.setText (replyMsg.join ("\n"));
-  QTimer::singleShot (15000, &box, SLOT (accept()));
-  box.exec ();
 }
 
 void
