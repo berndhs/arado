@@ -154,7 +154,7 @@ HttpClient::HandleReply (QNetworkReply * reply)
     AradoUrlList urls = parser.ReadAradoUrlList ();
 qDebug () << " got " << urls.size() << " URLs in message ";=
     int numAdded (0);
-    bool added (false);=
+    bool added (false);
     AradoUrlList::iterator  cuit;
     if (db) {
       for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
