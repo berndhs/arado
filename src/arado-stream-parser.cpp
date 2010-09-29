@@ -148,27 +148,6 @@ AradoStreamParser::ParseControlMsg (ControlMessage & msg,
 }
 
 bool
-AradoStreamParser::ParseControlMsg (ControlMessage & msg, 
-                                   QXmlStreamReader & xmlin)
-{
-  QXmlStreamReader::TokenType tok = ReadToken (xmlin);
-  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
-  bool ok (false);
-  if (tok == QXmlStreamReader::StartElement) {
-    QString tag = xmlin.name ().toString();
-    if (tag.toLower() == "arado") {
-      tok = SkipWhite (xmlin);  
-      if (tok == QXmlStreamReader::StartElement
-          && xmlin.name() == QString("ctl")) {
-        ok = ParseControlContent (msg, xmlin);
-      }
-    }
-  }
-  SkipWhite (xmlin);
-  return ok;
-}
-
-bool
 AradoStreamParser::ParseControlContent (ControlMessage & msg,
                                        QXmlStreamReader & xmlin)
 {
