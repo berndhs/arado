@@ -129,7 +129,9 @@ HttpClient::Poll (HttpAddress & addr)
     req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
     req.setRawHeader ("User-Agent", "Arado/0.1");
     qDebug () << " network query " << req.url();
-    network->get (req);
+    QNetworkReply * reply;
+    reply = network->get (req);
+    requestWait.append (reply);
 
     offerUrl.addQueryItem (QString ("offer"),QString ("data"));
     offerUrl.addQueryItem (QString ("type"),QString ("URL"));
@@ -137,12 +139,40 @@ HttpClient::Poll (HttpAddress & addr)
     offer.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
     offer.setRawHeader ("User-Agent", "Arado/0.1");
     qDebug () << " offer query " << offer.url();
-    network->get (offer);
+    reply = network->get (offer);
+    offerWait.append (reply);
   }
 }
 
 void
 HttpClient::HandleReply (QNetworkReply * reply)
+{
+  if (requestWait.contains (reply)) {
+    requestWait.removeAll (reply);
+    ProcessRequestReply (reply);
+  } else if (offerWait.contains (reply)) {
+    offerWait.removeAll (reply);
+    ProcessOfferReply (reply);
+  } else {
+    reply->deleteLater ();
+  }
+}
+
+void
+HttpClient::ProcessOfferReply (QNetworkReply * reply)
+{
+  QMessageBox box;
+  QByteArray msgBytes = reply->readAll();
+  QString msg ("Offer Reply body\n");
+  msg.append (QString (msgBytes));
+  box.setText (msg);
+  box.exec ();
+  reply->deleteLater();
+}
+
+
+void
+HttpClient::ProcessRequestReply (QNetworkReply * reply)
 {
   qDebug () << " network reply " << reply;
   QStringList replyMsg;
@@ -184,6 +214,7 @@ qDebug () << " got " << urls.size() << " URLs in message ";=
     }
   }
   qDebug () << replyMsg;
+  reply->deleteLater ();
 }
 
 void

@@ -25,6 +25,7 @@
 
 #include <QObject>
 #include <QHostAddress>
+#include <QList>
 #include <QUrl>
 #include "db-manager.h"
 #include <map>
@@ -108,6 +109,8 @@ private:
 
   void Poll (HttpAddress & addr);
   void SkipWhite (QIODevice *dev);
+  void ProcessRequestReply (QNetworkReply * reply);
+  void ProcessOfferReply (QNetworkReply * reply);
 
   typedef std::map <int, HttpAddress>  ServerMap;
 
@@ -118,6 +121,10 @@ private:
   int         nextServer;
 
   QNetworkAccessManager *network;
+
+  QList  <QNetworkReply*>  requestWait;
+  QList  <QNetworkReply*>  offerWait;
+
 
 };
 

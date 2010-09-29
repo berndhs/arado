@@ -113,7 +113,8 @@ HttpSender::Read ()
         QList <QPair<QString,QString> >::const_iterator cpit;
         for (cpit = queryParts.constBegin(); 
              cpit != queryParts.constEnd(); cpit++) {
-          if (cpit->first.toLower() == QString ("request")) {
+          if (cpit->first.toLower() == QString ("request")
+             || cpit->first.toLower() == QString ("offer")) {
             HandleRequest (queryParts);
             break;
           }
@@ -147,9 +148,11 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
   bool     isOffer (false);
   QString  datatype ("URL");
   QList <QPair<QString,QString> >::const_iterator cpit;
+  QStringList leftList;
   for (cpit = items.constBegin(); cpit != items.constEnd(); cpit++) {
     QString left = cpit->first.toLower ();
     QString right = cpit->second.toLower ();
+    leftList << left;
     if (left == QString ("request")) {
       cmdRecent |= (right == QString ("recent"));
       cmdRange  |= (right == QString ("range"));
@@ -168,6 +171,7 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
       datatype = right.toUpper();
     }
   }
+  qDebug () << " LLLLLLLLL left values " << leftList;
   if (isOffer ^ isRequest) {
     if (isRequest && cmdRecent && !cmdRange) {
       ReplyRecent (maxItems, datatype);
@@ -253,11 +257,6 @@ HttpSender::ReplyOffer (const QString & datatype)
   lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
   lines << "Server: Arado/0.1\r\n";
   lines << "\r\n";
-  QMessageBox box;
-  QString debugText;
-  debugText.append (wholePath);
-  box.setText (debugText);
-  box.exec ();
   tcpSocket->write (lines.join("").toUtf8());
   AradoStreamParser parse;
   parse.SetOutDevice (tcpSocket);
