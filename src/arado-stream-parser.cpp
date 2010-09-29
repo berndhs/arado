@@ -119,7 +119,7 @@ AradoStreamParser::ParseAradoMsg (AradoUrlList & list, QXmlStreamReader & xmlin)
         if (url.IsValid ()) {
           list.append (url);
         }
-      } while (ok);
+      } while (ok && tok != QXmlStreamReader::Invalid);
     }
   }
   SkipWhite (xmlin);
@@ -271,8 +271,8 @@ QXmlStreamReader::TokenType
 AradoStreamParser::ReadToken (QXmlStreamReader & xmlin)
 {  
   QXmlStreamReader::TokenType tok = xmlin.readNext ();
-  //qDebug () << "ASP " << __LINE__ << " read token " << tok << " " << Info (xmlin);
-  //qDebug () << "ASP " << " return " << tok;
+  qDebug () << "ASP " << __LINE__ << " read token " << tok << " " << Info (xmlin);
+  qDebug () << "ASP " << " return " << tok;
   return tok;
 }
 

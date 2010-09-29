@@ -195,6 +195,7 @@ HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
       parser.SetOutDevice (data);
       parser.Write (urls);
       data->close ();
+      qDebug () << " PUT write Buffer size " << data->buffer().size();
       data->open (QBuffer::ReadOnly);
       data->seek (0);
       QNetworkRequest  req (uploadUrl);

@@ -126,9 +126,12 @@ HttpSender::Read ()
         ReplyInvalid (QString ("Not found"), 404);
       }
     } else if (partCmd == QString ("PUT")) {
+      QString msgString;
       do {
         msgLine = tcpSocket->readLine();
-      } while (msgLine.length() > 0);
+        msgString = QString(msgLine).trimmed();
+        qDebug () << " discarded " << msgLine;
+      } while (msgString.length() > 0);
       ProcessPut (partUrl, partProto);
     }
   }
@@ -278,10 +281,15 @@ HttpSender::ProcessPut (const QString & urlText, const QString & proto)
   qDebug () << "HttpSender received PUT " << urlText;
   if (tcpSocket->isReadable()) {
     AradoStreamParser parser;
-    SkipWhite (tcpSocket);
-    parser.SetInDevice (tcpSocket, false);
+    QBuffer bigbuf;
+    bigbuf.setData (tcpSocket->readAll());
+    qDebug () << "BIG Buffer size " << bigbuf.buffer().size();
+    qDebug () << "BIG Buffer content " << bigbuf.buffer();
+    bigbuf.open (QBuffer::ReadOnly);
+    SkipWhite (&bigbuf);
+    parser.SetInDevice (&bigbuf, false);
     AradoUrlList urls = parser.ReadAradoUrlList ();
-qDebug () << " got " << urls.size() << " URLs in message ";
+    qDebug () << " got " << urls.size() << " URLs in message ";
     int numAdded (0);
     bool added (false);
     AradoUrlList::iterator  cuit;
