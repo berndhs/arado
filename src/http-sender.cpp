@@ -258,15 +258,13 @@ HttpSender::ReplyOffer (const QString & datatype)
   tcpSocket->write (lines.join("").toUtf8());
   AradoStreamParser parse;
   QBuffer buf;
+  buf.open (QBuffer::WriteOnly);
   parse.SetOutDevice (&buf);
   parse.WriteUuPath (uupath, QString ("send"));
   qDebug () << " UUPath message " << buf.buffer();
   tcpSocket->write (buf.buffer());
   tcpSocket->flush ();
   tcpSocket->close ();
-  QMessageBox box;
-  box.setText (QString (buf.buffer()));
-  box.exec ();
 
   qDebug () << " Accepting Offer type " << datatype << " at " << uupath;
 }
@@ -296,6 +294,9 @@ qDebug () << " got " << urls.size() << " URLs in message ";
         }
       }
     }
+QMessageBox box;
+box.setText (QString(" received put ") + QString::number(numAdded));
+box.exec ();
     if (numAdded > 0) {
       emit AddedUrls (numAdded);
     }

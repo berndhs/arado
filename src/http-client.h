@@ -28,11 +28,12 @@
 #include <QList>
 #include <QUrl>
 #include "db-manager.h"
-#include <map>
+#include <QMap>
 
 class QNetworkAccessManager;
 class QNetworkReply;
 class QIODevice;
+class QBuffer;
 
 namespace arado
 {
@@ -107,12 +108,13 @@ signals:
 
 private:
 
+  typedef QMap <int, HttpAddress> ServerMap;
+
   void Poll (HttpAddress & addr);
   void SkipWhite (QIODevice *dev);
   void ProcessRequestReply (QNetworkReply * reply);
-  void ProcessOfferReply (QNetworkReply * reply);
+  void ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl);
 
-  typedef std::map <int, HttpAddress>  ServerMap;
 
   DBManager   *db;
   Policy      *policy;
@@ -122,8 +124,9 @@ private:
 
   QNetworkAccessManager *network;
 
-  QList  <QNetworkReply*>  requestWait;
-  QList  <QNetworkReply*>  offerWait;
+  QList  <QNetworkReply*>        requestWait;
+  QMap   <QNetworkReply*, QUrl>  offerWait;
+  QMap   <QNetworkReply*, QBuffer*>        putWait;
 
 
 };

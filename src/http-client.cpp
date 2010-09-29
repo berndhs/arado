@@ -27,6 +27,7 @@
 #include <QNetworkReply>
 #include <QIODevice>
 #include <QMessageBox>
+#include <QBuffer>
 #include <QTimer>
 
 namespace arado
@@ -81,7 +82,7 @@ HttpClient::AddServer (const QUrl & serverUrl, quint16 port)
 void
 HttpClient::PollServer (int server)
 {
-  if (servers.find (server) != servers.end()) {
+  if (servers.contains (server)) {
     Poll (servers[server]);
   }
 }
@@ -89,7 +90,7 @@ HttpClient::PollServer (int server)
 void
 HttpClient::DropServer (int server)
 {
-  servers.erase (server);
+  servers.remove (server);
 }
 
 void
@@ -103,7 +104,7 @@ HttpClient::Poll ()
 {
   ServerMap::iterator sit;
   for (sit = servers.begin(); sit != servers.end(); sit++) {
-    Poll (sit->second);
+    Poll (*sit);
   }
 }
 
@@ -140,7 +141,7 @@ HttpClient::Poll (HttpAddress & addr)
     offer.setRawHeader ("User-Agent", "Arado/0.1");
     qDebug () << " offer query " << offer.url();
     reply = network->get (offer);
-    offerWait.append (reply);
+    offerWait[reply] = offer.url();
   }
 }
 
@@ -151,24 +152,55 @@ HttpClient::HandleReply (QNetworkReply * reply)
     requestWait.removeAll (reply);
     ProcessRequestReply (reply);
   } else if (offerWait.contains (reply)) {
-    offerWait.removeAll (reply);
-    ProcessOfferReply (reply);
+    QUrl  originalUrl = offerWait[reply];
+    offerWait.remove (reply);
+    ProcessOfferReply (reply, originalUrl);
+  } else if (putWait.contains (reply)) {
+    QBuffer * putbuf = putWait[reply];
+    delete putbuf;
+    putWait.remove (reply);
+    reply->deleteLater ();
   } else {
     reply->deleteLater ();
   }
 }
 
 void
-HttpClient::ProcessOfferReply (QNetworkReply * reply)
+HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
 {
   AradoStreamParser parser;
-  parser.SetInDevice (reply);
-  SkipWhite (reply);
+  QBuffer buf;
+  buf.setData (reply->readAll());
+  buf.open (QBuffer::ReadOnly);
+  parser.SetInDevice (&buf);
+  SkipWhite (&buf);
   ControlMessage msg = parser.ReadControlMessage ();
+  qDebug () << " raw reply " << buf.buffer();
   qDebug () << " Offer Reply command " << msg.Cmd();
   qDebug () << " Offer Reply status " << msg.Value ("status");
   qDebug () << " Offer Reply path " << msg.Value ("uupath");
   reply->deleteLater();
+  if (db && network && (msg.Cmd() == QString ("uupath"))
+     && (msg.Value ("status") == QString ("send"))) {
+    QUrl uploadUrl;
+    uploadUrl.setScheme (origUrl.scheme());
+    uploadUrl.setHost (origUrl.host());
+    uploadUrl.setPort (origUrl.port());
+    QString uupath (msg.Value("uupath"));
+    if (uupath.length() > 0) {
+      uploadUrl.setPath (QString ("/aradouu/") + uupath);
+      AradoUrlList urls = db->GetRecent (100);
+      QBuffer *data;
+      data->open (QBuffer::WriteOnly);
+      parser.SetOutDevice (data);
+      parser.Write (urls);
+      data->close ();
+      data->open (QBuffer::ReadOnly);
+      data->seek (0);
+      QNetworkRequest  req (uploadUrl);
+      QNetworkReply *putReply = network->put (req, data);
+    }
+  }
 }
 
 
