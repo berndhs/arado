@@ -26,8 +26,8 @@ details in additional query items:
 details in additional query items:
 '&type=URL|IP':::: specify the type of data the client is offering
 
-POST:: messages go to the path '/aradopost/<uu-post-path>', where the 
-'<uu-post-path>' has been specified in the response 
+PUT:: messages go to the path '/aradouu/<uu-path>', where the 
+'<uu-path>' has been specified in the response 
 to an '/arado?offer' message.
 
 == Server -> Client ==

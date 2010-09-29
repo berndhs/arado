@@ -30,6 +30,7 @@
 #include <QByteArray>
 #include <QHostAddress>
 #include <QDateTime>
+#include <QUuid>
 
 namespace arado
 {
@@ -98,26 +99,30 @@ HttpSender::Read ()
   QStringList parts = request.split (QRegExp ("\\s+"));
   qDebug () << " message parts " << parts;
   if (parts.size() >= 3) {
-    QString partCmd = parts.at(0);
+    QString partCmd = parts.at(0).toUpper();
     QString partUrl = parts.at(1);
     QString partProto = parts.at(2);
-    if (partCmd.toUpper() != QString ("GET")) {
-      qDebug () << " Cmd is wrong: " << partCmd;
-      return;
-    }
-    QUrl reqUrl (partUrl);
-    qDebug () << " url part as qurl " << reqUrl;
-    qDebug () << " request path " << reqUrl.path();
-    QList <QPair<QString,QString> > queryParts = reqUrl.queryItems();
-    QList <QPair<QString,QString> >::const_iterator cpit;
-    for (cpit = queryParts.constBegin(); 
-         cpit != queryParts.constEnd(); cpit++) {
-      if (cpit->first.toLower() == QString ("request")) {
-        HandleRequest (queryParts);
-        break;
+    if (partCmd == QString ("GET")) {
+      QUrl reqUrl (partUrl);
+      qDebug () << " url part as qurl " << reqUrl;
+      qDebug () << " request path " << reqUrl.path();
+      QString path = reqUrl.path().toLower();
+      if (path == QString ("arado")) {
+        QList <QPair<QString,QString> > queryParts = reqUrl.queryItems();
+        QList <QPair<QString,QString> >::const_iterator cpit;
+        for (cpit = queryParts.constBegin(); 
+             cpit != queryParts.constEnd(); cpit++) {
+          if (cpit->first.toLower() == QString ("request")) {
+            HandleRequest (queryParts);
+          break;
+          }
+        }
+      } else {
+        ReplyInvalid (QString ("Not found"), 404);
       }
+    } else if (partCmd == QString ("PUT")) {
+      ProcessPut (partUrl, partProto);
     }
-    qDebug () << " request query " << reqUrl.queryItems();
   }
   qDebug () << " ---------------- ";
 #if ARADO_HTTP_THREAD
@@ -137,6 +142,9 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
   bool     useNewest (false);
   bool     cmdRecent (false);
   bool     cmdRange (false);
+  bool     isRequest (false);
+  bool     isOffer (false);
+  QString  datatype ("URL");
   QList <QPair<QString,QString> >::const_iterator cpit;
   for (cpit = items.constBegin(); cpit != items.constEnd(); cpit++) {
     QString left = cpit->first.toLower ();
@@ -144,6 +152,7 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
     if (left == QString ("request")) {
       cmdRecent |= (right == QString ("recent"));
       cmdRange  |= (right == QString ("range"));
+      isRequest = true;
     } else if (left == QString ("count")) {
       maxItems = right.toInt();
     } else if (left == QString ("newest")) {
@@ -152,26 +161,36 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
     } else if (left == QString ("oldest")) {
       useOldest = true;
       oldest = right.toInt ();
-    } 
+    } else if (left == QString ("offer")) {
+      isOffer = true;
+    } else if (left == QString ("type")) {
+      datatype = right.toUpper();
+    }
   }
-  if (cmdRecent && !cmdRange) {
-    ReplyRecent (maxItems);
-  } else if (cmdRange && !cmdRecent) {
-    ReplyRange (useNewest, newest, useOldest, oldest);
+  if (isOffer ^ isRequest) {
+    if (isRequest && cmdRecent && !cmdRange) {
+      ReplyRecent (maxItems, datatype);
+    } else if (isRequest && cmdRange && !cmdRecent) {
+      ReplyRange (useNewest, newest, useOldest, oldest, datatype);
+    } else if (isOffer && !(cmdRange || cmdRecent)) {
+      ReplyOffer (datatype);
+    } else {
+      ReplyInvalid (QString ("Request Syntax Error"));
+    }
   } else {
     ReplyInvalid (QString ("Invalid Request"));
   }
 }
 
 void
-HttpSender::ReplyInvalid (const QString & message)
+HttpSender::ReplyInvalid (const QString & message, int error)
 {
   QTextStream ostream (tcpSocket);
   ostream.setAutoDetectUnicode (true);
   QStringList lines;
-  lines << "HTTP/1.0 400 Bad\r\n";
+  lines << QString ("HTTP/1.0 %1 %2\r\n").arg(error).arg(message);
   lines << "Connection: close\r\n";
-  lines << "Content-Type: text/html\r\n";
+  lines << "Server: Arado/0.1\r\n";
   lines << "\r\n";
   lines << message;
   lines << "\r\n";
@@ -184,27 +203,69 @@ HttpSender::ReplyInvalid (const QString & message)
 
 void
 HttpSender::ReplyRange (bool useNewest, quint64 newest, 
-                        bool useOldest, quint64 oldest)
+                        bool useOldest, quint64 oldest,
+                        const QString & datatype )
 {
-  ReplyInvalid (QString ("Not Implemented"));
+  ReplyInvalid (QString ("Not Implemented"), 501);
 }
 
 void
-HttpSender::ReplyRecent (int maxItems)
+HttpSender::ReplyRecent (int maxItems, const QString & datatype )
 {
   QStringList lines;
   lines << "HTTP/1.1 200 OK\r\n";
   lines << "Connection: close\r\n";
   lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
+  lines << "Server: Arado/0.1\r\n";
   lines << "\r\n";
   qDebug () << " sending GOOD reply " << lines.join ("");
   tcpSocket->write (lines.join("").toUtf8());
-  AradoUrlList urls = db->GetRecent (maxItems);
-  AradoStreamParser parse;
-  parse.SetOutDevice (tcpSocket);
-  parse.Write (urls);
+  if (datatype == QString ("URL")) {
+    AradoUrlList urls = db->GetRecent (maxItems);
+    AradoStreamParser parse;
+    parse.SetOutDevice (tcpSocket);
+    parse.Write (urls);
+  } else if (datatype == QString ("IP")) {
+    QByteArray empty ("<arado/>\r\n");
+    tcpSocket->write (empty);
+  } else {
+    QByteArray empty ("<arado/>\r\n");
+    tcpSocket->write (empty);
+  }
   tcpSocket->flush ();
   tcpSocket->close ();
+}
+
+void
+HttpSender::ReplyOffer (const QString & datatype)
+{
+  ReplyInvalid (QString ("Method Not Allowed"),405);
+  QString uupath = QUuid::createUuid().toString();
+  uupath.chop (1);
+  uupath.remove (0,1);
+  QString wholePath (QString("/aradouu/%1").arg(uupath));
+  expectType [wholePath] = datatype;
+  QStringList lines;
+  lines << "HTTP/1.1 200 OK\r\n";
+  lines << "Connection: close\r\n";
+  lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
+  lines << "Server: Arado/0.1\r\n";
+  lines << "\r\n";
+  tcpSocket->write (lines.join("").toUtf8());
+  AradoStreamParser parse;
+  parse.SetOutDevice (tcpSocket);
+  parse.WriteUuPath (uupath);
+  tcpSocket->flush ();
+  tcpSocket->close ();
+
+  qDebug () << " Accepting Offer type " << datatype << " at " << uupath;
+}
+
+void
+HttpSender::ProcessPut (const QString & urlText, const QString & proto)
+{
+  qDebug () << " received PUT " << urlText;
+  ReplyInvalid (QString ("Not Implemented"), 501);
 }
 
 

@@ -26,6 +26,7 @@
 #include <QList>
 #include <QPair>
 #include <QString>
+#include <map>
 
 #ifndef ARADO_HTTP_THREAD
 #define ARADO_HTTP_THREAD 0
@@ -70,14 +71,20 @@ public slots:
 private:
 
   void  HandleRequest (const QList < QPair <QString,QString > > & items);
-  void  ReplyRecent (int maxItems);
+  void  ReplyRecent (int maxItems, const QString & datatype );
   void  ReplyRange (bool useNewest, quint64 newest, 
-                    bool useOldest, quint64 oldest);
-  void  ReplyInvalid (const QString & message);
+                    bool useOldest, quint64 oldest,
+                    const QString & datatype );
+  void  ReplyInvalid (const QString & message, int error=400);
+  void  ReplyOffer (const QString & datatype );
+  void  ProcessPut (const QString & urlText, const QString & proto);
 
   int         socket;
   QTcpSocket  *tcpSocket;
   DBManager   *db;
+
+  std::map <QString, QString>  expectType;
+
 };
 
 } // namespace

@@ -43,6 +43,7 @@ public:
   AradoUrlList      ReadAradoUrlList ();
   void              Write (const AradoUrl & url, bool isPartial=false);
   void              Write (const AradoUrlList & list);
+  void              WriteUuPath (const QString & uupath);
 
 private:
 
