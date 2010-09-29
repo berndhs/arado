@@ -30,6 +30,7 @@ namespace arado
 {
 
 class DBManager;
+class Policy;
 
 class HttpServer : public QTcpServer
 {
@@ -40,6 +41,7 @@ public:
   HttpServer (QObject *parent=0);
 
   void SetDB (DBManager *dbm) { db = dbm; }
+  void SetPolicy (Policy *pol) { policy = pol; }
 
   bool Start ();
   bool Stop ();
@@ -59,6 +61,7 @@ private:
   bool           runServer;
   bool           running;
   DBManager     *db;
+  Policy        *policy;
 
 };
 

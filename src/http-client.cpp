@@ -161,9 +161,13 @@ HttpClient::HandleReply (QNetworkReply * reply)
 void
 HttpClient::ProcessOfferReply (QNetworkReply * reply)
 {
-  QMessageBox box;
-  QByteArray msgBytes = reply->readAll();
-  qDebug () << " Offer Reply says " << msgBytes;
+  AradoStreamParser parser;
+  parser.SetInDevice (reply);
+  SkipWhite (reply);
+  ControlMessage msg = parser.ReadControlMessage ();
+  qDebug () << " Offer Reply command " << msg.Cmd();
+  qDebug () << " Offer Reply status " << msg.Value ("status");
+  qDebug () << " Offer Reply path " << msg.Value ("uupath");
   reply->deleteLater();
 }
 

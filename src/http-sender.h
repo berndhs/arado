@@ -38,6 +38,7 @@ namespace arado
 {
 
 class DBManager;
+class Policy;
 
 class HttpSender
 
@@ -52,7 +53,7 @@ Q_OBJECT
 
 public:
 
-  HttpSender (int sock, QObject *parent, DBManager *dbm);
+  HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol);
 
 #if ARADO_HTTP_THREAD
   void  run ();
@@ -68,6 +69,10 @@ public slots:
 
   void  Read ();
 
+signals:
+
+  void AddedUrls (int numAdded);
+
 private:
 
   void  HandleRequest (const QList < QPair <QString,QString > > & items);
@@ -78,10 +83,12 @@ private:
   void  ReplyInvalid (const QString & message, int error=400);
   void  ReplyOffer (const QString & datatype );
   void  ProcessPut (const QString & urlText, const QString & proto);
+  void  SkipWhite (QIODevice *dev);
 
   int         socket;
   QTcpSocket  *tcpSocket;
   DBManager   *db;
+  Policy      *policy;
 
   std::map <QString, QString>  expectType;
 

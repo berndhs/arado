@@ -26,6 +26,7 @@
 #include <QXmlStreamReader>
 
 #include "arado-url.h"
+#include "control-message.h"
 
 class QIODevice;
 
@@ -41,11 +42,12 @@ public:
   void              SetInDevice (QIODevice * dev, bool clear=true);
   void              SetOutDevice (QIODevice * dev);
   AradoUrlList      ReadAradoUrlList ();
+  ControlMessage    ReadControlMessage ();
   void              Write (const AradoUrl & url, bool isPartial=false);
   void              Write (const AradoUrlList & list);
+  void              Write (const ControlMessage & msg);
   void              WriteUuPath (const QString & uupath,
                                 const QString & status);
-  void              WriteOffer (const QString & datatype);
 
 private:
 
@@ -60,6 +62,14 @@ private:
   bool ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseHashElt    (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseControlMsg (ControlMessage & msg,
+                        QXmlStreamReader & xmlin);
+  bool ParseControlContent (ControlMessage & msg,
+                            QXmlStreamReader & xmlin);
+  bool ParseCmdElement (ControlMessage & msg, QXmlStreamReader & xmlin);
+  bool ParseValueElement (ControlMessage & msg,
+                          QXmlStreamReader & xmlin,
+                          const QString & key);
 
   QXmlStreamReader   xmlin;
   QXmlStreamWriter   xmlout;

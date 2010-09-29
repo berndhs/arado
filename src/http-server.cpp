@@ -77,7 +77,7 @@ HttpServer::Listen (const QHostAddress & address,
 void
 HttpServer::incomingConnection (int sock)
 {
-  HttpSender * sender = new HttpSender (sock, this, db);
+  HttpSender * sender = new HttpSender (sock, this, db, policy);
   connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
   sender->start ();
 }

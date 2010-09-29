@@ -25,6 +25,7 @@
 
 #include "http-sender.h"
 #include "db-manager.h"
+#include "policy.h"
 #include "arado-stream-parser.h"
 #include <QTcpSocket>
 #include <QByteArray>
@@ -36,7 +37,7 @@
 namespace arado
 {
 
-HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm)
+HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol)
   :
 #if ARADO_HTTP_THREAD
    QThread (parent),
@@ -44,7 +45,8 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm)
    QObject (parent),
 #endif
    socket (sock),
-   db (dbm)
+   db (dbm),
+   policy (pol)
 { 
   tcpSocket = new QTcpSocket (this);
   tcpSocket->setSocketDescriptor (socket);
@@ -65,8 +67,8 @@ HttpSender::start ()
   qDebug () << " open " << tcpSocket->isOpen () 
             << " readable " << tcpSocket->isReadable ()
             << " error " << tcpSocket->errorString ();
-  qDebug () << " remote add " << tcpSocket->peerAddress ()
-            << " remote port " << tcpSocket->peerPort ();
+  qDebug () << " START remote " << tcpSocket->peerAddress ()
+            << " port " << tcpSocket->peerPort ();
   qDebug () << " socket state " << tcpSocket->state ();
   qDebug () << " ---------------- ";
 #if ARADO_HTTP_THREAD
@@ -127,11 +129,6 @@ HttpSender::Read ()
     }
   }
   qDebug () << " ---------------- ";
-#if ARADO_HTTP_THREAD
-
-#else
- // emit finished ();
-#endif
 }
 
 void
@@ -270,10 +267,47 @@ HttpSender::ReplyOffer (const QString & datatype)
 void
 HttpSender::ProcessPut (const QString & urlText, const QString & proto)
 {
-  qDebug () << " received PUT " << urlText;
-  ReplyInvalid (QString ("Not Implemented"), 501);
+  qDebug () << "HttpSender received PUT " << urlText;
+  if (tcpSocket->isReadable()) {
+    AradoStreamParser parser;
+    SkipWhite (tcpSocket);
+    parser.SetInDevice (tcpSocket, false);
+    AradoUrlList urls = parser.ReadAradoUrlList ();
+qDebug () << " got " << urls.size() << " URLs in message ";
+    int numAdded (0);
+    bool added (false);
+    AradoUrlList::iterator  cuit;
+    if (db) {
+      for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
+        if (policy) {
+          added = policy->AddUrl (*db, *cuit);
+        } else {
+          added = db->AddUrl (*cuit);
+        }
+        if (added) {
+          numAdded++;
+        }
+      }
+    }
+    if (numAdded > 0) {
+      emit AddedUrls (numAdded);
+    }
+  }
 }
 
+void
+HttpSender::SkipWhite (QIODevice *dev)
+{
+  char w (' ');
+  bool ok = dev->getChar (&w);
+  while (ok && (w == ' ' || w == '\n' || w == '\t')) {
+    ok = dev->getChar (&w);
+  }
+  if (!(w == ' ' || w == '\n' || w == '\t')) {
+    dev->ungetChar (w);
+  }
+
+}
 
 } // namespace
 

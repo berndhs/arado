@@ -108,6 +108,7 @@ AradoMain::StartServers ()
 {
   if (httpServer) {
     httpServer->SetDB (&dbMgr);
+    httpServer->SetPolicy (policy);
     httpServer->Start ();
   }
 }
