@@ -226,7 +226,7 @@ HttpClient::ProcessRequestReply (QNetworkReply * reply)
     SkipWhite (reply);
     parser.SetInDevice (reply, false);
     AradoUrlList urls = parser.ReadAradoUrlList ();
-qDebug () << " got " << urls.size() << " URLs in message ";=
+qDebug () << " got " << urls.size() << " URLs in message ";
     int numAdded (0);
     bool added (false);
     AradoUrlList::iterator  cuit;
@@ -248,20 +248,6 @@ qDebug () << " got " << urls.size() << " URLs in message ";=
   }
   qDebug () << replyMsg;
   reply->deleteLater ();
-}
-
-void
-HttpClient::SkipWhite (QIODevice *dev)
-{
-  char w (' ');
-  bool ok = dev->getChar (&w);
-  while (ok && (w == ' ' || w == '\n' || w == '\t')) {
-    ok = dev->getChar (&w);
-  }
-  if (!(w == ' ' || w == '\n' || w == '\t')) {
-    dev->ungetChar (w);
-  }
-
 }
 
 void
