@@ -1,0 +1,38 @@
+= Arado Http Protocol =
+:Author: Bernd Stramm 
+:Email: bernd.stramm@gmail.com
+:Date: 28 September 2010
+:Revision: 0.1
+
+== Scope ==
+
+This document describes the Arado HTTP protocol sequences between the Arado 
+client and server functions.
+
+Arado messages that carry URL data and address data are defined elsewhere.
+
+
+== Client -> Server ==
+
+GET:: messages go to the path '/arado', followed by one of
+'?request=recent|range'::: can specify
+details in additional query items:
+'&type=URL|IP':::: specify the type of data the client is asking for,
+'&count=<max-items>':::: specify the maximum nubmer of items in the response,
+'&newest=<most-recent-time>':::: specifies the most recent allowable time stamp,
+'&oldest=<least-recent-time>':::: specifies the oldest allowable time stamp
+'
+'?offer':::  can specify
+details in additional query items:
+'&type=URL|IP':::: specify the type of data the client is offering
+
+POST:: messages go to the path '/aradopost/<uu-post-path>', where the 
+'<uu-post-path>' has been specified in the response 
+to an '/arado?offer' message.
+
+== Server -> Client ==
+
+Server responses contain an XML encoded arado message, see the Arado XML messages
+document for details.
+
+
