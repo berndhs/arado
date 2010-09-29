@@ -26,6 +26,8 @@
 #include <QList>
 #include <QPair>
 #include <QString>
+#include <QUrl>
+#include <QBuffer>
 #include <map>
 
 #ifndef ARADO_HTTP_THREAD
@@ -68,6 +70,9 @@ signals:
 public slots:
 
   void  Read ();
+  void  ReadFirst ();
+  void  ReadMore ();
+  void  Complete ();
 
 signals:
 
@@ -75,7 +80,8 @@ signals:
 
 private:
 
-  void  HandleRequest (const QList < QPair <QString,QString > > & items);
+  void  HandleRequest (const QString & reqType,
+                       const QList < QPair <QString,QString > > & items);
   void  ReplyRecent (int maxItems, const QString & datatype );
   void  ReplyRange (bool useNewest, quint64 newest, 
                     bool useOldest, quint64 oldest,
@@ -89,6 +95,11 @@ private:
   QTcpSocket  *tcpSocket;
   DBManager   *db;
   Policy      *policy;
+  QBuffer      inbuf;
+  int          expectSize;
+  bool         collectingPut;
+  QString      putUrl;
+  QString      putProto;
 
   std::map <QString, QString>  expectType;
 

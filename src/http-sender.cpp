@@ -47,7 +47,8 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol)
 #endif
    socket (sock),
    db (dbm),
-   policy (pol)
+   policy (pol),
+   collectingPut (false)
 { 
   tcpSocket = new QTcpSocket (this);
   tcpSocket->setSocketDescriptor (socket);
@@ -80,6 +81,39 @@ HttpSender::start ()
 void
 HttpSender::Read ()
 {
+  qDebug () << " have socked data " << tcpSocket->bytesAvailable();
+  if (collectingPut) {
+    ReadMore ();
+  } else {
+    ReadFirst ();
+  }
+}
+
+void
+HttpSender::ReadMore ()
+{
+  inbuf.buffer().append (tcpSocket->readAll());
+  qDebug () << " PUT inbuf has " << inbuf.size () << " bytes";
+  if (inbuf.size() >= expectSize) {
+    Complete ();
+  }
+}
+
+void
+HttpSender::Complete ()
+{
+  qDebug () << " Sender Socket complete, calling ProcessPut " 
+             << collectingPut;
+  if (collectingPut) {
+    inbuf.open (QBuffer::ReadOnly);
+    ProcessPut (putUrl, putProto);
+  }
+  tcpSocket->close ();
+}
+
+void
+HttpSender::ReadFirst ()
+{
   qDebug () << " ---- Sender Socked READ ----- ";
   qDebug () << " open " << tcpSocket->isOpen () 
             << " readable " << tcpSocket->isReadable ()
@@ -97,7 +131,7 @@ HttpSender::Read ()
     tcpSocket->close ();
     return; 
   }
-  QByteArray msgLine = tcpSocket->readLine (1024);
+  QByteArray msgLine = tcpSocket->readLine (2048);
   QString  request (msgLine);
   qDebug () << " Sender Thread incoming message " << msgLine;
   QStringList parts = request.split (QRegExp ("\\s+"));
@@ -116,9 +150,10 @@ HttpSender::Read ()
         QList <QPair<QString,QString> >::const_iterator cpit;
         for (cpit = queryParts.constBegin(); 
              cpit != queryParts.constEnd(); cpit++) {
-          if (cpit->first.toLower() == QString ("request")
-             || cpit->first.toLower() == QString ("offer")) {
-            HandleRequest (queryParts);
+          QString left = cpit->first.toLower();
+          if (left == QString ("request")
+             || left == QString ("offer")) {
+            HandleRequest (left, queryParts);
             break;
           }
         }
@@ -127,19 +162,27 @@ HttpSender::Read ()
       }
     } else if (partCmd == QString ("PUT")) {
       QString msgString;
+      expectSize = 0;
       do {
         msgLine = tcpSocket->readLine();
-        msgString = QString(msgLine).trimmed();
+        msgString = QString(msgLine).trimmed().toLower();
+        if (msgString.startsWith ("content-length:")) {
+           expectSize = msgString.remove("content-length:").toInt();
+        }
         qDebug () << " discarded " << msgLine;
       } while (msgString.length() > 0);
-      ProcessPut (partUrl, partProto);
+      collectingPut = true;
+      putUrl = partUrl;
+      putProto = partProto;
+      ReadMore ();
     }
   }
   qDebug () << " ---------------- ";
 }
 
 void
-HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
+HttpSender::HandleRequest (const QString & reqType,
+                           const  QList <QPair <QString, QString> > & items)
 {
   int  maxItems (2);
   quint64  oldest (0);
@@ -150,9 +193,13 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
   bool     cmdRange (false);
   bool     isRequest (false);
   bool     isOffer (false);
+  bool     isBad (false);
   QString  datatype ("URL");
   QList <QPair<QString,QString> >::const_iterator cpit;
   QStringList leftList;
+  isOffer = (reqType == QString("offer"));
+  isRequest = (reqType == QString ("request"));
+  isBad = isOffer && isRequest;
   for (cpit = items.constBegin(); cpit != items.constEnd(); cpit++) {
     QString left = cpit->first.toLower ();
     QString right = cpit->second.toLower ();
@@ -160,7 +207,7 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
     if (left == QString ("request")) {
       cmdRecent |= (right == QString ("recent"));
       cmdRange  |= (right == QString ("range"));
-      isRequest = true;
+      isBad = isOffer;
     } else if (left == QString ("count")) {
       maxItems = right.toInt();
     } else if (left == QString ("newest")) {
@@ -170,13 +217,18 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
       useOldest = true;
       oldest = right.toInt ();
     } else if (left == QString ("offer")) {
-      isOffer = true;
+      isBad = isRequest;
     } else if (left == QString ("type")) {
       datatype = right.toUpper();
     }
+    if (isBad) {
+      break;
+    }
   }
   qDebug () << " LLLLLLLLL left values " << leftList;
-  if (isOffer ^ isRequest) {
+  if (isBad) {
+    ReplyInvalid (QString ("Invalid Request"));
+  } else {
     if (isRequest && cmdRecent && !cmdRange) {
       ReplyRecent (maxItems, datatype);
     } else if (isRequest && cmdRange && !cmdRecent) {
@@ -186,8 +238,6 @@ HttpSender::HandleRequest (const  QList <QPair <QString, QString> > & items)
     } else {
       ReplyInvalid (QString ("Request Syntax Error"));
     }
-  } else {
-    ReplyInvalid (QString ("Invalid Request"));
   }
 }
 
@@ -277,10 +327,10 @@ void
 HttpSender::ProcessPut (const QString & urlText, const QString & proto)
 {
   qDebug () << "HttpSender received PUT " << urlText;
-  if (tcpSocket->isReadable()) {
+  if (inbuf.isReadable()) {
     AradoStreamParser parser;
     QBuffer bigbuf;
-    bigbuf.setData (tcpSocket->readAll());
+    bigbuf.setData (inbuf.readAll());
     qDebug () << "BIG Buffer size " << bigbuf.buffer().size();
     qDebug () << "BIG Buffer content " << bigbuf.buffer();
     bigbuf.open (QBuffer::ReadOnly);
@@ -306,6 +356,7 @@ HttpSender::ProcessPut (const QString & urlText, const QString & proto)
     if (numAdded > 0) {
       emit AddedUrls (numAdded);
     }
+    inbuf.buffer().clear ();
   }
 }
 

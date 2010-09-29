@@ -139,8 +139,6 @@ AradoMain::StartClients ()
     httpClient->AddServer (
                   QHostAddress ("178.77.66.196")
                   ,80);
-    httpClient->AddServer (QUrl ("http://barbados.reflective-computing.com"),
-                  httpDefaultPort);
     QTimer::singleShot (3000, httpClient, SLOT (Poll()));
   }
 }
