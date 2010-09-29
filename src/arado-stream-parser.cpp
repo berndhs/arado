@@ -160,6 +160,7 @@ AradoStreamParser::ParseControlContent (ControlMessage & msg,
     } else {
       ok &= ParseValueElement (msg, xmlin, kind);
     }
+    tok = SkipEnd (xmlin);
   }
   return ok;
 }

@@ -32,6 +32,7 @@
 #include <QHostAddress>
 #include <QDateTime>
 #include <QUuid>
+#include <QBuffer>
 #include <QMessageBox>
 
 namespace arado
@@ -256,10 +257,16 @@ HttpSender::ReplyOffer (const QString & datatype)
   lines << "\r\n";
   tcpSocket->write (lines.join("").toUtf8());
   AradoStreamParser parse;
-  parse.SetOutDevice (tcpSocket);
+  QBuffer buf;
+  parse.SetOutDevice (&buf);
   parse.WriteUuPath (uupath, QString ("send"));
+  qDebug () << " UUPath message " << buf.buffer();
+  tcpSocket->write (buf.buffer());
   tcpSocket->flush ();
   tcpSocket->close ();
+  QMessageBox box;
+  box.setText (QString (buf.buffer()));
+  box.exec ();
 
   qDebug () << " Accepting Offer type " << datatype << " at " << uupath;
 }
