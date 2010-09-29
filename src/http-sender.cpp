@@ -97,9 +97,9 @@ HttpSender::Read ()
     tcpSocket->close ();
     return; 
   }
-  QByteArray msgBytes = tcpSocket->read (1024);
-  QString  request (msgBytes);
-  qDebug () << " Sender Thread incoming message " << msgBytes;
+  QByteArray msgLine = tcpSocket->readLine (1024);
+  QString  request (msgLine);
+  qDebug () << " Sender Thread incoming message " << msgLine;
   QStringList parts = request.split (QRegExp ("\\s+"));
   qDebug () << " message parts " << parts;
   if (parts.size() >= 3) {
@@ -126,6 +126,9 @@ HttpSender::Read ()
         ReplyInvalid (QString ("Not found"), 404);
       }
     } else if (partCmd == QString ("PUT")) {
+      do {
+        msgLine = tcpSocket->readLine();
+      } while (msgLine.length() > 0);
       ProcessPut (partUrl, partProto);
     }
   }
