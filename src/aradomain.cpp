@@ -131,6 +131,9 @@ AradoMain::StartClients ()
     httpClient->SetDB (&dbMgr);
     httpClient->SetPolicy (policy);
     httpClient->AddServer (
+                  QHostAddress ("2001:0:5EF5:79FD:38EC:32A1:B24D:CBE4"),
+                  httpDefaultPort);
+    httpClient->AddServer (
                   QHostAddress ("2001:4830:1135:1:250:baff:fe18:fce6"),
                   httpDefaultPort);
     httpClient->AddServer (
