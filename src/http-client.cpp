@@ -189,6 +189,20 @@ HttpClient::SkipWhite (QIODevice *dev)
 
 }
 
+void
+HttpClient::SkipWhite (QIODevice *dev)
+{
+  char w (' ');
+  bool ok = dev->getChar (&w);
+  while (ok && (w == ' ' || w == '\n' || w == '\t')) {
+    ok = dev->getChar (&w);
+  }
+  if (!(w == ' ' || w == '\n' || w == '\t')) {
+    dev->ungetChar (w);
+  }
+
+}
+
 
 } // namespace
 
