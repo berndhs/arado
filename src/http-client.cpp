@@ -111,22 +111,31 @@ void
 HttpClient::Poll (HttpAddress & addr)
 {
   if (network) {
-    QUrl  url;
+    QUrl  requestUrl;
+    QUrl  offerUrl;
     if (addr.useUrl) {
-      url = addr.url;
+      requestUrl = addr.url;
     } else {
       QString pattern (addr.haddr.protocol() == QAbstractSocket::IPv6Protocol ?
                        "http://[%1]" : "http://%1");
-      url.setUrl (pattern.arg (addr.haddr.toString()));
+      requestUrl.setUrl (pattern.arg (addr.haddr.toString()));
     }
-    url.setPort (addr.port);
-    url.setPath ("/arado");
-    url.addQueryItem (QString ("request"),QString ("recent"));
-    url.addQueryItem (QString ("count"),QString::number(20));
-    QNetworkRequest  req (url);
+    requestUrl.setPort (addr.port);
+    requestUrl.setPath ("/arado");
+    offerUrl = requestUrl;
+    requestUrl.addQueryItem (QString ("request"),QString ("recent"));
+    requestUrl.addQueryItem (QString ("count"),QString::number(20));
+    QNetworkRequest  req (requestUrl);
     req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
-    qDebug () << " network query " << url;
+    qDebug () << " network query " << requestUrl;
     network->get (req);
+
+    offerUrl.addQueryItem (QString ("offer"),QString (""));
+    offerUrl.addQueryItem (QString ("type"),QString ("URL"));
+    QNetworkRequest offer (offerUrl);
+    offer.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
+    qDebug () << " offer query " << offerUrl;
+    network->get (offer);
   }
 }
 

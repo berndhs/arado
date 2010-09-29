@@ -44,6 +44,7 @@ public:
   void              Write (const AradoUrl & url, bool isPartial=false);
   void              Write (const AradoUrlList & list);
   void              WriteUuPath (const QString & uupath);
+  void              WriteOffer (const QString & datatype);
 
 private:
 

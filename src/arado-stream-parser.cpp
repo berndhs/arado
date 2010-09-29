@@ -283,6 +283,18 @@ AradoStreamParser::WriteUuPath (const QString & uupath)
   }
 }
 
+void
+AradoStreamParser::WriteOffer (const QString & datatype)
+{
+  if (xmlout.device()->isWritable ()) {
+    xmlout.writeStartDocument ();
+    xmlout.writeStartElement ("arado");
+    xmlout.writeTextElement ("offer",datatype);
+    xmlout.writeEndElement (); // arado
+    xmlout.writeEndDocument ();
+  }
+}
+
 } // namespace
 
 

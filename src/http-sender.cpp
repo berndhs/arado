@@ -31,6 +31,7 @@
 #include <QHostAddress>
 #include <QDateTime>
 #include <QUuid>
+#include <QMessageBox>
 
 namespace arado
 {
@@ -107,14 +108,14 @@ HttpSender::Read ()
       qDebug () << " url part as qurl " << reqUrl;
       qDebug () << " request path " << reqUrl.path();
       QString path = reqUrl.path().toLower();
-      if (path == QString ("arado")) {
+      if (path == QString ("/arado")) {
         QList <QPair<QString,QString> > queryParts = reqUrl.queryItems();
         QList <QPair<QString,QString> >::const_iterator cpit;
         for (cpit = queryParts.constBegin(); 
              cpit != queryParts.constEnd(); cpit++) {
           if (cpit->first.toLower() == QString ("request")) {
             HandleRequest (queryParts);
-          break;
+            break;
           }
         }
       } else {
@@ -253,6 +254,11 @@ HttpSender::ReplyOffer (const QString & datatype)
   lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
   lines << "Server: Arado/0.1\r\n";
   lines << "\r\n";
+  QMessageBox box;
+  QString debugText;
+  debugText.append (wholePath);
+  box.setText (debugText);
+  box.exec ();
   tcpSocket->write (lines.join("").toUtf8());
   AradoStreamParser parse;
   parse.SetOutDevice (tcpSocket);
