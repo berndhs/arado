@@ -194,6 +194,7 @@ HttpSender::ReplyInvalid (const QString & message, int error)
   lines << "\r\n";
   lines << message;
   lines << "\r\n";
+  lines << message;
   lines << QDateTime::currentDateTime().toString () << "\n";
   qDebug () << " sending error message " << lines;
   ostream << lines.join ("");
