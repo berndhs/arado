@@ -190,7 +190,7 @@ HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
     if (uupath.length() > 0) {
       uploadUrl.setPath (QString ("/aradouu/") + uupath);
       AradoUrlList urls = db->GetRecent (100);
-      QBuffer *data;
+      QBuffer *data = new QBuffer;
       data->open (QBuffer::WriteOnly);
       parser.SetOutDevice (data);
       parser.Write (urls);
