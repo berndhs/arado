@@ -1,44 +1,39 @@
 Things to implement:
 
-1) database of URLs  - 1 of these (DONE)
+--) DONE: database of URLs  - 1 of these (DONE)
 
-1a) Search for 2 or more keywords.
+01a) Search for 2 or more keywords.
 
-2) communicator to collect/send URLs  - 3 of these
+02) communicator to collect/send URLs  - 3 of these
   - testing communicator that reads from stream, writes to stream
   - direct communicator that uses TCP/SSL sockets
   - gnutella (or alternative) that uses shared database
 
-4) collector that collects communicator peer addresses - 1 for each communicator
+04) collector that collects communicator peer addresses - 1 for each communicator
 
 Things to define:
 
-5) address types
+05) address types
   - this is per communicator
 
-6) URL data type (DONE)
-  - contains:
-    - URL (standard definition)
-    - keyword list
-    - descriptive text
-    - key (sha1 or something similar)
+--) DONE: URL data type (DONE)
 
-7) address type, this can contain ANY type of address
+07) address type, this can contain ANY type of address
   - specific address types
     - testing stream communicator addresses
     - direct communicator addresses
     - gnutella addresses
 
-8)  communicator throttling mechanisms
+08)  communicator throttling mechanisms
   - bucket algorithms for trusted/recommended/episodic sources of data
 
-9) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
+09) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
 
 10) copy out of the sha1 can have the prefix "Arado-ID:"
 
 11) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
-12) highlighting the description cell could expand the table line hight, so that the full description can be read? does Qt allow that?
+--) DONE: highlighting the description cell could expand the table line hight, so that the full description can be read? does Qt allow that?
 
 13) status bar: show recent button deletes the connection info, maybe this should be added?
 
@@ -50,14 +45,15 @@ Things to define:
 
 17) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
 
-18) Status bar shows always the connection status "30/30", as well in the recent & search results, or appears back after a few seconds
+--) DONE: Status bar shows always the connection status "30/30", as well in the recent & search results, or appears back after a few seconds
 
-19) Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
+--) DONE: Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
 
-20) this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
+--) UNFUNCTIONAL: this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
 
 21) if the search box is empty and the search button is pressed, act like recent button and show latest results.
 
 22) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
 
+23) Pressing the recent button should sort parallel the Date time top down, so the latest url on top.
 
