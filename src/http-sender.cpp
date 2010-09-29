@@ -105,7 +105,7 @@ HttpSender::Read ()
     QString partProto = parts.at(2);
     if (partCmd == QString ("GET")) {
       QUrl reqUrl (partUrl);
-      qDebug () << " url part as qurl " << reqUrl;
+      qDebug () << " ++++++++++++ url part as qurl " << reqUrl;
       qDebug () << " request path " << reqUrl.path();
       QString path = reqUrl.path().toLower();
       if (path == QString ("/arado")) {
@@ -242,7 +242,6 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype )
 void
 HttpSender::ReplyOffer (const QString & datatype)
 {
-  ReplyInvalid (QString ("Method Not Allowed"),405);
   QString uupath = QUuid::createUuid().toString();
   uupath.chop (1);
   uupath.remove (0,1);

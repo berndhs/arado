@@ -127,14 +127,16 @@ HttpClient::Poll (HttpAddress & addr)
     requestUrl.addQueryItem (QString ("count"),QString::number(20));
     QNetworkRequest  req (requestUrl);
     req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
-    qDebug () << " network query " << requestUrl;
+    req.setRawHeader ("User-Agent", "Arado/0.1");
+    qDebug () << " network query " << req.url();
     network->get (req);
 
-    offerUrl.addQueryItem (QString ("offer"),QString (""));
+    offerUrl.addQueryItem (QString ("offer"),QString ("data"));
     offerUrl.addQueryItem (QString ("type"),QString ("URL"));
     QNetworkRequest offer (offerUrl);
     offer.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
-    qDebug () << " offer query " << offerUrl;
+    offer.setRawHeader ("User-Agent", "Arado/0.1");
+    qDebug () << " offer query " << offer.url();
     network->get (offer);
   }
 }
