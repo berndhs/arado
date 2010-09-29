@@ -260,7 +260,7 @@ HttpSender::ReplyOffer (const QString & datatype)
   tcpSocket->write (lines.join("").toUtf8());
   AradoStreamParser parse;
   parse.SetOutDevice (tcpSocket);
-  parse.WriteUuPath (uupath);
+  parse.WriteUuPath (uupath, QString ("send"));
   tcpSocket->flush ();
   tcpSocket->close ();
 

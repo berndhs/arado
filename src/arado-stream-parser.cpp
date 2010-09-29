@@ -272,11 +272,13 @@ AradoStreamParser::Write (const AradoUrlList & list)
 }
 
 void
-AradoStreamParser::WriteUuPath (const QString & uupath)
+AradoStreamParser::WriteUuPath (const QString & uupath,
+                                const QString & status)
 {
   if (xmlout.device()->isWritable ()) {
     xmlout.writeStartDocument ();
     xmlout.writeStartElement ("arado");
+    xmlout.writeTextElement ("status",status);
     xmlout.writeTextElement ("uupath",uupath);
     xmlout.writeEndElement (); // arado
     xmlout.writeEndDocument ();

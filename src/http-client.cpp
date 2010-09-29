@@ -163,10 +163,7 @@ HttpClient::ProcessOfferReply (QNetworkReply * reply)
 {
   QMessageBox box;
   QByteArray msgBytes = reply->readAll();
-  QString msg ("Offer Reply body\n");
-  msg.append (QString (msgBytes));
-  box.setText (msg);
-  box.exec ();
+  qDebug () << " Offer Reply says " << msgBytes;
   reply->deleteLater();
 }
 
