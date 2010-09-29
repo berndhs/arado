@@ -294,9 +294,6 @@ qDebug () << " got " << urls.size() << " URLs in message ";
         }
       }
     }
-QMessageBox box;
-box.setText (QString(" received put ") + QString::number(numAdded));
-box.exec ();
     if (numAdded > 0) {
       emit AddedUrls (numAdded);
     }
