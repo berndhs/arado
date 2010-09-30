@@ -127,6 +127,7 @@ private:
   QList  <QNetworkReply*>        requestWait;
   QMap   <QNetworkReply*, QUrl>  offerWait;
   QMap   <QNetworkReply*, QBuffer*>        putWait;
+  QMap   <QNetworkReply*, int>         finishedCount;
 
 
 };

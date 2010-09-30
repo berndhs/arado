@@ -28,7 +28,6 @@
 #include <QString>
 #include <QUrl>
 #include <QBuffer>
-#include <map>
 
 #ifndef ARADO_HTTP_THREAD
 #define ARADO_HTTP_THREAD 0
@@ -55,7 +54,8 @@ Q_OBJECT
 
 public:
 
-  HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol);
+  HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
+              const QMap<QString, QString> & expected);
 
 #if ARADO_HTTP_THREAD
   void  run ();
@@ -77,6 +77,8 @@ public slots:
 signals:
 
   void AddedUrls (int numAdded);
+  void ExpectData (QString uupath, QString datatype);
+  void ReceivingData (QString uupath);
 
 private:
 
@@ -101,7 +103,8 @@ private:
   QString      putUrl;
   QString      putProto;
 
-  std::map <QString, QString>  expectType;
+  const QMap <QString, QString> & expectType;
+
 
 };
 

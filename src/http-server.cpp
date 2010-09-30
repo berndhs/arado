@@ -77,9 +77,27 @@ HttpServer::Listen (const QHostAddress & address,
 void
 HttpServer::incomingConnection (int sock)
 {
-  HttpSender * sender = new HttpSender (sock, this, db, policy);
+  HttpSender * sender = new HttpSender (sock, this, db, policy, expectData);
   connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
+  connect (sender, SIGNAL (ExpectData (QString, QString)),
+           this, SLOT (MarkExpected (QString, QString)));
+  connect (sender, SIGNAL (ReceivingData (QString)),
+           this, SLOT (MarkReceiving (QString)));
   sender->start ();
+}
+
+void
+HttpServer::MarkExpected (QString path, QString peer)
+{
+  expectData [path] = peer;
+  qDebug () << " inserted uupath " << path;
+}
+
+void
+HttpServer::MarkReceiving (QString path)
+{
+  expectData.remove (path);
+  qDebug () << " removed uupath " << path;
 }
 
 

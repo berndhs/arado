@@ -49,6 +49,11 @@ public:
   bool Listen ( const QHostAddress & address = QHostAddress::Any, 
                 quint16 port = 0 );
 
+private slots:
+
+  void  MarkExpected (QString path, QString host);
+  void  MarkReceiving (QString path);
+
 protected:
 
   void incomingConnection(int sock);
@@ -62,6 +67,8 @@ private:
   bool           running;
   DBManager     *db;
   Policy        *policy;
+
+  QMap <QString, QString>  expectData;
 
 };
 

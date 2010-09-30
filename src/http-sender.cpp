@@ -38,7 +38,8 @@
 namespace arado
 {
 
-HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol)
+HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
+                       const QMap <QString, QString> & expected)
   :
 #if ARADO_HTTP_THREAD
    QThread (parent),
@@ -48,7 +49,8 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol)
    socket (sock),
    db (dbm),
    policy (pol),
-   collectingPut (false)
+   collectingPut (false),
+   expectType (expected)
 { 
   tcpSocket = new QTcpSocket (this);
   tcpSocket->setSocketDescriptor (socket);
@@ -65,13 +67,10 @@ HttpSender::start ()
 {
   qDebug () << " ---- Sender Socked START ----- ";
   qDebug () << " Sender Thread running";
-  qDebug () << " Sender Thread has good socket";
-  qDebug () << " open " << tcpSocket->isOpen () 
-            << " readable " << tcpSocket->isReadable ()
-            << " error " << tcpSocket->errorString ();
+  qDebug () << " Sender Thread " << this << " socket " 
+            << socket << " peer " << tcpSocket->peerAddress();
   qDebug () << " START remote " << tcpSocket->peerAddress ()
             << " port " << tcpSocket->peerPort ();
-  qDebug () << " socket state " << tcpSocket->state ();
   qDebug () << " ---------------- ";
 #if ARADO_HTTP_THREAD
   QThread::run ();
@@ -117,13 +116,10 @@ HttpSender::Complete ()
 void
 HttpSender::ReadFirst ()
 {
-  qDebug () << " ---- Sender Socked READ ----- ";
-  qDebug () << " open " << tcpSocket->isOpen () 
-            << " readable " << tcpSocket->isReadable ()
-            << " error " << tcpSocket->errorString ();
-  qDebug () << " remote add " << tcpSocket->peerAddress ()
+  qDebug () << " ---- Sender Socket " << socket << " READ ----- ";
+  qDebug () << " remote addr " << tcpSocket->peerAddress ()
             << " remote port " << tcpSocket->peerPort ();
-  qDebug () << " local add " << tcpSocket->localAddress ()
+  qDebug () << " local addr " << tcpSocket->localAddress ()
             << " local port " << tcpSocket->localPort ();
   qDebug () << " socket state " << tcpSocket->state ();
   qDebug () << " bytes available " << tcpSocket->bytesAvailable ();
@@ -164,6 +160,16 @@ HttpSender::ReadFirst ()
         ReplyInvalid (QString ("Not found"), 404);
       }
     } else if (partCmd == QString ("PUT")) {
+      if (!expectType.contains(partUrl)) {
+        qDebug () << " was not expecting " << partUrl;
+        qDebug () << " outstanding offers " << expectType;
+        ReplyInvalid (QString ("Not found"), 404);
+        tcpSocket->close ();
+        return;
+      }
+      emit ReceivingData (partUrl);
+      qDebug () << this << " accepting expected " << partUrl;
+      qDebug () << " outstanding offers " << expectType;
       QString msgString;
       expectSize = 0;
       do {
@@ -305,7 +311,7 @@ HttpSender::ReplyOffer (const QString & datatype)
   uupath.chop (1);
   uupath.remove (0,1);
   QString wholePath (QString("/aradouu/%1").arg(uupath));
-  expectType [wholePath] = datatype;
+qDebug () << " offer expecting " << wholePath;
   QStringList lines;
   lines << "HTTP/1.1 200 OK\r\n";
   lines << "Connection: close\r\n";
@@ -322,6 +328,10 @@ HttpSender::ReplyOffer (const QString & datatype)
   tcpSocket->write (buf.buffer());
   tcpSocket->flush ();
   tcpSocket->close ();
+  QString peer = tcpSocket->peerAddress().toString();
+qDebug () << " now expecting " << wholePath << " from " << peer;
+qDebug () << " peer " << tcpSocket->peerAddress();
+  emit ExpectData (wholePath, peer);
 
   qDebug () << " Accepting Offer type " << datatype << " at " << uupath;
 }
@@ -329,7 +339,8 @@ HttpSender::ReplyOffer (const QString & datatype)
 void
 HttpSender::ProcessPut (const QString & urlText, const QString & proto)
 {
-  qDebug () << "HttpSender received PUT " << urlText;
+  qDebug () << "HttpSender " << this << " received expected PUT " << urlText;
+  qDebug () << expectType;
   if (inbuf.isReadable()) {
     AradoStreamParser parser;
     QBuffer bigbuf;

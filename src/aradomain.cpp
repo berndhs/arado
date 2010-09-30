@@ -133,12 +133,6 @@ AradoMain::StartClients ()
     httpClient->AddServer (
                   QHostAddress ("2001:0:5EF5:79FD:38EC:32A1:B24D:CBE4"),
                   httpDefaultPort);
-    httpClient->AddServer (
-                  QHostAddress ("2001:4830:1135:1:250:baff:fe18:fce6"),
-                  httpDefaultPort);
-    httpClient->AddServer (
-                  QHostAddress ("178.77.66.196")
-                  ,80);
     QTimer::singleShot (3000, httpClient, SLOT (Poll()));
   }
 }

@@ -149,6 +149,11 @@ HttpClient::Poll (HttpAddress & addr)
 void
 HttpClient::HandleReply (QNetworkReply * reply)
 {
+  if (!finishedCount.contains(reply)) {
+    finishedCount[reply] = 0;
+  }
+  finishedCount[reply] += 1;
+  qDebug () << " reply " << reply << " finished " << finishedCount[reply] << " times";
   if (requestWait.contains (reply)) {
     requestWait.removeAll (reply);
     ProcessRequestReply (reply);
@@ -200,6 +205,8 @@ HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
       data->open (QBuffer::ReadOnly);
       data->seek (0);
       QNetworkRequest  req (uploadUrl);
+      req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
+      req.setRawHeader ("User-Agent", "Arado/0.1");
       QNetworkReply *putReply = network->put (req, data);
     }
   }
