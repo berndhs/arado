@@ -81,6 +81,8 @@
     <addaction name="separator"/>
     <addaction name="actionImport_IP_List"/>
     <addaction name="actionExport_IP_List"/>
+    <addaction name="separator"/>
+    <addaction name="actionOnline_IP_Transfer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuData"/>
@@ -164,6 +166,11 @@
   <action name="actionExport_IP_List">
    <property name="text">
     <string>Export IP-List</string>
+   </property>
+  </action>
+  <action name="actionOnline_IP_Transfer">
+   <property name="text">
+    <string>Online IP-Transfer</string>
    </property>
   </action>
  </widget>
