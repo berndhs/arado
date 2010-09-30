@@ -16,6 +16,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="label">
+     <property name="toolTip">
+      <string>Enter any URL.</string>
+     </property>
      <property name="text">
       <string>URL:</string>
      </property>
@@ -39,6 +42,9 @@
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
+     <property name="toolTip">
+      <string>Enter the title or description of the URL.</string>
+     </property>
      <property name="text">
       <string>Title / Description:</string>
      </property>
@@ -75,6 +81,9 @@
        <verstretch>10</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>Close the Tab and go back.</string>
+     </property>
      <property name="text">
       <string>Close</string>
      </property>
@@ -97,6 +106,9 @@
        <horstretch>0</horstretch>
        <verstretch>10</verstretch>
       </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Clear the form.</string>
      </property>
      <property name="text">
       <string>Clear</string>
@@ -121,6 +133,9 @@
        <verstretch>10</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>Save the added Data.</string>
+     </property>
      <property name="text">
       <string>Save</string>
      </property>
@@ -138,6 +153,9 @@
    </item>
    <item row="4" column="0">
     <widget class="QLabel" name="label_3">
+     <property name="toolTip">
+      <string>Enter some keywords for the URL.</string>
+     </property>
      <property name="text">
       <string>Keywords:</string>
      </property>
