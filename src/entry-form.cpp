@@ -71,7 +71,7 @@ EntryForm::Save ()
   newurl.SetUrl (QUrl (urlText, QUrl::TolerantMode));
   if (!newurl.IsValid ()) {
     QMessageBox box (this);
-    box.setWindowTitle ("Arado - URL Database");
+    box.setWindowTitle ("Arado");
     QString message (tr("Invalid URL string \"%2\"\nwill not be saved.").arg(urlText));
     box.setText (message);
     box.exec ();
