@@ -281,7 +281,9 @@ UrlDisplay::CellMenu (const QTableWidgetItem *item,
   }
   QMenu menu (this);
   QAction * copyAction = new QAction (tr("Copy Text"),this);
+  copyAction->setIcon(QPixmap(":/images/copy.png"));
   QAction * mailAction = new QAction (tr("Mail Text"),this);
+  mailAction->setIcon(QPixmap(":/images/mail.png"));
   menu.addAction (copyAction);
   menu.addAction (mailAction);
   if (extraActions.size() > 0) {
@@ -316,6 +318,7 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
     return;
   }
   QAction * openAction = new QAction (tr("Browse URL"),this);
+  openAction->setIcon(QPixmap(":/images/kugar.png"));
   QList<QAction*> list;
   list.append (openAction);
 
@@ -334,7 +337,9 @@ UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
     return;
   }
   QAction *copyKeysAction = new QAction (tr("Copy Keywords"), this);
+  copyKeysAction->setIcon(QPixmap(":/images/copy.png"));
   QAction *mailKeysAction = new QAction (tr("Mail Keywords"), this);
+  mailKeysAction->setIcon(QPixmap(":/images/mail.png"));
   QList <QAction*> list;
   list.append (copyKeysAction);
   list.append (mailKeysAction);
