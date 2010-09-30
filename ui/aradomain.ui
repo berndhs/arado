@@ -120,7 +120,7 @@
      <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
    </property>
    <property name="text">
-    <string>Enter Data</string>
+    <string>Add URL</string>
    </property>
   </action>
   <action name="actionExportFile">

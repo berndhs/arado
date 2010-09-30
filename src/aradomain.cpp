@@ -269,7 +269,7 @@ void
 AradoMain::DoEntry (QString urlText)
 {
   if (entryForm) {
-    int tabnum = mainUi.tabWidget->addTab (entryForm,tr("Enter Data"));
+    int tabnum = mainUi.tabWidget->addTab (entryForm,tr("Add URL"));
     mainUi.tabWidget->setCurrentIndex (tabnum);
     entryForm->Start (urlText);
   }
