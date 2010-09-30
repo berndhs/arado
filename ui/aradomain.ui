@@ -73,8 +73,18 @@
     <addaction name="separator"/>
     <addaction name="editNewFeed"/>
    </widget>
+   <widget class="QMenu" name="menuNetwork">
+    <property name="title">
+     <string>Network</string>
+    </property>
+    <addaction name="actionBootstrap"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport_IP_List"/>
+    <addaction name="actionExport_IP_List"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuData"/>
+   <addaction name="menuNetwork"/>
    <addaction name="menuDevel"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -139,6 +149,21 @@
    </property>
    <property name="text">
     <string>Edit RSS-Import-URL</string>
+   </property>
+  </action>
+  <action name="actionBootstrap">
+   <property name="text">
+    <string>Bootstrap</string>
+   </property>
+  </action>
+  <action name="actionImport_IP_List">
+   <property name="text">
+    <string>Import IP-List</string>
+   </property>
+  </action>
+  <action name="actionExport_IP_List">
+   <property name="text">
+    <string>Export IP-List</string>
    </property>
   </action>
  </widget>
