@@ -21,6 +21,8 @@
         <file>images/down.png</file>
         <file>images/up.png</file>
         <file>images/connect_established.png</file>
+        <file>images/copy.png</file>
+        <file>images/mail.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
