@@ -39,7 +39,9 @@ namespace arado
 {
 
 DBManager::DBManager (QObject * parent)
-  :QObject (parent)
+  :QObject (parent),
+   ipInTransaction (false),
+   urlInTransaction (false)
 {
 }
 
@@ -58,7 +60,9 @@ DBManager::Start ()
   qDebug () << " url database name " << urlbasename;
 
   StartDB (ipBase, "ipBaseCon", ipbasename);
+  ipInTransaction = false;
   StartDB (urlBase, "urlBaseCon", urlbasename);
+  urlInTransaction = false;
 
   QStringList ipElements;
   CheckDBComplete (ipBase, ipElements);
@@ -158,11 +162,7 @@ DBManager::AddUrl (AradoUrl & url)
   if (!url.IsValid ()) {
     return false;         // don't want known bad URLs in the database
   }
-  QSqlQuery transact (urlBase);
-  bool started = transact.exec ("BEGIN TRANSACTION");
-  if (!started) {
-    return false;
-  }
+  StartTransaction(DB_Url);
   QSqlQuery add (urlBase);
   QString cmd ("insert or replace into urltable"
                " (hashid, url, description) "
@@ -186,8 +186,8 @@ DBManager::AddUrl (AradoUrl & url)
   if (ok) {
     url.SetTimestamp (ts);
   }
-  ok &= AddKeywords (url);
-  transact.exec ("COMMIT TRANSACTION");
+  CloseTransaction (DB_Url);
+  AddKeywords (url);
   return ok;
 }
 
@@ -332,6 +332,58 @@ DBManager::GetMatching (QStringList & hashList,
     hashList.append (hash);
   }
   return (ok);
+}
+
+bool
+DBManager::StartTransaction (DBType t)
+{
+  QSqlQuery * transact (0);
+  bool fakeFlag (false);
+  bool *busyFlag (&fakeFlag);
+  if (t == DB_Url) {
+    busyFlag = & urlInTransaction;
+    transact = new QSqlQuery (urlBase);
+  } else if (t == DB_Address) {
+    busyFlag = & ipInTransaction;
+    transact = new QSqlQuery (ipBase);
+  } else {
+    return false;
+  }
+  if (*busyFlag) {
+    return false;
+  }
+  bool ok = transact->exec ("BEGIN TRANSACTION");  
+  if (ok) {
+    *busyFlag = true;
+  }
+  qDebug () << " BEGIN transaction " << ok << transact->lastQuery();
+  return ok;
+}
+
+bool
+DBManager::CloseTransaction (DBType t)
+{
+  QSqlQuery * transact (0);
+  bool fakeFlag (false);
+  bool *busyFlag (&fakeFlag);
+  if (t == DB_Url) {
+    busyFlag = & urlInTransaction;
+    transact = new QSqlQuery (urlBase);
+  } else if (t == DB_Address) {
+    busyFlag = & ipInTransaction;
+    transact = new QSqlQuery (ipBase);
+  } else {
+    return false;
+  }
+  if (! (*busyFlag)) {
+    return false;
+  }
+  bool ok = transact->exec ("COMMIT TRANSACTION");
+  qDebug () << " COMMIT transaction " << ok << transact->lastQuery ();
+  if (ok) {
+    *busyFlag = false;
+  }
+  return ok;
 }
 
 } // namespace

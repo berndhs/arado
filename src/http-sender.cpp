@@ -39,7 +39,8 @@ namespace arado
 {
 
 HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
-                       const QMap <QString, QString> & expected)
+                       const QMap <QString, QString> & expected,
+                       const QMap <QString, quint64> & accepted)
   :
 #if ARADO_HTTP_THREAD
    QThread (parent),
@@ -50,7 +51,8 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
    db (dbm),
    policy (pol),
    collectingPut (false),
-   expectType (expected)
+   expectType (expected),
+   lastAccepted (accepted)
 { 
   tcpSocket = new QTcpSocket (this);
   tcpSocket->setSocketDescriptor (socket);
@@ -126,6 +128,7 @@ HttpSender::ReadFirst ()
   qDebug () << " open mode " << tcpSocket->openMode ();
   QHostAddress us = tcpSocket->localAddress ();
   QHostAddress them = tcpSocket->peerAddress ();
+  peerAddress = them;
   if (us == them) {
     tcpSocket->close ();
     return; 
@@ -260,10 +263,23 @@ HttpSender::ReplyInvalid (const QString & message, int error)
   lines << "Connection: close\r\n";
   lines << "Server: Arado/0.1\r\n";
   lines << "\r\n";
-  lines << message;
-  lines << "\r\n";
   lines << QDateTime::currentDateTime().toString () << "\n";
   qDebug () << " sending error message " << lines;
+  ostream << lines.join ("");
+  tcpSocket->flush ();
+  tcpSocket->close ();
+}
+
+void
+HttpSender::ReplyAck (const QString & message, int status)
+{
+  QTextStream ostream (tcpSocket);
+  ostream.setAutoDetectUnicode (true);
+  QStringList lines;
+  lines << QString ("HTTP/1.0 %1 %2\r\n").arg(status).arg(message);
+  lines << "Connection: close\r\n";
+  lines << "Server: Arado/0.1\r\n";
+  lines << "\r\n";
   ostream << lines.join ("");
   tcpSocket->flush ();
   tcpSocket->close ();
@@ -307,6 +323,10 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype )
 void
 HttpSender::ReplyOffer (const QString & datatype)
 {
+  if (lastAccepted.contains (peerAddress.toString())) {
+    ReplyInvalid (QString ("Too Many Requests"),403);
+    return;
+  }
   QString uupath = QUuid::createUuid().toString();
   uupath.chop (1);
   uupath.remove (0,1);
@@ -328,10 +348,7 @@ qDebug () << " offer expecting " << wholePath;
   tcpSocket->write (buf.buffer());
   tcpSocket->flush ();
   tcpSocket->close ();
-  QString peer = tcpSocket->peerAddress().toString();
-qDebug () << " now expecting " << wholePath << " from " << peer;
-qDebug () << " peer " << tcpSocket->peerAddress();
-  emit ExpectData (wholePath, peer);
+  emit ExpectData (wholePath, peerAddress.toString());
 
   qDebug () << " Accepting Offer type " << datatype << " at " << uupath;
 }
@@ -372,6 +389,7 @@ HttpSender::ProcessPut (const QString & urlText, const QString & proto)
     }
     inbuf.buffer().clear ();
   }
+  ReplyAck ();
 }
 
 void

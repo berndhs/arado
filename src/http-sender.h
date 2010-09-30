@@ -25,9 +25,11 @@
 #include <QThread>
 #include <QList>
 #include <QPair>
+#include <QMap>
 #include <QString>
 #include <QUrl>
 #include <QBuffer>
+#include <QHostAddress>
 
 #ifndef ARADO_HTTP_THREAD
 #define ARADO_HTTP_THREAD 0
@@ -55,7 +57,8 @@ Q_OBJECT
 public:
 
   HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
-              const QMap<QString, QString> & expected);
+              const QMap<QString, QString> & expected,
+              const QMap<QString, quint64> & accepted);
 
 #if ARADO_HTTP_THREAD
   void  run ();
@@ -77,7 +80,7 @@ public slots:
 signals:
 
   void AddedUrls (int numAdded);
-  void ExpectData (QString uupath, QString datatype);
+  void ExpectData (QString uupath, QString peer);
   void ReceivingData (QString uupath);
 
 private:
@@ -89,6 +92,7 @@ private:
                     bool useOldest, quint64 oldest,
                     const QString & datatype );
   void  ReplyInvalid (const QString & message, int error=400);
+  void  ReplyAck (const QString & message = QString("OK"), int status=200);
   void  ReplyOffer (const QString & datatype );
   void  ProcessPut (const QString & urlText, const QString & proto);
   void  SkipWhite (QIODevice *dev);
@@ -102,8 +106,11 @@ private:
   bool         collectingPut;
   QString      putUrl;
   QString      putProto;
+  QHostAddress peerAddress;
 
   const QMap <QString, QString> & expectType;
+  const QMap <QString, quint64> & lastAccepted;
+
 
 
 };

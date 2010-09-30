@@ -27,7 +27,9 @@
 #include "deliberate.h"
 #include "db-manager.h"
 #include "http-sender.h"
+#include "policy.h"
 #include <QTcpServer>
+#include <QDateTime>
 
 using namespace deliberate;
 
@@ -40,8 +42,11 @@ HttpServer::HttpServer (QObject *parent)
    serverPort (80),
    runServer (false),
    running (false),
-   db (0)
+   db (0),
+   acceptCleaner (this),
+   acceptPause (15)
 {
+  connect (&acceptCleaner, SIGNAL (timeout()), this, SLOT (CleanAccept()));
 }
 
 bool
@@ -53,15 +58,19 @@ HttpServer::Start ()
   Settings().setValue ("http/address",serverAddrString);
   serverPort = Settings().value ("http/port",serverPort).toUInt();
   Settings().setValue ("http/port",serverPort);
+  acceptPause = Settings().value ("http/coolingtime",acceptPause).toInt();
+  Settings().setValue ("http/coolingtime",acceptPause);
   if (runServer) {
     Listen (QHostAddress (serverAddrString), serverPort);
   }
+  acceptCleaner.start (acceptPause);
   return false;
 }
 
 bool
 HttpServer::Stop ()
 {
+  acceptCleaner.stop ();
   return true;
 }
 
@@ -77,7 +86,8 @@ HttpServer::Listen (const QHostAddress & address,
 void
 HttpServer::incomingConnection (int sock)
 {
-  HttpSender * sender = new HttpSender (sock, this, db, policy, expectData);
+  HttpSender * sender = new HttpSender (sock, this, db, policy, 
+                                        expectData, lastAccept);
   connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
   connect (sender, SIGNAL (ExpectData (QString, QString)),
            this, SLOT (MarkExpected (QString, QString)));
@@ -90,6 +100,8 @@ void
 HttpServer::MarkExpected (QString path, QString peer)
 {
   expectData [path] = peer;
+  quint64 now = QDateTime::currentDateTime().toTime_t();
+  lastAccept [peer] = now;
   qDebug () << " inserted uupath " << path;
 }
 
@@ -98,6 +110,21 @@ HttpServer::MarkReceiving (QString path)
 {
   expectData.remove (path);
   qDebug () << " removed uupath " << path;
+}
+
+void
+HttpServer::CleanAccept ()
+{
+  quint64 limit = QDateTime::currentDateTime().toTime_t();
+  limit -= acceptPause;
+  QMap <QString, quint64>::iterator  chase = lastAccept.begin();
+  while (chase != lastAccept.end() ) {
+    if (*chase < limit) {
+      chase = lastAccept.erase (chase);
+    } else {
+      chase ++;
+    }
+  }
 }
 
 

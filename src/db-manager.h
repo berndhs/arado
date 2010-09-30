@@ -34,6 +34,12 @@ class DBManager : public QObject
 Q_OBJECT
 
 public:
+
+  enum DBType { 
+        DB_None = 0,
+        DB_Url = 1,
+        DB_Address = 2
+        };
   
   DBManager (QObject *parent =0);
 
@@ -51,7 +57,8 @@ public:
   bool  GetMatching (QStringList & hashList, 
                      const QStringList & keys,
                      bool combineAnd = true);
-  
+  bool  StartTransaction (DBType  t = DB_Url);
+  bool  CloseTransaction (DBType  t = DB_Url);
 
 private:
 
@@ -68,6 +75,9 @@ private:
 
   QSqlDatabase     ipBase;
   QSqlDatabase     urlBase;
+
+  bool             ipInTransaction;
+  bool             urlInTransaction;
 
 };
 

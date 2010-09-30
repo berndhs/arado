@@ -24,7 +24,9 @@
 
 #include <QTcpServer>
 #include <QHostAddress>
+#include <QMap>
 #include <QString>
+#include <QTimer>
 
 namespace arado
 {
@@ -53,6 +55,7 @@ private slots:
 
   void  MarkExpected (QString path, QString host);
   void  MarkReceiving (QString path);
+  void  CleanAccept ();
 
 protected:
 
@@ -69,6 +72,10 @@ private:
   Policy        *policy;
 
   QMap <QString, QString>  expectData;
+  QMap <QString, quint64>  lastAccept;
+
+  QTimer        acceptCleaner;
+  quint64       acceptPause;
 
 };
 

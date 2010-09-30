@@ -21,6 +21,7 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 #include "policy.h"
+#include <QDebug>
 
 namespace arado
 {
@@ -37,8 +38,11 @@ Policy::AddUrl (DBManager &dbm, AradoUrl &url)
   url.ComputeHash ();
   QByteArray hashNew = url.Hash ();
   if (hashNew == hashOrig) {
-    return dbm.AddUrl (url);
+    bool ok = dbm.AddUrl (url);
+    qDebug () << " Policy Accept saving " << ok << url.Url();
+    return ok;
   } else {
+    qDebug () << " Policy Reject saving " << url.Url();
     return false;
   }
 }
