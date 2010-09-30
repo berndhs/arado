@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -154,21 +154,37 @@
    </property>
   </action>
   <action name="actionBootstrap">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/connect_established.png</normaloff>:/images/connect_established.png</iconset>
+   </property>
    <property name="text">
-    <string>Bootstrap</string>
+    <string>Start Bootstrap</string>
    </property>
   </action>
   <action name="actionImport_IP_List">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/down.png</normaloff>:/images/down.png</iconset>
+   </property>
    <property name="text">
     <string>Import IP-List</string>
    </property>
   </action>
   <action name="actionExport_IP_List">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/up.png</normaloff>:/images/up.png</iconset>
+   </property>
    <property name="text">
     <string>Export IP-List</string>
    </property>
   </action>
   <action name="actionOnline_IP_Transfer">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
+   </property>
    <property name="text">
     <string>Online IP-Transfer</string>
    </property>
