@@ -28,7 +28,20 @@
    <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="4" column="0">
+    <widget class="QTreeView" name="configView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>10</horstretch>
+       <verstretch>20</verstretch>
+      </sizepolicy>
+     </property>
+     <attribute name="headerVisible">
+      <bool>true</bool>
+     </attribute>
+    </widget>
+   </item>
+   <item row="5" column="0">
     <widget class="QLineEdit" name="fileName">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
@@ -48,19 +61,6 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QTreeView" name="configView">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>10</horstretch>
-       <verstretch>20</verstretch>
-      </sizepolicy>
-     </property>
-     <attribute name="headerVisible">
-      <bool>true</bool>
-     </attribute>
-    </widget>
-   </item>
-   <item row="4" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="saveButton">
