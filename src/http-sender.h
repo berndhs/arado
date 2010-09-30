@@ -29,10 +29,7 @@
 #include <QString>
 #include <QUrl>
 #include <QBuffer>
-<<<<<<< HEAD
 #include <QHostAddress>
-=======
->>>>>>> 10e12ee1bdfd40417723bcba524cda26db8c896d
 
 #ifndef ARADO_HTTP_THREAD
 #define ARADO_HTTP_THREAD 0
@@ -60,12 +57,8 @@ Q_OBJECT
 public:
 
   HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
-<<<<<<< HEAD
               const QMap<QString, QString> & expected,
               const QMap<QString, quint64> & accepted);
-=======
-              const QMap<QString, QString> & expected);
->>>>>>> 10e12ee1bdfd40417723bcba524cda26db8c896d
 
 #if ARADO_HTTP_THREAD
   void  run ();
