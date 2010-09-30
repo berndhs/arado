@@ -121,6 +121,7 @@ HttpClient::Poll (HttpAddress & addr)
                        "http://[%1]" : "http://%1");
       requestUrl.setUrl (pattern.arg (addr.haddr.toString()));
     }
+    qDebug () << " Polling host " << requestUrl.host();
     requestUrl.setPort (addr.port);
     requestUrl.setPath ("/arado");
     offerUrl = requestUrl;

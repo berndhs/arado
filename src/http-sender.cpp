@@ -93,7 +93,9 @@ void
 HttpSender::ReadMore ()
 {
   inbuf.buffer().append (tcpSocket->readAll());
-  qDebug () << " PUT inbuf has " << inbuf.size () << " bytes";
+  qDebug () << " for sock " << tcpSocket << " from " << tcpSocket->peerAddress();
+  qDebug () << " PUT inbuf has " << inbuf.size ()<< " of " 
+            << expectSize << " bytes";
   if (inbuf.size() >= expectSize) {
     Complete ();
   }
@@ -106,6 +108,7 @@ HttpSender::Complete ()
              << collectingPut;
   if (collectingPut) {
     inbuf.open (QBuffer::ReadOnly);
+    collectingPut = false;
     ProcessPut (putUrl, putProto);
   }
   tcpSocket->close ();
