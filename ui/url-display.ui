@@ -249,7 +249,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>Filter your local URL-database for the entered keyword(s).</string>
+      <string>Search for the entered keyword(s).</string>
      </property>
      <property name="text">
       <string>Search</string>
