@@ -29,7 +29,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>Add URL: Press the logo and add an URL to your local database. A pop-up window asks you to add a short URL description or keywords seperated by blanks.</string>
+      <string>Add URL: Press the logo and add an URL to your local database. A pop-up window asks you to add the URL, description and keywords.</string>
      </property>
      <property name="text">
       <string/>
@@ -237,6 +237,9 @@
        <width>0</width>
        <height>43</height>
       </size>
+     </property>
+     <property name="toolTip">
+      <string>Enter here a keyword and press the search button.</string>
      </property>
     </widget>
    </item>
