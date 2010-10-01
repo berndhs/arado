@@ -67,6 +67,10 @@ public slots:
   void DoneEntry ();
   void NewUrl (const AradoUrl & newurl);
 
+private slots:
+
+  void AddServer ();
+
 
 private:
 

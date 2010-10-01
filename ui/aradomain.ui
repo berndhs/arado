@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -55,6 +55,7 @@
     <property name="title">
      <string>Develop</string>
     </property>
+    <addaction name="actionAddServer"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -187,6 +188,11 @@
    </property>
    <property name="text">
     <string>Online IP-Transfer</string>
+   </property>
+  </action>
+  <action name="actionAddServer">
+   <property name="text">
+    <string>Add Server</string>
    </property>
   </action>
  </widget>

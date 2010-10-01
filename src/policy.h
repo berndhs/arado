@@ -25,6 +25,7 @@
 #include <QObject>
 #include "db-manager.h"
 #include "arado-url.h"
+#include <set>
 
 namespace arado
 {
@@ -41,6 +42,14 @@ public:
   Policy (QObject *parent);
 
   virtual bool AddUrl (DBManager & dbm, AradoUrl & url);
+
+private:
+
+  bool  IsKnown (const QByteArray & hash);
+  bool  AddHash (const QByteArray & hash);
+
+  std::set <QByteArray> knownHash;
+  unsigned int          sizeLimit;
   
 } ;
 

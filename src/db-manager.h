@@ -47,6 +47,7 @@ public:
   void  Close ();
 
   bool  AddUrl (AradoUrl & url);
+  bool  AddKeywords (AradoUrl & url);
   
   AradoUrlList  GetRecent (int howmany);
 
@@ -70,7 +71,6 @@ private:
                         const QStringList & elements);
   QString ElementType (QSqlDatabase & db, const QString & name);
   void    MakeElement (QSqlDatabase & db, const QString & element);
-  bool    AddKeywords (AradoUrl & url);
   bool    AddUrlTimestamp (const QString & hash, quint64 & ts);
 
   QSqlDatabase     ipBase;

@@ -20,6 +20,7 @@
 #include "search.h"
 #include "http-server.h"
 #include "http-client.h"
+#include "ui_address-input.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -41,6 +42,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
+
+#include <QDialog>
 
 using namespace deliberate;
 
@@ -138,6 +141,27 @@ AradoMain::StartClients ()
 }
 
 void
+AradoMain::AddServer ()
+{
+  Ui_AddressDialog  addrUi;
+  QDialog           addrDial (this);
+  addrUi.setupUi (&addrDial);
+  connect (addrUi.okButton, SIGNAL (clicked()), &addrDial, SLOT (accept()));
+  connect (addrUi.cancelButton, SIGNAL (clicked()), &addrDial, SLOT (reject()));
+  addrUi.portEdit->setText ("29998");
+  addrUi.addressEdit->clear ();
+  int result = addrDial.exec ();
+  if (result) {
+    if (httpClient) {
+      QString addr = addrUi.addressEdit->text ();
+      int port = addrUi.portEdit->text().toInt ();
+qDebug () << " call AddServer with " << addr << " : " << port;
+      httpClient->AddServer (QHostAddress (addr), port);
+    }
+  }
+}
+
+void
 AradoMain::StopClients ()
 {
   if (httpPoll) {
@@ -162,6 +186,8 @@ AradoMain::Connect ()
           this, SLOT (DoFileExport ()));
   connect (mainUi.actionEnterData, SIGNAL (triggered()),
            this, SLOT (DoEntry ()));
+  connect (mainUi.actionAddServer, SIGNAL (triggered()),
+           this, SLOT (AddServer ()));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));

@@ -21,14 +21,19 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 #include "policy.h"
+#include "deliberate.h"
 #include <QDebug>
 
 namespace arado
 {
 
 Policy::Policy (QObject *parent)
-  :QObject (parent)
+  :QObject (parent),
+   sizeLimit (10000)
 {
+  sizeLimit = deliberate::Settings().value 
+                         ("limits/dailycache",sizeLimit).toInt();
+  deliberate::Settings().setValue ("limits/dailycache",sizeLimit);
 }
 
 bool
@@ -38,13 +43,35 @@ Policy::AddUrl (DBManager &dbm, AradoUrl &url)
   url.ComputeHash ();
   QByteArray hashNew = url.Hash ();
   if (hashNew == hashOrig) {
-    bool ok = dbm.AddUrl (url);
-    qDebug () << " Policy Accept saving " << ok << url.Url();
+    bool ok (false);
+    if (IsKnown (hashNew)) {
+      ok = dbm.AddKeywords (url);
+      qDebug () << " Policy Accept updating " << ok << url.Url();
+    } else {
+      AddHash (hashNew);
+      ok = dbm.AddUrl (url);
+      qDebug () << " Policy Accept saving " << ok << url.Url();
+    }
     return ok;
   } else {
     qDebug () << " Policy Reject saving " << url.Url();
     return false;
   }
+}
+
+bool
+Policy::IsKnown (const QByteArray & hash)
+{
+  return knownHash.find (hash) != knownHash.end();
+}
+
+bool
+Policy::AddHash (const QByteArray & hash)
+{
+  if (knownHash.size() >= sizeLimit) {
+    knownHash.erase (knownHash.begin());
+  }
+  knownHash.insert (hash);
 }
 
 } // namespace

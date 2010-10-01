@@ -48,6 +48,7 @@ FORMS		=	ui/aradomain.ui \
                         ui/url-display.ui \
                         ui/connection-display.ui \
                         ui/entry-form.ui \
+                        ui/address-input.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
