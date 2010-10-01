@@ -8,7 +8,7 @@
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, The Arado Team
+ * Copyright (C) 2010, Arado Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@ namespace deliberate {
   QString ProgramVersion::VersionNumber ("0.0.1");
 
   QString ProgramVersion::ProgramName("Arado");
-  QString ProgramVersion::copyright ("Copyright (C) 2010 The Arado Team");
+  QString ProgramVersion::copyright ("Copyright (C) 2010 Arado Team");
   
   ProgramVersion::ProgramVersion (QString pgmname)
   {
