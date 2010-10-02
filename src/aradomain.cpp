@@ -171,6 +171,7 @@ AradoMain::AddFeed ()
   connect (feedUi.okButton, SIGNAL (clicked()), &enterFeed, SLOT (accept()));
   connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
   feedUi.feedEdit->setText ("http://feed....");
+  int response = enterFeed.exec ();
 }
 
 void
