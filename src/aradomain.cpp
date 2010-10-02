@@ -21,6 +21,7 @@
 #include "http-server.h"
 #include "http-client.h"
 #include "ui_address-input.h"
+#include "ui_feed-input.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -162,6 +163,17 @@ qDebug () << " call AddServer with " << addr << " : " << port;
 }
 
 void
+AradoMain::AddFeed ()
+{
+  Ui_FeedDialog  feedUi;
+  QDialog           enterFeed (this);
+  feedUi.setupUi (&enterFeed);
+  connect (feedUi.okButton, SIGNAL (clicked()), &enterFeed, SLOT (accept()));
+  connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
+  feedUi.feedEdit->setText ("http://feed....");
+}
+
+void
 AradoMain::StopClients ()
 {
   if (httpPoll) {
@@ -190,6 +202,8 @@ AradoMain::Connect ()
            this, SLOT (AddServer ()));
   connect (mainUi.actionPoll, SIGNAL (triggered()),
            httpClient, SLOT (Poll ()));
+  connect (mainUi.actionAddFeed, SIGNAL (triggered()),
+           this, SLOT (AddFeed ()));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));

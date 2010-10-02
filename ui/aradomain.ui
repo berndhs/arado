@@ -71,7 +71,7 @@
     <addaction name="actionImportFile"/>
     <addaction name="actionExportFile"/>
     <addaction name="separator"/>
-    <addaction name="editNewFeed"/>
+    <addaction name="actionAddFeed"/>
    </widget>
    <widget class="QMenu" name="menuNetwork">
     <property name="title">
@@ -144,7 +144,7 @@
     <string>Export File</string>
    </property>
   </action>
-  <action name="editNewFeed">
+  <action name="actionAddFeed">
    <property name="icon">
     <iconset resource="../arado.qrc">
      <normaloff>:/images/rss.png</normaloff>:/images/rss.png</iconset>

@@ -70,6 +70,7 @@ public slots:
 private slots:
 
   void AddServer ();
+  void AddFeed ();
 
 
 private:
