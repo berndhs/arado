@@ -39,7 +39,7 @@ namespace arado
 {
 
 DBManager::DBManager (QObject * parent)
-  :QObject (parent),
+  :QThread (parent),
    ipInTransaction (false),
    urlInTransaction (false)
 {
@@ -48,6 +48,7 @@ DBManager::DBManager (QObject * parent)
 void
 DBManager::Start ()
 {
+  QThread::start();
   QString dataDir = QDesktopServices::storageLocation
                     (QDesktopServices::DataLocation);
   QString ipbasename = dataDir + QDir::separator() + QString ("ipbase.sql");
@@ -199,7 +200,7 @@ DBManager::AddKeywords (AradoUrl & url)
   bool allok (true);
   for (int k=0; k < keys.size(); k++) {
     QSqlQuery add (urlBase);
-    QString cmd ("insert or replace into keywords"
+    QString cmd ("insert into keywords"
                  " (hashid, keyword) "
                  " values (?, ?)");
     add.prepare (cmd);

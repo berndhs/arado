@@ -56,6 +56,7 @@
      <string>Develop</string>
     </property>
     <addaction name="actionAddServer"/>
+    <addaction name="actionPoll"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -193,6 +194,11 @@
   <action name="actionAddServer">
    <property name="text">
     <string>Add Server</string>
+   </property>
+  </action>
+  <action name="actionPoll">
+   <property name="text">
+    <string>Poll Servers</string>
    </property>
   </action>
  </widget>

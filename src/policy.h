@@ -41,6 +41,9 @@ public:
 
   Policy (QObject *parent);
 
+  virtual void Load ();
+  virtual void Save ();
+
   virtual bool AddUrl (DBManager & dbm, AradoUrl & url);
 
 private:
@@ -50,6 +53,7 @@ private:
 
   std::set <QByteArray> knownHash;
   unsigned int          sizeLimit;
+  QString               filename;
   
 } ;
 

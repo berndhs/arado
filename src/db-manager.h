@@ -23,13 +23,14 @@
  ****************************************************************/
 
 #include <QObject>
+#include <QThread>
 #include <QSqlDatabase>
 #include "arado-url.h"
 
 namespace arado
 {
 
-class DBManager : public QObject
+class DBManager : public QThread
 {
 Q_OBJECT
 

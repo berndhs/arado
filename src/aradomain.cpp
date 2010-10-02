@@ -100,6 +100,9 @@ AradoMain::Start ()
     if (urlDisplay) {
       QTimer::singleShot (1200, urlDisplay, SLOT (Refresh()));
     }
+    if (policy) {
+      policy->Load ();
+    }
   }
   show ();
   StartServers ();
@@ -133,9 +136,6 @@ AradoMain::StartClients ()
     httpPoll->start (2*60*1000);
     httpClient->SetDB (&dbMgr);
     httpClient->SetPolicy (policy);
-    httpClient->AddServer (
-                  QHostAddress ("2001:0:5EF5:79FD:38EC:32A1:B24D:CBE4"),
-                  httpDefaultPort);
     QTimer::singleShot (3000, httpClient, SLOT (Poll()));
   }
 }
@@ -188,6 +188,8 @@ AradoMain::Connect ()
            this, SLOT (DoEntry ()));
   connect (mainUi.actionAddServer, SIGNAL (triggered()),
            this, SLOT (AddServer ()));
+  connect (mainUi.actionPoll, SIGNAL (triggered()),
+           httpClient, SLOT (Poll ()));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));
@@ -219,6 +221,9 @@ AradoMain::Quit ()
   Settings().setValue ("sizes/main",currentSize);
   Settings().sync();
   dbMgr.Close ();
+  if (policy) {
+    policy->Save ();
+  }
   if (app) {
     app->quit ();
   }
