@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -55,8 +55,6 @@
     <property name="title">
      <string>Develop</string>
     </property>
-    <addaction name="actionAddServer"/>
-    <addaction name="actionPoll"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -79,12 +77,12 @@
     <property name="title">
      <string>Network</string>
     </property>
-    <addaction name="actionBootstrap"/>
+    <addaction name="actionAddServer"/>
     <addaction name="separator"/>
     <addaction name="actionImport_IP_List"/>
     <addaction name="actionExport_IP_List"/>
     <addaction name="separator"/>
-    <addaction name="actionOnline_IP_Transfer"/>
+    <addaction name="actionPoll"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuData"/>
@@ -192,13 +190,21 @@
    </property>
   </action>
   <action name="actionAddServer">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/connect_established.png</normaloff>:/images/connect_established.png</iconset>
+   </property>
    <property name="text">
-    <string>Add Server</string>
+    <string>Add Device</string>
    </property>
   </action>
   <action name="actionPoll">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
+   </property>
    <property name="text">
-    <string>Poll Servers</string>
+    <string>Start Sync</string>
    </property>
   </action>
  </widget>
