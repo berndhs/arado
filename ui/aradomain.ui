@@ -153,15 +153,6 @@
     <string>Edit RSS-Import-URL</string>
    </property>
   </action>
-  <action name="actionBootstrap">
-   <property name="icon">
-    <iconset resource="../arado.qrc">
-     <normaloff>:/images/connect_established.png</normaloff>:/images/connect_established.png</iconset>
-   </property>
-   <property name="text">
-    <string>Start Bootstrap</string>
-   </property>
-  </action>
   <action name="actionImport_IP_List">
    <property name="icon">
     <iconset resource="../arado.qrc">
@@ -178,15 +169,6 @@
    </property>
    <property name="text">
     <string>Export IP-List</string>
-   </property>
-  </action>
-  <action name="actionOnline_IP_Transfer">
-   <property name="icon">
-    <iconset resource="../arado.qrc">
-     <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
-   </property>
-   <property name="text">
-    <string>Online IP-Transfer</string>
    </property>
   </action>
   <action name="actionAddServer">

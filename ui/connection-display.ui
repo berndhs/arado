@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="0" colspan="6">
+   <item row="3" column="0" colspan="5">
     <widget class="QLabel" name="labeltrusted">
      <property name="font">
       <font>
@@ -28,7 +28,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="6" colspan="4">
+   <item row="3" column="5" colspan="4">
     <widget class="QLabel" name="labeltrecommended">
      <property name="font">
       <font>
@@ -42,7 +42,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="12" colspan="2">
+   <item row="3" column="11" colspan="2">
     <widget class="QLabel" name="labelrpisodiv">
      <property name="font">
       <font>
@@ -56,14 +56,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="5">
+   <item row="4" column="0" colspan="4">
     <widget class="QLabel" name="labelipdrop_4">
      <property name="text">
       <string>IP-Drop-Time (30 - 120 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="5">
+   <item row="4" column="4">
     <widget class="QSpinBox" name="ipdroptrusted">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -79,14 +79,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="6" colspan="3">
+   <item row="4" column="5" colspan="3">
     <widget class="QLabel" name="labelipdrop_3">
      <property name="text">
       <string>IP-Drop-Time (10 - 29 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="9">
+   <item row="4" column="8">
     <widget class="QSpinBox" name="ipdroprecommended">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -105,14 +105,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="12">
+   <item row="4" column="11">
     <widget class="QLabel" name="labelipdrop_2">
      <property name="text">
       <string>IP-Drop-Time (1 - 9 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="13">
+   <item row="4" column="12">
     <widget class="QSpinBox" name="ipdropepisodic">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -128,7 +128,7 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="6">
+   <item row="5" column="0" colspan="5">
     <widget class="QTreeWidget" name="treeWidget_trusted">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -150,7 +150,7 @@
      </column>
     </widget>
    </item>
-   <item row="5" column="6" rowspan="9" colspan="4">
+   <item row="5" column="5" rowspan="9" colspan="4">
     <widget class="QTreeWidget" name="treeWidget_recommended">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -172,7 +172,7 @@
      </column>
     </widget>
    </item>
-   <item row="5" column="12" rowspan="9" colspan="2">
+   <item row="5" column="11" rowspan="9" colspan="2">
     <widget class="QTreeWidget" name="treeWidget_episodic">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -194,14 +194,232 @@
      </column>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="labelmyport_2">
+   <item row="16" column="5" colspan="2">
+    <widget class="QPushButton" name="pushButton_remove">
+     <property name="toolTip">
+      <string>Removes a trusted IP from the list.</string>
+     </property>
      <property name="text">
-      <string>Internal IP+Port</string>
+      <string>Remove Device</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1" colspan="3">
+   <item row="16" column="7" colspan="2">
+    <widget class="QPushButton" name="pushButton_copyid">
+     <property name="toolTip">
+      <string>Copy your Device-ID to the clipboard</string>
+     </property>
+     <property name="text">
+      <string>Copy Device ID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="17" column="5" colspan="4">
+    <widget class="QPushButton" name="pushButton_addtotrusted">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Adds an IP from recommended or episodic list to trusted list.</string>
+     </property>
+     <property name="text">
+      <string>Add to Trusted</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/kdmconfig.png</normaloff>:/images/kdmconfig.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="17" column="11">
+    <widget class="QLabel" name="labelipcachesize_3">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>IP-Cache Size:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="17" column="12">
+    <widget class="QSpinBox" name="ipcachesize">
+     <property name="toolTip">
+      <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
+     </property>
+     <property name="minimum">
+      <number>1500</number>
+     </property>
+     <property name="maximum">
+      <number>5000</number>
+     </property>
+     <property name="value">
+      <number>1500</number>
+     </property>
+    </widget>
+   </item>
+   <item row="16" column="11" colspan="2">
+    <widget class="QCheckBox" name="checkboxdisableepisodic">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Disable Episodic Device Connections</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="5">
+    <widget class="QPushButton" name="pushButton_savesettings_2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Save current Settings.</string>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5" colspan="4">
+    <widget class="QPushButton" name="pushButton_closesettings">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Close current Settings.</string>
+     </property>
+     <property name="text">
+      <string>Close</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="11" colspan="2">
+    <widget class="QPushButton" name="pushButton_iptransfer">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
+     </property>
+     <property name="text">
+      <string>Start Sync</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="9">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="11" colspan="2">
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="17" column="0" colspan="5">
+    <widget class="QPushButton" name="buttonbootipv4">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
+     </property>
+     <property name="text">
+      <string> Add Device</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/connect_established.png</normaloff>:/images/connect_established.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3" colspan="2">
+    <widget class="QSpinBox" name="myportinternal">
+     <property name="toolTip">
+      <string>You need to forward this port in your NAT/router, if you want to connect.</string>
+     </property>
+     <property name="maximum">
+      <number>65535</number>
+     </property>
+     <property name="value">
+      <number>4430</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1" colspan="2">
     <widget class="QLineEdit" name="addipinternal">
      <property name="palette">
       <palette>
@@ -283,27 +501,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="4" colspan="2">
-    <widget class="QSpinBox" name="myportinternal">
-     <property name="toolTip">
-      <string>You need to forward this port in your NAT/router, if you want to connect.</string>
-     </property>
-     <property name="maximum">
-      <number>65535</number>
-     </property>
-     <property name="value">
-      <number>4430</number>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="labelmyport_3">
-     <property name="text">
-      <string>External IP+Port</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1" colspan="3">
+   <item row="7" column="1" colspan="2">
     <widget class="QLineEdit" name="addipexternal">
      <property name="palette">
       <palette>
@@ -385,7 +583,21 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="4" colspan="2">
+   <item row="6" column="0">
+    <widget class="QLabel" name="labelmyport_2">
+     <property name="text">
+      <string>Internal IP+Port</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="labelmyport_3">
+     <property name="text">
+      <string>External IP+Port</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="3" colspan="2">
     <widget class="QSpinBox" name="myportexternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -398,667 +610,39 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="5">
+   <item row="8" column="0" colspan="4">
     <widget class="QLabel" name="labelurldelay">
      <property name="text">
       <string>URL-Delay (Sec):</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="5">
+   <item row="8" column="4">
     <widget class="QSpinBox" name="urldelay">
      <property name="toolTip">
       <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
      </property>
     </widget>
    </item>
-   <item row="11" column="0" colspan="2">
-    <widget class="QLineEdit" name="addbootipv4">
-     <property name="palette">
-      <palette>
-       <active>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </active>
-       <inactive>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </inactive>
-       <disabled>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>190</red>
-           <green>190</green>
-           <blue>190</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>239</red>
-           <green>235</green>
-           <blue>231</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </disabled>
-      </palette>
-     </property>
-     <property name="font">
-      <font>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="toolTip">
-      <string>Enter any online  IP-Adress of your network, if the IP-cache is empty.</string>
-     </property>
-     <property name="inputMask">
-      <string>999.999.999.999; </string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="2">
-    <widget class="QSpinBox" name="addbootportv4">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="palette">
-      <palette>
-       <active>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </active>
-       <inactive>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </inactive>
-       <disabled>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>190</red>
-           <green>190</green>
-           <blue>190</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>239</red>
-           <green>235</green>
-           <blue>231</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </disabled>
-      </palette>
-     </property>
-     <property name="toolTip">
-      <string>Add the referring port of the entered IP.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>65535</number>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="3" colspan="3">
-    <widget class="QPushButton" name="buttonbootipv4">
-     <property name="toolTip">
-      <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
-     </property>
-     <property name="text">
-      <string>Boot IPv4</string>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="0" colspan="3">
-    <widget class="QSpinBox" name="adddeviceid">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="palette">
-      <palette>
-       <active>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </active>
-       <inactive>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </inactive>
-       <disabled>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>190</red>
-           <green>190</green>
-           <blue>190</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>239</red>
-           <green>235</green>
-           <blue>231</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </disabled>
-      </palette>
-     </property>
-     <property name="toolTip">
-      <string>Add the referring port of the entered IP.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>65535</number>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="3" colspan="3">
-    <widget class="QPushButton" name="pushButton_adddeviceid">
-     <property name="toolTip">
-      <string>Enter the Device-IP, the DHT will find the current IP.</string>
-     </property>
-     <property name="text">
-      <string>Add Device ID</string>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="0" colspan="3">
-    <widget class="QSpinBox" name="adddyndns">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="palette">
-      <palette>
-       <active>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </active>
-       <inactive>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </inactive>
-       <disabled>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>190</red>
-           <green>190</green>
-           <blue>190</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>239</red>
-           <green>235</green>
-           <blue>231</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </disabled>
-      </palette>
-     </property>
-     <property name="toolTip">
-      <string>Add the referring port of the entered IP.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>65535</number>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="3" colspan="3">
-    <widget class="QPushButton" name="pushButton_adddyndns">
-     <property name="toolTip">
-      <string>Add DynDNS URL for any IP to the trusted Cache.</string>
-     </property>
-     <property name="text">
-      <string>Add DynDNS</string>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="6" colspan="2">
-    <widget class="QPushButton" name="pushButton_remove">
-     <property name="toolTip">
-      <string>Removes a trusted IP from the list.</string>
-     </property>
-     <property name="text">
-      <string>Remove Device</string>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="8" colspan="2">
-    <widget class="QPushButton" name="pushButton_copyid">
-     <property name="toolTip">
-      <string>Copy your Device-ID to the clipboard</string>
-     </property>
-     <property name="text">
-      <string>Copy Device ID</string>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="0" colspan="3">
-    <widget class="QSpinBox" name="addbootipv6">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="palette">
-      <palette>
-       <active>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </active>
-       <inactive>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>85</red>
-           <green>170</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>0</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </inactive>
-       <disabled>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>190</red>
-           <green>190</green>
-           <blue>190</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>239</red>
-           <green>235</green>
-           <blue>231</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </disabled>
-      </palette>
-     </property>
-     <property name="toolTip">
-      <string>Add the referring port of the entered IP.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>65535</number>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="3" colspan="3">
-    <widget class="QPushButton" name="pushButton_bootipv6">
-     <property name="toolTip">
-      <string>Boot with any online IPv6 Adress</string>
-     </property>
-     <property name="text">
-      <string>Boot IPv6</string>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="6" colspan="4">
-    <widget class="QPushButton" name="pushButton_addtotrusted">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Adds an IP from recommended or episodic list to trusted list.</string>
-     </property>
-     <property name="text">
-      <string>Add to Trusted</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/kdmconfig.png</normaloff>:/images/kdmconfig.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="12">
-    <widget class="QLabel" name="labelipcachesize_3">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>IP-Cache Size:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="13">
-    <widget class="QSpinBox" name="ipcachesize">
-     <property name="toolTip">
-      <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
-     </property>
-     <property name="minimum">
-      <number>1500</number>
-     </property>
-     <property name="maximum">
-      <number>5000</number>
-     </property>
-     <property name="value">
-      <number>1500</number>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="12" colspan="2">
-    <widget class="QCheckBox" name="checkboxdisableepisodic">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>Disable Episodic Device Connections</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="6">
-    <widget class="QPushButton" name="pushButton_savesettings_2">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Save current Settings.</string>
-     </property>
-     <property name="text">
-      <string>Save</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="6" colspan="4">
-    <widget class="QPushButton" name="pushButton_closesettings">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Close current Settings.</string>
-     </property>
-     <property name="text">
-      <string>Close</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="12" colspan="2">
-    <widget class="QPushButton" name="pushButton_iptransfer">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
-     </property>
-     <property name="text">
-      <string>IP-Transfer</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="10">
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="12" colspan="2">
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
   </layout>
+  <action name="actionAddServer">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/connect_established.png</normaloff>:/images/connect_established.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Device</string>
+   </property>
+  </action>
+  <action name="actionPoll">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
+   </property>
+   <property name="text">
+    <string>Start Sync</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="2" margin="2"/>
  <resources>
