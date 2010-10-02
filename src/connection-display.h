@@ -42,6 +42,16 @@ public:
 
   void SetDB (DBManager *dbm) { db = dbm; }
 
+private slots:
+
+  void DoStartSync ();
+  void DoAddDevice ();
+
+signals:
+
+  void StartSync ();
+  void AddDevice ();
+
 private:
 
   Ui_ConnectionDisplay   ui;

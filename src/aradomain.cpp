@@ -207,6 +207,10 @@ AradoMain::Connect ()
                urlDisplay, SLOT (UrlsAdded (int)));
     }
   }
+  if (connDisplay && httpClient) {
+    connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
+    connect (connDisplay, SIGNAL (StartSync()), httpClient, SLOT (Poll()));
+  }
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (triggered()), httpClient, SLOT (Poll()));
   }

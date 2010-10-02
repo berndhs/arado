@@ -326,7 +326,7 @@
     </widget>
    </item>
    <item row="17" column="0" colspan="5">
-    <widget class="QPushButton" name="buttonbootipv4">
+    <widget class="QPushButton" name="buttonAddDevice">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -569,7 +569,7 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="5">
-    <widget class="QPushButton" name="pushButton_iptransfer">
+    <widget class="QPushButton" name="buttonStartSync">
      <property name="minimumSize">
       <size>
        <width>0</width>

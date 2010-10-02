@@ -102,10 +102,12 @@ HttpClient::DropAllServers ()
 void
 HttpClient::Poll ()
 {
+  qDebug () << " HttpClient Poll start ";
   ServerMap::iterator sit;
   for (sit = servers.begin(); sit != servers.end(); sit++) {
     Poll (*sit);
   }
+  qDebug () << " HttpClient Poll done ";
 }
 
 void

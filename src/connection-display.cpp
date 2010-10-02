@@ -31,6 +31,21 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
    db (0)
 {
   ui.setupUi (this);
+
+  connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
+  connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
+}
+
+void
+ConnectionDisplay::DoStartSync ()
+{
+  emit StartSync ();
+}
+
+void
+ConnectionDisplay::DoAddDevice ()
+{
+  emit AddDevice ();
 }
 
 } // namespace
