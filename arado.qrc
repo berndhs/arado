@@ -23,6 +23,8 @@
         <file>images/connect_established.png</file>
         <file>images/copy.png</file>
         <file>images/mail.png</file>
+        <file>images/cancel.png</file>
+        <file>images/button_ok.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
