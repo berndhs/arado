@@ -24,7 +24,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Trusted Devices:</string>
+      <string>Constant Devices:</string>
      </property>
     </widget>
    </item>
@@ -38,12 +38,12 @@
       </font>
      </property>
      <property name="text">
-      <string>Recommended Devices:</string>
+      <string>Remote Devices:</string>
      </property>
     </widget>
    </item>
    <item row="3" column="11" colspan="2">
-    <widget class="QLabel" name="labelrpisodiv">
+    <widget class="QLabel" name="labelepisodic">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -52,7 +52,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Episodic Devices:</string>
+      <string>Flexible Devices:</string>
      </property>
     </widget>
    </item>
@@ -196,6 +196,12 @@
    </item>
    <item row="16" column="5" colspan="2">
     <widget class="QPushButton" name="pushButton_remove">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
      <property name="toolTip">
       <string>Removes a trusted IP from the list.</string>
      </property>
@@ -206,6 +212,12 @@
    </item>
    <item row="16" column="7" colspan="2">
     <widget class="QPushButton" name="pushButton_copyid">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
      <property name="toolTip">
       <string>Copy your Device-ID to the clipboard</string>
      </property>
@@ -226,7 +238,7 @@
       <string>Adds an IP from recommended or episodic list to trusted list.</string>
      </property>
      <property name="text">
-      <string>Add to Trusted</string>
+      <string>Add to Constant</string>
      </property>
      <property name="icon">
       <iconset resource="../arado.qrc">
@@ -272,91 +284,7 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>Disable Episodic Device Connections</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="5">
-    <widget class="QPushButton" name="pushButton_savesettings_2">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Save current Settings.</string>
-     </property>
-     <property name="text">
-      <string>Save</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="5" colspan="4">
-    <widget class="QPushButton" name="pushButton_closesettings">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Close current Settings.</string>
-     </property>
-     <property name="text">
-      <string>Close</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="11" colspan="2">
-    <widget class="QPushButton" name="pushButton_iptransfer">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
-     </property>
-     <property name="text">
-      <string>Start Sync</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
+      <string>Disable flexible device connections</string>
      </property>
     </widget>
    </item>
@@ -610,17 +538,101 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="4">
-    <widget class="QLabel" name="labelurldelay">
-     <property name="text">
-      <string>URL-Delay (Sec):</string>
-     </property>
-    </widget>
-   </item>
    <item row="8" column="4">
     <widget class="QSpinBox" name="urldelay">
      <property name="toolTip">
       <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="5">
+    <widget class="QPushButton" name="pushButton_iptransfer">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
+     </property>
+     <property name="text">
+      <string>Start Sync</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5" colspan="4">
+    <widget class="QPushButton" name="pushButton_savesettings_2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Save current Settings.</string>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="11" colspan="2">
+    <widget class="QPushButton" name="pushButton_closesettings">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Close current Settings.</string>
+     </property>
+     <property name="text">
+      <string>Close</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="labelurldelay">
+     <property name="text">
+      <string>URL-Delay (Sec):</string>
      </property>
     </widget>
    </item>
