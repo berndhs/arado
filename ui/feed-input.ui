@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FeedDialog</class>
+ <widget class="QWidget" name="FeedDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>475</width>
+    <height>185</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add Feed-URL</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="2">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="okButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>OK</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/button_ok.png</normaloff>:/images/button_ok.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>You can add one RSS/ATOM-Feed to automatically add URLs to Arado.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Adress of the RSS/ATOM Feed:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QLineEdit" name="feedEdit"/>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../arado.qrc"/>
+ </resources>
+ <connections/>
+</ui>
