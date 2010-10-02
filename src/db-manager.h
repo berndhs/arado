@@ -43,9 +43,11 @@ public:
         };
   
   DBManager (QObject *parent =0);
+  ~DBManager ();
 
   void  Start ();
-  void  Close ();
+  void  Stop ();
+  bool  Running () { return dbRunning; }
 
   bool  AddUrl (AradoUrl & url);
   bool  AddKeywords (AradoUrl & url);
@@ -79,6 +81,7 @@ private:
 
   bool             ipInTransaction;
   bool             urlInTransaction;
+  bool             dbRunning;
 
 };
 

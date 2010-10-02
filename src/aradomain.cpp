@@ -101,7 +101,7 @@ AradoMain::Start ()
       QTimer::singleShot (1200, urlDisplay, SLOT (Refresh()));
     }
     if (policy) {
-      policy->Load ();
+      policy->Load (&dbMgr);
     }
   }
   show ();
@@ -220,10 +220,7 @@ AradoMain::Quit ()
   QSize currentSize = size();
   Settings().setValue ("sizes/main",currentSize);
   Settings().sync();
-  dbMgr.Close ();
-  if (policy) {
-    policy->Save ();
-  }
+  dbMgr.Stop ();
   if (app) {
     app->quit ();
   }
@@ -286,8 +283,12 @@ AradoMain::DoneConfigEdit (bool saved)
     if (saved) {
       // reload settings 
       qDebug () << " Settings editor saved, should reload settings";
-      dbMgr.Close ();
+      dbMgr.Stop  ();
       dbMgr.Start ();
+      if (policy) {
+        policy->Flush ();
+        policy->Load (&dbMgr);
+      }
       StopServers ();
       StopClients ();
       StartServers ();
@@ -319,7 +320,7 @@ void
 AradoMain::NewUrl (const AradoUrl & newurl)
 {
   if (urlDisplay) {
-    Q_UNUSED (urlDisplay)
+    Q_UNUSED (newurl)
     //urlDisplay->InsertUrl (newurl);
   }
 }

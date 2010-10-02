@@ -41,8 +41,16 @@ namespace arado
 DBManager::DBManager (QObject * parent)
   :QThread (parent),
    ipInTransaction (false),
-   urlInTransaction (false)
+   urlInTransaction (false),
+   dbRunning (false)
 {
+}
+
+DBManager::~DBManager ()
+{
+  if (dbRunning) {
+    Stop ();
+  }
 }
 
 void
@@ -80,14 +88,18 @@ DBManager::Start ()
               << "timeindex"
               ;
   CheckDBComplete (urlBase, urlElements);
-  
+  dbRunning = true;
 }
 
 void
-DBManager::Close ()
+DBManager::Stop ()
 {
-  ipBase.close ();
-  urlBase.close ();
+  if (dbRunning) {
+    dbRunning = false;
+    ipBase.close ();
+    urlBase.close ();
+    QThread::exit ();
+  }
 }
 
 void

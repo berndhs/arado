@@ -23,6 +23,7 @@
  ****************************************************************/
 
 #include <QObject>
+#include <QTime>
 #include "db-manager.h"
 #include "arado-url.h"
 #include <set>
@@ -41,19 +42,20 @@ public:
 
   Policy (QObject *parent);
 
-  virtual void Load ();
-  virtual void Save ();
+  virtual void Load (DBManager * dbm = 0);
+  virtual void Flush ();
 
   virtual bool AddUrl (DBManager & dbm, AradoUrl & url);
 
 private:
 
   bool  IsKnown (const QByteArray & hash);
-  bool  AddHash (const QByteArray & hash);
+  void  AddHash (const QByteArray & hash);
 
   std::set <QByteArray> knownHash;
   unsigned int          sizeLimit;
   QString               filename;
+  QTime                 clock;
   
 } ;
 

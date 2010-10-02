@@ -33,18 +33,14 @@ namespace arado
 
 Policy::Policy (QObject *parent)
   :QObject (parent),
-   sizeLimit (10000),
-   filename (QString("/tmp/aradohcache.txt"))
+   sizeLimit (10000)
 {
   sizeLimit = deliberate::Settings().value 
                          ("policy/dailycache",sizeLimit).toInt();
   deliberate::Settings().setValue ("policy/dailycache",sizeLimit);
   QString path = QDesktopServices::storageLocation 
                         (QDesktopServices::CacheLocation);
-  filename = path + QDir::separator() + QString ("hcache.dat");
-  filename = deliberate::Settings().value 
-                         ("policy/hcache",filename).toString();
-  deliberate::Settings().setValue ("policy/hcache",filename);
+  clock.start ();
   
 }
 
@@ -79,7 +75,7 @@ Policy::IsKnown (const QByteArray & hash)
   return knownHash.find (hash) != knownHash.end();
 }
 
-bool
+void
 Policy::AddHash (const QByteArray & hash)
 {
   if (knownHash.size() >= sizeLimit) {
@@ -89,42 +85,29 @@ Policy::AddHash (const QByteArray & hash)
 }
 
 void
-Policy::Load ()
+Policy::Load (DBManager * dbm)
 {
-  QFile file (filename);
-  bool ok = file.open (QFile::ReadOnly);
-  if (ok) {
-    while (!file.atEnd()) {
-      QByteArray line = file.readLine (2048);
-      AddHash (line);
+  int  startms = clock.elapsed ();
+  int numEntries;
+  if (dbm) {
+    AradoUrlList  latest;  
+    latest = dbm->GetRecent (1000);
+    AradoUrlList::const_iterator it;
+    for (it = latest.constBegin(); it != latest.constEnd(); it++) {
+      AddHash (it->Hash ());
+      numEntries++;
     }
   }
-  qDebug () << " after load HCache size " << knownHash.size();
+  int stopms = clock.elapsed ();
+  qDebug () << " finish load " << numEntries 
+            << " hash entries from t= " << startms
+            << " to t= " << stopms;
 }
 
 void
-Policy::Save ()
+Policy::Flush ()
 {
-  qDebug () << " save in " << filename;
-  QFileInfo info (filename);
-  if (!info.exists()) {
-     QString cpath = info.absolutePath();
-     QDir dir;
-     bool worked = dir.mkpath (cpath);
-     qDebug () << " mkpath " << worked << " for " << dir;
-  }
-  QFile file (filename);
-  bool canWrite = file.open (QFile::WriteOnly);
-  qDebug () << " writing " << knownHash.size() << " entries to HCache " 
-            << file.fileName();
-  if (canWrite) {
-    std::set <QByteArray>::const_iterator  it;
-    for (it = knownHash.begin(); it != knownHash.end(); it++) {
-       file.write (*it);
-       file.putChar ('\n');
-    }
-    file.close ();
-  }
+  knownHash.clear ();
 }
 
 } // namespace
