@@ -208,10 +208,23 @@
      <property name="text">
       <string>Remove Device</string>
      </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
    </item>
    <item row="16" column="7" colspan="2">
     <widget class="QPushButton" name="pushButton_copyid">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -223,6 +236,16 @@
      </property>
      <property name="text">
       <string>Copy Device ID</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
