@@ -24,6 +24,7 @@
 #include "entry-form.h"
 #include "db-manager.h"
 #include <QMessageBox>
+#include "qsound.h"
 
 namespace arado
 {
@@ -94,6 +95,7 @@ EntryForm::Save ()
     db->AddUrl (newurl);
   }
   Clear ();
+  QSound::play(":/sound/arado.wav");
   emit NewUrl (newurl);
 }
 

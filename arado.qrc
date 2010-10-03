@@ -47,4 +47,7 @@
         <file alias="timeindex.sql">schemafiles/timeindex.sql</file>
         <file alias="uniquetimeindex.sql">schemafiles/uniquetimeindex.sql</file>
     </qresource>
+    <qresource prefix="/sound">
+        <file>sound/arado.wav</file>
+    </qresource>
 </RCC>
