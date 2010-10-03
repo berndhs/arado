@@ -235,7 +235,7 @@
      </property>
     </widget>
    </item>
-   <item row="18" column="6" colspan="4">
+   <item row="21" column="6" colspan="4">
     <widget class="QPushButton" name="pushButton_addtotrusted">
      <property name="minimumSize">
       <size>
@@ -261,42 +261,6 @@
      </property>
     </widget>
    </item>
-   <item row="18" column="12">
-    <widget class="QLabel" name="labelipcachesize_3">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>IP-Cache Size:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="18" column="13">
-    <widget class="QSpinBox" name="ipcachesize">
-     <property name="toolTip">
-      <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
-     </property>
-     <property name="minimum">
-      <number>1500</number>
-     </property>
-     <property name="maximum">
-      <number>5000</number>
-     </property>
-     <property name="value">
-      <number>1500</number>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="12" colspan="2">
-    <widget class="QCheckBox" name="checkboxdisableepisodic">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>Disable flexible device connections</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="12" colspan="2">
     <widget class="Line" name="line_2">
      <property name="orientation">
@@ -304,39 +268,7 @@
      </property>
     </widget>
    </item>
-   <item row="18" column="0" colspan="6">
-    <widget class="QPushButton" name="buttonAddDevice">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
-     </property>
-     <property name="text">
-      <string> Add Device</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/server.png</normaloff>:/images/server.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="3" colspan="3">
+   <item row="7" column="4" colspan="2">
     <widget class="QSpinBox" name="myportinternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -349,7 +281,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="1" colspan="2">
+   <item row="7" column="1" colspan="3">
     <widget class="QLineEdit" name="addipinternal">
      <property name="palette">
       <palette>
@@ -431,7 +363,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="1" colspan="2">
+   <item row="8" column="1" colspan="3">
     <widget class="QLineEdit" name="addipexternal">
      <property name="palette">
       <palette>
@@ -527,7 +459,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="3" colspan="3">
+   <item row="8" column="4" colspan="2">
     <widget class="QSpinBox" name="myportexternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -540,7 +472,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="5">
+   <item row="9" column="4" colspan="2">
     <widget class="QSpinBox" name="urldelay">
      <property name="toolTip">
       <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
@@ -714,8 +646,83 @@
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
      </property>
-     <property name="pixmap">
-      <pixmap resource="../arado.qrc">:/images/kfm_home.png</pixmap>
+    </widget>
+   </item>
+   <item row="21" column="12" colspan="2">
+    <widget class="QCheckBox" name="checkboxdisableepisodic">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Disable flexible device connections</string>
+     </property>
+    </widget>
+   </item>
+   <item row="17" column="12" colspan="2">
+    <widget class="QCheckBox" name="checkBox">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Enable I2P-Network only</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="0">
+    <widget class="QLabel" name="labelipcachesize_3">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>IP-Cache Size:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="4" colspan="2">
+    <widget class="QSpinBox" name="ipcachesize">
+     <property name="toolTip">
+      <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
+     </property>
+     <property name="minimum">
+      <number>1500</number>
+     </property>
+     <property name="maximum">
+      <number>5000</number>
+     </property>
+     <property name="value">
+      <number>1500</number>
+     </property>
+    </widget>
+   </item>
+   <item row="21" column="0" colspan="6">
+    <widget class="QPushButton" name="buttonAddDevice">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
+     </property>
+     <property name="text">
+      <string> Add Device</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/server.png</normaloff>:/images/server.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
