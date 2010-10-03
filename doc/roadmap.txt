@@ -4,10 +4,9 @@ Things to implement:
 
 01a) Search for 2 or more keywords.
 
-02) communicator to collect/send URLs  - 3 of these
+DONE) communicator to collect/send URLs  - 3 of these
   - testing communicator that reads from stream, writes to stream
   - direct communicator that uses TCP/SSL sockets
-  - gnutella (or alternative) that uses shared database
 
 04) collector that collects communicator peer addresses - 1 for each communicator
 
@@ -56,4 +55,25 @@ Things to define:
 22) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
 
 23) Pressing the recent button should sort parallel the Date time top down, so the latest url on top.
+
+24) settings option for enabled or disabled: "show time in display"-table
+
+25) find an ipv4 way of talking end-to-end with peers
+a) finding the other IP => TBD over DHT, e.g. bitdht.sf.net (LGPL) or kadc.sf.net (GPL)
+
+   communicator to collect/send IPs  - 3 of these
+  - bitdht (or alternative, e.g. gnutella, kadc) that uses shared IP database
+
+26) find an ipv4 way of talking end-to-end with peers
+b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitdht for the dht network or in other protocols, e.g. torrent, gnutella.
+
+
+
+--) DONE handle large mounts of data, especially for the Doublette check: => done over hashcache for the last 10.000 entries, then full time for whole database check.
+
+28) make the ip stuff to talk to different peers: trusted/constant, remote, eposodic/flexible
+
+
+29) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
+
 
