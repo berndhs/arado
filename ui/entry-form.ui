@@ -14,17 +14,17 @@
    <string>Url Entry</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="label">
      <property name="toolTip">
-      <string>Enter any URL.</string>
+      <string>Enter any URL. It will be shortend to an ARADO-ID you can post into any board, chat or email.</string>
      </property>
      <property name="text">
       <string>URL:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="2" column="2">
     <widget class="QLineEdit" name="urlEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -40,7 +40,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="label_2">
      <property name="toolTip">
       <string>Enter the title or description of the URL.</string>
@@ -50,7 +50,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" rowspan="3">
+   <item row="3" column="2" rowspan="3">
     <widget class="QPlainTextEdit" name="descEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -60,7 +60,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1" rowspan="4">
+   <item row="6" column="2" rowspan="4">
     <widget class="QPlainTextEdit" name="keyEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -73,7 +73,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item row="9" column="0">
     <widget class="QPushButton" name="doneButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -100,12 +100,61 @@
     </widget>
    </item>
    <item row="6" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="toolTip">
+      <string>Enter some keywords for the URL.</string>
+     </property>
+     <property name="text">
+      <string>Keywords:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Paste your long URL here:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QPushButton" name="saveButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>10</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Save the added data to Arado!</string>
+     </property>
+     <property name="text">
+      <string>Arado!</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
     <widget class="QPushButton" name="cancelButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>10</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>38</height>
+      </size>
      </property>
      <property name="toolTip">
       <string>Clear the form.</string>
@@ -125,41 +174,18 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QPushButton" name="saveButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>10</verstretch>
-      </sizepolicy>
+   <item row="0" column="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="toolTip">
-      <string>Save the added Data.</string>
-     </property>
-     <property name="text">
-      <string>Save</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
-     </property>
-     <property name="iconSize">
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>24</width>
-       <height>24</height>
+       <width>20</width>
+       <height>9</height>
       </size>
      </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="toolTip">
-      <string>Enter some keywords for the URL.</string>
-     </property>
-     <property name="text">
-      <string>Keywords:</string>
-     </property>
-    </widget>
+    </spacer>
    </item>
   </layout>
  </widget>
