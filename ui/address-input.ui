@@ -43,7 +43,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../arado.qrc">:/images/kdmconfig.png</pixmap>
+      <pixmap resource="../arado.qrc">:/images/server.png</pixmap>
      </property>
     </widget>
    </item>
