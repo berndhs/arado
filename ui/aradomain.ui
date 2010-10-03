@@ -174,7 +174,7 @@
   <action name="actionAddServer">
    <property name="icon">
     <iconset resource="../arado.qrc">
-     <normaloff>:/images/connect_established.png</normaloff>:/images/connect_established.png</iconset>
+     <normaloff>:/images/server.png</normaloff>:/images/server.png</iconset>
    </property>
    <property name="text">
     <string>Add Device</string>
