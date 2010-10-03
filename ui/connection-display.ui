@@ -479,32 +479,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="6">
-    <widget class="QPushButton" name="buttonStartSync">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
-     </property>
-     <property name="text">
-      <string>Start Sync</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="6" colspan="4">
     <widget class="QPushButton" name="pushButton_savesettings_2">
      <property name="enabled">
@@ -694,7 +668,7 @@
      </property>
     </widget>
    </item>
-   <item row="21" column="0" colspan="6">
+   <item row="0" column="0" colspan="6">
     <widget class="QPushButton" name="buttonAddDevice">
      <property name="minimumSize">
       <size>
@@ -717,6 +691,32 @@
      <property name="icon">
       <iconset resource="../arado.qrc">
        <normaloff>:/images/server.png</normaloff>:/images/server.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="21" column="0" colspan="6">
+    <widget class="QPushButton" name="buttonStartSync">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
+     </property>
+     <property name="text">
+      <string>Start Sync</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/noatunloopsong.png</normaloff>:/images/noatunloopsong.png</iconset>
      </property>
      <property name="iconSize">
       <size>
