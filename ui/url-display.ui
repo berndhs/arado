@@ -154,7 +154,7 @@
          </attribute>
          <column>
           <property name="text">
-           <string>Arado-Hash-ID (Sha1)</string>
+           <string>ARADO-ID</string>
           </property>
           <property name="font">
            <font>
