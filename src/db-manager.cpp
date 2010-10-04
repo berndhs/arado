@@ -200,6 +200,7 @@ DBManager::AddUrl (AradoUrl & url)
     url.SetTimestamp (ts);
   }
   CloseTransaction (DB_Url);
+  yieldCurrentThread ();
   AddKeywords (url);
   return ok;
 }
@@ -220,6 +221,7 @@ DBManager::AddKeywords (AradoUrl & url)
     add.bindValue (1, keys.at(k));
     bool ok = add.exec ();
     allok &= ok;
+    yieldCurrentThread ();
   }
   return allok;
 }
