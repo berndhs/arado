@@ -24,7 +24,7 @@
 #include "entry-form.h"
 #include "db-manager.h"
 #include <QMessageBox>
-#include "qsound.h"
+#include <QSound>
 
 namespace arado
 {
@@ -78,6 +78,10 @@ EntryForm::Save ()
     box.exec ();
     return ;
   }
+  //QSound::play("arado.wav"); // http://bugreports.qt.nokia.com/browse/QTBUG-9253
+  QSound arado("arado.wav");
+  arado.play();
+  //
   newurl.SetDescription (ui.descEdit->toPlainText ());
   QString words = ui.keyEdit->toPlainText ();
   QStringList wordList = words.split (QRegExp ("[\n,;]"),
@@ -95,7 +99,6 @@ EntryForm::Save ()
     db->AddUrl (newurl);
   }
   Clear ();
-  QSound::play(":/sound/arado.wav");
   emit NewUrl (newurl);
 }
 
