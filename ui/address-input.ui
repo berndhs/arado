@@ -130,7 +130,7 @@
    <item row="0" column="3">
     <widget class="QRadioButton" name="radioButton_5">
      <property name="text">
-      <string>IPV6</string>
+      <string>IPv6</string>
      </property>
     </widget>
    </item>
