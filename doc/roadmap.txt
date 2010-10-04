@@ -76,4 +76,12 @@ b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitd
 
 29) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
 
+30) set width of sha1-column max to contentmaximum length or by default minimum as long as the arado icon above it
+url-display.cpp 133:
+    //item->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+    //item->setSizeHint (80);
+    //item->horizontalHeader()->resizeSection(0, 50); // column 0, width 50
 
+31) Progress Bar steered by a timer if the search button is pressed.
+
+32) Move the Browse button into each line in the last row. With kugar icon.
