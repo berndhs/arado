@@ -39,9 +39,9 @@ AddPeerDialog::AddPeerDialog (QWidget *parent)
   addressType [addrUi.ipv6Button] = QString ("6");
   addressType [addrUi.dnsButton]  = QString ("name");
   addressType [addrUi.i2pButton]  = QString ("i2p");
-  addrUi.remoteButton->setChecked (true);
+  addrUi.flexibleButton->setChecked (true);
   levelType [addrUi.constantButton] = QString ("A");
-  levelType [addrUi.remoteButton] = QString ("B");
+  levelType [addrUi.flexibleButton] = QString ("B");
 }
 
 void
