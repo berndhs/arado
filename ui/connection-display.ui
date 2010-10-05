@@ -42,14 +42,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="4">
+   <item row="7" column="0" colspan="4">
     <widget class="QLabel" name="labelipdrop_4">
      <property name="text">
-      <string>IP-Drop-Time (30 - 120 Min):</string>
+      <string>Ask them every (1 - 9 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="5">
+   <item row="7" column="5">
     <widget class="QSpinBox" name="ipdroptrusted">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -58,21 +58,24 @@
       <locale language="German" country="Germany"/>
      </property>
      <property name="minimum">
-      <number>30</number>
+      <number>1</number>
      </property>
      <property name="maximum">
-      <number>120</number>
+      <number>9</number>
+     </property>
+     <property name="value">
+      <number>9</number>
      </property>
     </widget>
    </item>
-   <item row="5" column="6" colspan="3">
+   <item row="7" column="6" colspan="3">
     <widget class="QLabel" name="labelipdrop_3">
      <property name="text">
-      <string>IP-Drop-Time (10 - 29 Min):</string>
+      <string>Ask them every (10 - 29 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="9">
+   <item row="7" column="9">
     <widget class="QSpinBox" name="ipdroprecommended">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -91,14 +94,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="12">
+   <item row="7" column="12">
     <widget class="QLabel" name="labelipdrop_2">
      <property name="text">
-      <string>IP-Drop-Time (1 - 9 Min):</string>
+      <string>Ask them every (60 - 120 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="13">
+   <item row="7" column="13">
     <widget class="QSpinBox" name="ipdropepisodic">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -107,14 +110,17 @@
       <locale language="German" country="Germany"/>
      </property>
      <property name="minimum">
-      <number>1</number>
+      <number>60</number>
      </property>
      <property name="maximum">
-      <number>9</number>
+      <number>120</number>
+     </property>
+     <property name="value">
+      <number>60</number>
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="6">
+   <item row="8" column="0" colspan="6">
     <widget class="QTreeWidget" name="treeWidget_trusted">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -136,7 +142,7 @@
      </column>
     </widget>
    </item>
-   <item row="6" column="6" rowspan="9" colspan="4">
+   <item row="8" column="6" rowspan="8" colspan="4">
     <widget class="QTreeWidget" name="treeWidget_recommended">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -158,7 +164,7 @@
      </column>
     </widget>
    </item>
-   <item row="6" column="12" rowspan="9" colspan="2">
+   <item row="8" column="12" rowspan="8" colspan="2">
     <widget class="QTreeWidget" name="treeWidget_episodic">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
@@ -180,7 +186,7 @@
      </column>
     </widget>
    </item>
-   <item row="17" column="6" colspan="2">
+   <item row="18" column="6" colspan="2">
     <widget class="QPushButton" name="pushButton_remove">
      <property name="minimumSize">
       <size>
@@ -206,7 +212,7 @@
      </property>
     </widget>
    </item>
-   <item row="17" column="8" colspan="2">
+   <item row="18" column="8" colspan="2">
     <widget class="QPushButton" name="pushButton_copyid">
      <property name="enabled">
       <bool>false</bool>
@@ -235,7 +241,7 @@
      </property>
     </widget>
    </item>
-   <item row="21" column="6" colspan="4">
+   <item row="22" column="6" colspan="4">
     <widget class="QPushButton" name="pushButton_addtotrusted">
      <property name="minimumSize">
       <size>
@@ -268,7 +274,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="4" colspan="2">
+   <item row="9" column="4" colspan="2">
     <widget class="QSpinBox" name="myportinternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -281,7 +287,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="1" colspan="3">
+   <item row="9" column="1" colspan="3">
     <widget class="QLineEdit" name="addipinternal">
      <property name="palette">
       <palette>
@@ -363,7 +369,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="1" colspan="3">
+   <item row="10" column="1" colspan="3">
     <widget class="QLineEdit" name="addipexternal">
      <property name="palette">
       <palette>
@@ -445,21 +451,21 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item row="9" column="0">
     <widget class="QLabel" name="labelmyport_2">
      <property name="text">
       <string>Internal IP+Port</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="0">
+   <item row="10" column="0">
     <widget class="QLabel" name="labelmyport_3">
      <property name="text">
       <string>External IP+Port</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="4" colspan="2">
+   <item row="10" column="4" colspan="2">
     <widget class="QSpinBox" name="myportexternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -469,13 +475,6 @@
      </property>
      <property name="value">
       <number>4430</number>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="4" colspan="2">
-    <widget class="QSpinBox" name="urldelay">
-     <property name="toolTip">
-      <string>An URLs is transferred each X seconds to each connection. Delay defines the used bandwidth. 0 means as fast as possible.</string>
      </property>
     </widget>
    </item>
@@ -534,13 +533,6 @@
        <width>32</width>
        <height>32</height>
       </size>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0">
-    <widget class="QLabel" name="labelurldelay">
-     <property name="text">
-      <string>URL-Delay (Sec):</string>
      </property>
     </widget>
    </item>
@@ -622,7 +614,7 @@
      </property>
     </widget>
    </item>
-   <item row="21" column="12" colspan="2">
+   <item row="22" column="12" colspan="2">
     <widget class="QCheckBox" name="checkboxdisableepisodic">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
@@ -632,7 +624,7 @@
      </property>
     </widget>
    </item>
-   <item row="17" column="12" colspan="2">
+   <item row="18" column="12" colspan="2">
     <widget class="QCheckBox" name="checkBox">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
@@ -642,7 +634,7 @@
      </property>
     </widget>
    </item>
-   <item row="11" column="0">
+   <item row="12" column="0">
     <widget class="QLabel" name="labelipcachesize_3">
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
@@ -652,7 +644,7 @@
      </property>
     </widget>
    </item>
-   <item row="11" column="4" colspan="2">
+   <item row="12" column="4" colspan="2">
     <widget class="QSpinBox" name="ipcachesize">
      <property name="toolTip">
       <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
@@ -700,7 +692,7 @@
      </property>
     </widget>
    </item>
-   <item row="21" column="0" colspan="6">
+   <item row="22" column="0" colspan="6">
     <widget class="QPushButton" name="buttonStartSync">
      <property name="minimumSize">
       <size>
@@ -723,6 +715,90 @@
        <width>32</width>
        <height>32</height>
       </size>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="5">
+    <widget class="QSpinBox" name="spinBox">
+     <property name="value">
+      <number>60</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="9">
+    <widget class="QSpinBox" name="spinBox_2">
+     <property name="value">
+      <number>40</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="13">
+    <widget class="QSpinBox" name="spinBox_3">
+     <property name="value">
+      <number>20</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Allow so many URLs in one Transfer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="6">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Allow so many URLs in one Transfer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="12">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Allow so many URLs in one Transfer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="5">
+    <widget class="QSpinBox" name="spinBox_4">
+     <property name="value">
+      <number>5</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="9">
+    <widget class="QSpinBox" name="spinBox_5">
+     <property name="value">
+      <number>10</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="13">
+    <widget class="QSpinBox" name="spinBox_6">
+     <property name="value">
+      <number>15</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Slots allowed for A (up to 10)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="6">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Slots allowed for B (up to 20)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="12">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Slots allowed for C (up to 15)</string>
      </property>
     </widget>
    </item>
