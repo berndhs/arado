@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="6" colspan="4">
-    <widget class="QLabel" name="labeltrecommended">
+    <widget class="QLabel" name="label_B">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -29,7 +29,7 @@
     </widget>
    </item>
    <item row="4" column="12" colspan="2">
-    <widget class="QLabel" name="labelepisodic">
+    <widget class="QLabel" name="label_C">
      <property name="font">
       <font>
        <pointsize>12</pointsize>
@@ -43,14 +43,14 @@
     </widget>
    </item>
    <item row="7" column="0" colspan="4">
-    <widget class="QLabel" name="labelipdrop_4">
+    <widget class="QLabel" name="labelipask_A">
      <property name="text">
       <string>Ask them every (1 - 9 Min):</string>
      </property>
     </widget>
    </item>
    <item row="7" column="5">
-    <widget class="QSpinBox" name="ipdroptrusted">
+    <widget class="QSpinBox" name="ipask_A">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
      </property>
@@ -69,14 +69,14 @@
     </widget>
    </item>
    <item row="7" column="6" colspan="3">
-    <widget class="QLabel" name="labelipdrop_3">
+    <widget class="QLabel" name="labelipask_B">
      <property name="text">
       <string>Ask them every (10 - 29 Min):</string>
      </property>
     </widget>
    </item>
    <item row="7" column="9">
-    <widget class="QSpinBox" name="ipdroprecommended">
+    <widget class="QSpinBox" name="ipask_B">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
      </property>
@@ -90,19 +90,19 @@
       <number>29</number>
      </property>
      <property name="value">
-      <number>15</number>
+      <number>29</number>
      </property>
     </widget>
    </item>
    <item row="7" column="12">
-    <widget class="QLabel" name="labelipdrop_2">
+    <widget class="QLabel" name="labelipask_C">
      <property name="text">
-      <string>Ask them every (60 - 120 Min):</string>
+      <string>Ask them every (30 - 120 Min):</string>
      </property>
     </widget>
    </item>
    <item row="7" column="13">
-    <widget class="QSpinBox" name="ipdropepisodic">
+    <widget class="QSpinBox" name="ipask_C">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
      </property>
@@ -110,7 +110,7 @@
       <locale language="German" country="Germany"/>
      </property>
      <property name="minimum">
-      <number>60</number>
+      <number>30</number>
      </property>
      <property name="maximum">
       <number>120</number>
@@ -121,7 +121,7 @@
     </widget>
    </item>
    <item row="8" column="0" colspan="6">
-    <widget class="QTreeWidget" name="treeWidget_trusted">
+    <widget class="QTreeWidget" name="treeWidget_A">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
      </attribute>
@@ -143,7 +143,7 @@
     </widget>
    </item>
    <item row="8" column="6" rowspan="8" colspan="4">
-    <widget class="QTreeWidget" name="treeWidget_recommended">
+    <widget class="QTreeWidget" name="treeWidget_B">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
      </attribute>
@@ -165,7 +165,7 @@
     </widget>
    </item>
    <item row="8" column="12" rowspan="8" colspan="2">
-    <widget class="QTreeWidget" name="treeWidget_episodic">
+    <widget class="QTreeWidget" name="treeWidget_C">
      <attribute name="headerDefaultSectionSize">
       <number>100</number>
      </attribute>
@@ -242,7 +242,7 @@
     </widget>
    </item>
    <item row="22" column="6" colspan="4">
-    <widget class="QPushButton" name="pushButton_addtotrusted">
+    <widget class="QPushButton" name="pushButton_addto_A">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -479,7 +479,7 @@
     </widget>
    </item>
    <item row="0" column="6" colspan="4">
-    <widget class="QPushButton" name="pushButton_savesettings_2">
+    <widget class="QPushButton" name="pushButton_savesettings">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -544,7 +544,7 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="icon_A">
      <property name="maximumSize">
       <size>
        <width>35</width>
@@ -566,7 +566,7 @@
     </widget>
    </item>
    <item row="3" column="6">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="icon_B">
      <property name="maximumSize">
       <size>
        <width>35</width>
@@ -582,7 +582,7 @@
     </widget>
    </item>
    <item row="3" column="12">
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="icon_C">
      <property name="maximumSize">
       <size>
        <width>35</width>
@@ -597,25 +597,8 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="6">
-    <widget class="QLabel" name="labeltrusted">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Constant Devices</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::AutoText</enum>
-     </property>
-    </widget>
-   </item>
    <item row="22" column="12" colspan="2">
-    <widget class="QCheckBox" name="checkboxdisableepisodic">
+    <widget class="QCheckBox" name="checkboxdisable_C">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
      </property>
@@ -625,7 +608,7 @@
     </widget>
    </item>
    <item row="18" column="12" colspan="2">
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="checkBox_I2P">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
      </property>
@@ -719,86 +702,136 @@
     </widget>
    </item>
    <item row="6" column="5">
-    <widget class="QSpinBox" name="spinBox">
+    <widget class="QSpinBox" name="slots_A">
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>80</number>
+     </property>
      <property name="value">
       <number>60</number>
      </property>
     </widget>
    </item>
    <item row="6" column="9">
-    <widget class="QSpinBox" name="spinBox_2">
+    <widget class="QSpinBox" name="urlamount_B">
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>80</number>
+     </property>
      <property name="value">
       <number>40</number>
      </property>
     </widget>
    </item>
    <item row="6" column="13">
-    <widget class="QSpinBox" name="spinBox_3">
+    <widget class="QSpinBox" name="urlamount_C">
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>80</number>
+     </property>
      <property name="value">
       <number>20</number>
      </property>
     </widget>
    </item>
    <item row="6" column="0">
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="label_URL_A">
      <property name="text">
       <string>Allow so many URLs in one Transfer</string>
      </property>
     </widget>
    </item>
    <item row="6" column="6">
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="label_URL_B">
      <property name="text">
       <string>Allow so many URLs in one Transfer</string>
      </property>
     </widget>
    </item>
    <item row="6" column="12">
-    <widget class="QLabel" name="label_6">
+    <widget class="QLabel" name="label_URL_C">
      <property name="text">
       <string>Allow so many URLs in one Transfer</string>
      </property>
     </widget>
    </item>
    <item row="5" column="5">
-    <widget class="QSpinBox" name="spinBox_4">
+    <widget class="QSpinBox" name="urlamount_A">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>10</number>
+     </property>
      <property name="value">
       <number>5</number>
      </property>
     </widget>
    </item>
    <item row="5" column="9">
-    <widget class="QSpinBox" name="spinBox_5">
+    <widget class="QSpinBox" name="slots_B">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>20</number>
+     </property>
      <property name="value">
       <number>10</number>
      </property>
     </widget>
    </item>
    <item row="5" column="13">
-    <widget class="QSpinBox" name="spinBox_6">
+    <widget class="QSpinBox" name="slots_C">
+     <property name="maximum">
+      <number>20</number>
+     </property>
      <property name="value">
       <number>15</number>
      </property>
     </widget>
    </item>
    <item row="5" column="0">
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="label_Slots_A">
      <property name="text">
       <string>Slots allowed for A (up to 10)</string>
      </property>
     </widget>
    </item>
    <item row="5" column="6">
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="label_Slots_B">
      <property name="text">
       <string>Slots allowed for B (up to 20)</string>
      </property>
     </widget>
    </item>
    <item row="5" column="12">
-    <widget class="QLabel" name="label_9">
+    <widget class="QLabel" name="label_Slots_C">
      <property name="text">
       <string>Slots allowed for C (up to 15)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="6">
+    <widget class="QLabel" name="label_A">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Constant Devices</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::AutoText</enum>
      </property>
     </widget>
    </item>
