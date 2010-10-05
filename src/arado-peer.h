@@ -23,6 +23,7 @@
  ****************************************************************/
 
 #include <QString>
+#include <QList>
 
 namespace arado
 {
@@ -55,6 +56,8 @@ private:
   QString  level;
   int      port;
 } ;
+
+typedef  QList <AradoPeer>  AradoPeerList;
 
 } // namespace
 

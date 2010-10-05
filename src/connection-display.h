@@ -57,14 +57,16 @@ private slots:
 
 signals:
 
-  void StartSync ();
+  void StartSync (bool reload=false);
   void AddDevice ();
+  void HaveNewPeer ();
 
 private:
 
   Ui_ConnectionDisplay   ui;
 
   DBManager             *db;
+  bool                  haveNew;
 
 };
 

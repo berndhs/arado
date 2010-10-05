@@ -64,7 +64,7 @@ qDebug () << " add server " << addr;
   HttpAddress  ha (addr,port);
   servers[nextServer] = ha;
   qDebug () << " address in object " << ha.haddr;
-  qDebug () << " address in map " << servers[nextServer].haddr;
+  qDebug () << __LINE__ << " address in map " << servers[nextServer].haddr;
   int ns = nextServer;
   nextServer++;
   return ns;
@@ -74,6 +74,7 @@ int
 HttpClient::AddServer (const QUrl & serverUrl, quint16 port)
 {
   servers[nextServer] = HttpAddress (serverUrl, port);
+  qDebug () << __LINE__ << " url in map " << servers[nextServer].url;
   int ns = nextServer;
   nextServer++;
   return ns;
@@ -100,9 +101,12 @@ HttpClient::DropAllServers ()
 }
 
 void
-HttpClient::Poll ()
+HttpClient::Poll (bool reloadServers)
 {
-  qDebug () << " HttpClient Poll start ";
+  qDebug () << " HttpClient Poll start reload " << reloadServers;
+  if (reloadServers) {
+    ReloadServers ();
+  }
   ServerMap::iterator sit;
   for (sit = servers.begin(); sit != servers.end(); sit++) {
     Poll (*sit);
@@ -123,7 +127,7 @@ HttpClient::Poll (HttpAddress & addr)
                        "http://[%1]" : "http://%1");
       requestUrl.setUrl (pattern.arg (addr.haddr.toString()));
     }
-    qDebug () << " Polling host " << requestUrl.host();
+    qDebug () << " CLIENT Polling host " << requestUrl.host();
     requestUrl.setPort (addr.port);
     requestUrl.setPath ("/arado");
     offerUrl = requestUrl;
@@ -272,7 +276,32 @@ HttpClient::SkipWhite (QIODevice *dev)
   if (!(w == ' ' || w == '\n' || w == '\t')) {
     dev->ungetChar (w);
   }
+}
 
+void
+HttpClient::ReloadServers (const QString & kind)
+{
+  if (db) {
+    servers.clear ();
+ 
+    AradoPeerList  peers = db->GetPeers (kind);
+    AradoPeerList::const_iterator  it;
+    for (it = peers.constBegin(); it != peers.constEnd(); it++) {
+      QString tipo = it->AddrType ();
+      QString addr = it->Addr ();
+      int     port = it->Port ();
+      qDebug () << " address " << addr << " type " << tipo << " port " << port;
+      if (tipo == "4" || tipo == "6") {
+        AddServer (QHostAddress (addr), port);
+      } else if (tipo == "name") {
+        QUrl url ;
+        url.setScheme ("http");
+        url.setHost (addr);
+        qDebug () << " adding server " << url;
+        AddServer (url, port);
+      }
+    }
+  }
 }
 
 

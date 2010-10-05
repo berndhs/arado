@@ -72,6 +72,7 @@ private slots:
 
   void AddServer ();
   void AddFeed ();
+  void PollClients ();
 
 private:
 

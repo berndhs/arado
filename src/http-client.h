@@ -94,9 +94,11 @@ public:
   void DropAllServers ();
   void PollServer (int server);
 
+  void ReloadServers (const QString & kind = QString ("0"));
+
 public slots:
 
-  void Poll ();
+  void Poll (bool reloadServers = false);
 
 private slots:
 

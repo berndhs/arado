@@ -66,8 +66,8 @@ AddPeerDialog::Ok ()
     level = levelType [levelButton];
   }
   int port = addrUi.portEdit->text().toInt();
-  emit NewPeer (addrUi.addressEdit->text(),
-                addrUi.nickEdit->text(),
+  emit NewPeer (addrUi.nickEdit->text(),
+                addrUi.addressEdit->text(),
                 kind, level, port);
   accept ();
 }

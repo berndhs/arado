@@ -57,6 +57,10 @@ public:
   
   AradoUrlList  GetRecent (int howmany);
 
+  AradoPeerList GetPeers (const QString & kind = QString ("0"));
+  AradoPeerList GetPeerAddresses (const QString & peerid,
+                                  const QString & peerclass);
+
   bool  ReadKeywords (const QString & hash, QStringList & list);
   bool  ReadUrl   (const QString & hash, AradoUrl & url);
   bool  ReadTime  (const QString & hash, quint64 & timestamp);

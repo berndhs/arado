@@ -394,6 +394,56 @@ DBManager::GetMatching (QStringList & hashList,
   return (ok);
 }
 
+AradoPeerList
+DBManager::GetPeers (const QString & kind)
+{
+  AradoPeerList list;
+  QString where;
+  if (kind == "A") {
+    where = QString ("where peerclass = \"A\"");
+  } else if (kind == "B") {
+    where = QString ("where peerclass = \"B\"");
+  } else if (kind == "0") {
+    where = QString ("where 1");
+  } else {
+    return list;
+  }
+  QString cmd (QString ("select peerid, peerclass from stablepeers %1")
+               .arg(where));
+  QSqlQuery  select (ipBase);
+  bool ok = select.exec (cmd);
+  QString peerid;
+  QString peerclass;
+  while (ok && select.next ()) {
+    peerid = select.value(0).toString();
+    peerclass = select.value(1).toString();
+    list << GetPeerAddresses (peerid, peerclass);
+  }
+  qDebug () << " returning " << list.size() << " peers ";
+  return list;
+}
+
+AradoPeerList
+DBManager::GetPeerAddresses (const QString & peerid, const QString & peerclass)
+{
+  AradoPeerList  list;
+  QString cmd (QString ("select proto, address, port "
+                        " from ippeers where peerid =\"%1\" ")
+               .arg (peerid));
+  QSqlQuery  select (ipBase);
+  bool ok = select.exec (cmd);
+  QString proto, addr;
+  int     port;
+  while (ok && select.next ()) {
+    proto = select.value (0).toString();
+    addr  = select.value (1).toString();
+    port  = select.value (2).toInt ();
+    list << AradoPeer (peerid, addr, proto, peerclass, port);
+    qDebug () << " found " << peerid << addr << proto << peerclass << port;
+  }
+  return list;
+}
+
 bool
 DBManager::StartTransaction (DBType t)
 {

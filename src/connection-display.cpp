@@ -42,7 +42,8 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 void
 ConnectionDisplay::DoStartSync ()
 {
-  emit StartSync ();
+  emit StartSync (haveNew);
+  haveNew = false;
 }
 
 void
@@ -57,10 +58,15 @@ ConnectionDisplay::AddPeer (QString nick, QString addr, QString addrType,
 {
   qDebug () << " new peer to add " << nick << addr << addrType << level << port;
   AradoPeer newPeer (nick, addr, addrType, level, port);
+  bool added (false);
   if (db) {
-    db->AddPeer (newPeer);
+    added = db->AddPeer (newPeer);
   } else {
     qDebug () << " no DB in connection display ";
+  }
+  if (added) {
+    haveNew = true;
+    emit HaveNewPeer ();
   }
 }
 

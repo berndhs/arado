@@ -139,7 +139,15 @@ AradoMain::StartClients ()
     httpPoll->start (2*60*1000);
     httpClient->SetDB (&dbMgr);
     httpClient->SetPolicy (policy);
-    QTimer::singleShot (3000, httpClient, SLOT (Poll()));
+    QTimer::singleShot (3000, this, SLOT (PollClients()));
+  }
+}
+
+void
+AradoMain::PollClients ()
+{
+  if (httpClient) {
+    httpClient->Poll (true);
   }
 }
 
@@ -212,7 +220,7 @@ AradoMain::Connect ()
   }
   if (connDisplay && httpClient) {
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
-    connect (connDisplay, SIGNAL (StartSync()), httpClient, SLOT (Poll()));
+    connect (connDisplay, SIGNAL (StartSync(bool)), httpClient, SLOT (Poll(bool)));
   }
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (triggered()), httpClient, SLOT (Poll()));
