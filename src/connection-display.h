@@ -26,6 +26,7 @@
  ****************************************************************/
 
 #include "ui_connection-display.h"
+#include "arado-peer.h"
 
 namespace arado
 {
@@ -37,12 +38,29 @@ class ConnectionDisplay : public QWidget
 Q_OBJECT
 
 public:
+
+
+  enum ConnModelData {
+       Conn_Celltype = Qt::UserRole + 2
+       };
+
+  enum ConnCellType {
+     Cell_None = 0,
+     Cell_Nick = 1,
+     Cell_Addr = 2,
+     Cell_Port = 3
+  };
   
   ConnectionDisplay (QWidget *parent=0);
 
+  void Start ();
   void SetDB (DBManager *dbm) { db = dbm; }
+  
+  void ShowPeers ();
+  void ShowPeers (QTableWidget * table, AradoPeerList & peers);
 
 public slots:
+
 
   void AddPeer (QString nick, 
                 QString addr, 

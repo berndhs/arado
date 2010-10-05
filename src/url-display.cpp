@@ -189,7 +189,7 @@ UrlDisplay::ActiveCell (int row, int col, int oldRow, int oldCol)
     ui.urlTable->setRowHeight (oldRow, normalRowHeight);
   }
   if (item) {
-    CellType ctype = CellType (item->data (Url_Celltype).toInt());
+    UrlCellType ctype = UrlCellType (item->data (Url_Celltype).toInt());
     if (ctype == Cell_Desc) {
       ui.urlTable->setRowHeight (row, bigRowHeight);
     }
@@ -209,7 +209,7 @@ UrlDisplay::OpenUrl ()
 {
   QTableWidgetItem * current = ui.urlTable->currentItem ();
   if (current) {
-    if (CellType (current->data(Url_Celltype).toInt()) 
+    if (UrlCellType (current->data(Url_Celltype).toInt()) 
         == Cell_Url) {
       QUrl target (current->text ());    
       QDesktopServices::openUrl (target);
@@ -258,8 +258,8 @@ UrlDisplay::Picked (QTableWidgetItem *item)
 {
   if (item) {
     Lock ();
-    CellType  tipo;
-    tipo = CellType (item->data(Url_Celltype).toInt());
+    UrlCellType  tipo;
+    tipo = UrlCellType (item->data(Url_Celltype).toInt());
     if (tipo == Cell_Url) {
       CellMenuUrl (item);
     } else if (tipo == Cell_Desc) {

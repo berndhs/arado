@@ -49,7 +49,7 @@ public:
        Url_Keywords = Qt::UserRole + 1,
        Url_Celltype = Qt::UserRole + 2
        };
-  enum CellType {
+  enum UrlCellType {
        Cell_None = 0,
        Cell_Hash = 1,
        Cell_Desc = 2,

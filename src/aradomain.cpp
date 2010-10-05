@@ -106,6 +106,9 @@ AradoMain::Start ()
     if (policy) {
       policy->Load (&dbMgr);
     }
+    if (connDisplay) {
+      connDisplay->Start ();
+    }
   }
   show ();
   StartServers ();

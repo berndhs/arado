@@ -40,6 +40,12 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 }
 
 void
+ConnectionDisplay::Start ()
+{
+  ShowPeers ();
+}
+
+void
 ConnectionDisplay::DoStartSync ()
 {
   emit StartSync (haveNew);
@@ -67,6 +73,44 @@ ConnectionDisplay::AddPeer (QString nick, QString addr, QString addrType,
   if (added) {
     haveNew = true;
     emit HaveNewPeer ();
+    ShowPeers ();
+  }
+}
+
+void
+ConnectionDisplay::ShowPeers ()
+{
+  if (db) {
+    AradoPeerList peers = db->GetPeers ("A");
+    ShowPeers (ui.tableWidget_A, peers);
+    peers = db->GetPeers ("B");
+    ShowPeers (ui.tableWidget_B, peers);
+  }
+}
+
+void
+ConnectionDisplay::ShowPeers (QTableWidget * table, AradoPeerList & peers)
+{
+  if (table == 0) {
+    return;
+  }
+  table->clearContents ();
+  table->setRowCount (peers.size());
+  table->setEditTriggers (0);
+  bool normalSort = table->isSortingEnabled ();
+  for (int p=0; p<peers.size(); p++) {
+    AradoPeer peer = peers[p];
+    table->setSortingEnabled (false);
+    QTableWidgetItem * item = new QTableWidgetItem (peer.Nick());
+    item->setData (Conn_Celltype, Cell_Nick);
+    table->setItem (p, 0, item);
+    item = new QTableWidgetItem (peer.Addr ());
+    item->setData (Conn_Celltype, Cell_Addr);
+    table->setItem (p, 1, item);
+    item = new QTableWidgetItem (QString::number (peer.Port()));
+    item->setData (Conn_Celltype, Cell_Port);
+    table->setItem (p, 2, item);
+    table->setSortingEnabled (normalSort);
   }
 }
 
