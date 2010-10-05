@@ -74,6 +74,7 @@ HEADERS		=	src/aradomain.h \
                    src/http-client.h \
                    src/http-sender.h \
                    src/control-message.h \
+                   src/add-peer.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -100,6 +101,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/http-client.cpp \
                    src/http-sender.cpp \
                    src/control-message.cpp \
+                   src/add-peer.cpp \
 
 
 TARGET		= bin/arado

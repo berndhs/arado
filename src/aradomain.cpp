@@ -16,11 +16,11 @@
 #include "url-display.h"
 #include "connection-display.h"
 #include "entry-form.h"
+#include "add-peer.h"
 #include "policy.h"
 #include "search.h"
 #include "http-server.h"
 #include "http-client.h"
-#include "ui_address-input.h"
 #include "ui_feed-input.h"
 
 /****************************************************************
@@ -60,6 +60,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    urlDisplay (0),
    connDisplay (0),
    entryForm (0),
+   addPeerDialog (0),
    dbMgr (this),
    policy (0),
    httpServer (0),
@@ -78,6 +79,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
+  addPeerDialog = new AddPeerDialog (this);
   policy = new Policy (this);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
@@ -144,34 +146,23 @@ AradoMain::StartClients ()
 void
 AradoMain::AddServer ()
 {
-  Ui_AddressDialog  addrUi;
-  QDialog           addrDial (this);
-  addrUi.setupUi (&addrDial);
-  connect (addrUi.okButton, SIGNAL (clicked()), &addrDial, SLOT (accept()));
-  connect (addrUi.cancelButton, SIGNAL (clicked()), &addrDial, SLOT (reject()));
-  addrUi.portEdit->setText ("29998");
-  addrUi.addressEdit->clear ();
-  int result = addrDial.exec ();
-  if (result) {
-    if (httpClient) {
-      QString addr = addrUi.addressEdit->text ();
-      int port = addrUi.portEdit->text().toInt ();
-qDebug () << " call AddServer with " << addr << " : " << port;
-      httpClient->AddServer (QHostAddress (addr), port);
-    }
-  }
+  addPeerDialog->Run ();
+}
+
+void
+AradoMain::AddNewPeer (QString nick, QString addr, QString addrType,
+                       QString level, int port)
+{
+  qDebug () << " new peer to add " << nick << addr << addrType << level << port;
 }
 
 void
 AradoMain::AddFeed ()
 {
-  Ui_FeedDialog  feedUi;
-  QDialog           enterFeed (this);
-  feedUi.setupUi (&enterFeed);
-  connect (feedUi.okButton, SIGNAL (clicked()), &enterFeed, SLOT (accept()));
-  connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
-  feedUi.feedEdit->setText ("http://feed....");
-  int response = enterFeed.exec ();
+  QMessageBox  box;
+  box.setText ("Add RSS/Atom is TBD");
+  QTimer::singleShot (15000, &box, SLOT (accept()));
+  box.exec ();
 }
 
 void
@@ -205,6 +196,10 @@ AradoMain::Connect ()
            httpClient, SLOT (Poll ()));
   connect (mainUi.actionAddFeed, SIGNAL (triggered()),
            this, SLOT (AddFeed ()));
+  connect (addPeerDialog, 
+             SIGNAL (NewPeer (QString, QString, QString, QString, int)),
+           this, 
+             SLOT (AddNewPeer (QString, QString, QString, QString, int)));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));

@@ -42,6 +42,7 @@ class AradoUrl;
 class Policy;
 class HttpServer;
 class HttpClient;
+class AddPeerDialog;
 
 class AradoMain : public QMainWindow
 {
@@ -72,6 +73,12 @@ private slots:
   void AddServer ();
   void AddFeed ();
 
+  void AddNewPeer (QString nick, 
+                QString addr, 
+                QString addrType, 
+                QString level, 
+                    int port);
+
 
 private:
 
@@ -89,6 +96,7 @@ private:
   UrlDisplay         *urlDisplay;
   ConnectionDisplay  *connDisplay;
   EntryForm          *entryForm;
+  AddPeerDialog      *addPeerDialog;
   DBManager           dbMgr;
   Policy             *policy;
   HttpServer         *httpServer;
