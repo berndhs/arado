@@ -50,7 +50,7 @@
    <item row="3" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
-      <string>Nickname</string>
+      <string>Nickname:</string>
      </property>
     </widget>
    </item>
@@ -60,7 +60,7 @@
    <item row="4" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Address/Name</string>
+      <string>IP-Address/Name:</string>
      </property>
     </widget>
    </item>
