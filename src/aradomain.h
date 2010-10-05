@@ -73,13 +73,6 @@ private slots:
   void AddServer ();
   void AddFeed ();
 
-  void AddNewPeer (QString nick, 
-                QString addr, 
-                QString addrType, 
-                QString level, 
-                    int port);
-
-
 private:
 
   void  Connect ();

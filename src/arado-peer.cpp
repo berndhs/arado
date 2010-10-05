@@ -21,47 +21,23 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#include "connection-display.h"
 #include "arado-peer.h"
-#include "db-manager.h"
-#include <QDebug>
 
 namespace arado
 {
 
-ConnectionDisplay::ConnectionDisplay (QWidget *parent)
-  :QWidget (parent),
-   db (0)
+AradoPeer::AradoPeer (QString theNick, 
+                QString theAddr, 
+                QString theAddrType, 
+                QString theLevel, 
+                    int thePort)
+  :nick (theNick),
+   addr (theAddr),
+   addrType (theAddrType),
+   level (theLevel),
+   port (thePort)
 {
-  ui.setupUi (this);
-
-  connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
-  connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
-}
-
-void
-ConnectionDisplay::DoStartSync ()
-{
-  emit StartSync ();
-}
-
-void
-ConnectionDisplay::DoAddDevice ()
-{
-  emit AddDevice ();
-}
-
-void
-ConnectionDisplay::AddPeer (QString nick, QString addr, QString addrType,
-                       QString level, int port)
-{
-  qDebug () << " new peer to add " << nick << addr << addrType << level << port;
-  AradoPeer newPeer (nick, addr, addrType, level, port);
-  if (db) {
-    db->AddPeer (newPeer);
-  } else {
-    qDebug () << " no DB in connection display ";
-  }
 }
 
 } // namespace
+

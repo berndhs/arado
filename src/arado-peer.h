@@ -1,4 +1,5 @@
-
+#ifndef ARADO_PEER_H
+#define ARADO_PEER_H
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -21,47 +22,40 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#include "connection-display.h"
-#include "arado-peer.h"
-#include "db-manager.h"
-#include <QDebug>
+#include <QString>
 
 namespace arado
 {
-
-ConnectionDisplay::ConnectionDisplay (QWidget *parent)
-  :QWidget (parent),
-   db (0)
+class AradoPeer 
 {
-  ui.setupUi (this);
+public:
 
-  connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
-  connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
-}
+  AradoPeer (QString theNick = QString(), 
+                QString theAddr = QString(), 
+                QString theAddrType = QString ("0"), 
+                QString theLevel = QString ("C"), 
+                    int thePort = 0);
 
-void
-ConnectionDisplay::DoStartSync ()
-{
-  emit StartSync ();
-}
+  QString  Nick () const { return nick; } 
+  QString  Addr () const { return addr; }
+  QString  AddrType () const { return addrType; }
+  QString  Level () const { return level; }
+  int      Port () const { return port; }
 
-void
-ConnectionDisplay::DoAddDevice ()
-{
-  emit AddDevice ();
-}
+  void  SetNick (const QString & n) { nick = n; }
+  void  SetAddr (const QString & a) { addr = a; }
+  void  SetAddrType (const QString & at) { addrType = at; }
+  void  SetPort (int p) { port = p; }
 
-void
-ConnectionDisplay::AddPeer (QString nick, QString addr, QString addrType,
-                       QString level, int port)
-{
-  qDebug () << " new peer to add " << nick << addr << addrType << level << port;
-  AradoPeer newPeer (nick, addr, addrType, level, port);
-  if (db) {
-    db->AddPeer (newPeer);
-  } else {
-    qDebug () << " no DB in connection display ";
-  }
-}
+private:
+
+  QString  nick;
+  QString  addr;
+  QString  addrType;
+  QString  level;
+  int      port;
+} ;
 
 } // namespace
+
+#endif

@@ -42,6 +42,14 @@ public:
 
   void SetDB (DBManager *dbm) { db = dbm; }
 
+public slots:
+
+  void AddPeer (QString nick, 
+                QString addr, 
+                QString addrType, 
+                QString level, 
+                    int port);
+
 private slots:
 
   void DoStartSync ();

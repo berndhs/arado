@@ -46,5 +46,11 @@
         <file alias="timestamps.sql">schemafiles/timestamps.sql</file>
         <file alias="timeindex.sql">schemafiles/timeindex.sql</file>
         <file alias="uniquetimeindex.sql">schemafiles/uniquetimeindex.sql</file>
+        <file alias="stablepeers.sql">schemafiles/stablepeers.sql</file>
+        <file alias="transientpeers.sql">schemafiles/transientpeers.sql</file>
+        <file alias="ippeers.sql">schemafiles/ippeers.sql</file>
+        <file alias="stableindex.sql">schemafiles/stableindex.sql</file>
+        <file alias="transientindex.sql">schemafiles/transientindex.sql</file>
+        <file alias="ippeerindex.sql">schemafiles/ippeerindex.sql</file>
     </qresource>
 </RCC>

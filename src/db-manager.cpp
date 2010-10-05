@@ -73,9 +73,6 @@ DBManager::Start ()
   StartDB (urlBase, "urlBaseCon", urlbasename);
   urlInTransaction = false;
 
-  QStringList ipElements;
-  CheckDBComplete (ipBase, ipElements);
-
   QStringList  urlElements ;
   urlElements << "urltable"
               << "urlhashindex"
@@ -88,6 +85,17 @@ DBManager::Start ()
               << "timeindex"
               ;
   CheckDBComplete (urlBase, urlElements);
+
+  QStringList ipElements ;
+  ipElements << "stablepeers"
+             << "stableindex"
+             << "transientpeers"
+             << "transientindex"
+             << "ippeers"
+             << "ippeerindex";
+
+  CheckDBComplete (ipBase, ipElements);
+
   dbRunning = true;
 }
 
@@ -135,6 +143,7 @@ DBManager::CheckDBComplete (QSqlDatabase & db,
   for (int e=0; e<elements.size(); e++) {
     eltName = elements.at(e);
     kind = ElementType (db, eltName).toUpper();
+qDebug () << " element " << eltName << " is kind " << kind;
     if (kind != "TABLE" && kind != "INDEX") {
       MakeElement (db, eltName);
     }
@@ -166,7 +175,9 @@ DBManager::MakeElement (QSqlDatabase & db, const QString & element)
   QString cmd (createcommands);
   QSqlQuery query (db);
   query.prepare (cmd);
-  query.exec ();
+  bool ok = query.exec ();
+qDebug () << " tried " << ok << " to create element with " 
+          << query.executedQuery ();
 }
 
 bool
@@ -202,6 +213,40 @@ DBManager::AddUrl (AradoUrl & url)
   CloseTransaction (DB_Url);
   yieldCurrentThread ();
   AddKeywords (url);
+  return ok;
+}
+
+bool
+DBManager::AddPeer (AradoPeer & peer)
+{
+  QSqlQuery  add (ipBase);
+  QString level = peer.Level ();
+  if (level != "A" && level != "B") {
+qDebug () << " wrong peer level " << level;
+    return false;
+  }
+  StartTransaction (DB_Address);
+  QString  cmd ("insert or replace into stablepeers "
+                " (peerid, peerclass)"
+                " values (?, ?)");
+  add.prepare (cmd);
+  add.bindValue (0, QVariant (peer.Nick()));
+  add.bindValue (1, QVariant (level));
+  bool ok = add.exec ();
+  qDebug () << " tried " << ok << " " << add.executedQuery();
+  if (ok) {
+    cmd = QString ("insert or replace into ippeers "
+                   " ( peerid, proto, address, port ) "
+                   " values (?, ? , ?, ? )");
+    add.prepare (cmd);
+    add.bindValue (0, QVariant (peer.Nick ()));
+    add.bindValue (1, QVariant (peer.AddrType ()));
+    add.bindValue (2, QVariant (peer.Addr ()));
+    add.bindValue (3, QVariant (peer.Port ()));
+    ok = add.exec ();
+  qDebug () << " tried " << ok << " " << add.executedQuery();
+  }
+  CloseTransaction (DB_Address);
   return ok;
 }
 

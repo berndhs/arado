@@ -150,13 +150,6 @@ AradoMain::AddServer ()
 }
 
 void
-AradoMain::AddNewPeer (QString nick, QString addr, QString addrType,
-                       QString level, int port)
-{
-  qDebug () << " new peer to add " << nick << addr << addrType << level << port;
-}
-
-void
 AradoMain::AddFeed ()
 {
   QMessageBox  box;
@@ -198,8 +191,8 @@ AradoMain::Connect ()
            this, SLOT (AddFeed ()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString, QString, QString, QString, int)),
-           this, 
-             SLOT (AddNewPeer (QString, QString, QString, QString, int)));
+           connDisplay, 
+             SLOT (AddPeer (QString, QString, QString, QString, int)));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));

@@ -26,6 +26,7 @@
 #include <QThread>
 #include <QSqlDatabase>
 #include "arado-url.h"
+#include "arado-peer.h"
 
 namespace arado
 {
@@ -51,6 +52,8 @@ public:
 
   bool  AddUrl (AradoUrl & url);
   bool  AddKeywords (AradoUrl & url);
+
+  bool  AddPeer (AradoPeer & peer);
   
   AradoUrlList  GetRecent (int howmany);
 
