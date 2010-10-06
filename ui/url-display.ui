@@ -163,7 +163,7 @@
         <x>0</x>
         <y>0</y>
         <width>780</width>
-        <height>422</height>
+        <height>424</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -273,10 +273,6 @@
           </property>
           <property name="textAlignment">
            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-          <property name="icon">
-           <iconset resource="../arado.qrc">
-            <normaloff>:/images/kugar.png</normaloff>:/images/kugar.png</iconset>
           </property>
          </column>
         </widget>
