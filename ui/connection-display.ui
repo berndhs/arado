@@ -14,14 +14,14 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="6">
+   <item row="0" column="0" colspan="7">
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="0" column="6" colspan="3">
+   <item row="0" column="7" colspan="3">
     <widget class="Line" name="line_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -50,7 +50,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="3">
+   <item row="1" column="4">
     <widget class="QLabel" name="icon_B">
      <property name="maximumSize">
       <size>
@@ -66,7 +66,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="6">
+   <item row="1" column="7">
     <widget class="QLabel" name="icon_C">
      <property name="maximumSize">
       <size>
@@ -99,7 +99,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="3">
+   <item row="2" column="4">
     <widget class="QLabel" name="label_B">
      <property name="font">
       <font>
@@ -113,7 +113,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="6" colspan="2">
+   <item row="2" column="7" colspan="2">
     <widget class="QLabel" name="label_C">
      <property name="font">
       <font>
@@ -134,7 +134,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
+   <item row="3" column="3">
     <widget class="QSpinBox" name="urlamount_A">
      <property name="minimum">
       <number>1</number>
@@ -147,14 +147,14 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="3" colspan="2">
+   <item row="3" column="4" colspan="2">
     <widget class="QLabel" name="label_Slots_B">
      <property name="text">
       <string>Slots allowed for B (up to 20)</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="5">
+   <item row="3" column="6">
     <widget class="QSpinBox" name="slots_B">
      <property name="minimum">
       <number>1</number>
@@ -167,14 +167,14 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="6" colspan="2">
+   <item row="3" column="7" colspan="2">
     <widget class="QLabel" name="label_Slots_C">
      <property name="text">
       <string>Slots allowed for C (up to 15)</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="8">
+   <item row="3" column="9">
     <widget class="QSpinBox" name="slots_C">
      <property name="maximum">
       <number>20</number>
@@ -191,7 +191,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="2">
+   <item row="4" column="3">
     <widget class="QSpinBox" name="slots_A">
      <property name="minimum">
       <number>10</number>
@@ -204,14 +204,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="3" colspan="2">
+   <item row="4" column="4" colspan="2">
     <widget class="QLabel" name="label_URL_B">
      <property name="text">
       <string>Allow so many URLs in one Transfer</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="5">
+   <item row="4" column="6">
     <widget class="QSpinBox" name="urlamount_B">
      <property name="minimum">
       <number>10</number>
@@ -224,14 +224,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="6" colspan="2">
+   <item row="4" column="7" colspan="2">
     <widget class="QLabel" name="label_URL_C">
      <property name="text">
       <string>Allow so many URLs in one Transfer</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="8">
+   <item row="4" column="9">
     <widget class="QSpinBox" name="urlamount_C">
      <property name="minimum">
       <number>10</number>
@@ -251,7 +251,7 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="2">
+   <item row="5" column="3">
     <widget class="QSpinBox" name="ipask_A">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -270,14 +270,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="3" colspan="2">
+   <item row="5" column="4" colspan="2">
     <widget class="QLabel" name="labelipask_B">
      <property name="text">
       <string>Ask them every (10 - 29 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="5">
+   <item row="5" column="6">
     <widget class="QSpinBox" name="ipask_B">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -296,14 +296,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="6" colspan="2">
+   <item row="5" column="7" colspan="2">
     <widget class="QLabel" name="labelipask_C">
      <property name="text">
       <string>Ask them every (30 - 120 Min):</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="8">
+   <item row="5" column="9">
     <widget class="QSpinBox" name="ipask_C">
      <property name="toolTip">
       <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -322,7 +322,7 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="3">
+   <item row="6" column="0" colspan="4">
     <widget class="QTableWidget" name="tableWidget_A">
      <property name="showGrid">
       <bool>false</bool>
@@ -350,7 +350,7 @@
      </column>
     </widget>
    </item>
-   <item row="6" column="3" colspan="3">
+   <item row="6" column="4" colspan="3">
     <widget class="QTableWidget" name="tableWidget_B">
      <property name="showGrid">
       <bool>false</bool>
@@ -378,7 +378,7 @@
      </column>
     </widget>
    </item>
-   <item row="6" column="6" colspan="3">
+   <item row="6" column="7" colspan="3">
     <widget class="QTableWidget" name="tableWidget_C">
      <property name="showGrid">
       <bool>false</bool>
@@ -409,14 +409,14 @@
      </column>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item row="8" column="0">
     <widget class="QLabel" name="labelmyport_2">
      <property name="text">
       <string>Internal IP+Port</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
+   <item row="8" column="1">
     <widget class="QLineEdit" name="addipinternal">
      <property name="palette">
       <palette>
@@ -498,7 +498,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="2">
+   <item row="8" column="3">
     <widget class="QSpinBox" name="myportinternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -511,14 +511,14 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0">
+   <item row="9" column="0">
     <widget class="QLabel" name="labelmyport_3">
      <property name="text">
       <string>External IP+Port</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="1">
+   <item row="9" column="1">
     <widget class="QLineEdit" name="addipexternal">
      <property name="palette">
       <palette>
@@ -600,7 +600,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="2">
+   <item row="9" column="3">
     <widget class="QSpinBox" name="myportexternal">
      <property name="toolTip">
       <string>You need to forward this port in your NAT/router, if you want to connect.</string>
@@ -613,7 +613,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="7" colspan="2">
+   <item row="9" column="8" colspan="2">
     <widget class="QCheckBox" name="checkBox_I2P">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
@@ -623,7 +623,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="0">
+   <item row="10" column="0">
     <widget class="QLabel" name="labelipcachesize_3">
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
@@ -633,7 +633,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="2">
+   <item row="10" column="3">
     <widget class="QSpinBox" name="ipcachesize">
      <property name="toolTip">
       <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
@@ -649,62 +649,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="3">
-    <widget class="QPushButton" name="pushButton_remove">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Removes a trusted IP from the list.</string>
-     </property>
-     <property name="text">
-      <string>Remove Device</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="4" colspan="2">
-    <widget class="QPushButton" name="pushButton_copyid">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Copy your Device-ID to the clipboard</string>
-     </property>
-     <property name="text">
-      <string>Copy Device ID</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="7" colspan="2">
+   <item row="10" column="8" colspan="2">
     <widget class="QCheckBox" name="checkboxdisable_C">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
@@ -714,7 +659,7 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="0" colspan="3">
+   <item row="12" column="7" colspan="3">
     <widget class="QPushButton" name="buttonStartSync">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -746,54 +691,7 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="3">
-    <widget class="QPushButton" name="buttonPromote">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Adds an IP from recommended or episodic list to trusted list.</string>
-     </property>
-     <property name="text">
-      <string>&lt;- Promote</string>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="4" colspan="2">
-    <widget class="QPushButton" name="pushButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Demote -&gt;</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="6" colspan="3">
+   <item row="12" column="0" colspan="4">
     <widget class="QPushButton" name="buttonAddDevice">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -817,11 +715,113 @@
       <string>Boot with an IP+Port, if the IP-cache is empty or outdated.</string>
      </property>
      <property name="text">
-      <string> Add Device</string>
+      <string> Add Device to A or C</string>
      </property>
      <property name="icon">
       <iconset resource="../arado.qrc">
        <normaloff>:/images/server.png</normaloff>:/images/server.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="5" colspan="2">
+    <widget class="QPushButton" name="pushButton_copyid">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Copy your Device-ID to the clipboard</string>
+     </property>
+     <property name="text">
+      <string>Copy Device ID</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="4">
+    <widget class="QPushButton" name="pushButton_remove">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Removes a trusted IP from the list.</string>
+     </property>
+     <property name="text">
+      <string>Delete Device</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="4">
+    <widget class="QPushButton" name="pushButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Demote to C -&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="4" colspan="6">
+    <widget class="QPushButton" name="buttonPromote">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Adds an IP from recommended or episodic list to trusted list.</string>
+     </property>
+     <property name="text">
+      <string>&lt;- Promote (B or C) to A</string>
      </property>
      <property name="iconSize">
       <size>
