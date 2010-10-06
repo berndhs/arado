@@ -154,7 +154,9 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
     QString labelText (tr("Recent to %1").arg (labelTime));
-    item = new QTableWidgetItem (tr("Browse"));
+  //item = new QTableWidget::setCellWidget(int u, int 4, QPushbutton * widget); // Button in the cell
+    item = new QTableWidgetItem (tr(""));
+    item->setToolTip (tr("Browse"));
     item->setData (Url_Celltype, Cell_Browse);
     item->setIcon (browseIcon);
     ui.urlTable->setItem (u, 4, item);
