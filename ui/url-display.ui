@@ -271,9 +271,6 @@
             <bold>true</bold>
            </font>
           </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
          </column>
         </widget>
        </item>
