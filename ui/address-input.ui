@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>249</height>
+    <width>400</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Add Device-IP to start a connection</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="4">
+   <item row="1" column="6">
     <widget class="QRadioButton" name="ipv6Button">
      <property name="text">
       <string>IPv6</string>
@@ -24,17 +24,17 @@
      </attribute>
     </widget>
    </item>
-   <item row="8" column="1">
+   <item row="10" column="3">
     <widget class="QLabel" name="label_4">
      <property name="text">
       <string>Nick</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="2" colspan="3">
+   <item row="10" column="4" colspan="3">
     <widget class="QLineEdit" name="nickEdit"/>
    </item>
-   <item row="12" column="3" colspan="2">
+   <item row="14" column="5" colspan="2">
     <widget class="QPushButton" name="cancelButton">
      <property name="minimumSize">
       <size>
@@ -57,7 +57,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="4">
+   <item row="5" column="6">
     <widget class="QRadioButton" name="i2pButton">
      <property name="text">
       <string>I2P</string>
@@ -67,7 +67,7 @@
      </attribute>
     </widget>
    </item>
-   <item row="12" column="1" colspan="2">
+   <item row="14" column="3" colspan="2">
     <widget class="QPushButton" name="okButton">
      <property name="minimumSize">
       <size>
@@ -90,7 +90,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="2">
+   <item row="5" column="4">
     <widget class="QRadioButton" name="dnsButton">
      <property name="text">
       <string>DNS</string>
@@ -100,7 +100,148 @@
      </attribute>
     </widget>
    </item>
-   <item row="8" column="0">
+   <item row="6" column="3">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>IP/Address/Name/ID:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="4" colspan="3">
+    <widget class="QLineEdit" name="addressEdit"/>
+   </item>
+   <item row="7" column="3">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Port:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="4" colspan="3">
+    <widget class="QLineEdit" name="portEdit"/>
+   </item>
+   <item row="8" column="4">
+    <widget class="QRadioButton" name="constantButton">
+     <property name="text">
+      <string>Add to Constant</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>levelGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="8" column="6">
+    <widget class="QRadioButton" name="flexibleButton">
+     <property name="text">
+      <string>Add to Flexible</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>levelGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <widget class="QLabel" name="label_3">
+     <property name="toolTip">
+      <string>Insert IP-Adress and Port of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../arado.qrc">:/images/server.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="4">
+    <widget class="QRadioButton" name="deviceidButton">
+     <property name="text">
+      <string>Arado-Device-ID</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>typeGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QRadioButton" name="ipv4Button">
+     <property name="text">
+      <string>IPv4</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>typeGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="7" column="7">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>19</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="11" column="4">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="9" column="4">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="4">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="15" column="5">
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="6" column="1">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -115,79 +256,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="5" column="1">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>IP/Address/Name/ID:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="2" colspan="3">
-    <widget class="QLineEdit" name="addressEdit"/>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Port:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2" colspan="3">
-    <widget class="QLineEdit" name="portEdit"/>
-   </item>
-   <item row="7" column="2">
-    <widget class="QRadioButton" name="constantButton">
-     <property name="text">
-      <string>Add to Constant</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>levelGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="7" column="4">
-    <widget class="QRadioButton" name="flexibleButton">
-     <property name="text">
-      <string>Add to Flexible</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>levelGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="toolTip">
-      <string>Insert IP-Adress and Port of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../arado.qrc">:/images/server.png</pixmap>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QRadioButton" name="deviceidButton">
-     <property name="text">
-      <string>Arado-Device-ID</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>typeGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QRadioButton" name="ipv4Button">
-     <property name="text">
-      <string>IPv4</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>typeGroup</string>
-     </attribute>
-    </widget>
    </item>
   </layout>
  </widget>
