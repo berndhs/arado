@@ -63,7 +63,7 @@ ConnectionDisplay::AddPeer (QString nick, QString addr, QString addrType,
                        QString level, int port)
 {
   qDebug () << " new peer to add " << nick << addr << addrType << level << port;
-  AradoPeer newPeer (nick, addr, addrType, level, port);
+  AradoPeer newPeer (nick, addr, addrType, level, port, AradoPeer::State_New);
   bool added (false);
   if (db) {
     added = db->AddPeer (newPeer);
@@ -105,6 +105,7 @@ ConnectionDisplay::ShowPeers (QTableWidget * table, AradoPeerList & peers)
     table->setSortingEnabled (false);
     QTableWidgetItem * item = new QTableWidgetItem (peer.Nick());
     item->setData (Conn_Celltype, Cell_Nick);
+    Highlight (item, peer);
     table->setItem (p, 0, item);
     item = new QTableWidgetItem (peer.Addr ());
     item->setData (Conn_Celltype, Cell_Addr);
@@ -113,6 +114,106 @@ ConnectionDisplay::ShowPeers (QTableWidget * table, AradoPeerList & peers)
     item->setData (Conn_Celltype, Cell_Port);
     table->setItem (p, 2, item);
     table->setSortingEnabled (normalSort);
+  }
+}
+
+void
+ConnectionDisplay::Highlight (QTableWidgetItem *item, AradoPeer & peer)
+{
+  if (item) {
+    AradoPeer::PeerState state = peer.State();
+    QFont font = item->font ();
+    font.setItalic (false);
+    font.setBold (false);
+    font.setStrikeOut (false);
+    switch (state) {
+      case AradoPeer::State_Sent:
+        font.setBold (true);
+        break;
+      case AradoPeer::State_Scheduled:
+        font.setItalic (true);
+        break;
+      case AradoPeer::State_Dead:
+        font.setStrikeOut (true);
+        break;
+      default:
+        break;
+    }
+    item->setFont (font);
+  }
+}
+
+int
+ConnectionDisplay::FindPeer (QTableWidget *table, const QString &nick)
+{
+  if (table == 0) {
+    return -1;
+  }
+  int nr = table->rowCount ();
+  int nc = table->columnCount ();
+  for (int r=0; r<nr; r++) {
+    for (int c=0; c<nc; c++) {
+      QTableWidgetItem * item = table->item(r,c);
+      if (item) {
+        if (ConnCellType(item->data(Conn_Celltype).toInt()) == Cell_Nick
+           && item->text () == nick) {
+           return r;
+        }
+      }
+    }
+  }
+  return -1;
+}
+
+bool
+ConnectionDisplay::FindPeer (QString & nick, QTableWidget **table, int & row)
+{
+  QTableWidget * t = ui.tableWidget_A;
+  int r = FindPeer (t, nick);
+  if (r < 0) {
+    t = ui.tableWidget_B;
+    r = FindPeer (t, nick);
+    if (r < 0) {
+      t = ui.tableWidget_C;
+      r = FindPeer (t, nick);
+    }
+  }
+  row = r;
+  (*table) = t;
+  return r >= 0;
+}
+
+QTableWidgetItem *
+ConnectionDisplay::FindCell (const QTableWidget *table,
+                             int   row,
+                         ConnCellType ct)
+{
+  if (table == 0) {
+    return 0;
+  }
+  for (int c=0; c<table->columnCount(); c++) {
+    QTableWidgetItem *cell = table->item (row, c);
+    if (cell) {
+      if (ConnCellType (cell->data (Conn_Celltype).toInt()) == ct) {
+        return cell;
+      }
+    }
+  }
+  return 0;
+}
+
+void
+ConnectionDisplay::ChangePeer (AradoPeer & peer)
+{
+  QString nick = peer.Nick ();
+  QTableWidget **table (0);
+  int          row (-1);
+  bool found = FindPeer (nick, table, row);
+  if (found) {
+    QTableWidgetItem * item = FindCell (*table, row, Cell_Nick);
+    if (item) {
+      Highlight (item, peer);   
+    }
   }
 }
 

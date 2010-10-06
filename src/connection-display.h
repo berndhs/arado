@@ -68,6 +68,8 @@ public slots:
                 QString level, 
                     int port);
 
+  void ChangePeer (AradoPeer & peer);
+
 private slots:
 
   void DoStartSync ();
@@ -80,6 +82,13 @@ signals:
   void HaveNewPeer ();
 
 private:
+
+  void Highlight (QTableWidgetItem *item, AradoPeer & peer);
+  bool FindPeer  (QString & nick, QTableWidget  ** table, int & row);
+  int  FindPeer  (QTableWidget *table, const QString & nick);
+  QTableWidgetItem * FindCell (const QTableWidget *table, 
+                                 int row, 
+                        ConnCellType ct);
 
   Ui_ConnectionDisplay   ui;
 

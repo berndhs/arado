@@ -31,30 +31,42 @@ class AradoPeer
 {
 public:
 
+  enum  PeerState {
+     State_None = 0,
+     State_Sent = 1,
+     State_Scheduled = 2,
+     State_New = 3,
+     State_Dead = 4
+  };
+
   AradoPeer (QString theNick = QString(), 
                 QString theAddr = QString(), 
                 QString theAddrType = QString ("0"), 
                 QString theLevel = QString ("C"), 
-                    int thePort = 0);
+                    int thePort = 0,
+                PeerState theState = State_None);
 
   QString  Nick () const { return nick; } 
   QString  Addr () const { return addr; }
   QString  AddrType () const { return addrType; }
   QString  Level () const { return level; }
   int      Port () const { return port; }
+  PeerState  State () const { return state ; }
 
   void  SetNick (const QString & n) { nick = n; }
   void  SetAddr (const QString & a) { addr = a; }
   void  SetAddrType (const QString & at) { addrType = at; }
   void  SetPort (int p) { port = p; }
+  void  SetState (PeerState s) { state = s; }
 
 private:
 
-  QString  nick;
-  QString  addr;
-  QString  addrType;
-  QString  level;
-  int      port;
+  QString        nick;
+  QString        addr;
+  QString        addrType;
+  QString        level;
+  int            port;
+  PeerState      state;
 } ;
 
 typedef  QList <AradoPeer>  AradoPeerList;
