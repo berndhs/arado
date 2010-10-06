@@ -399,17 +399,25 @@ DBManager::GetPeers (const QString & kind)
 {
   AradoPeerList list;
   QString where;
+  QString table;
   if (kind == "A") {
-    where = QString ("where peerclass = \"A\"");
+    where = QString ("peerclass = \"A\"");
+    table = "stablepeers";
   } else if (kind == "B") {
-    where = QString ("where peerclass = \"B\"");
+    where = QString ("peerclass = \"B\"");
+    table = "stablepeers";
+  } else if (kind == "C") {
+    where = QString ("1");
+    table = "transientpeers";
   } else if (kind == "0") {
-    where = QString ("where 1");
+    where = QString ("1");
+    table = "stablepeers";
   } else {
     return list;
   }
-  QString cmd (QString ("select peerid, peerclass from stablepeers %1")
-               .arg(where));
+  QString cmd (QString ("select peerid, peerclass from %1 where %2")
+               .arg (table)
+               .arg (where));
   QSqlQuery  select (ipBase);
   bool ok = select.exec (cmd);
   QString peerid;

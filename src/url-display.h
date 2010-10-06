@@ -54,7 +54,8 @@ public:
        Cell_Hash = 1,
        Cell_Desc = 2,
        Cell_Url = 3,
-       Cell_Time = 4
+       Cell_Time = 4,
+       Cell_Browse = 5
        };
 
   UrlDisplay (QWidget *parent);
@@ -68,7 +69,7 @@ public slots:
   void  Refresh (bool whenHidden = false);
   void  Picked (QTableWidgetItem *item);
   void  AddButton ();
-  void  OpenUrl ();
+  void  OpenUrl (QTableWidgetItem * urlItem = 0);
   void  DoSearch ();
   void  GetSearchResult (int resultid);
   void  UrlsAdded (int numAdded);
@@ -108,6 +109,7 @@ private:
   int               refreshPeriod;
   int               normalRowHeight;
   int               bigRowHeight;
+  QIcon             browseIcon;
 
 };
 

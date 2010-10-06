@@ -59,6 +59,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
 {
   search = new Search (this);
   ui.setupUi (this);
+  browseIcon = QIcon (":/images/kugar.png");
   allowSort = ui.urlTable->isSortingEnabled ();
   connect (ui.urlTable, SIGNAL (currentCellChanged (int, int, int, int)),
            this, SLOT (ActiveCell (int, int, int, int)));
@@ -66,8 +67,6 @@ UrlDisplay::UrlDisplay (QWidget * parent)
            this, SLOT (Picked (QTableWidgetItem*)));
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
-  connect (ui.openUrlButton, SIGNAL (clicked ()),
-           this, SLOT (OpenUrl ()));
   connect (ui.recentButton, SIGNAL (clicked ()),
            this, SLOT (Refresh ()));
   connect (ui.searchButton, SIGNAL (clicked ()),
@@ -96,7 +95,7 @@ UrlDisplay::AddButton ()
 void
 UrlDisplay::Refresh (bool whenHidden)
 {
-  ShowRecent (100, whenHidden);
+  ShowRecent (1000, whenHidden);
   if (refreshUrls && !refreshUrls->isActive()) {
     refreshUrls->start (refreshPeriod);
   }
@@ -155,6 +154,10 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
     QString labelText (tr("Recent to %1").arg (labelTime));
+    item = new QTableWidgetItem (tr("Browse"));
+    item->setData (Url_Celltype, Cell_Browse);
+    item->setIcon (browseIcon);
+    ui.urlTable->setItem (u, 4, item);
     ui.bottomLabel->setText (labelText);
   }
   if (ui.urlTable->rowCount() > 0) {
@@ -166,6 +169,7 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
 void
 UrlDisplay::UrlsAdded (int numAdded)
 {
+  Q_UNUSED (numAdded)
   QString labelText = tr("Network update at %1")
                        .arg(QDateTime::currentDateTime().toString("hh:mm:ss"));
   ui.bottomLabel->setText (labelText);
@@ -192,6 +196,18 @@ UrlDisplay::ActiveCell (int row, int col, int oldRow, int oldCol)
     UrlCellType ctype = UrlCellType (item->data (Url_Celltype).toInt());
     if (ctype == Cell_Desc) {
       ui.urlTable->setRowHeight (row, bigRowHeight);
+    } else if (ctype == Cell_Browse) {
+      QUrl url;
+      QTableWidgetItem * urlItem (0);
+      for (int c=0; c<ui.urlTable->columnCount(); c++) {
+        urlItem = ui.urlTable->item (row, c);
+        if (urlItem && 
+            UrlCellType (urlItem->data (Url_Celltype).toInt()) 
+             == Cell_Url) {
+          OpenUrl (urlItem);
+          break;
+        }
+      }
     }
   }
 }
@@ -205,9 +221,14 @@ UrlDisplay::resizeEvent (QResizeEvent * event)
 }
 
 void
-UrlDisplay::OpenUrl ()
+UrlDisplay::OpenUrl (QTableWidgetItem * urlItem)
 {
-  QTableWidgetItem * current = ui.urlTable->currentItem ();
+  QTableWidgetItem * current (0);
+  if (urlItem == 0) {
+    current = ui.urlTable->currentItem ();
+  } else {
+    current = urlItem;
+  }
   if (current) {
     if (UrlCellType (current->data(Url_Celltype).toInt()) 
         == Cell_Url) {
