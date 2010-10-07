@@ -28,10 +28,8 @@
         <file>images/server.png</file>
         <file>images/kfm_home.png</file>
         <file>images/remote.png</file>
-    </qresource>
-    <qresource prefix="/help">
-        <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
-        <file alias="helpman.html">helpfiles/helpman.html</file>
+        <file>images/player_fwd.png</file>
+        <file>images/player_rev.png</file>
     </qresource>
     <qresource prefix="/translate">
         <file alias="arado_de.qm">translate/arado_de.qm</file>

@@ -483,17 +483,10 @@
    <item row="1" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QCheckBox" name="checkBox_I2P">
-       <property name="layoutDirection">
-        <enum>Qt::RightToLeft</enum>
-       </property>
-       <property name="text">
-        <string>Enable I2P-Network only</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QCheckBox" name="checkboxdisable_C">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -502,9 +495,22 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_I2P">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="text">
+        <string>Enable I2P-Network only</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QPushButton" name="buttonAddDevice">
@@ -535,38 +541,6 @@
        <property name="icon">
         <iconset resource="../arado.qrc">
          <normaloff>:/images/server.png</normaloff>:/images/server.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_remove">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>43</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Removes a trusted IP from the list.</string>
-       </property>
-       <property name="text">
-        <string>Delete Device</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../arado.qrc">
-         <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -610,27 +584,8 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Demote -&gt;</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QPushButton" name="buttonPromote">
        <property name="sizePolicy">
@@ -649,7 +604,78 @@
         <string>Adds an IP from recommended or episodic list to trusted list.</string>
        </property>
        <property name="text">
-        <string>Promote &lt;-</string>
+        <string>Promote</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../arado.qrc">
+         <normaloff>:/images/player_rev.png</normaloff>:/images/player_rev.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_remove">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>43</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Removes a trusted IP from the list.</string>
+       </property>
+       <property name="text">
+        <string>Delete Device</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../arado.qrc">
+         <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Demote</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../arado.qrc">
+         <normaloff>:/images/player_fwd.png</normaloff>:/images/player_fwd.png</iconset>
        </property>
        <property name="iconSize">
         <size>
