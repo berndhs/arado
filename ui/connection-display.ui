@@ -604,7 +604,7 @@
         <string>Adds an IP from recommended or episodic list to trusted list.</string>
        </property>
        <property name="text">
-        <string>Promote</string>
+        <string>Make Constant</string>
        </property>
        <property name="icon">
         <iconset resource="../arado.qrc">
@@ -671,7 +671,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Demote</string>
+        <string>Make Flexible</string>
        </property>
        <property name="icon">
         <iconset resource="../arado.qrc">
