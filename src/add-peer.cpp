@@ -53,7 +53,7 @@ void
 AddPeerDialog::Run ()
 {
   quint64 now = QDateTime::currentDateTime().toTime_t();
-  QString defaultName (tr("local%1").arg(now));
+  QString defaultName (tr("Mr.Smith%1").arg(now));
   addrUi.nickEdit->setText (defaultName);
   addrUi.addressEdit->clear ();
   addrUi.portEdit->clear ();
