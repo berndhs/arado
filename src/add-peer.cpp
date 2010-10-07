@@ -23,6 +23,8 @@
  ****************************************************************/
 
 #include "add-peer.h"
+#include "deliberate.h"
+#include <QDateTime>
 
 namespace arado 
 {
@@ -34,6 +36,8 @@ AddPeerDialog::AddPeerDialog (QWidget *parent)
   hide ();
   connect (addrUi.okButton, SIGNAL (clicked()), this, SLOT (Ok()));
   connect (addrUi.cancelButton, SIGNAL (clicked()), this, SLOT (Cancel()));
+  connect (addrUi.addressEdit, SIGNAL (returnPressed()),
+           this, SLOT (AddrReturn ()));
   addrUi.ipv4Button->setChecked (true);
   addressType [addrUi.ipv4Button] = QString ("4");
   addressType [addrUi.ipv6Button] = QString ("6");
@@ -48,9 +52,15 @@ AddPeerDialog::AddPeerDialog (QWidget *parent)
 void
 AddPeerDialog::Run ()
 {
-  addrUi.nickEdit->setText (tr("Enter any Nickname"));
+  quint64 now = QDateTime::currentDateTime().toTime_t();
+  QString defaultName (tr("local%1").arg(now));
+  addrUi.nickEdit->setText (defaultName);
   addrUi.addressEdit->clear ();
   addrUi.portEdit->clear ();
+  addrUi.okButton->setDefault (false);
+  addrUi.okButton->setAutoDefault (false);
+  addrUi.cancelButton->setDefault (false);
+  addrUi.cancelButton->setAutoDefault (false);
   show ();
 }
 
@@ -77,6 +87,20 @@ void
 AddPeerDialog::Cancel ()
 {
   reject ();
+}
+
+void
+AddPeerDialog::AddrReturn ()
+{
+  QString addr = addrUi.addressEdit->text();
+  if (deliberate::IsIp4Address (addr)) {
+    addrUi.ipv4Button->setChecked (true);
+  } else if (deliberate::IsIp6Address (addr)) {
+    addrUi.ipv6Button->setChecked (true);
+  } else {
+    addrUi.dnsButton->setChecked (true);
+  }
+  addrUi.portEdit->setFocus ();
 }
 
 } // namespace

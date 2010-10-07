@@ -46,6 +46,7 @@ private slots:
 
   void Ok ();
   void Cancel ();
+  void AddrReturn ();
 
 signals:
 
