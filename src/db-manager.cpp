@@ -221,14 +221,14 @@ DBManager::AddPeer (AradoPeer & peer)
 {
   QSqlQuery  add (ipBase);
   QString level = peer.Level ();
-  if (level != "A" && level != "B") {
-qDebug () << " wrong peer level " << level;
-    return false;
-  }
   StartTransaction (DB_Address);
-  QString  cmd ("insert or replace into stablepeers "
+  QString table ("stablepeers");
+  if (level != "A" && level != "B") {
+    table = "transientpeers";
+  }
+  QString  cmd = QString("insert or replace into %1 "
                 " (peerid, peerclass)"
-                " values (?, ?)");
+                " values (?, ?)").arg (table);
   add.prepare (cmd);
   add.bindValue (0, QVariant (peer.Nick()));
   add.bindValue (1, QVariant (level));

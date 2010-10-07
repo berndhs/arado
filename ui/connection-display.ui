@@ -19,7 +19,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -169,7 +169,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -199,7 +199,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Remote Devices:</string>
+            <string>Remote Devices</string>
            </property>
           </widget>
          </item>
@@ -310,7 +310,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -340,7 +340,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Flexible Devices:</string>
+            <string>Flexible Devices</string>
            </property>
           </widget>
          </item>

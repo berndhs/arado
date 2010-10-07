@@ -41,7 +41,8 @@ AddPeerDialog::AddPeerDialog (QWidget *parent)
   addressType [addrUi.i2pButton]  = QString ("i2p");
   addrUi.flexibleButton->setChecked (true);
   levelType [addrUi.constantButton] = QString ("A");
-  levelType [addrUi.flexibleButton] = QString ("B");
+  levelType [addrUi.remoteButton] = QString ("B");
+  levelType [addrUi.flexibleButton] = QString ("C");
 }
 
 void
