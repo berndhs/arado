@@ -24,6 +24,9 @@
 #include "connection-display.h"
 #include "arado-peer.h"
 #include "db-manager.h"
+#include <QItemSelectionModel>
+#include <QMessageBox>
+#include <QTimer>
 #include <QDebug>
 
 namespace arado
@@ -37,6 +40,7 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
+  connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
 }
 
 void
@@ -213,6 +217,43 @@ ConnectionDisplay::ChangePeer (AradoPeer & peer)
     QTableWidgetItem * item = FindCell (*table, row, Cell_Nick);
     if (item) {
       Highlight (item, peer);   
+    }
+  }
+}
+
+void
+ConnectionDisplay::DoDeleteDevice ()
+{
+  QList <QTableWidgetItem*> selected = ui.tableWidget_A->selectedItems ();
+  selected += ui.tableWidget_B->selectedItems ();
+  selected += ui.tableWidget_C->selectedItems ();
+  int nsel = selected.size();
+  QMessageBox mbox;
+  QString msg;
+  bool proceed (false);
+  if (nsel < 1) {
+    msg = tr("Please Select an Item");
+  } else if (nsel > 1) {
+    msg = tr ("Only 1 Item Please");
+  } else {
+    msg = tr ("Really Delete?");
+    proceed = true;
+    mbox.setStandardButtons (QMessageBox::Yes 
+                          | QMessageBox::No);
+  }
+  mbox.setText (msg);
+  int choice = mbox.exec ();
+  if (proceed && (choice & QMessageBox::Yes)) {
+    if (db) {
+      QTableWidgetItem * item = selected.at(0);
+      if (item) {
+        QTableWidget * table = item->tableWidget();
+        QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
+        if (nickItem) {
+          db->RemovePeer (nickItem->text());
+          QTimer::singleShot (500,this,SLOT (ShowPeers()));
+        }
+      }
     }
   }
 }

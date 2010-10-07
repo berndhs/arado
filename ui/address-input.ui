@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>245</height>
+    <height>280</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,16 +18,6 @@
     <widget class="QRadioButton" name="dnsButton">
      <property name="text">
       <string>DNS</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>typeGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="2" column="3">
-    <widget class="QRadioButton" name="i2pButton">
-     <property name="text">
-      <string>I2P</string>
      </property>
      <attribute name="buttonGroup">
       <string>typeGroup</string>
@@ -91,22 +81,6 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="2">
-    <widget class="QRadioButton" name="constantButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Add to Constant</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>levelGroup</string>
-     </attribute>
-    </widget>
-   </item>
    <item row="7" column="3">
     <widget class="QRadioButton" name="flexibleButton">
      <property name="sizePolicy">
@@ -116,26 +90,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Add to Flexible</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>levelGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="5" column="3">
-    <widget class="QRadioButton" name="remoteButton">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Remote</string>
+      <string>Flexible</string>
      </property>
      <attribute name="buttonGroup">
       <string>levelGroup</string>
@@ -275,6 +230,41 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="7" column="1">
+    <widget class="QRadioButton" name="constantButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Constant</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>levelGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QRadioButton" name="remoteButton">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Remote</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>levelGroup</string>
+     </attribute>
+    </widget>
    </item>
   </layout>
  </widget>

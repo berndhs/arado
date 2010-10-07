@@ -56,12 +56,12 @@ public:
   void Start ();
   void SetDB (DBManager *dbm) { db = dbm; }
   
-  void ShowPeers ();
   void ShowPeers (QTableWidget * table, AradoPeerList & peers);
 
 public slots:
 
 
+  void ShowPeers ();
   void AddPeer (QString nick, 
                 QString addr, 
                 QString addrType, 
@@ -74,6 +74,7 @@ private slots:
 
   void DoStartSync ();
   void DoAddDevice ();
+  void DoDeleteDevice ();
 
 signals:
 

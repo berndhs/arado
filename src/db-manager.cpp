@@ -216,6 +216,16 @@ DBManager::AddUrl (AradoUrl & url)
   return ok;
 }
 
+void
+DBManager::RemovePeer (const QString & peerid)
+{
+  QString delPattern ("delete from %1 where peerid = \"%2\"");
+  QSqlQuery delqry (ipBase);
+  delqry.exec (delPattern.arg("stablepeers").arg(peerid));
+  delqry.exec (delPattern.arg("transientpeers").arg(peerid));
+  delqry.exec (delPattern.arg("ippeers").arg(peerid));
+}
+
 bool
 DBManager::AddPeer (AradoPeer & peer)
 {

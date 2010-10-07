@@ -54,6 +54,7 @@ public:
   bool  AddKeywords (AradoUrl & url);
 
   bool  AddPeer (AradoPeer & peer);
+  void  RemovePeer (const QString & peerid);
   
   AradoUrlList  GetRecent (int howmany);
 
