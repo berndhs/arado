@@ -56,6 +56,7 @@ public:
   void  SetNick (const QString & n) { nick = n; }
   void  SetAddr (const QString & a) { addr = a; }
   void  SetAddrType (const QString & at) { addrType = at; }
+  void  SetLevel (const QString & l) { level = l; }
   void  SetPort (int p) { port = p; }
   void  SetState (PeerState s) { state = s; }
 

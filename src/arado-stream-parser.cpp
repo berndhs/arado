@@ -79,7 +79,20 @@ AradoStreamParser::ReadAradoUrlList ()
   QXmlStreamReader::TokenType tok;
   tok = SkipWhite (xmlin);
   if (tok == QXmlStreamReader::StartDocument) {
-    ParseAradoMsg (list, xmlin);
+    ParseAradoUrlMsg (list, xmlin);
+  }
+  return list;
+}
+
+AradoPeerList
+AradoStreamParser::ReadAradoPeerList ()
+{
+  AradoPeer peer;
+  AradoPeerList  list;
+  QXmlStreamReader::TokenType tok;
+  tok = SkipWhite (xmlin);
+  if (tok == QXmlStreamReader::StartDocument) {
+    ParseAradoPeerMsg (list, xmlin);
   }
   return list;
 }
@@ -97,7 +110,7 @@ AradoStreamParser::ReadControlMessage ()
 }
 
 bool
-AradoStreamParser::ParseAradoMsg (AradoUrlList & list, QXmlStreamReader & xmlin)
+AradoStreamParser::ParseAradoUrlMsg (AradoUrlList & list, QXmlStreamReader & xmlin)
 {
   QXmlStreamReader::TokenType tok = ReadToken (xmlin);
   qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
@@ -119,6 +132,34 @@ AradoStreamParser::ParseAradoMsg (AradoUrlList & list, QXmlStreamReader & xmlin)
         if (url.IsValid ()) {
           list.append (url);
         }
+      } while (ok && tok != QXmlStreamReader::Invalid);
+    }
+  }
+  SkipWhite (xmlin);
+  return ok;
+}
+
+bool
+AradoStreamParser::ParseAradoPeerMsg (AradoPeerList & list, QXmlStreamReader & xmlin)
+{
+  QXmlStreamReader::TokenType tok = ReadToken (xmlin);
+  qDebug () << "ASP " << __LINE__ << " token " << Info (xmlin);
+  bool ok (false);
+  if (tok == QXmlStreamReader::StartElement) {
+    QString tag = xmlin.name ().toString();
+    if (tag.toLower() == "arado") {
+      do {
+        AradoPeer  peer;
+        tok = SkipWhite (xmlin);  
+        if (tok == QXmlStreamReader::StartElement
+            && xmlin.name() == QString("aradopeer")) {
+          ok = ParseAradoPeer (peer, xmlin);
+        }
+        if (xmlin.tokenType() == QXmlStreamReader::EndElement
+            && xmlin.name() == QString ("arado")) {
+          break;
+        }
+        list.append (peer);
       } while (ok && tok != QXmlStreamReader::Invalid);
     }
   }
@@ -189,6 +230,29 @@ AradoStreamParser::ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin)
 }
 
 bool
+AradoStreamParser::ParseAradoPeer (AradoPeer & peer, QXmlStreamReader & xmlin)
+{
+  QXmlStreamReader::TokenType  tok = SkipWhite (xmlin);
+  bool ok (false);
+  while (tok == QXmlStreamReader::StartElement) {
+    QString kind = xmlin.name().toString();
+    if (kind == QString ("address")) {
+      ok &= ParsePeerAddrElt (peer, xmlin);
+    } else if (kind == QString ("atype")) {
+      ok |= ParsePeerATypeElt (peer, xmlin);
+    } else if (kind == QString ("port")) {
+      ok &= ParsePeerPortElt (peer, xmlin);
+    } else if (kind == QString ("level")) {
+      ok &= ParsePeerLevelElt (peer, xmlin);
+    } else {
+      qDebug () << "ASP " << " error at " << kind << " text " << xmlin.text();
+    }
+    tok = SkipEnd (xmlin);
+  }
+  return ok;
+}
+
+bool
 AradoStreamParser::ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin)
 {
   ReadToken (xmlin);
@@ -216,6 +280,42 @@ AradoStreamParser::ParseDescElt (AradoUrl & url, QXmlStreamReader & xmlin)
 }
 
 bool
+AradoStreamParser::ParsePeerAddrElt (AradoPeer & peer, QXmlStreamReader & xmlin)
+{
+  ReadToken (xmlin);
+  QString value = xmlin.text().toString  ();
+  peer.SetAddr (value);
+  return true;
+}
+
+bool
+AradoStreamParser::ParsePeerATypeElt (AradoPeer & peer, QXmlStreamReader & xmlin)
+{
+  ReadToken (xmlin);
+  QString value = xmlin.text().toString  ();
+  peer.SetAddrType (value);
+  return true;
+}
+
+bool
+AradoStreamParser::ParsePeerPortElt (AradoPeer & peer, QXmlStreamReader & xmlin)
+{
+  ReadToken (xmlin);
+  QString value = xmlin.text().toString  ();
+  peer.SetPort (value.toInt());
+  return true;
+}
+
+bool
+AradoStreamParser::ParsePeerLevelElt (AradoPeer & peer, QXmlStreamReader & xmlin)
+{
+  ReadToken (xmlin);
+  QString value = xmlin.text().toString  ();
+  peer.SetLevel (value);
+  return true;
+}
+
+bool
 AradoStreamParser::ParseCmdElement (ControlMessage & msg,
                                     QXmlStreamReader & xmlin)
 {
@@ -227,7 +327,7 @@ AradoStreamParser::ParseCmdElement (ControlMessage & msg,
 
 bool
 AradoStreamParser::ParseValueElement (ControlMessage & msg,
-                                      QXmlStreamReader & xlmin,
+                                      QXmlStreamReader & xmlin,
                                       const QString & key)
 {
   ReadToken (xmlin);
@@ -302,7 +402,42 @@ AradoStreamParser::Write (const AradoUrl & url, bool isPartial)
 }
 
 void
+AradoStreamParser::Write (const AradoPeer & peer, bool isPartial)
+{
+  if (xmlout.device()->isWritable()) {
+    if (!isPartial) {
+      xmlout.writeStartDocument ();
+      xmlout.writeStartElement ("arado");
+    }
+    xmlout.writeStartElement ("aradopeer");
+    xmlout.writeTextElement ("address", peer.Addr());
+    xmlout.writeTextElement ("atype",peer.AddrType());
+    xmlout.writeTextElement ("port",QString::number (peer.Port()));
+    xmlout.writeTextElement ("level",peer.Level());
+    xmlout.writeEndElement (); // aradopeer
+    if (!isPartial) {
+      xmlout.writeEndElement (); // arado
+      xmlout.writeEndDocument ();
+    }
+  }
+}
+
+void
 AradoStreamParser::Write (const AradoUrlList & list)
+{
+  if (xmlout.device()->isWritable ()) {
+    xmlout.writeStartDocument ();
+    xmlout.writeStartElement ("arado");
+    for (int i=0;i<list.size();i++) {
+      Write (list.at(i), true);
+    }
+    xmlout.writeEndElement (); // arado
+    xmlout.writeEndDocument ();
+  }
+}
+
+void
+AradoStreamParser::Write (const AradoPeerList & list)
 {
   if (xmlout.device()->isWritable ()) {
     xmlout.writeStartDocument ();

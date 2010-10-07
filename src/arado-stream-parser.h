@@ -26,6 +26,7 @@
 #include <QXmlStreamReader>
 
 #include "arado-url.h"
+#include "arado-peer.h"
 #include "control-message.h"
 
 class QIODevice;
@@ -42,9 +43,12 @@ public:
   void              SetInDevice (QIODevice * dev, bool clear=true);
   void              SetOutDevice (QIODevice * dev);
   AradoUrlList      ReadAradoUrlList ();
+  AradoPeerList     ReadAradoPeerList ();
   ControlMessage    ReadControlMessage ();
   void              Write (const AradoUrl & url, bool isPartial=false);
   void              Write (const AradoUrlList & list);
+  void              Write (const AradoPeer & peer, bool isPartial=false);
+  void              Write (const AradoPeerList & list);
   void              Write (const ControlMessage & msg);
   void              WriteUuPath (const QString & uupath,
                                 const QString & status);
@@ -56,12 +60,18 @@ private:
 
   QXmlStreamReader::TokenType ReadToken (QXmlStreamReader & xmlin);
 
-  bool ParseAradoMsg (AradoUrlList & list, QXmlStreamReader & xmlin);
+  bool ParseAradoUrlMsg (AradoUrlList & list, QXmlStreamReader & xmlin);
   bool ParseAradoUrl (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParseAradoPeerMsg (AradoPeerList & list, QXmlStreamReader & xmlin);
+  bool ParseAradoPeer (AradoPeer & peer, QXmlStreamReader & xmlin);
   bool ParseKeywordElt (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseDescElt    (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseUrlElt     (AradoUrl & url, QXmlStreamReader & xmlin);
   bool ParseHashElt    (AradoUrl & url, QXmlStreamReader & xmlin);
+  bool ParsePeerAddrElt  (AradoPeer & peer, QXmlStreamReader & xmlin);
+  bool ParsePeerATypeElt (AradoPeer & peer, QXmlStreamReader & xmlin);
+  bool ParsePeerPortElt  (AradoPeer & peer, QXmlStreamReader & xmlin);
+  bool ParsePeerLevelElt (AradoPeer & peer, QXmlStreamReader & xmlin);
   bool ParseControlMsg (ControlMessage & msg,
                         QXmlStreamReader & xmlin);
   bool ParseControlContent (ControlMessage & msg,
