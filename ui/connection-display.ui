@@ -565,7 +565,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Update Devices and start to sync URLs.</string>
+        <string>Connect Devices and start to sync URLs.</string>
        </property>
        <property name="text">
         <string>Start Sync</string>
@@ -587,7 +587,7 @@
    <item row="3" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="buttonPromote">
+      <widget class="QPushButton" name="buttonMakeConstant">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -619,7 +619,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_remove">
+      <widget class="QPushButton" name="buttonDelete">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -651,7 +651,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="buttonMakeFlexible">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
