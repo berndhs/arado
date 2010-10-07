@@ -48,7 +48,7 @@ AddPeerDialog::AddPeerDialog (QWidget *parent)
 void
 AddPeerDialog::Run ()
 {
-  addrUi.nickEdit->setText (tr("New Nick"));
+  addrUi.nickEdit->setText (tr("Enter any Nickname"));
   addrUi.addressEdit->clear ();
   addrUi.portEdit->clear ();
   show ();
