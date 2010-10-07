@@ -523,7 +523,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>40</height>
+         <height>43</height>
         </size>
        </property>
        <property name="baseSize">
@@ -561,11 +561,11 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>40</height>
+         <height>43</height>
         </size>
        </property>
        <property name="toolTip">
-        <string>Asks connected devices for their trusted, recommended and episodic Device-IP-Lists. Trusted Devices are transfered to Recommended List. All other into Episodic List.</string>
+        <string>Update Devices and start to sync URLs.</string>
        </property>
        <property name="text">
         <string>Start Sync</string>
@@ -597,11 +597,11 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>40</height>
+         <height>43</height>
         </size>
        </property>
        <property name="toolTip">
-        <string>Adds an IP from recommended or episodic list to trusted list.</string>
+        <string>Add any marked Device to Constant.</string>
        </property>
        <property name="text">
         <string>Make Constant</string>
@@ -633,7 +633,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Removes a trusted IP from the list.</string>
+        <string>Delete any marked Device and send it to Nirvana.</string>
        </property>
        <property name="text">
         <string>Delete Device</string>
@@ -661,8 +661,11 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>40</height>
+         <height>43</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Add any marked Device to Flexible.</string>
        </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
