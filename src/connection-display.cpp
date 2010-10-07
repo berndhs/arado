@@ -41,6 +41,10 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
+  connect (ui.buttonMoveLeft, SIGNAL (clicked()),
+           this, SLOT (MoveLeft()));
+  connect (ui.buttonMoveRight, SIGNAL (clicked()),
+           this, SLOT (MoveRight()));
 }
 
 void
@@ -86,16 +90,18 @@ ConnectionDisplay::ShowPeers ()
 {
   if (db) {
     AradoPeerList peers = db->GetPeers ("A");
-    ShowPeers (ui.tableWidget_A, peers);
+    ShowPeers (ui.tableWidget_A, "A", peers);
     peers = db->GetPeers ("B");
-    ShowPeers (ui.tableWidget_B, peers);
+    ShowPeers (ui.tableWidget_B, "B", peers);
     peers = db->GetPeers ("C");
-    ShowPeers (ui.tableWidget_C, peers);
+    ShowPeers (ui.tableWidget_C, "C", peers);
   }
 }
 
 void
-ConnectionDisplay::ShowPeers (QTableWidget * table, AradoPeerList & peers)
+ConnectionDisplay::ShowPeers (QTableWidget * table, 
+                              QString level, 
+                              AradoPeerList & peers)
 {
   if (table == 0) {
     return;
@@ -109,6 +115,7 @@ ConnectionDisplay::ShowPeers (QTableWidget * table, AradoPeerList & peers)
     table->setSortingEnabled (false);
     QTableWidgetItem * item = new QTableWidgetItem (peer.Nick());
     item->setData (Conn_Celltype, Cell_Nick);
+    item->setData (Conn_Level, level);
     Highlight (item, peer);
     table->setItem (p, 0, item);
     item = new QTableWidgetItem (peer.Addr ());
@@ -221,8 +228,8 @@ ConnectionDisplay::ChangePeer (AradoPeer & peer)
   }
 }
 
-void
-ConnectionDisplay::DoDeleteDevice ()
+QTableWidgetItem *
+ConnectionDisplay::OnlyOne (QString action, bool verify)
 {
   QList <QTableWidgetItem*> selected = ui.tableWidget_A->selectedItems ();
   selected += ui.tableWidget_B->selectedItems ();
@@ -230,29 +237,88 @@ ConnectionDisplay::DoDeleteDevice ()
   int nsel = selected.size();
   QMessageBox mbox;
   QString msg;
-  bool proceed (false);
+  bool complain (true);
+  bool yes (false);
   if (nsel < 1) {
     msg = tr("Please Select an Item");
   } else if (nsel > 1) {
     msg = tr ("Only 1 Item Please");
   } else {
-    msg = tr ("Really Delete?");
-    proceed = true;
-    mbox.setStandardButtons (QMessageBox::Yes 
-                          | QMessageBox::No);
+    complain = false;
+    if (verify) {
+      msg = action;
+      mbox.setStandardButtons (QMessageBox::Yes 
+                            | QMessageBox::No);
+    } else {
+      yes = true;
+    }
   }
   mbox.setText (msg);
-  int choice = mbox.exec ();
-  if (proceed && (choice & QMessageBox::Yes)) {
-    if (db) {
-      QTableWidgetItem * item = selected.at(0);
-      if (item) {
-        QTableWidget * table = item->tableWidget();
-        QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
-        if (nickItem) {
-          db->RemovePeer (nickItem->text());
-          QTimer::singleShot (500,this,SLOT (ShowPeers()));
-        }
+  if (verify || complain) {
+    int choice = mbox.exec ();
+    yes = (choice & QMessageBox::Yes);
+  }
+  if (yes) {
+    return selected.at(0);
+  } 
+  return 0;
+}
+
+void
+ConnectionDisplay::DoDeleteDevice ()
+{
+  QTableWidgetItem *item = OnlyOne ("Really Delete?", true);
+  if (item && db) {
+    QTableWidget * table = item->tableWidget();
+    QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
+    if (nickItem) {
+      db->RemovePeer (nickItem->text());
+      QTimer::singleShot (500,this,SLOT (ShowPeers()));
+    }
+  }
+}
+
+void
+ConnectionDisplay::MoveLeft ()
+{
+  QTableWidgetItem * item = OnlyOne ();
+  if (item && db) {
+    QTableWidget * table = item->tableWidget();
+    QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
+    if (nickItem) {
+      QString oldLevel = nickItem->data (Conn_Level).toString();
+      QString newLevel (oldLevel);
+      if (oldLevel == "B") {
+        newLevel = "A";
+      } else if (oldLevel == "C") {
+        newLevel = "B";
+      }
+      if (newLevel != oldLevel) {
+        db->MovePeer (nickItem->text(), newLevel, oldLevel);
+        QTimer::singleShot (500,this,SLOT (ShowPeers()));
+      }
+    }
+  }
+}
+
+void
+ConnectionDisplay::MoveRight ()
+{
+  QTableWidgetItem * item = OnlyOne ();
+  if (item && db) {
+    QTableWidget * table = item->tableWidget();
+    QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
+    if (nickItem) {
+      QString oldLevel = nickItem->data (Conn_Level).toString();
+      QString newLevel (oldLevel);
+      if (oldLevel == "B") {
+        newLevel = "C";
+      } else if (oldLevel == "A") {
+        newLevel = "B";
+      }
+      if (newLevel != oldLevel) {
+        db->MovePeer (nickItem->text(), newLevel, oldLevel);
+        QTimer::singleShot (500,this,SLOT (ShowPeers()));
       }
     }
   }

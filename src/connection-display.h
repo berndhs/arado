@@ -41,7 +41,8 @@ public:
 
 
   enum ConnModelData {
-       Conn_Celltype = Qt::UserRole + 2
+       Conn_Celltype = Qt::UserRole + 2,
+       Conn_Level = Qt::UserRole + 3
        };
 
   enum ConnCellType {
@@ -56,7 +57,6 @@ public:
   void Start ();
   void SetDB (DBManager *dbm) { db = dbm; }
   
-  void ShowPeers (QTableWidget * table, AradoPeerList & peers);
 
 public slots:
 
@@ -75,6 +75,8 @@ private slots:
   void DoStartSync ();
   void DoAddDevice ();
   void DoDeleteDevice ();
+  void MoveLeft ();
+  void MoveRight ();
 
 signals:
 
@@ -84,6 +86,8 @@ signals:
 
 private:
 
+  void ShowPeers (QTableWidget * table, QString level, AradoPeerList & peers);
+  QTableWidgetItem * OnlyOne (QString action = QString(), bool verify= false);
   void Highlight (QTableWidgetItem *item, AradoPeer & peer);
   bool FindPeer  (QString & nick, QTableWidget  ** table, int & row);
   int  FindPeer  (QTableWidget *table, const QString & nick);

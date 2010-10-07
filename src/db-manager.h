@@ -55,6 +55,9 @@ public:
 
   bool  AddPeer (AradoPeer & peer);
   void  RemovePeer (const QString & peerid);
+  void  MovePeer (const QString & peerid, 
+                  const QString & newLevel, 
+                  const QString & oldLevel);
   
   AradoUrlList  GetRecent (int howmany);
 

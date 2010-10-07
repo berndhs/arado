@@ -226,6 +226,33 @@ DBManager::RemovePeer (const QString & peerid)
   delqry.exec (delPattern.arg("ippeers").arg(peerid));
 }
 
+void
+DBManager::MovePeer (const QString & peerid,
+                     const QString & newLevel,
+                     const QString & oldLevel)
+{
+  QString delPattern ("delete from %1 where peerid = \"%2\"");
+  QSqlQuery query (ipBase);
+  if (oldLevel == "A" || oldLevel == "B") {
+    query.exec (delPattern.arg("stablepeers").arg(peerid));
+  } else {
+    query.exec (delPattern.arg("transientpeers").arg(peerid));
+  }
+  QString table;
+  if (newLevel == "A" || newLevel == "B") {
+    table = "stablepeers";
+  } else {
+    table = "transientpeers";
+  }
+  QString insert = QString("insert or replace into %1 "
+                " (peerid, peerclass)"
+                " values (?, ?)").arg (table);
+  query.prepare (insert);
+  query.bindValue (0, QVariant (peerid));
+  query.bindValue (1, QVariant (newLevel));
+  query.exec ();
+}
+
 bool
 DBManager::AddPeer (AradoPeer & peer)
 {
