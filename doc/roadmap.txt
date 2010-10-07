@@ -12,8 +12,10 @@ DONE) communicator to collect/send URLs  - 3 of these
 
 Things to define:
 
-05) address types
+--) DONE: address types
   - this is per communicator
+
+5) add Base64 I2p Support
 
 --) DONE: URL data type (DONE)
 
@@ -71,7 +73,7 @@ b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitd
 
 --) DONE handle large mounts of data, especially for the Doublette check: => done over hashcache for the last 10.000 entries, then full time for whole database check.
 
-28) make the ip stuff to talk to different peers: trusted/constant, remote, eposodic/flexible
+--) DONE: make the ip stuff to talk to different peers: trusted/constant, remote, eposodic/flexible
 
 
 29) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
@@ -84,4 +86,22 @@ url-display.cpp 133:
 
 31) Progress Bar steered by a timer if the search button is pressed.
 
-32) Move the Browse button into each line in the last row. With kugar icon.
+--) DONE: Move the Browse button into each line in the last row. With kugar icon.
+
+32) Url Display: Row Width
+- Fixed Width for header browse
+- Fixed Maximum With for Header Time
+- Default Widht for Sha1 Header, extenable as long as content, minimum as logo width
+
+33) Make the Browse icon a Browse Button with icon
+
+34)  Start Sync button or Menue switches to Url Display page
+
+35) Import Export IP lists XML connected
+
+36) Settings allow to disable Time Row View on url display
+
+37) Question, if the Network tab should be closable?
+
+38) 
+
