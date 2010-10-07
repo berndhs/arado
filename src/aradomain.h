@@ -43,6 +43,7 @@ class Policy;
 class HttpServer;
 class HttpClient;
 class AddPeerDialog;
+class PollSequence;
 
 class AradoMain : public QMainWindow
 {
@@ -72,7 +73,8 @@ private slots:
 
   void AddServer ();
   void AddFeed ();
-  void PollClients ();
+  void RefreshPeers ();
+  void Poll (bool haveNew=false);
 
 private:
 
@@ -93,6 +95,7 @@ private:
   AddPeerDialog      *addPeerDialog;
   DBManager           dbMgr;
   Policy             *policy;
+  PollSequence       *sequencer;
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;

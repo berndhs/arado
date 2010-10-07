@@ -37,7 +37,7 @@ HttpClient::HttpClient (QObject *parent)
   :QObject (parent),
    db(0),
    policy (0),
-   nextServer (1),
+   nextServer (111),
    network (0)
 {
   network = new QNetworkAccessManager (this);
@@ -58,23 +58,30 @@ HttpClient::SetPolicy (Policy * pol)
 }
 
 int
-HttpClient::AddServer (const QHostAddress & addr, quint16 port)
+HttpClient::AddServer (const QString & id, 
+                       const QHostAddress & addr, 
+                       quint16 port)
 {
 qDebug () << " add server " << addr;
-  HttpAddress  ha (addr,port);
+  HttpAddress  ha (id, addr,port);
   servers[nextServer] = ha;
+  peers[id] = nextServer;
   qDebug () << " address in object " << ha.haddr;
-  qDebug () << __LINE__ << " address in map " << servers[nextServer].haddr;
+  qDebug () << __LINE__ << "entry " << nextServer << " address in map " << servers[nextServer].haddr;
   int ns = nextServer;
   nextServer++;
   return ns;
 }
 
 int
-HttpClient::AddServer (const QUrl & serverUrl, quint16 port)
+HttpClient::AddServer (const QString & id, 
+                       const QUrl & serverUrl, 
+                       quint16 port)
 {
-  servers[nextServer] = HttpAddress (serverUrl, port);
-  qDebug () << __LINE__ << " url in map " << servers[nextServer].url;
+qDebug () << " add server " << serverUrl;
+  servers[nextServer] = HttpAddress (id, serverUrl, port);
+  peers[id] = nextServer;
+  qDebug () << __LINE__ << "entry " << nextServer << " url in map " << servers[nextServer].url;
   int ns = nextServer;
   nextServer++;
   return ns;
@@ -91,17 +98,38 @@ HttpClient::PollServer (int server)
 void
 HttpClient::DropServer (int server)
 {
+qDebug () << " drop servers " << server;
   servers.remove (server);
 }
 
 void
 HttpClient::DropAllServers ()
 {
+qDebug () << " drop ALL servers ";
   servers.clear ();
 }
 
 void
-HttpClient::Poll (bool reloadServers)
+HttpClient::PollPeers (const QStringList & peerList)
+{
+  qDebug () << " CLIENT polling peers " << peerList;
+  qDebug () << " nick map " << peers;
+  QStringList::const_iterator it;
+  for (it = peerList.constBegin(); it != peerList.constEnd(); it++) {
+    QString nick = *it;
+    if (peers.contains (nick)) {
+      int serverNum = peers[nick];
+      if (servers.contains (serverNum)) {
+        Poll (servers[serverNum]);
+      } else {
+        qDebug () << " NO server " << serverNum << " for " << nick << " server " << servers[serverNum].ident;
+      }
+    }
+  }
+}
+
+void
+HttpClient::PollAll (bool reloadServers)
 {
   qDebug () << " HttpClient Poll start reload " << reloadServers;
   if (reloadServers) {
@@ -118,6 +146,7 @@ void
 HttpClient::Poll (HttpAddress & addr)
 {
   if (network) {
+    qDebug () << " POLL try for " << addr.ident;
     QUrl  requestUrl;
     QUrl  offerUrl;
     if (addr.useUrl) {
@@ -132,7 +161,8 @@ HttpClient::Poll (HttpAddress & addr)
     requestUrl.setPath ("/arado");
     offerUrl = requestUrl;
     requestUrl.addQueryItem (QString ("request"),QString ("recent"));
-    requestUrl.addQueryItem (QString ("count"),QString::number(20));
+    requestUrl.addQueryItem (QString ("count"),QString::number(50));
+    requestUrl.addQueryItem (QString ("type"),QString ("URL"));
     QNetworkRequest  req (requestUrl);
     req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
     req.setRawHeader ("User-Agent", "Arado/0.1");
@@ -281,9 +311,8 @@ HttpClient::SkipWhite (QIODevice *dev)
 void
 HttpClient::ReloadServers (const QString & kind)
 {
+  qDebug () << " HttpClient reload " << kind;
   if (db) {
-    servers.clear ();
- 
     AradoPeerList  peers = db->GetPeers (kind);
     AradoPeerList::const_iterator  it;
     for (it = peers.constBegin(); it != peers.constEnd(); it++) {
@@ -292,13 +321,13 @@ HttpClient::ReloadServers (const QString & kind)
       int     port = it->Port ();
       qDebug () << " address " << addr << " type " << tipo << " port " << port;
       if (tipo == "4" || tipo == "6") {
-        AddServer (QHostAddress (addr), port);
+        AddServer (it->Nick(), QHostAddress (addr), port);
       } else if (tipo == "name") {
         QUrl url ;
         url.setScheme ("http");
         url.setHost (addr);
         qDebug () << " adding server " << url;
-        AddServer (url, port);
+        AddServer (it->Nick(), url, port);
       }
     }
   }

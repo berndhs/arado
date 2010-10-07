@@ -45,24 +45,28 @@ public:
 
    HttpAddress (){}
 
-   HttpAddress (const QUrl & u, quint16 p=80)
-      :url(u), 
+   HttpAddress (const QString & id, const QUrl & u, quint16 p=80)
+      :ident (id),
+       url(u), 
        port (p),
        useUrl(true) 
        {}
-   HttpAddress (const QHostAddress &a, quint16 p=80)
-     :haddr (a),
+   HttpAddress (const QString & id, const QHostAddress &a, quint16 p=80)
+     :ident (id),
+      haddr (a),
       port (p),
       useUrl (false)
       {}
    HttpAddress (const HttpAddress & other)
-     :url(other.url),
+     :ident (other.ident),
+      url(other.url),
       haddr (other.haddr),
       port (other.port),
       useUrl (other.useUrl)
       {}
    HttpAddress & operator= (const HttpAddress &other)
       { if (this != &other) {
+          ident = other.ident;
           url = other.url;
           haddr = other.haddr;
           port = other.port;
@@ -71,6 +75,7 @@ public:
         return *this;
       }
 
+   QString        ident;
    QUrl           url;
    QHostAddress   haddr;
    quint16        port;
@@ -88,8 +93,12 @@ public:
   void SetDB (DBManager * dbm);
   void SetPolicy (Policy * pol);
   
-  int AddServer (const QHostAddress & addr, quint16 port=80);
-  int AddServer (const QUrl & serverUrl, quint16 port=80);
+  int AddServer (const QString & id, 
+                 const QHostAddress & addr, 
+                 quint16 port=80);
+  int AddServer (const QString & id,
+                 const QUrl & serverUrl, 
+                 quint16 port=80);
   void DropServer (int server);
   void DropAllServers ();
   void PollServer (int server);
@@ -98,7 +107,8 @@ public:
 
 public slots:
 
-  void Poll (bool reloadServers = false);
+  void PollPeers (const QStringList & peerList);
+
 
 private slots:
 
@@ -113,6 +123,7 @@ private:
   typedef QMap <int, HttpAddress> ServerMap;
 
   void Poll (HttpAddress & addr);
+  void PollAll (bool reloadServers = false);
   void SkipWhite (QIODevice *dev);
   void ProcessRequestReply (QNetworkReply * reply);
   void ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl);
@@ -121,15 +132,16 @@ private:
   DBManager   *db;
   Policy      *policy;
 
-  ServerMap   servers;
-  int         nextServer;
+  ServerMap              servers;
+  QMap <QString, int>    peers;
+  int                    nextServer;
 
   QNetworkAccessManager *network;
 
-  QList  <QNetworkReply*>        requestWait;
-  QMap   <QNetworkReply*, QUrl>  offerWait;
-  QMap   <QNetworkReply*, QBuffer*>        putWait;
-  QMap   <QNetworkReply*, int>         finishedCount;
+  QList  <QNetworkReply*>             requestWait;
+  QMap   <QNetworkReply*, QUrl>       offerWait;
+  QMap   <QNetworkReply*, QBuffer*>   putWait;
+  QMap   <QNetworkReply*, int>        finishedCount;
 
 
 };

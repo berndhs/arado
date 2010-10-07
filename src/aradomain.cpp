@@ -18,6 +18,7 @@
 #include "entry-form.h"
 #include "add-peer.h"
 #include "policy.h"
+#include "poll-sequence.h"
 #include "search.h"
 #include "http-server.h"
 #include "http-client.h"
@@ -63,6 +64,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    addPeerDialog (0),
    dbMgr (this),
    policy (0),
+   sequencer (0),
    httpServer (0),
    httpClient (0),
    httpPoll (0),
@@ -81,6 +83,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   entryForm->SetDB (&dbMgr);
   addPeerDialog = new AddPeerDialog (this);
   policy = new Policy (this);
+  sequencer = new PollSequence (this);
+  sequencer->SetDB (&dbMgr);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
@@ -113,6 +117,7 @@ AradoMain::Start ()
   show ();
   StartServers ();
   StartClients ();
+  RefreshPeers ();
 }
 
 void
@@ -138,19 +143,11 @@ AradoMain::StartClients ()
 {
   if (httpPoll && httpClient) {
     connect (httpPoll, SIGNAL (timeout()),
-             httpClient, SLOT (Poll()));
+             this, SLOT (Poll()));
     httpPoll->start (2*60*1000);
     httpClient->SetDB (&dbMgr);
     httpClient->SetPolicy (policy);
-    QTimer::singleShot (3000, this, SLOT (PollClients()));
-  }
-}
-
-void
-AradoMain::PollClients ()
-{
-  if (httpClient) {
-    httpClient->Poll (true);
+    QTimer::singleShot (3000, this, SLOT (Poll()));
   }
 }
 
@@ -197,13 +194,17 @@ AradoMain::Connect ()
   connect (mainUi.actionAddServer, SIGNAL (triggered()),
            this, SLOT (AddServer ()));
   connect (mainUi.actionPoll, SIGNAL (triggered()),
-           httpClient, SLOT (Poll ()));
+           this, SLOT (Poll ()));
   connect (mainUi.actionAddFeed, SIGNAL (triggered()),
            this, SLOT (AddFeed ()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString, QString, QString, QString, int)),
            connDisplay, 
              SLOT (AddPeer (QString, QString, QString, QString, int)));
+  connect (connDisplay,
+             SIGNAL (HaveNewPeer ()),
+           this,
+             SLOT (RefreshPeers ()));
   if (configEdit) {
     connect (configEdit, SIGNAL (Finished(bool)), 
              this, SLOT (DoneConfigEdit (bool)));
@@ -223,7 +224,7 @@ AradoMain::Connect ()
   }
   if (connDisplay && httpClient) {
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
-    connect (connDisplay, SIGNAL (StartSync(bool)), httpClient, SLOT (Poll(bool)));
+    connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (Poll(bool)));
   }
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (triggered()), httpClient, SLOT (Poll()));
@@ -394,6 +395,29 @@ AradoMain::DoFileExport ()
     AradoUrlList urlist = dbMgr.GetRecent (10000);
     fileComm->Write (urlist);
     fileComm->Close ();
+  }
+}
+
+void
+AradoMain::RefreshPeers ()
+{
+  if (httpClient) {
+    httpClient->DropAllServers ();
+    httpClient->ReloadServers ("A");
+    httpClient->ReloadServers ("B");
+    httpClient->ReloadServers ("C");
+  }
+}
+
+void
+AradoMain::Poll (bool haveNew)
+{
+  Q_UNUSED (haveNew)
+  if (sequencer && httpClient) {
+    QDateTime from = QDateTime::currentDateTime();
+    QDateTime to = from.addSecs (120);
+    QStringList list = sequencer->PollBy (from.toTime_t (), to.toTime_t());
+    httpClient->PollPeers (list);
   }
 }
 
