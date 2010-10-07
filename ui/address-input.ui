@@ -85,7 +85,11 @@
     </widget>
    </item>
    <item row="5" column="2">
-    <widget class="QLineEdit" name="portEdit"/>
+    <widget class="QLineEdit" name="portEdit">
+     <property name="placeholderText">
+      <string>29998</string>
+     </property>
+    </widget>
    </item>
    <item row="7" column="2">
     <widget class="QRadioButton" name="constantButton">
