@@ -54,6 +54,9 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="toolTip">
+            <string>Constant Devices are stable and trusted (e.g. desktop-pc at home).</string>
+           </property>
            <property name="text">
             <string>Constant Devices</string>
            </property>
@@ -69,7 +72,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_Slots_A">
            <property name="text">
-            <string>Slots allowed for Constant (up to 10)</string>
+            <string>Available Slots for Constant (up to 10)</string>
            </property>
           </widget>
          </item>
@@ -86,14 +89,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_URL_A">
-           <property name="text">
-            <string>Allow so many URLs in one Transfer</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <widget class="QSpinBox" name="slots_A">
            <property name="minimum">
             <number>30</number>
@@ -106,14 +102,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="labelipask_A">
            <property name="text">
-            <string>Ask them every (1 - 9 Min):</string>
+            <string>Connect every (1 - 9 Min):</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="1" column="1">
           <widget class="QSpinBox" name="ipask_A">
            <property name="toolTip">
             <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -129,6 +125,13 @@
            </property>
            <property name="value">
             <number>9</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_URL_A">
+           <property name="text">
+            <string>Amount of URLs in one Query</string>
            </property>
           </widget>
          </item>
@@ -162,7 +165,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Device-ID</string>
+           <string>UUID</string>
           </property>
          </column>
         </widget>
@@ -198,6 +201,9 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="toolTip">
+            <string>Remote Devices are networked neighbour machines (e.g. your PC at work or family).</string>
+           </property>
            <property name="text">
             <string>Remote Devices</string>
            </property>
@@ -210,14 +216,14 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_Slots_B">
            <property name="text">
-            <string>Slots allowed for Remote (up to 20)</string>
+            <string>Available Slots for Remote (up to 20)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QSpinBox" name="slots_B">
            <property name="minimum">
-            <number>1</number>
+            <number>5</number>
            </property>
            <property name="maximum">
             <number>20</number>
@@ -227,14 +233,14 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_URL_B">
            <property name="text">
-            <string>Allow so many URLs in one Transfer</string>
+            <string>Amount of URLs in one Query</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <widget class="QSpinBox" name="urlamount_B">
            <property name="minimum">
             <number>20</number>
@@ -247,14 +253,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="labelipask_B">
            <property name="text">
-            <string>Ask them every (10 - 29 Min):</string>
+            <string>Connect every (10 - 29 Min):</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="1" column="1">
           <widget class="QSpinBox" name="ipask_B">
            <property name="toolTip">
             <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -303,7 +309,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Device-ID</string>
+           <string>UUID</string>
           </property>
          </column>
         </widget>
@@ -339,6 +345,9 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="toolTip">
+            <string>Flexible Devices change the connection info very often (e.g. like wireless or mobile Devices).</string>
+           </property>
            <property name="text">
             <string>Flexible Devices</string>
            </property>
@@ -351,12 +360,15 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_Slots_C">
            <property name="text">
-            <string>Slots allowed for Flexible (up to 15)</string>
+            <string>Available Slots for Flexible (up to 20)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QSpinBox" name="slots_C">
+           <property name="minimum">
+            <number>2</number>
+           </property>
            <property name="maximum">
             <number>20</number>
            </property>
@@ -365,14 +377,14 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_URL_C">
            <property name="text">
-            <string>Allow so many URLs in one Transfer</string>
+            <string>Amount of URLs in one Query</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <widget class="QSpinBox" name="urlamount_C">
            <property name="minimum">
             <number>10</number>
@@ -385,14 +397,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="labelipask_C">
            <property name="text">
-            <string>Ask them every (30 - 120 Min):</string>
+            <string>Connect every (30 - 120 Min):</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="1" column="1">
           <widget class="QSpinBox" name="ipask_C">
            <property name="toolTip">
             <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
@@ -444,7 +456,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Device-ID</string>
+           <string>UUID</string>
           </property>
          </column>
         </widget>
