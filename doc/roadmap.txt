@@ -45,16 +45,19 @@ Things to define:
 16) Save button in connections/devices tab closes the tab, opening over command like settings or status bar click
 
 17) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
+  -- this is a problem, the data should be per-user, not per-system
 
 --) DONE: Status bar shows always the connection status "30/30", as well in the recent & search results, or appears back after a few seconds
 
 --) DONE: Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
 
 --) UNFUNCTIONAL: this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
+   -- this is not a URL, its not supposed to work - syntactically incorrect URLS will not always work, tell the edonkey people to fix their "urls".
 
 21) if the search box is empty and the search button is pressed, act like recent button and show latest results.
 
 22) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
+
 
 23) Pressing the recent button should sort parallel the Date time top down, so the latest url on top.
 
@@ -72,6 +75,7 @@ b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitd
 
 
 --) DONE handle large mounts of data, especially for the Doublette check: => done over hashcache for the last 10.000 entries, then full time for whole database check.
+   -- too early to call this "done", we haven't tested with any serious numbers
 
 --) DONE: make the ip stuff to talk to different peers: trusted/constant, remote, eposodic/flexible
 
@@ -83,8 +87,10 @@ url-display.cpp 133:
     //item->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
     //item->setSizeHint (80);
     //item->horizontalHeader()->resizeSection(0, 50); // column 0, width 50
+   -- fixed width is a really bad idea 
 
 31) Progress Bar steered by a timer if the search button is pressed.
+  -- there is no good information to display a progress bar that makes any sense
 
 --) DONE: Move the Browse button into each line in the last row. With kugar icon.
 
