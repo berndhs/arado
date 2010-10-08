@@ -118,6 +118,7 @@ AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
     bool writeit (true);
     if (isknown) {
       QMessageBox box;
+      box.setWindowTitle(tr("Arado"));
       box.setText (
                tr("Nick %1 already exists!\n"
                  "Do you want to replace it?")
