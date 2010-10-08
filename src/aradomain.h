@@ -25,6 +25,7 @@
 #include "db-manager.h"
 
 #include <QMainWindow>
+#include <QUuid>
 
 class QCloseEvent;
 class QApplication;
@@ -101,6 +102,7 @@ private:
   HttpClient         *httpClient;
   QTimer             *httpPoll;
   int                 httpDefaultPort;
+  QUuid               ownUuid;
 
 };
 

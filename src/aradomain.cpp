@@ -68,7 +68,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    httpServer (0),
    httpClient (0),
    httpPoll (0),
-   httpDefaultPort (29998)
+   httpDefaultPort (29998),
+   ownUuid (QUuid())
 {
   app = pa;
   mainUi.setupUi (this);
@@ -102,7 +103,11 @@ AradoMain::Start ()
       QSize defaultSize = size ();
       QSize newSize = Settings().value ("sizes/main", defaultSize).toSize();
       resize (newSize);
-    }//
+    }
+    ownUuid = QUuid::createUuid();
+    ownUuid = QUuid (Settings().value ("self/uuid",
+                     ownUuid.toString()).toString());
+    Settings().setValue ("self/uuid",ownUuid.toString());
     Connect ();
     dbMgr.Start ();
     setupDone = true;
