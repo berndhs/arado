@@ -236,6 +236,7 @@ ConnectionDisplay::OnlyOne (QString action, bool verify)
   selected += ui.tableWidget_C->selectedItems ();
   int nsel = selected.size();
   QMessageBox mbox;
+  mbox.setWindowTitle(tr("Arado"));
   QString msg;
   bool complain (true);
   bool yes (false);
