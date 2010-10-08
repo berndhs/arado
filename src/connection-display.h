@@ -62,11 +62,6 @@ public slots:
 
 
   void ShowPeers ();
-  void AddPeer (QString nick, 
-                QString addr, 
-                QString addrType, 
-                QString level, 
-                    int port);
 
   void ChangePeer (AradoPeer & peer);
 

@@ -74,6 +74,7 @@ private slots:
   void AddServer ();
   void AddFeed ();
   void RefreshPeers ();
+  void HaveNewPeer (QString peerid);
   void Poll (bool haveNew=false);
 
 private:

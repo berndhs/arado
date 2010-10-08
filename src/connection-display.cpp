@@ -67,25 +67,6 @@ ConnectionDisplay::DoAddDevice ()
 }
 
 void
-ConnectionDisplay::AddPeer (QString nick, QString addr, QString addrType,
-                       QString level, int port)
-{
-  qDebug () << " new peer to add " << nick << addr << addrType << level << port;
-  AradoPeer newPeer (nick, addr, addrType, level, port, AradoPeer::State_New);
-  bool added (false);
-  if (db) {
-    added = db->AddPeer (newPeer);
-  } else {
-    qDebug () << " no DB in connection display ";
-  }
-  if (added) {
-    haveNew = true;
-    emit HaveNewPeer ();
-    ShowPeers ();
-  }
-}
-
-void
 ConnectionDisplay::ShowPeers ()
 {
   if (db) {

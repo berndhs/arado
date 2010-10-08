@@ -32,6 +32,8 @@ class QAbstractButton;
 namespace arado
 {
 
+class DBManager;
+
 class AddPeerDialog : public QDialog
 {
 Q_OBJECT
@@ -39,6 +41,13 @@ Q_OBJECT
 public:
 
   AddPeerDialog (QWidget *parent = 0);
+  void AddPeer (QString nick, 
+                QString addr, 
+                QString addrType, 
+                QString level, 
+                    int port);
+  
+  void SetDB (DBManager  *dbm) { db = dbm; }
 
   void Run ();
 
@@ -50,11 +59,7 @@ private slots:
 
 signals:
 
-  void NewPeer (QString nick, 
-                QString addr, 
-                QString addrType, 
-                QString level, 
-                    int port);
+  void NewPeer (QString nick);
 
 
 private:
@@ -63,6 +68,8 @@ private:
 
   QMap <QAbstractButton *, QString>  addressType;
   QMap <QAbstractButton *, QString>  levelType;
+
+  DBManager    *db;
 
 } ;
 

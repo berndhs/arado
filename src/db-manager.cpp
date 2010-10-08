@@ -288,6 +288,21 @@ DBManager::AddPeer (AradoPeer & peer)
 }
 
 bool
+DBManager::HavePeer (const QString & peerid)
+{
+  QString cmd ("select peerid from ippeers where peerid = \"%1\"");
+  QSqlQuery select (ipBase);
+  bool ok = select.exec (cmd.arg (peerid));
+  if (ok && select.next()) {
+    QString pid = select.value (0).toString();
+    if (pid == peerid) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool
 DBManager::AddKeywords (AradoUrl & url)
 {
   QStringList keys = url.Keywords ();

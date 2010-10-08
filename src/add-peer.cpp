@@ -23,14 +23,18 @@
  ****************************************************************/
 
 #include "add-peer.h"
+#include "db-manager.h"
 #include "deliberate.h"
 #include <QDateTime>
+#include <QMessageBox>
+#include <QDebug>
 
 namespace arado 
 {
 
 AddPeerDialog::AddPeerDialog (QWidget *parent)
-  :QDialog (parent)
+  :QDialog (parent),
+   db (0)
 {
   addrUi.setupUi (this);
   hide ();
@@ -76,7 +80,7 @@ AddPeerDialog::Ok ()
     level = levelType [levelButton];
   }
   int port = addrUi.portEdit->text().toInt();
-  emit NewPeer (addrUi.nickEdit->text(),
+  AddPeer (addrUi.nickEdit->text(),
                 addrUi.addressEdit->text(),
                 kind, level, port);
   accept ();
@@ -101,6 +105,43 @@ AddPeerDialog::AddrReturn ()
   }
   addrUi.portEdit->setFocus ();
 }
+
+void
+AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
+                       QString level, int port)
+{
+  qDebug () << " new peer to add " << nick << addr << addrType << level << port;
+  AradoPeer newPeer (nick, addr, addrType, level, port, AradoPeer::State_New);
+  bool added (false);
+  if (db) {
+    bool isknown = db->HavePeer (nick);
+    bool writeit (true);
+    if (isknown) {
+      QMessageBox box;
+      box.setText (
+               tr("Nick %1 already exists!\n"
+                 "Do you want to replace it?")
+               .arg (nick));
+      
+      box.setStandardButtons (QMessageBox::Yes 
+                            | QMessageBox::No);
+      int choice = box.exec ();
+      writeit = (choice & QMessageBox::Yes);
+      if (writeit) {
+        db->RemovePeer (nick);
+      }
+    }
+    if (writeit) {
+      added = db->AddPeer (newPeer);
+    }
+  } else {
+    qDebug () << " no DB in AddPeerDialog ";
+  }
+  if (added) {
+    emit NewPeer (nick);
+  }
+}
+
 
 } // namespace
 

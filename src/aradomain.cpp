@@ -82,6 +82,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
   addPeerDialog = new AddPeerDialog (this);
+  addPeerDialog->SetDB (&dbMgr);
   policy = new Policy (this);
   sequencer = new PollSequence (this);
   sequencer->SetDB (&dbMgr);
@@ -95,6 +96,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
 void
 AradoMain::Start ()
 {
+  qDebug () << "Arado Starting " << QDateTime::currentDateTime();
   if (!setupDone) {
     if (Settings().contains("sizes/main")) {
       QSize defaultSize = size ();
@@ -198,9 +200,9 @@ AradoMain::Connect ()
   connect (mainUi.actionAddFeed, SIGNAL (triggered()),
            this, SLOT (AddFeed ()));
   connect (addPeerDialog, 
-             SIGNAL (NewPeer (QString, QString, QString, QString, int)),
-           connDisplay, 
-             SLOT (AddPeer (QString, QString, QString, QString, int)));
+             SIGNAL (NewPeer (QString)),
+           this, 
+             SLOT (HaveNewPeer (QString)));
   connect (connDisplay,
              SIGNAL (HaveNewPeer ()),
            this,
@@ -227,7 +229,7 @@ AradoMain::Connect ()
     connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (Poll(bool)));
   }
   if (httpClient && httpPoll) {
-    connect (httpPoll, SIGNAL (triggered()), httpClient, SLOT (Poll()));
+    connect (httpPoll, SIGNAL (timeout()), httpClient, SLOT (Poll()));
   }
 }
 
@@ -406,6 +408,16 @@ AradoMain::RefreshPeers ()
     httpClient->ReloadServers ("A");
     httpClient->ReloadServers ("B");
     httpClient->ReloadServers ("C");
+  }
+}
+
+void
+AradoMain::HaveNewPeer (QString peerid)
+{
+  Q_UNUSED (peerid)
+  RefreshPeers ();
+  if (connDisplay) {
+    connDisplay->ShowPeers ();
   }
 }
 
