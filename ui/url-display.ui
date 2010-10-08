@@ -221,6 +221,9 @@
           <property name="text">
            <string>ARADO-ID</string>
           </property>
+          <property name="toolTip">
+           <string>The ARADO-ID is an URL-Shortener, you can post into any board, chat or email. Just doubleclick on it.</string>
+          </property>
           <property name="font">
            <font>
             <weight>75</weight>
