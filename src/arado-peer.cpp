@@ -31,12 +31,14 @@ AradoPeer::AradoPeer (QString theNick,
                 QString theAddrType, 
                 QString theLevel, 
                     int thePort,
+                QUuid   theUuid,
                 PeerState theState)
   :nick (theNick),
    addr (theAddr),
    addrType (theAddrType),
    level (theLevel),
    port (thePort),
+   uuid (theUuid),
    state (theState)
 {
 }

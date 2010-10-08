@@ -26,6 +26,7 @@
 #include "ui_address-input.h"
 #include <QDialog>
 #include <QMap>
+#include <QUuid>
 
 class QAbstractButton;
 
@@ -45,7 +46,8 @@ public:
                 QString addr, 
                 QString addrType, 
                 QString level, 
-                    int port);
+                    int port,
+                QUuid   uuid);
   
   void SetDB (DBManager  *dbm) { db = dbm; }
 

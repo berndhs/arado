@@ -31,6 +31,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDateTime>
+#include <QUuid>
 #include <QDebug>
 
 using namespace deliberate;
@@ -92,7 +93,9 @@ DBManager::Start ()
              << "transientpeers"
              << "transientindex"
              << "ippeers"
-             << "ippeerindex";
+             << "ippeerindex"
+             << "peeruuid"
+             << "uuindex";
 
   CheckDBComplete (ipBase, ipElements);
 
@@ -271,6 +274,16 @@ DBManager::AddPeer (AradoPeer & peer)
   add.bindValue (1, QVariant (level));
   bool ok = add.exec ();
   qDebug () << " tried " << ok << " " << add.executedQuery();
+  if (ok) {
+    cmd = QString ("insert or replace into peeruuid "
+                   " (peerid, uuid) "
+                   " values (?, ?)");
+    add.prepare (cmd);
+    add.bindValue (0, QVariant (peer.Nick()));
+    add.bindValue (1, QVariant (peer.Uuid()));
+    ok = add.exec ();
+    qDebug () << " tried " << ok << " " << add.executedQuery();
+  }
   if (ok) {
     cmd = QString ("insert or replace into ippeers "
                    " ( peerid, proto, address, port ) "
@@ -480,6 +493,7 @@ DBManager::GetPeers (const QString & kind)
     list << GetPeerAddresses (peerid, peerclass);
   }
   qDebug () << " returning " << list.size() << " peers ";
+  FillPeerUuids (list);
   return list;
 }
 
@@ -502,6 +516,23 @@ DBManager::GetPeerAddresses (const QString & peerid, const QString & peerclass)
     qDebug () << " found " << peerid << addr << proto << peerclass << port;
   }
   return list;
+}
+
+void
+DBManager::FillPeerUuids (AradoPeerList & list)
+{
+  AradoPeerList::iterator  it;
+  for (it=list.begin(); it != list.end(); it++) {
+    QString cmd = QString ("select uuid from peeruuid "
+                              " where peerid =\"%1\"")
+                 .arg(it->Nick());
+    QSqlQuery select (ipBase);
+    bool ok = select.exec (cmd);
+    if (ok && select.next ()) {
+      QString uuidStr = select.value (0).toString();
+      it->SetUuid (QUuid(uuidStr));
+    }
+  }
 }
 
 bool

@@ -100,6 +100,8 @@ ConnectionDisplay::ShowPeers (QTableWidget * table,
     QTableWidgetItem * item = new QTableWidgetItem (peer.Nick());
     item->setData (Conn_Celltype, Cell_Nick);
     item->setData (Conn_Level, level);
+    item->setData (Conn_Uuid, peer.Uuid().toString());
+    item->setToolTip (tr ("UUID %1").arg (peer.Uuid().toString()));
     Highlight (item, peer);
     table->setItem (p, 0, item);
     item = new QTableWidgetItem (peer.Addr ());

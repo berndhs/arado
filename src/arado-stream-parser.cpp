@@ -242,6 +242,8 @@ AradoStreamParser::ParseAradoPeer (AradoPeer & peer, QXmlStreamReader & xmlin)
       ok |= ParsePeerATypeElt (peer, xmlin);
     } else if (kind == QString ("port")) {
       ok &= ParsePeerPortElt (peer, xmlin);
+    } else if (kind == QString ("uuid")) {
+      ok &= ParsePeerUuidElt (peer, xmlin);
     } else if (kind == QString ("level")) {
       ok &= ParsePeerLevelElt (peer, xmlin);
     } else {
@@ -301,8 +303,17 @@ bool
 AradoStreamParser::ParsePeerPortElt (AradoPeer & peer, QXmlStreamReader & xmlin)
 {
   ReadToken (xmlin);
-  QString value = xmlin.text().toString  ();
+  QString value = xmlin.text().toString ();
   peer.SetPort (value.toInt());
+  return true;
+}
+
+bool
+AradoStreamParser::ParsePeerUuidElt (AradoPeer & peer, QXmlStreamReader & xmlin)
+{
+  ReadToken (xmlin);
+  QString value = xmlin.text().toString  ();
+  peer.SetUuid (QUuid (value));
   return true;
 }
 
@@ -413,6 +424,7 @@ AradoStreamParser::Write (const AradoPeer & peer, bool isPartial)
     xmlout.writeTextElement ("address", peer.Addr());
     xmlout.writeTextElement ("atype",peer.AddrType());
     xmlout.writeTextElement ("port",QString::number (peer.Port()));
+    xmlout.writeTextElement ("uuid",peer.Uuid().toString());
     xmlout.writeTextElement ("level",peer.Level());
     xmlout.writeEndElement (); // aradopeer
     if (!isPartial) {

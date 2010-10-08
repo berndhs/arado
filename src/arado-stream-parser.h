@@ -71,6 +71,7 @@ private:
   bool ParsePeerAddrElt  (AradoPeer & peer, QXmlStreamReader & xmlin);
   bool ParsePeerATypeElt (AradoPeer & peer, QXmlStreamReader & xmlin);
   bool ParsePeerPortElt  (AradoPeer & peer, QXmlStreamReader & xmlin);
+  bool ParsePeerUuidElt  (AradoPeer & peer, QXmlStreamReader & xmlin);
   bool ParsePeerLevelElt (AradoPeer & peer, QXmlStreamReader & xmlin);
   bool ParseControlMsg (ControlMessage & msg,
                         QXmlStreamReader & xmlin);

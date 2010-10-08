@@ -88,6 +88,8 @@ private:
   void    MakeElement (QSqlDatabase & db, const QString & element);
   bool    AddUrlTimestamp (const QString & hash, quint64 & ts);
 
+  void    FillPeerUuids (AradoPeerList & list);
+
   QSqlDatabase     ipBase;
   QSqlDatabase     urlBase;
 

@@ -24,6 +24,7 @@
 
 #include <QString>
 #include <QList>
+#include <QUuid>
 
 namespace arado
 {
@@ -44,6 +45,7 @@ public:
                 QString theAddrType = QString ("0"), 
                 QString theLevel = QString ("C"), 
                     int thePort = 0,
+                QUuid   theUuid = QUuid(),
                 PeerState theState = State_None);
 
   QString  Nick () const { return nick; } 
@@ -51,6 +53,7 @@ public:
   QString  AddrType () const { return addrType; }
   QString  Level () const { return level; }
   int      Port () const { return port; }
+  QUuid    Uuid () const { return uuid; }
   PeerState  State () const { return state ; }
 
   void  SetNick (const QString & n) { nick = n; }
@@ -58,6 +61,7 @@ public:
   void  SetAddrType (const QString & at) { addrType = at; }
   void  SetLevel (const QString & l) { level = l; }
   void  SetPort (int p) { port = p; }
+  void  SetUuid (const QUuid & u) { uuid = u; }
   void  SetState (PeerState s) { state = s; }
 
 private:
@@ -67,6 +71,7 @@ private:
   QString        addrType;
   QString        level;
   int            port;
+  QUuid          uuid;
   PeerState      state;
 } ;
 

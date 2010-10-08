@@ -54,5 +54,7 @@
         <file alias="stableindex.sql">schemafiles/stableindex.sql</file>
         <file alias="transientindex.sql">schemafiles/transientindex.sql</file>
         <file alias="ippeerindex.sql">schemafiles/ippeerindex.sql</file>
+        <file alias="peeruuid.sql">schemafiles/peeruuid.sql</file>
+        <file alias="uuindex.sql">schemafiles/uuindex.sql</file>
     </qresource>
 </RCC>

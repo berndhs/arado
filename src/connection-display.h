@@ -42,7 +42,8 @@ public:
 
   enum ConnModelData {
        Conn_Celltype = Qt::UserRole + 2,
-       Conn_Level = Qt::UserRole + 3
+       Conn_Level = Qt::UserRole + 3,
+       Conn_Uuid  = Qt::UserRole + 4
        };
 
   enum ConnCellType {

@@ -80,9 +80,10 @@ AddPeerDialog::Ok ()
     level = levelType [levelButton];
   }
   int port = addrUi.portEdit->text().toInt();
+  QUuid uuid = QUuid (addrUi.uuidEdit->text());
   AddPeer (addrUi.nickEdit->text(),
                 addrUi.addressEdit->text(),
-                kind, level, port);
+                kind, level, port, uuid);
   accept ();
 }
 
@@ -108,10 +109,11 @@ AddPeerDialog::AddrReturn ()
 
 void
 AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
-                       QString level, int port)
+                       QString level, int port, QUuid uuid )
 {
   qDebug () << " new peer to add " << nick << addr << addrType << level << port;
-  AradoPeer newPeer (nick, addr, addrType, level, port, AradoPeer::State_New);
+  AradoPeer newPeer (nick, addr, addrType, level, port, 
+                     uuid, AradoPeer::State_New);
   bool added (false);
   if (db) {
     bool isknown = db->HavePeer (nick);
