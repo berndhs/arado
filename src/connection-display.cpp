@@ -40,6 +40,9 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
+  connect (ui.pushButton_A, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
+  connect (ui.pushButton_B, SIGNAL (clicked()), this, SLOT (DoStartSync()));
+  connect (ui.pushButton_C, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
   connect (ui.buttonMoveLeft, SIGNAL (clicked()),
            this, SLOT (MoveLeft()));

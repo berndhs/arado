@@ -24,24 +24,37 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QLabel" name="icon_A">
+          <widget class="QPushButton" name="pushButton_A">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="maximumSize">
             <size>
              <width>35</width>
              <height>16777215</height>
             </size>
            </property>
-           <property name="baseSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
+           <property name="toolTip">
+            <string>Add Device to Constant.</string>
            </property>
            <property name="text">
-            <string/>
+            <string notr="true"/>
            </property>
-           <property name="pixmap">
-            <pixmap resource="../arado.qrc">:/images/kfm_home.png</pixmap>
+           <property name="icon">
+            <iconset resource="../arado.qrc">
+             <normaloff>:/images/kfm_home.png</normaloff>:/images/kfm_home.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -177,18 +190,37 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QLabel" name="icon_B">
+          <widget class="QPushButton" name="pushButton_B">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="maximumSize">
             <size>
              <width>35</width>
              <height>16777215</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Connect Devices and start to sync URLs.</string>
+           </property>
            <property name="text">
             <string/>
            </property>
-           <property name="pixmap">
-            <pixmap resource="../arado.qrc">:/images/kdmconfig.png</pixmap>
+           <property name="icon">
+            <iconset resource="../arado.qrc">
+             <normaloff>:/images/kdmconfig.png</normaloff>:/images/kdmconfig.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -321,18 +353,37 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <widget class="QLabel" name="icon_C">
+          <widget class="QPushButton" name="pushButton_C">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="maximumSize">
             <size>
              <width>35</width>
              <height>16777215</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Add Device to Flexible.</string>
+           </property>
            <property name="text">
             <string/>
            </property>
-           <property name="pixmap">
-            <pixmap resource="../arado.qrc">:/images/remote.png</pixmap>
+           <property name="icon">
+            <iconset resource="../arado.qrc">
+             <normaloff>:/images/remote.png</normaloff>:/images/remote.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
