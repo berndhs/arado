@@ -209,6 +209,10 @@ AradoMain::Connect ()
            this, SLOT (DoIpExport ()));
   connect (mainUi.actionImportIP, SIGNAL (triggered()),
            this, SLOT (DoIpImport ()));
+  connect (mainUi.actionMailUuid, SIGNAL (triggered()),
+           this, SLOT (MailUuid ()));
+  connect (mainUi.actionShowUuid, SIGNAL (triggered()),
+           this, SLOT (DisplayUuid ()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -508,6 +512,28 @@ AradoMain::Poll (bool haveNew)
   }
 }
 
+void
+AradoMain::MailUuid ()
+{
+  QString uuline (tr("My Arado UUID: %1").arg (ownUuid));
+  QUrl   mailUrl;
+  mailUrl.setScheme ("mailto");
+  mailUrl.addQueryItem ("subject",tr("My Arado UUID"));
+  mailUrl.addQueryItem ("body",uuline);
+  QDesktopServices::openUrl (mailUrl);
+}
+
+void
+AradoMain::DisplayUuid ()
+{
+  QMessageBox  box;
+  box.setWindowTitle ("Arado");
+  box.setText (QString ("Your Arado UUID is \n"
+                        "%1")
+               .arg (ownUuid.toString()));
+  QTimer::singleShot (15000, &box, SLOT (accept()));
+  box.exec ();
+}
 
 } // namespace
 

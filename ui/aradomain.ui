@@ -44,10 +44,13 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>System</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowUuid"/>
+    <addaction name="actionMailUuid"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -187,6 +190,16 @@
    </property>
    <property name="text">
     <string>Start Sync</string>
+   </property>
+  </action>
+  <action name="actionShowUuid">
+   <property name="text">
+    <string>Display UUID</string>
+   </property>
+  </action>
+  <action name="actionMailUuid">
+   <property name="text">
+    <string>Mail UUID</string>
    </property>
   </action>
  </widget>

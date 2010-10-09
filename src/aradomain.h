@@ -79,6 +79,8 @@ private slots:
   void RefreshPeers ();
   void HaveNewPeer (QString peerid);
   void Poll (bool haveNew=false);
+  void MailUuid ();
+  void DisplayUuid ();
 
 private:
 
