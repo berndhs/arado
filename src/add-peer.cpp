@@ -126,6 +126,7 @@ AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
     if (isknown) {
       QMessageBox box;
       box.setWindowTitle(tr("Arado"));
+      box.setIconPixmap(QPixmap(":/images/messagebox_info.png"));
       box.setText (
                tr("Nick %1 already exists!\n"
                  "Do you want to replace it?")

@@ -223,13 +223,14 @@ ConnectionDisplay::OnlyOne (QString action, bool verify)
   int nsel = selected.size();
   QMessageBox mbox;
   mbox.setWindowTitle(tr("Arado"));
+  mbox.setIconPixmap(QPixmap(":/images/messagebox_info.png"));
   QString msg;
   bool complain (true);
   bool yes (false);
   if (nsel < 1) {
     msg = tr("Please Select an Item");
   } else if (nsel > 1) {
-    msg = tr ("Only 1 Item Please");
+    msg = tr ("Only 1 Item please.");
   } else {
     complain = false;
     if (verify) {
