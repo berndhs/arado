@@ -236,6 +236,7 @@ AradoStreamParser::ParseAradoPeer (AradoPeer & peer, QXmlStreamReader & xmlin)
   bool ok (false);
   while (tok == QXmlStreamReader::StartElement) {
     QString kind = xmlin.name().toString();
+    qDebug () << " ParseAradoPeer element kind " << kind;
     if (kind == QString ("address")) {
       ok &= ParsePeerAddrElt (peer, xmlin);
     } else if (kind == QString ("atype")) {

@@ -273,6 +273,7 @@ DBManager::AddPeer (AradoPeer & peer)
   add.bindValue (0, QVariant (peer.Nick()));
   add.bindValue (1, QVariant (level));
   bool ok = add.exec ();
+  qDebug () << " AddPeer Nick " << peer.Nick() << " level " << level;
   qDebug () << " tried " << ok << " " << add.executedQuery();
   if (ok) {
     cmd = QString ("insert or replace into peeruuid "

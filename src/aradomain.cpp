@@ -23,6 +23,7 @@
 #include "http-server.h"
 #include "http-client.h"
 #include "ui_feed-input.h"
+#include "arado-stream-parser.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -105,9 +106,9 @@ AradoMain::Start ()
       resize (newSize);
     }
     ownUuid = QUuid::createUuid();
-    ownUuid = QUuid (Settings().value ("self/uuid",
+    ownUuid = QUuid (Settings().value ("personal/uuid",
                      ownUuid.toString()).toString());
-    Settings().setValue ("self/uuid",ownUuid.toString());
+    Settings().setValue ("personal/uuid",ownUuid.toString());
     Connect ();
     dbMgr.Start ();
     setupDone = true;
@@ -204,6 +205,10 @@ AradoMain::Connect ()
            this, SLOT (Poll ()));
   connect (mainUi.actionAddFeed, SIGNAL (triggered()),
            this, SLOT (AddFeed ()));
+  connect (mainUi.actionExportIP, SIGNAL (triggered()),
+           this, SLOT (DoIpExport ()));
+  connect (mainUi.actionImportIP, SIGNAL (triggered()),
+           this, SLOT (DoIpImport ()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -388,7 +393,7 @@ AradoMain::DoFileExport ()
   static QString dir ( QDesktopServices::storageLocation
                     (QDesktopServices::HomeLocation));
   QString savehere = QFileDialog::getSaveFileName (this,
-                     tr("Export File"),
+                     tr("Export URL File"),
                      dir,
                      tr ("Arado Url Files (*.xml);; All Files (*)")
                      );
@@ -402,6 +407,71 @@ AradoMain::DoFileExport ()
     AradoUrlList urlist = dbMgr.GetRecent (10000);
     fileComm->Write (urlist);
     fileComm->Close ();
+  }
+}
+
+void
+AradoMain::DoIpImport ()
+{
+  static QString dir ( QDesktopServices::storageLocation
+                    (QDesktopServices::HomeLocation));
+  QString filename = QFileDialog::getOpenFileName (this,
+                     tr("Import Address File"),
+                     dir,
+                     tr ("Arado Address Files (*.xml);; All Files (*)")
+                     );
+  if (filename.length() <= 0) {
+    return;
+  }
+  QFile file (filename);
+  bool ok = file.open (QFile::ReadOnly);
+  if (ok) {
+    AradoStreamParser parser;
+    parser.SetInDevice (&file);
+    AradoPeerList list = parser.ReadAradoPeerList ();
+    file.close ();
+    AradoPeerList::iterator it;
+    QString elvis ("Elvis");
+    elvis = Settings().value ("personal/elvis",elvis).toString();
+    Settings().setValue ("personal/elvis",elvis);
+    int e (1);
+    for (it=list.begin(); it != list.end(); it++, e++) {
+      it->SetNick (QString ("%1%2").arg(elvis).arg(e));
+      dbMgr.AddPeer (*it);
+    }
+    RefreshPeers ();
+    if (connDisplay) {
+      connDisplay->ShowPeers ();
+    }
+  }
+  
+}
+
+void
+AradoMain::DoIpExport ()
+{
+  static QString dir ( QDesktopServices::storageLocation
+                    (QDesktopServices::HomeLocation));
+  QString savehere = QFileDialog::getSaveFileName (this,
+                     tr("Export Address File"),
+                     dir,
+                     tr ("Arado Address Files (*.xml);; All Files (*)")
+                     );
+  dir = QFileInfo (savehere).absolutePath ();
+  if (savehere.length() > 0) {
+    if (!QFileInfo (savehere).exists()) {
+      QDir d (dir);
+      d.mkpath (dir);
+      QFile  file (savehere);
+      file.open (QFile::WriteOnly);
+      AradoPeerList  list = dbMgr.GetPeers ("A");
+      list += dbMgr.GetPeers ("B");
+      list += dbMgr.GetPeers ("C");
+      AradoStreamParser  parser;
+      parser.SetOutDevice (&file);
+      parser.Write (list);
+      file.close ();
+    }
   }
 }
 
