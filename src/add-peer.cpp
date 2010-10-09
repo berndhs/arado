@@ -29,6 +29,8 @@
 #include <QMessageBox>
 #include <QDebug>
 
+using namespace deliberate;
+
 namespace arado 
 {
 
@@ -56,7 +58,10 @@ void
 AddPeerDialog::Run ()
 {
   quint64 now = QDateTime::currentDateTime().toTime_t();
-  QString defaultName (tr("Elvis%1").arg(now));
+  QString elvis ("Elvis");
+  elvis = Settings().value ("personal/elvis",elvis).toString();
+  Settings().setValue ("personal/elvis",elvis);
+  QString defaultName (QString("%1%21").arg(elvis).arg(now));
   addrUi.nickEdit->setText (defaultName);
   addrUi.addressEdit->clear ();
   addrUi.portEdit->clear ();
