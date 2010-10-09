@@ -39,6 +39,7 @@ namespace arado
 {
 
 class Policy;
+class AradoStreamParser;
 
 class HttpAddress {
 public:
@@ -117,13 +118,24 @@ private slots:
 signals:
 
   void AddedUrls (int numAdded);
+  void AddedPeers (int numAdded);
 
 private:
 
   typedef QMap <int, HttpAddress> ServerMap;
 
   void Poll (HttpAddress & addr);
+  void PollAddr (HttpAddress & addr);
   void PollAll (bool reloadServers = false);
+
+  void SendUrlOfferGet (const QUrl & basicUrl);
+  void SendUrlRequestGet (const QUrl & basicUrl);
+  void SendAddrOfferGet (const QUrl & basicUrl);
+  void SendAddrRequestGet (const QUrl & basicUrl);
+
+  void ReceiveUrls (AradoStreamParser & parser);
+  void ReceiveAddrs (AradoStreamParser & parser);
+
   void SkipWhite (QIODevice *dev);
   void ProcessRequestReply (QNetworkReply * reply);
   void ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl);
@@ -138,7 +150,8 @@ private:
 
   QNetworkAccessManager *network;
 
-  QList  <QNetworkReply*>             requestWait;
+  QList  <QNetworkReply*>             requestUrlWait;
+  QList  <QNetworkReply*>             requestAddrWait;
   QMap   <QNetworkReply*, QUrl>       offerWait;
   QMap   <QNetworkReply*, QBuffer*>   putWait;
   QMap   <QNetworkReply*, int>        finishedCount;

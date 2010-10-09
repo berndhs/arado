@@ -236,6 +236,8 @@ AradoMain::Connect ()
     if (httpClient) {
       connect (httpClient, SIGNAL (AddedUrls (int)),
                urlDisplay, SLOT (UrlsAdded (int)));
+      connect (httpClient, SIGNAL (AddedPeers (int)),
+               connDisplay, SLOT (ShowPeers ()));
     }
   }
   if (connDisplay && httpClient) {
@@ -527,12 +529,12 @@ void
 AradoMain::DisplayUuid ()
 {
   QMessageBox  box;
-  box.setWindowTitle ("Arado");
+  box.setWindowTitle (tr("Arado"));
   box.setIconPixmap(QPixmap(":/images/roll.png"));
-  box.setText (QString ("Your Arado UUID is \n"
+  box.setText (tr ("Your Arado UUID is \n\n"
                         "%1")
                .arg (ownUuid.toString()));
-  QTimer::singleShot (15000, &box, SLOT (accept()));
+  QTimer::singleShot (30000, &box, SLOT (accept()));
   box.exec ();
 }
 

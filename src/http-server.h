@@ -53,7 +53,7 @@ public:
 
 private slots:
 
-  void  MarkExpected (QString path, QString host);
+  void  MarkExpected (QString path, QString host, QString datatype);
   void  MarkReceiving (QString path);
   void  CleanAccept ();
 
@@ -71,6 +71,7 @@ private:
   DBManager     *db;
   Policy        *policy;
 
+  QMap <QString, QString>  expectPeer;
   QMap <QString, QString>  expectData;
   QMap <QString, quint64>  lastAccept;
 

@@ -87,19 +87,20 @@ void
 HttpServer::incomingConnection (int sock)
 {
   HttpSender * sender = new HttpSender (sock, this, db, policy, 
-                                        expectData, lastAccept);
+                                        expectPeer, expectData, lastAccept);
   connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
-  connect (sender, SIGNAL (ExpectData (QString, QString)),
-           this, SLOT (MarkExpected (QString, QString)));
+  connect (sender, SIGNAL (ExpectData (QString, QString, QString)),
+           this, SLOT (MarkExpected (QString, QString, QString)));
   connect (sender, SIGNAL (ReceivingData (QString)),
            this, SLOT (MarkReceiving (QString)));
   sender->start ();
 }
 
 void
-HttpServer::MarkExpected (QString path, QString peer)
+HttpServer::MarkExpected (QString path, QString peer, QString datatype)
 {
-  expectData [path] = peer;
+  expectPeer [path] = peer;
+  expectData [path] = datatype;
   quint64 now = QDateTime::currentDateTime().toTime_t();
   lastAccept [peer] = now;
   qDebug () << " inserted uupath " << path;
@@ -108,6 +109,7 @@ HttpServer::MarkExpected (QString path, QString peer)
 void
 HttpServer::MarkReceiving (QString path)
 {
+  expectPeer.remove (path);
   expectData.remove (path);
   qDebug () << " removed uupath " << path;
 }

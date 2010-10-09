@@ -42,6 +42,7 @@ namespace arado
 
 class DBManager;
 class Policy;
+class AradoStreamParser;
 
 class HttpSender
 
@@ -57,7 +58,8 @@ Q_OBJECT
 public:
 
   HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
-              const QMap<QString, QString> & expected,
+              const QMap<QString, QString> & expectedFrom,
+              const QMap<QString, QString> & expectedType,
               const QMap<QString, quint64> & accepted);
 
 #if ARADO_HTTP_THREAD
@@ -80,21 +82,27 @@ public slots:
 signals:
 
   void AddedUrls (int numAdded);
-  void ExpectData (QString uupath, QString peer);
+  void AddedPeers (int numAdded);
+  void ExpectData (QString uupath, QString peer, QString datatype);
   void ReceivingData (QString uupath);
 
 private:
 
   void  HandleRequest (const QString & reqType,
                        const QList < QPair <QString,QString > > & items);
-  void  ReplyRecent (int maxItems, const QString & datatype );
+  void  ReplyRecent (int maxItems, const QString & datatype , 
+                     const QString & level);
   void  ReplyRange (bool useNewest, quint64 newest, 
                     bool useOldest, quint64 oldest,
-                    const QString & datatype );
+                    const QString & datatype, 
+                     const QString & level );
   void  ReplyInvalid (const QString & message, int error=400);
   void  ReplyAck (const QString & message = QString("OK"), int status=200);
-  void  ReplyOffer (const QString & datatype );
+  void  ReplyOffer (const QString & datatype, 
+                     const QString & level );
   void  ProcessPut (const QString & urlText, const QString & proto);
+  void  ReceiveUrls (AradoStreamParser & parser);
+  void  ReceiveAddrs (AradoStreamParser & parser);
   void  SkipWhite (QIODevice *dev);
 
   int         socket;
@@ -103,11 +111,14 @@ private:
   Policy      *policy;
   QBuffer      inbuf;
   int          expectSize;
+  QString      receivingType;
   bool         collectingPut;
+  QString      putDatatype;
   QString      putUrl;
   QString      putProto;
   QHostAddress peerAddress;
 
+  const QMap <QString, QString> & expectPeer;
   const QMap <QString, QString> & expectType;
   const QMap <QString, quint64> & lastAccepted;
 

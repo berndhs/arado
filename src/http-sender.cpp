@@ -39,7 +39,8 @@ namespace arado
 {
 
 HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
-                       const QMap <QString, QString> & expected,
+                       const QMap <QString, QString> & expectedFrom,
+                       const QMap <QString, QString> & expectedType,
                        const QMap <QString, quint64> & accepted)
   :
 #if ARADO_HTTP_THREAD
@@ -51,7 +52,8 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
    db (dbm),
    policy (pol),
    collectingPut (false),
-   expectType (expected),
+   expectPeer (expectedFrom),
+   expectType (expectedType),
    lastAccepted (accepted)
 { 
   tcpSocket = new QTcpSocket (this);
@@ -163,23 +165,32 @@ HttpSender::ReadFirst ()
         ReplyInvalid (QString ("Not found"), 404);
       }
     } else if (partCmd == QString ("PUT")) {
-      if (!expectType.contains(partUrl)) {
+      if (!expectPeer.contains(partUrl)) {
         qDebug () << " was not expecting " << partUrl;
-        qDebug () << " outstanding offers " << expectType;
+        qDebug () << " outstanding offers " << expectPeer;
         ReplyInvalid (QString ("Not found"), 404);
         tcpSocket->close ();
         return;
       }
+      putDatatype = expectType [partUrl];
       emit ReceivingData (partUrl);
       qDebug () << this << " accepting expected " << partUrl;
-      qDebug () << " outstanding offers " << expectType;
+      qDebug () << " outstanding offers " << expectPeer;
       QString msgString;
       expectSize = 0;
+      receivingType = "none";
       do {
         msgLine = tcpSocket->readLine();
         msgString = QString(msgLine).trimmed().toLower();
+        qDebug () << " checking  " << msgString;
         if (msgString.startsWith ("content-length:")) {
-           expectSize = msgString.remove("content-length:").toInt();
+           expectSize = msgString.remove("content-length:")
+                                 .toInt();
+        } else if (msgString.startsWith ("x-data-type:")) {
+           receivingType = msgString.remove ("x-data-type:")
+                                    .trimmed()
+                                    .toUpper();
+           qDebug () << " set x-date-type to " << receivingType;
         }
         qDebug () << " discarded " << msgLine;
       } while (msgString.length() > 0);
@@ -207,6 +218,7 @@ HttpSender::HandleRequest (const QString & reqType,
   bool     isOffer (false);
   bool     isBad (false);
   QString  datatype ("URL");
+  QString  level ("0");
   QList <QPair<QString,QString> >::const_iterator cpit;
   QStringList leftList;
   isOffer = (reqType == QString("offer"));
@@ -232,6 +244,8 @@ HttpSender::HandleRequest (const QString & reqType,
       isBad = isRequest;
     } else if (left == QString ("type")) {
       datatype = right.toUpper();
+    } else if (left == QString ("level")) {
+      level = right.toUpper ();
     }
     if (isBad) {
       break;
@@ -242,11 +256,11 @@ HttpSender::HandleRequest (const QString & reqType,
     ReplyInvalid (QString ("Invalid Request"));
   } else {
     if (isRequest && cmdRecent && !cmdRange) {
-      ReplyRecent (maxItems, datatype);
+      ReplyRecent (maxItems, datatype, level);
     } else if (isRequest && cmdRange && !cmdRecent) {
-      ReplyRange (useNewest, newest, useOldest, oldest, datatype);
+      ReplyRange (useNewest, newest, useOldest, oldest, datatype, level);
     } else if (isOffer && !(cmdRange || cmdRecent)) {
-      ReplyOffer (datatype);
+      ReplyOffer (datatype, level);
     } else {
       ReplyInvalid (QString ("Request Syntax Error"));
     }
@@ -261,7 +275,7 @@ HttpSender::ReplyInvalid (const QString & message, int error)
   QStringList lines;
   lines << QString ("HTTP/1.0 %1 %2\r\n").arg(error).arg(message);
   lines << "Connection: close\r\n";
-  lines << "Server: Arado/0.1\r\n";
+  lines << "Server: AradoErr/0.1\r\n";
   lines << "\r\n";
   lines << QDateTime::currentDateTime().toString () << "\n";
   qDebug () << " sending error message " << lines;
@@ -278,7 +292,7 @@ HttpSender::ReplyAck (const QString & message, int status)
   QStringList lines;
   lines << QString ("HTTP/1.0 %1 %2\r\n").arg(status).arg(message);
   lines << "Connection: close\r\n";
-  lines << "Server: Arado/0.1\r\n";
+  lines << "Server: AradoAck/0.1\r\n";
   lines << "\r\n";
   ostream << lines.join ("");
   tcpSocket->flush ();
@@ -288,19 +302,22 @@ HttpSender::ReplyAck (const QString & message, int status)
 void
 HttpSender::ReplyRange (bool useNewest, quint64 newest, 
                         bool useOldest, quint64 oldest,
-                        const QString & datatype )
+                        const QString & datatype, 
+                       const QString & level )
 {
   ReplyInvalid (QString ("Not Implemented"), 501);
 }
 
 void
-HttpSender::ReplyRecent (int maxItems, const QString & datatype )
+HttpSender::ReplyRecent (int maxItems, const QString & datatype, 
+                        const QString & level    )
 {
   QStringList lines;
   lines << "HTTP/1.1 200 OK\r\n";
   lines << "Connection: close\r\n";
   lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
-  lines << "Server: Arado/0.1\r\n";
+  lines << QString ("X-Data-Type: %1\r\n").arg(datatype);
+  lines << "Server: AradoReq/0.1\r\n";
   lines << "\r\n";
   qDebug () << " sending GOOD reply " << lines.join ("");
   tcpSocket->write (lines.join("").toUtf8());
@@ -309,9 +326,11 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype )
     AradoStreamParser parse;
     parse.SetOutDevice (tcpSocket);
     parse.Write (urls);
-  } else if (datatype == QString ("IP")) {
-    QByteArray empty ("<arado/>\r\n");
-    tcpSocket->write (empty);
+  } else if (datatype == QString ("ADDR")) {
+    AradoPeerList peers = db->GetPeers (level);
+    AradoStreamParser parse;
+    parse.SetOutDevice (tcpSocket);
+    parse.Write (peers);
   } else {
     QByteArray empty ("<arado/>\r\n");
     tcpSocket->write (empty);
@@ -321,9 +340,10 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype )
 }
 
 void
-HttpSender::ReplyOffer (const QString & datatype)
+HttpSender::ReplyOffer (const QString & datatype,
+                        const QString & level)
 {
-  if (lastAccepted.contains (peerAddress.toString())) {
+  if (0 && lastAccepted.contains (peerAddress.toString())) {
     ReplyInvalid (QString ("Too Many Requests"),403);
     return;
   }
@@ -336,7 +356,8 @@ qDebug () << " offer expecting " << wholePath;
   lines << "HTTP/1.1 200 OK\r\n";
   lines << "Connection: close\r\n";
   lines << "Content-Type: text/xml; charset=\"utf-8\"\r\n";
-  lines << "Server: Arado/0.1\r\n";
+  lines << QString ("X-Data-Type: %1;\r\n").arg(datatype);
+  lines << "Server: AradoOff/0.1\r\n";
   lines << "\r\n";
   tcpSocket->write (lines.join("").toUtf8());
   AradoStreamParser parse;
@@ -348,7 +369,7 @@ qDebug () << " offer expecting " << wholePath;
   tcpSocket->write (buf.buffer());
   tcpSocket->flush ();
   tcpSocket->close ();
-  emit ExpectData (wholePath, peerAddress.toString());
+  emit ExpectData (wholePath, peerAddress.toString(), datatype);
 
   qDebug () << " Accepting Offer type " << datatype << " at " << uupath;
 }
@@ -357,39 +378,79 @@ void
 HttpSender::ProcessPut (const QString & urlText, const QString & proto)
 {
   qDebug () << "HttpSender " << this << " received expected PUT " << urlText;
-  qDebug () << expectType;
+  qDebug () << expectPeer;
   if (inbuf.isReadable()) {
     AradoStreamParser parser;
     QBuffer bigbuf;
     bigbuf.setData (inbuf.readAll());
     qDebug () << "BIG Buffer size " << bigbuf.buffer().size();
+    qDebug () << " BIG receiving type " << receivingType;
     qDebug () << "BIG Buffer content " << bigbuf.buffer();
     bigbuf.open (QBuffer::ReadOnly);
     SkipWhite (&bigbuf);
     parser.SetInDevice (&bigbuf, false);
-    AradoUrlList urls = parser.ReadAradoUrlList ();
-    qDebug () << " got " << urls.size() << " URLs in message ";
-    int numAdded (0);
-    bool added (false);
-    AradoUrlList::iterator  cuit;
-    if (db) {
-      for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
-        if (policy) {
-          added = policy->AddUrl (*db, *cuit);
-        } else {
-          added = db->AddUrl (*cuit);
-        }
-        if (added) {
-          numAdded++;
-        }
-      }
-    }
-    if (numAdded > 0) {
-      emit AddedUrls (numAdded);
+    if (receivingType == "URL") {
+      ReceiveUrls (parser);
+    } else if (receivingType == "ADDR") {
+      ReceiveAddrs (parser);
     }
     inbuf.buffer().clear ();
   }
   ReplyAck ();
+}
+
+
+void
+HttpSender::ReceiveUrls (AradoStreamParser & parser)
+{
+  AradoUrlList urls = parser.ReadAradoUrlList ();
+qDebug () << " got " << urls.size() << " URLs in message ";
+  int numAdded (0);
+  bool added (false);
+  AradoUrlList::iterator  cuit;
+  if (db) {
+    for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
+      if (policy) {
+        added = policy->AddUrl (*db, *cuit);
+      } else {
+        added = db->AddUrl (*cuit);
+      }
+      if (added) {
+        numAdded++;
+      }
+    }
+  }
+  if (numAdded > 0) {
+    emit AddedUrls (numAdded);
+  }
+}
+
+void
+HttpSender::ReceiveAddrs (AradoStreamParser & parser)
+{
+  AradoPeerList peers = parser.ReadAradoPeerList ();
+qDebug () << " got " << peers.size() << " Peers in message ";
+  int numAdded (0);
+  bool added (false);
+  AradoPeerList::iterator  cuit;
+  if (db) {
+    quint64 seq = QDateTime::currentDateTime().toTime_t();
+    seq *= 10000;
+    for (cuit = peers.begin(); cuit != peers.end(); cuit++, seq++) {
+      if (db->HavePeer (cuit->Uuid())) {
+        continue;
+      }
+      cuit->SetNick (tr("AutoElvis%1").arg(seq));
+      cuit->SetLevel ("C");
+      added = db->AddPeer (*cuit);
+      if (added) {
+        numAdded++;
+      }
+    }
+  }
+  if (numAdded > 0) {
+    emit AddedPeers (numAdded);
+  }
 }
 
 void

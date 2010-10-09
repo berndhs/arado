@@ -55,6 +55,7 @@ public:
 
   bool  AddPeer (AradoPeer & peer);
   bool  HavePeer (const QString & peerid);
+  bool  HavePeer (const QUuid & uuid);
   void  RemovePeer (const QString & peerid);
   void  MovePeer (const QString & peerid, 
                   const QString & newLevel, 

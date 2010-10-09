@@ -317,6 +317,20 @@ DBManager::HavePeer (const QString & peerid)
 }
 
 bool
+DBManager::HavePeer (const QUuid & uuid)
+{
+  QString cmd = QString ("select peerid from peeruuid "
+               " where uuid = \"%1\"").arg(uuid.toString());
+  QSqlQuery select (ipBase);
+  bool ok = select.exec (cmd);
+  bool foundit (false);
+  if (ok && select.next()) {
+    foundit = true;
+  }
+  return foundit;
+}
+
+bool
 DBManager::AddKeywords (AradoUrl & url)
 {
   QStringList keys = url.Keywords ();
