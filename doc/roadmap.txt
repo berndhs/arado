@@ -1,23 +1,11 @@
 Things to implement:
 
---) DONE: database of URLs  - 1 of these (DONE)
 
 01a) Search for 2 or more keywords.
 
-DONE) communicator to collect/send URLs  - 3 of these
-  - testing communicator that reads from stream, writes to stream
-  - direct communicator that uses TCP/SSL sockets
-
 04) collector that collects communicator peer addresses - 1 for each communicator
 
-Things to define:
-
---) DONE: address types
-  - this is per communicator
-
-5) add Base64 I2p Support
-
---) DONE: URL data type (DONE)
+05) add Base64 I2p Support
 
 07) address type, this can contain ANY type of address
   - specific address types
@@ -30,11 +18,9 @@ Things to define:
 
 09) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
 
-10) copy out of the sha1 can have the prefix "Arado-ID:"
+10) copy out of the sha1 can have the prefix "http://AID" (stands for Arado-ID plus sha1)
 
 11) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
-
---) DONE: highlighting the description cell could expand the table line hight, so that the full description can be read? does Qt allow that?
 
 13) status bar: show recent button deletes the connection info, maybe this should be added?
 
@@ -46,13 +32,6 @@ Things to define:
 
 17) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
   -- this is a problem, the data should be per-user, not per-system
-
---) DONE: Status bar shows always the connection status "30/30", as well in the recent & search results, or appears back after a few seconds
-
---) DONE: Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
-
---) UNFUNCTIONAL: this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
-   -- this is not a URL, its not supposed to work - syntactically incorrect URLS will not always work, tell the edonkey people to fix their "urls".
 
 21) if the search box is empty and the search button is pressed, act like recent button and show latest results.
 
@@ -72,14 +51,6 @@ a) finding the other IP => TBD over DHT, e.g. bitdht.sf.net (LGPL) or kadc.sf.ne
 26) find an ipv4 way of talking end-to-end with peers
 b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitdht for the dht network or in other protocols, e.g. torrent, gnutella.
 
-
-
---) DONE handle large mounts of data, especially for the Doublette check: => done over hashcache for the last 10.000 entries, then full time for whole database check.
-   -- too early to call this "done", we haven't tested with any serious numbers
-
---) DONE: make the ip stuff to talk to different peers: trusted/constant, remote, eposodic/flexible
-
-
 29) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
 
 30) set width of sha1-column max to contentmaximum length or by default minimum as long as the arado icon above it
@@ -92,8 +63,6 @@ url-display.cpp 133:
 31) Progress Bar steered by a timer if the search button is pressed.
   -- there is no good information to display a progress bar that makes any sense
 
---) DONE: Move the Browse button into each line in the last row. With kugar icon.
-
 32) Url Display: Row Width
 - Fixed Width for header browse
 - Fixed Maximum With for Header Time
@@ -101,13 +70,45 @@ url-display.cpp 133:
 
 33) Make the Browse icon a Browse Button with icon
 
-34)  Start Sync button or Menue switches to Url Display page
-
-35) Import Export IP lists XML connected
+34)  Start Sync button or Menue switches to Url Display page and start the progress bar (timed)
 
 36) Settings allow to disable Time Row View on url display
 
 37) Question, if the Network tab should be closable?
 
-38) 
+38) URL-Cell: Context Menu with command: "Rate Good", which overwrites the timestamp with the actual time,
+which causes this Good Rated Url to be on top and spread again. 
 
+
+
+DONE:
+
+--) DONE: database of URLs  - 1 of these (DONE)
+
+DONE) communicator to collect/send URLs  - 3 of these
+  - testing communicator that reads from stream, writes to stream
+  - direct communicator that uses TCP/SSL sockets
+
+  Things to define:
+
+--) DONE: address types
+  - this is per communicator
+
+--) DONE: URL data type (DONE)
+--) DONE: highlighting the description cell could expand the table line hight, so that the full description can be read? does Qt allow that?
+
+--) DONE: Status bar shows always the connection status "30/30", as well in the recent & search results, or appears back after a few seconds
+
+--) DONE: Hight of cells in the table should be less, so that more lines are in the display shown. Depends on mac compilation. Task for later.
+
+--) UNFUNCTIONAL: this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
+   -- this is not a URL, its not supposed to work - syntactically incorrect URLS will not always work, tell the edonkey people to fix their "urls".
+
+--) DONE handle large mounts of data, especially for the Doublette check: => done over hashcache for the last 10.000 entries, then full time for whole database check.
+   -- too early to call this "done", we haven't tested with any serious numbers
+
+--) DONE: make the ip stuff to talk to different peers: trusted/constant, remote, eposodic/flexible
+
+--) DONE Import Export IP lists XML connected
+
+--) DONE: Move the Browse button into each line in the last row. With kugar icon.
