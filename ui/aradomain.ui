@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -193,13 +193,21 @@
    </property>
   </action>
   <action name="actionShowUuid">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/roll.png</normaloff>:/images/roll.png</iconset>
+   </property>
    <property name="text">
-    <string>Display UUID</string>
+    <string>Display own UUID</string>
    </property>
   </action>
   <action name="actionMailUuid">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/mail.png</normaloff>:/images/mail.png</iconset>
+   </property>
    <property name="text">
-    <string>Mail UUID</string>
+    <string>Mail own UUID</string>
    </property>
   </action>
  </widget>

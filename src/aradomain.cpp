@@ -528,6 +528,7 @@ AradoMain::DisplayUuid ()
 {
   QMessageBox  box;
   box.setWindowTitle ("Arado");
+  box.setIconPixmap(QPixmap(":/images/roll.png"));
   box.setText (QString ("Your Arado UUID is \n"
                         "%1")
                .arg (ownUuid.toString()));
