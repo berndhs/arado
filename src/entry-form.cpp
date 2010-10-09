@@ -73,7 +73,7 @@ EntryForm::Save ()
   if (!newurl.IsValid ()) {
     QMessageBox box (this);
     box.setWindowTitle ("Arado");
-    //box.setIconPixmap(QPixmap(":/images/no.png"));
+    box.setIconPixmap(QPixmap(":/images/no.png"));
     QString message (tr("Invalid URL string \"%2\"\nwill not be saved.").arg(urlText));
     box.setText (message);
     box.exec ();
