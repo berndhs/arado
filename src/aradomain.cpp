@@ -1,6 +1,7 @@
 #include "aradomain.h"
 #include <QCloseEvent>
 #include <QApplication>
+#include <QClipboard>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -528,14 +529,22 @@ AradoMain::MailUuid ()
 void
 AradoMain::DisplayUuid ()
 {
-  QMessageBox  box;
+  QMessageBox  box (this);
   box.setWindowTitle (tr("Arado"));
   box.setIconPixmap(QPixmap(":/images/roll.png"));
   box.setText (tr ("Your Arado UUID is \n\n"
                         "%1")
                .arg (ownUuid.toString()));
+  QPushButton * copyBut = box.addButton (tr("Copy UUID"), 
+                           QMessageBox::YesRole);
+  QPushButton * okBut = box.addButton (tr("Ok"), 
+                           QMessageBox::AcceptRole);
   QTimer::singleShot (30000, &box, SLOT (accept()));
   box.exec ();
+  if (box.clickedButton() == copyBut) {
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText (ownUuid.toString ());
+  }
 }
 
 } // namespace
