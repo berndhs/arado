@@ -93,7 +93,7 @@
          </attribute>
          <column>
           <property name="text">
-           <string>ARADO-ID</string>
+           <string>ID</string>
           </property>
           <property name="toolTip">
            <string>The ARADO-ID is an URL-Shortener, you can post into any board, chat or email. Just doubleclick on it.</string>
