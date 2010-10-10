@@ -441,7 +441,7 @@ qDebug () << " got " << peers.size() << " Peers in message ";
         continue;
       }
       cuit->SetNick (tr("AutoElvis%1").arg(seq));
-      cuit->SetLevel ("C");
+      cuit->Demote ();
       added = db->AddPeer (*cuit);
       if (added) {
         numAdded++;

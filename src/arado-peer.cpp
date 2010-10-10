@@ -43,5 +43,41 @@ AradoPeer::AradoPeer (QString theNick,
 {
 }
 
+void
+AradoPeer::Promote ()
+{
+  level = Promote (level);
+}
+
+void
+AradoPeer::Demote ()
+{
+  level = Demote (level);
+}
+
+QString
+AradoPeer::Promote (const QString & level)
+{
+  QString newLevel (level);
+  if (level == "C") {
+    newLevel = "B";
+  } else if (level == "B") {
+    newLevel = "A";
+  } else if (level != "A") {
+    newLevel = "C";
+  }
+  return newLevel;
+}
+
+QString
+AradoPeer::Demote (const QString & level)
+{
+  QString newLevel ("C");
+  if (level == "A") {
+    newLevel = "B";
+  } 
+  return newLevel;
+}
+
 } // namespace
 

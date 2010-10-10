@@ -275,12 +275,7 @@ ConnectionDisplay::MoveLeft ()
     QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
     if (nickItem) {
       QString oldLevel = nickItem->data (Conn_Level).toString();
-      QString newLevel (oldLevel);
-      if (oldLevel == "B") {
-        newLevel = "A";
-      } else if (oldLevel == "C") {
-        newLevel = "B";
-      }
+      QString newLevel = AradoPeer::Promote (oldLevel);
       if (newLevel != oldLevel) {
         db->MovePeer (nickItem->text(), newLevel, oldLevel);
         QTimer::singleShot (500,this,SLOT (ShowPeers()));
@@ -298,12 +293,7 @@ ConnectionDisplay::MoveRight ()
     QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
     if (nickItem) {
       QString oldLevel = nickItem->data (Conn_Level).toString();
-      QString newLevel (oldLevel);
-      if (oldLevel == "B") {
-        newLevel = "C";
-      } else if (oldLevel == "A") {
-        newLevel = "B";
-      }
+      QString newLevel = AradoPeer::Demote (oldLevel);
       if (newLevel != oldLevel) {
         db->MovePeer (nickItem->text(), newLevel, oldLevel);
         QTimer::singleShot (500,this,SLOT (ShowPeers()));

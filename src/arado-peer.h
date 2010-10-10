@@ -64,6 +64,12 @@ public:
   void  SetUuid (const QUuid & u) { uuid = u; }
   void  SetState (PeerState s) { state = s; }
 
+  void  Demote ();
+  void  Promote ();
+
+  static QString Demote (const QString & level);
+  static QString Promote (const QString & level);
+
 private:
 
   QString        nick;
