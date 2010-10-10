@@ -59,7 +59,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
 {
   search = new Search (this);
   ui.setupUi (this);
-  ui.fakeButton->setEnabled (false);
+  //ui.fakeButton->setEnabled (false);
   browseIcon = QIcon (":/images/kugar.png");
   allowSort = ui.urlTable->isSortingEnabled ();
   connect (ui.urlTable, SIGNAL (currentCellChanged (int, int, int, int)),
