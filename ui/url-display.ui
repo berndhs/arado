@@ -257,6 +257,11 @@
              <height>43</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+            </font>
+           </property>
            <property name="toolTip">
             <string>Enter here a keyword and press the search button.</string>
            </property>
@@ -296,6 +301,9 @@
              <width>16777215</width>
              <height>60</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Arado is a networked URL Database, which saves your added URLs and syncs newest URLs with your connected devices.</string>
            </property>
            <property name="text">
             <string/>
