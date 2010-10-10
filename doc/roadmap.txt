@@ -1,5 +1,4 @@
-Things to implement:
-
+ideas for possible things to implement by occasion:
 
 01a) Search for 2 or more keywords.
 
@@ -18,10 +17,7 @@ Things to implement:
 
 09) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
 
-10) copy out of the sha1 can have the prefix "http://AID" (stands for Arado-ID plus sha1)
-   -- NO the sha1 is not a URL. A URL is something that allows you to locate a
-      resourse, that's why it is called a Universal Resource Locator.
-      Putting http:// in front of something doesn't make it an URL>
+10) copy out of the sha1 can have the prefix "Arado-ID" 
 
 11) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
@@ -36,21 +32,13 @@ Things to implement:
     -- Yes, this would be a nice thing to have. Maybe in a context menu of
        one of the items on the line, where there already is a mailto function.
 
-16) Save button in connections/devices tab closes the tab, opening over command like settings or status bar click
-    -- THere is no way to open the connections tab right now.
-
-17) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
-  -- this is a problem, the data should be per-user, not per-system.
-     Windows applications have been doing this wrong for 25 years.
-
-21) if the search box is empty and the search button is pressed, act like recent button and show latest results.
-  -- NO, if the search box is empty and the search button is pressed, do nothing.
-     If the user wants recent, they should click recent.
 
 22) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
   -- Why only one? If we add this, it only makes sense to add an arbitrary
      number of RSS feeds. Then we need an additional database, or additional
      tables in the ipbase.sql, to manage all the RSS feeds. This is real work.
+  -- Only One RSS Feed per user, as all other feeds come over other users.
+	RSS feed needs only one user to add the feed for all connected devices.
 
 
 23) Pressing the recent button should sort parallel the Date time top down, so the latest url on top.
@@ -61,6 +49,8 @@ Things to implement:
 24) settings option for enabled or disabled: "show time in display"-table
   -- what for? We don't want optional cloumns if we can avoid it. Add complexity
      when it actually adds funcitonality.
+  -- Timestamp is already shown in url display, new option in settings would be, to not show timestamp column,
+ 	if the recent button ic connected to a descending sortening, fresh on top.
 
 25) find an ipv4 way of talking end-to-end with peers
 a) finding the other IP => TBD over DHT, e.g. bitdht.sf.net (LGPL) or kadc.sf.net (GPL)
@@ -94,9 +84,6 @@ url-display.cpp 133:
 
 36) Settings allow to disable Time Row View on url display
 
-37) Question, if the Network tab should be closable?
-   -- probably not. It doesn't take up any extra space, and there is no way to
-      open it now. Unless we want another drop-down menu.
 
 38) URL-Cell: Context Menu with command: "Rate Good", which overwrites the timestamp with the actual time,
 which causes this Good Rated Url to be on top and spread again. 
@@ -139,3 +126,20 @@ DONE) communicator to collect/send URLs  - 3 of these
 --) DONE Import Export IP lists XML connected
 
 --) DONE: Move the Browse button into each line in the last row. With kugar icon.
+
+--) Question, if the Network tab should be closable?
+   -- probably not. It doesn't take up any extra space, and there is no way to
+      open it now. Unless we want another drop-down menu.
+  -- OK. Done.
+
+--) if the search box is empty and the search button is pressed, act like recent button and show latest results.
+  -- NO, if the search box is empty and the search button is pressed, do nothing.
+     If the user wants recent, they should click recent.
+ -- OK. Done.
+
+--) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
+  -- this is a problem, the data should be per-user, not per-system.
+     Windows applications have been doing this wrong for 25 years.
+
+--) Save button in connections/devices tab closes the tab, opening over command like settings or status bar click
+    -- THere is no way to open the connections tab right now.
