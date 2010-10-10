@@ -132,7 +132,7 @@
      </property>
      <property name="icon">
       <iconset resource="../arado.qrc">
-       <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
+       <normaloff>:/arado-logo-colo-128.png</normaloff>:/arado-logo-colo-128.png</iconset>
      </property>
      <property name="iconSize">
       <size>
