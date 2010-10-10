@@ -518,11 +518,25 @@ AradoMain::Poll (bool haveNew)
 void
 AradoMain::MailUuid ()
 {
-  QString uuline (tr("My Arado UUID: %1").arg (ownUuid));
+  QString welcomeline (tr("Please join me at Arado."));
+  QString blankline (tr(""));
+  QString uuline (tr("Add my Arado-UUID: %1").arg (ownUuid));
+  QString ipline   (tr("My (current) IP or DNS Address is:"));
+  QString portline (tr("My (forwarded) Port for Arado is:"));
+  QString webpageline (tr("http://arado.sf.net Websearch - Syncs, shortens and searches within (y)our URLs and Bookmarks."));
   QUrl   mailUrl;
   mailUrl.setScheme ("mailto");
   mailUrl.addQueryItem ("subject",tr("My Arado UUID"));
+  mailUrl.addQueryItem ("body",welcomeline);
+  mailUrl.addQueryItem ("body",blankline);
   mailUrl.addQueryItem ("body",uuline);
+  mailUrl.addQueryItem ("body",blankline);
+  mailUrl.addQueryItem ("body",ipline);
+  mailUrl.addQueryItem ("body",portline);
+  mailUrl.addQueryItem ("body",blankline);
+  mailUrl.addQueryItem ("body",webpageline);
+  // add external IP and Port automatically to mail body.
+  // add transparent-logo under the text.
   QDesktopServices::openUrl (mailUrl);
 }
 
@@ -537,13 +551,19 @@ AradoMain::DisplayUuid ()
                .arg (ownUuid.toString()));
   QPushButton * copyBut = box.addButton (tr("Copy UUID"), 
                            QMessageBox::YesRole);
-  QPushButton * okBut = box.addButton (tr("Ok"), 
+  // QPushButton * mailuuidBut = box.addButton (tr("Mail UUID"),
+  //                         QMessageBox::YesRole);
+  QPushButton * okBut = box.addButton (tr("OK"),
                            QMessageBox::AcceptRole);
   QTimer::singleShot (30000, &box, SLOT (accept()));
   box.exec ();
   if (box.clickedButton() == copyBut) {
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText (ownUuid.toString ());
+  // connect mail button
+  // if (box.clickedButton() == mailuuidBut) {
+  // emit MailUuid (); // :-(
+  //  }
   }
 }
 
