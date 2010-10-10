@@ -19,28 +19,48 @@ Things to implement:
 09) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
 
 10) copy out of the sha1 can have the prefix "http://AID" (stands for Arado-ID plus sha1)
+   -- NO the sha1 is not a URL. A URL is something that allows you to locate a
+      resourse, that's why it is called a Universal Resource Locator.
+      Putting http:// in front of something doesn't make it an URL>
 
 11) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
 13) status bar: show recent button deletes the connection info, maybe this should be added?
+   -- what does this mean ? There never was any connection into in the status
+      bar. It currently contains the status of what has recently been done.
 
 14) about help message:  Date could be like in the table and a new line (paragraph) after the version number.
+    -- NO. 
 
 15) a top pulldown menu to copy out or mail the whole line of the data entry, not only a cell
+    -- Yes, this would be a nice thing to have. Maybe in a context menu of
+       one of the items on the line, where there already is a mailto function.
 
 16) Save button in connections/devices tab closes the tab, opening over command like settings or status bar click
+    -- THere is no way to open the connections tab right now.
 
 17) portability, default install in windows for the ip and url sql databse next to the exe, not in users path, solution: over nsis installer set the registry value.
-  -- this is a problem, the data should be per-user, not per-system
+  -- this is a problem, the data should be per-user, not per-system.
+     Windows applications have been doing this wrong for 25 years.
 
 21) if the search box is empty and the search button is pressed, act like recent button and show latest results.
+  -- NO, if the search box is empty and the search button is pressed, do nothing.
+     If the user wants recent, they should click recent.
 
 22) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
+  -- Why only one? If we add this, it only makes sense to add an arbitrary
+     number of RSS feeds. Then we need an additional database, or additional
+     tables in the ipbase.sql, to manage all the RSS feeds. This is real work.
 
 
 23) Pressing the recent button should sort parallel the Date time top down, so the latest url on top.
+  -- No, the recent button should not affect how the data are sorted. They 
+     may be sorted by something other than date, because the user wants it that
+     way.
 
 24) settings option for enabled or disabled: "show time in display"-table
+  -- what for? We don't want optional cloumns if we can avoid it. Add complexity
+     when it actually adds funcitonality.
 
 25) find an ipv4 way of talking end-to-end with peers
 a) finding the other IP => TBD over DHT, e.g. bitdht.sf.net (LGPL) or kadc.sf.net (GPL)
@@ -75,9 +95,14 @@ url-display.cpp 133:
 36) Settings allow to disable Time Row View on url display
 
 37) Question, if the Network tab should be closable?
+   -- probably not. It doesn't take up any extra space, and there is no way to
+      open it now. Unless we want another drop-down menu.
 
 38) URL-Cell: Context Menu with command: "Rate Good", which overwrites the timestamp with the actual time,
 which causes this Good Rated Url to be on top and spread again. 
+  -- NO, this won't help spread the URL any more than it already is. The
+     timestamp is local, and other nodes will recoginize the hash (sha) and
+     won't update the URL.
 
 
 
@@ -103,6 +128,8 @@ DONE) communicator to collect/send URLs  - 3 of these
 
 --) UNFUNCTIONAL: this url to add does not work: ed2k://|file|Ununtu-Installer.exe|840874328|A277913309C5804099C64E513D7C56BB|/
    -- this is not a URL, its not supposed to work - syntactically incorrect URLS will not always work, tell the edonkey people to fix their "urls".
+   -- I object to labeling this "UNFUNCTIONAL", is sounds as if it is wrong 
+      in Arado. It isn't, it is wrong in eDonkey. (Bernd).
 
 --) DONE handle large mounts of data, especially for the Doublette check: => done over hashcache for the last 10.000 entries, then full time for whole database check.
    -- too early to call this "done", we haven't tested with any serious numbers

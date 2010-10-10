@@ -58,13 +58,11 @@ AradoPeer::Demote ()
 QString
 AradoPeer::Promote (const QString & level)
 {
-  QString newLevel (level);
+  QString newLevel ("C");
   if (level == "C") {
     newLevel = "B";
-  } else if (level == "B") {
+  } else if (level == "B" || level == "A") {
     newLevel = "A";
-  } else if (level != "A") {
-    newLevel = "C";
   }
   return newLevel;
 }
