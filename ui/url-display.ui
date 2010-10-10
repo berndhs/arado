@@ -246,8 +246,8 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>164</width>
-             <height>70</height>
+             <width>190</width>
+             <height>80</height>
             </size>
            </property>
            <property name="toolTip">
@@ -262,8 +262,8 @@
            </property>
            <property name="iconSize">
             <size>
-             <width>150</width>
-             <height>70</height>
+             <width>170</width>
+             <height>75</height>
             </size>
            </property>
            <property name="flat">
