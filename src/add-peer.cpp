@@ -76,6 +76,7 @@ AddPeerDialog::ResetDisplay ()
   addrUi.nickEdit->setText (defaultName);
   addrUi.addressEdit->clear ();
   addrUi.portEdit->clear ();
+  addrUi.uuidEdit->clear ();
 }
 
 void
