@@ -535,8 +535,9 @@ AradoMain::MailUuid ()
            << blankline
            << ipline
            << portline
+           << blankline
            << webpageline ;
-  mailUrl.addQueryItem ("body",mailBody.join("\n"));
+  mailUrl.addQueryItem ("body",mailBody.join("\r\n"));
   // add external IP and Port automatically to mail body.
   // add transparent-logo under the text.
   QDesktopServices::openUrl (mailUrl);
