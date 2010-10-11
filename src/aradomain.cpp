@@ -238,7 +238,7 @@ AradoMain::Connect ()
       connect (httpClient, SIGNAL (AddedUrls (int)),
                urlDisplay, SLOT (UrlsAdded (int)));
       connect (httpClient, SIGNAL (AddedPeers (int)),
-               connDisplay, SLOT (PeersAdded (int)));
+               this, SLOT (PeersAdded (int)));
     }
   }
   if (connDisplay && httpClient) {
