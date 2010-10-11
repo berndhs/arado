@@ -42,12 +42,6 @@ Q_OBJECT
 public:
 
   AddPeerDialog (QWidget *parent = 0);
-  void AddPeer (QString nick, 
-                QString addr, 
-                QString addrType, 
-                QString level, 
-                    int port,
-                QUuid   uuid);
   
   void SetDB (DBManager  *dbm) { db = dbm; }
 
@@ -65,6 +59,12 @@ signals:
 
 
 private:
+  bool AddPeer (QString nick, 
+                QString addr, 
+                QString addrType, 
+                QString level, 
+                    int port,
+                QUuid   uuid);
 
   Ui_AddressDialog   addrUi;
 

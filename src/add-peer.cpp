@@ -86,10 +86,12 @@ AddPeerDialog::Ok ()
   }
   int port = addrUi.portEdit->text().toInt();
   QUuid uuid = QUuid (addrUi.uuidEdit->text());
-  AddPeer (addrUi.nickEdit->text(),
+  bool added = AddPeer (addrUi.nickEdit->text(),
                 addrUi.addressEdit->text(),
                 kind, level, port, uuid);
-  accept ();
+  if (added) {
+    accept ();
+  }
 }
 
 void
@@ -112,7 +114,7 @@ AddPeerDialog::AddrReturn ()
   addrUi.portEdit->setFocus ();
 }
 
-void
+bool
 AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
                        QString level, int port, QUuid uuid )
 {
@@ -120,11 +122,22 @@ AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
   AradoPeer newPeer (nick, addr, addrType, level, port, 
                      uuid, AradoPeer::State_New);
   bool added (false);
+  bool writeit (true);
   if (db) {
     bool isknown = db->HavePeer (nick);
-    bool writeit (true);
+    if (uuid.isNull()) {
+      QMessageBox::StandardButton okOrNo = QMessageBox::warning (this,
+           tr("Arado"), tr("The UUID is not valid!\n"
+                           "Proceed anyway?"),
+           (QMessageBox::Yes | QMessageBox::No));
+      if (okOrNo & QMessageBox::Yes) {
+        writeit = true;
+      } else {
+        return false;
+      }
+    }
     if (isknown) {
-      QMessageBox box;
+      QMessageBox box (this);
       box.setWindowTitle(tr("Arado"));
       box.setIconPixmap(QPixmap(":/images/messagebox_info.png"));
       box.setText (
@@ -149,6 +162,7 @@ AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
   if (added) {
     emit NewPeer (nick);
   }
+  return writeit;
 }
 
 
