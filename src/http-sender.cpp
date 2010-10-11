@@ -39,6 +39,7 @@ namespace arado
 {
 
 HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
+                       bool letGet, bool letPut, bool talkAddr,
                        const QMap <QString, QString> & expectedFrom,
                        const QMap <QString, QString> & expectedType,
                        const QMap <QString, quint64> & accepted)
@@ -51,6 +52,9 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
    socket (sock),
    db (dbm),
    policy (pol),
+   grantGet (letGet),
+   allowPut (letPut),
+   tradeAddr (talkAddr),
    collectingPut (false),
    expectPeer (expectedFrom),
    expectType (expectedType),
@@ -217,6 +221,7 @@ HttpSender::HandleRequest (const QString & reqType,
   bool     isRequest (false);
   bool     isOffer (false);
   bool     isBad (false);
+  bool     wrongType (false);
   QString  datatype ("URL");
   QString  level ("0");
   QList <QPair<QString,QString> >::const_iterator cpit;
@@ -244,6 +249,9 @@ HttpSender::HandleRequest (const QString & reqType,
       isBad = isRequest;
     } else if (left == QString ("type")) {
       datatype = right.toUpper();
+      if (datatype == "ADDR" && !tradeAddr) {
+        wrongType = true;
+      }
     } else if (left == QString ("level")) {
       level = right.toUpper ();
     }
@@ -255,7 +263,13 @@ HttpSender::HandleRequest (const QString & reqType,
   if (isBad) {
     ReplyInvalid (QString ("Invalid Request"));
   } else {
-    if (isRequest && cmdRecent && !cmdRange) {
+    if (isRequest && !grantGet) {
+      ReplyInvalid (QString ("Service Not Provided"),405);
+    } else if (isOffer & !allowPut) {
+      ReplyInvalid (QString ("Not Accepted"),405);
+    } else if (wrongType) {
+      ReplyInvalid (QString ("Unsupported Type"),405);
+    } else if (isRequest && cmdRecent && !cmdRange) {
       ReplyRecent (maxItems, datatype, level);
     } else if (isRequest && cmdRange && !cmdRecent) {
       ReplyRange (useNewest, newest, useOldest, oldest, datatype, level);

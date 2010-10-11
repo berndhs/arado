@@ -44,9 +44,18 @@ HttpServer::HttpServer (QObject *parent)
    running (false),
    db (0),
    acceptCleaner (this),
-   acceptPause (15)
+   acceptPause (15),
+   grantGet (true),
+   allowPut (true),
+   tradeAddr (true)
 {
   connect (&acceptCleaner, SIGNAL (timeout()), this, SLOT (CleanAccept()));
+  grantGet = Settings().value ("http/getgrant",grantGet).toBool();
+  Settings ().setValue ("http/getgrant",grantGet);
+  allowPut = Settings().value("http/putallow",allowPut).toBool();
+  Settings ().setValue ("http/putallow",allowPut);
+  tradeAddr = Settings().value ("trade/addresses",tradeAddr).toBool();
+  Settings().setValue ("trade/addresses", tradeAddr);
 }
 
 bool
@@ -87,6 +96,7 @@ void
 HttpServer::incomingConnection (int sock)
 {
   HttpSender * sender = new HttpSender (sock, this, db, policy, 
+                                        grantGet, allowPut, tradeAddr,
                                         expectPeer, expectData, lastAccept);
   connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
   connect (sender, SIGNAL (ExpectData (QString, QString, QString)),

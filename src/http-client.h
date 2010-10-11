@@ -149,6 +149,9 @@ private:
   int                    nextServer;
 
   QNetworkAccessManager *network;
+  bool                   askGet;
+  bool                   offerPut;
+  bool                   tradeAddr;
 
   QList  <QNetworkReply*>             requestUrlWait;
   QList  <QNetworkReply*>             requestAddrWait;

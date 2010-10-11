@@ -23,6 +23,7 @@
 #include "arado-stream-parser.h"
 #include "policy.h"
 #include "arado-peer.h"
+#include "deliberate.h"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -30,6 +31,8 @@
 #include <QMessageBox>
 #include <QBuffer>
 #include <QTimer>
+
+using namespace deliberate;
 
 namespace arado
 {
@@ -39,11 +42,20 @@ HttpClient::HttpClient (QObject *parent)
    db(0),
    policy (0),
    nextServer (111),
-   network (0)
+   network (0),
+   askGet (true),
+   offerPut (true),
+   tradeAddr (true)
 {
   network = new QNetworkAccessManager (this);
   connect (network, SIGNAL (finished (QNetworkReply *)),
            this, SLOT (HandleReply (QNetworkReply *)));
+  askGet = Settings().value ("http/getask",askGet).toBool();
+  Settings ().setValue ("http/getask",askGet);
+  offerPut = Settings().value("http/putoffer",offerPut).toBool();
+  Settings ().setValue ("http/putoffer",offerPut);
+  tradeAddr = Settings().value ("trade/addresses",tradeAddr).toBool();
+  Settings().setValue ("trade/addresses", tradeAddr);
 }
 
 void
@@ -122,7 +134,9 @@ HttpClient::PollPeers (const QStringList & peerList)
       int serverNum = peers[nick];
       if (servers.contains (serverNum)) {
         Poll (servers[serverNum]);
-        PollAddr (servers[serverNum]);
+        if (tradeAddr) {
+          PollAddr (servers[serverNum]);
+        }
       } else {
         qDebug () << " NO server " << serverNum << " for " << nick << " server " << servers[serverNum].ident;
       }
@@ -162,8 +176,12 @@ HttpClient::Poll (HttpAddress & addr)
     basicUrl.setPort (addr.port);
     basicUrl.setPath ("/arado");
 
-    SendUrlRequestGet (basicUrl);
-    SendUrlOfferGet (basicUrl);
+    if (askGet) {
+      SendUrlRequestGet (basicUrl);
+    }
+    if (offerPut) {
+      SendUrlOfferGet (basicUrl);
+    }
   }
 }
 
@@ -184,8 +202,12 @@ HttpClient::PollAddr (HttpAddress & addr)
     basicUrl.setPort (addr.port);
     basicUrl.setPath ("/arado");
 
-    SendAddrRequestGet (basicUrl);
-    SendAddrOfferGet (basicUrl);
+    if (askGet) {
+      SendAddrRequestGet (basicUrl);
+    }
+    if (offerPut) {
+      SendAddrOfferGet (basicUrl); 
+    }
   }
 }
 

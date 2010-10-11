@@ -58,6 +58,7 @@ Q_OBJECT
 public:
 
   HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
+              bool letGet, bool letPut, bool talkAddr,
               const QMap<QString, QString> & expectedFrom,
               const QMap<QString, QString> & expectedType,
               const QMap<QString, quint64> & accepted);
@@ -109,6 +110,9 @@ private:
   QTcpSocket  *tcpSocket;
   DBManager   *db;
   Policy      *policy;
+  bool         grantGet;
+  bool         allowPut;
+  bool         tradeAddr;
   QBuffer      inbuf;
   int          expectSize;
   QString      receivingType;

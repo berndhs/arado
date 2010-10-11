@@ -77,6 +77,9 @@ private:
 
   QTimer        acceptCleaner;
   quint64       acceptPause;
+  bool          grantGet;
+  bool          allowPut;
+  bool          tradeAddr;
 
 };
 
