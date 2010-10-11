@@ -440,7 +440,7 @@ qDebug () << " got " << peers.size() << " Peers in message ";
       if (db->HavePeer (cuit->Uuid())) {
         continue;
       }
-      cuit->SetNick (tr("AutoElvis%1").arg(seq));
+      cuit->SetNick (tr("AradoElvis%1").arg(seq));
       cuit->Demote ();
       added = db->AddPeer (*cuit);
       if (added) {
