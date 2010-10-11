@@ -69,7 +69,7 @@ public slots:
   void  Refresh (bool whenHidden = false);
   void  Picked (QTableWidgetItem *item);
   void  AddButton ();
-  void  OpenUrl (QTableWidgetItem * urlItem = 0);
+  void  DoOpenUrl (QTableWidgetItem * urlItem = 0);
   void  DoSearch ();
   void  GetSearchResult (int resultid);
   void  UrlsAdded (int numAdded);

@@ -523,18 +523,20 @@ AradoMain::MailUuid ()
   QString uuline (tr("Add my Arado-UUID: %1").arg (ownUuid));
   QString ipline   (tr("My (current) IP or DNS Address is:"));
   QString portline (tr("My (forwarded) Port for Arado is:"));
-  QString webpageline (tr("http://arado.sf.net Websearch - Syncs, shortens and searches within (y)our URLs and Bookmarks."));
+  QString webpageline (tr("http://arado.sf.net Websearch - Syncs, shortens "
+                          "and searches within (y)our URLs and Bookmarks."));
   QUrl   mailUrl;
   mailUrl.setScheme ("mailto");
   mailUrl.addQueryItem ("subject",tr("My Arado UUID"));
-  mailUrl.addQueryItem ("body",welcomeline);
-  mailUrl.addQueryItem ("body",blankline);
-  mailUrl.addQueryItem ("body",uuline);
-  mailUrl.addQueryItem ("body",blankline);
-  mailUrl.addQueryItem ("body",ipline);
-  mailUrl.addQueryItem ("body",portline);
-  mailUrl.addQueryItem ("body",blankline);
-  mailUrl.addQueryItem ("body",webpageline);
+  QStringList mailBody;
+  mailBody << welcomeline
+           << blankline
+           << uuline
+           << blankline
+           << ipline
+           << portline
+           << webpageline ;
+  mailUrl.addQueryItem ("body",mailBody.join("\n"));
   // add external IP and Port automatically to mail body.
   // add transparent-logo under the text.
   QDesktopServices::openUrl (mailUrl);

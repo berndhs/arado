@@ -155,7 +155,6 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
     QString labelText (tr("Recent to %1").arg (labelTime));
-  //item = new QTableWidget::setCellWidget(int u, int 4, QPushbutton * widget); // Button in the cell
     item = new QTableWidgetItem (tr(""));
     item->setToolTip (tr("Browse"));
     item->setData (Url_Celltype, Cell_Browse);
@@ -207,7 +206,7 @@ UrlDisplay::ActiveCell (int row, int col, int oldRow, int oldCol)
         if (urlItem && 
             UrlCellType (urlItem->data (Url_Celltype).toInt()) 
              == Cell_Url) {
-          OpenUrl (urlItem);
+          DoOpenUrl (urlItem);
           break;
         }
       }
@@ -224,7 +223,7 @@ UrlDisplay::resizeEvent (QResizeEvent * event)
 }
 
 void
-UrlDisplay::OpenUrl (QTableWidgetItem * urlItem)
+UrlDisplay::DoOpenUrl (QTableWidgetItem * urlItem)
 {
   QTableWidgetItem * current (0);
   if (urlItem == 0) {
