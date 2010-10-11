@@ -448,9 +448,7 @@ qDebug () << " got " << peers.size() << " Peers in message ";
       }
     }
   }
-  if (numAdded > 0) {
-    emit AddedPeers (numAdded);
-  }
+  emit AddedPeers (numAdded);
 }
 
 void

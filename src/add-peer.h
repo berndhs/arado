@@ -66,12 +66,15 @@ private:
                     int port,
                 QUuid   uuid);
 
+  void ResetDisplay ();
+
   Ui_AddressDialog   addrUi;
 
   QMap <QAbstractButton *, QString>  addressType;
   QMap <QAbstractButton *, QString>  levelType;
 
   DBManager    *db;
+  QString       elvis;
 
 } ;
 

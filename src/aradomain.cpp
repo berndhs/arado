@@ -238,7 +238,7 @@ AradoMain::Connect ()
       connect (httpClient, SIGNAL (AddedUrls (int)),
                urlDisplay, SLOT (UrlsAdded (int)));
       connect (httpClient, SIGNAL (AddedPeers (int)),
-               connDisplay, SLOT (ShowPeers ()));
+               connDisplay, SLOT (PeersAdded (int)));
     }
   }
   if (connDisplay && httpClient) {
@@ -246,7 +246,7 @@ AradoMain::Connect ()
     connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (Poll(bool)));
   }
   if (httpClient && httpPoll) {
-    connect (httpPoll, SIGNAL (timeout()), httpClient, SLOT (Poll()));
+    connect (httpPoll, SIGNAL (timeout()), this, SLOT (Poll()));
   }
 }
 
@@ -359,7 +359,6 @@ AradoMain::NewUrl (const AradoUrl & newurl)
 {
   if (urlDisplay) {
     Q_UNUSED (newurl)
-    //urlDisplay->InsertUrl (newurl);
   }
 }
 
@@ -500,6 +499,24 @@ AradoMain::HaveNewPeer (QString peerid)
   RefreshPeers ();
   if (connDisplay) {
     connDisplay->ShowPeers ();
+  }
+}
+
+void
+AradoMain::PeersAdded (int howmany)
+{
+  if (howmany > 0) {
+    RefreshPeers ();
+  }
+}
+
+void
+AradoMain::UrlsAdded (int howmany)
+{
+  if (howmany > 0) {
+    if (urlDisplay) {
+      urlDisplay->Refresh ();
+    }
   }
 }
 

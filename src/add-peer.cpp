@@ -36,7 +36,8 @@ namespace arado
 
 AddPeerDialog::AddPeerDialog (QWidget *parent)
   :QDialog (parent),
-   db (0)
+   db (0),
+   elvis ("Elvis")
 {
   addrUi.setupUi (this);
   hide ();
@@ -57,19 +58,24 @@ AddPeerDialog::AddPeerDialog (QWidget *parent)
 void
 AddPeerDialog::Run ()
 {
-  quint64 now = QDateTime::currentDateTime().toTime_t();
-  QString elvis ("Elvis");
   elvis = Settings().value ("personal/elvis",elvis).toString();
   Settings().setValue ("personal/elvis",elvis);
-  QString defaultName (QString("%1%21").arg(elvis).arg(now));
-  addrUi.nickEdit->setText (defaultName);
-  addrUi.addressEdit->clear ();
-  addrUi.portEdit->clear ();
   addrUi.okButton->setDefault (false);
   addrUi.okButton->setAutoDefault (false);
   addrUi.cancelButton->setDefault (false);
   addrUi.cancelButton->setAutoDefault (false);
+  ResetDisplay ();
   show ();
+}
+
+void
+AddPeerDialog::ResetDisplay ()
+{
+  quint64 now = QDateTime::currentDateTime().toTime_t();
+  QString defaultName (QString("%1%21").arg(elvis).arg(now));
+  addrUi.nickEdit->setText (defaultName);
+  addrUi.addressEdit->clear ();
+  addrUi.portEdit->clear ();
 }
 
 void

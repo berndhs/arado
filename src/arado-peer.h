@@ -71,6 +71,7 @@ public:
   static QString Promote (const QString & level);
 
 private:
+  
 
   QString        nick;
   QString        addr;
