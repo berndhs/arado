@@ -128,7 +128,7 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     ui.urlTable->setSortingEnabled (false);
     QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
     item->setData (Url_Celltype, Cell_Hash);
-    item->setToolTip (tr("SHA1 hash of the URL"));
+    item->setToolTip (tr("Arado-Flashmark"));
     ui.urlTable->setItem (u,0,item);
 
     item = new QTableWidgetItem (url.Description ());

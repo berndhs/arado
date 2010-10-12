@@ -306,10 +306,10 @@
          </attribute>
          <column>
           <property name="text">
-           <string>Arado-Tweedle</string>
+           <string>Arado-Flashmark</string>
           </property>
           <property name="toolTip">
-           <string>The Arado-Tweedle is an URL-Shortener, you can post into any board, chat or email. Just doubleclick on the Tweedle.</string>
+           <string>The Arado-Flashmark is an URL-Shortener, you can post into any board, chat or email. Just doubleclick on the Flashmark.</string>
           </property>
           <property name="font">
            <font>
