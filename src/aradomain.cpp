@@ -78,7 +78,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   configEdit = new ConfigEdit (this);
   urlDisplay = new UrlDisplay (this);
   urlDisplay->SetDB (&dbMgr);
-  mainUi.tabWidget->addTab (urlDisplay, tr("Search"));
+  mainUi.tabWidget->addTab (urlDisplay, tr("Websearch"));
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
