@@ -324,9 +324,16 @@ UrlDisplay::CellMenu (const QTableWidgetItem *item,
     }
     return 0;
   } else if (select == mailAction) {
+    QStringList mailBodytotal;
     QString mailBody = item->text();
-    QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
-                      .arg (mailBody);
+    QString blankline (tr("    "));
+    QString webpageline (tr("Discover http://arado.sf.net Websearch - Syncs, shortens "
+                             "and searches within (y)our URLs and Bookmarks."));
+    mailBodytotal << mailBody
+                  << blankline
+                  << webpageline ;
+    QString urltext = tr("mailto:?subject=Aradofied\%20Web\%20Alert\%20for\%20you&body=%1")
+                      .arg (mailBodytotal.join("\r\n"));
     QDesktopServices::openUrl (urltext);
     return 0;
   } else {
