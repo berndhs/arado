@@ -180,9 +180,15 @@ CreateShortCut "$QUICKLAUNCH\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\A
  
  
 ; currently disabled from startmenu, please start uninstaller.exe from hard disk or windows removal,
-; because the uninstall.exe is on top of dooble.exe, which is the wrong order. -> enabled with v. 0.07
- CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
+; CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
  
+
+WriteRegStr HKCU "Software\Arado\arado\database" "ipbase"   "$INSTDIR\ipbase.sql" 
+WriteRegStr HKCU "Software\Arado\arado\database" "urlbase"   "$INSTDIR\urlbase.sql" 
+
+WriteRegStr HKCU "Software\Arado\arado\http" "run"   "true" 
+WriteRegStr HKCU "Software\Arado\arado\http" "port"   "0x00000050 (80)"
+
 
 # Default section end.
 
