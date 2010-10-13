@@ -17,7 +17,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="label">
      <property name="toolTip">
-      <string>Enter any URL. It will be shortend to an ARADO-ID you can post into any board, chat or email.</string>
+      <string>Enter any URL. It will be shortend to an ARADO-Flashmark you can post into any board, chat or email.</string>
      </property>
      <property name="text">
       <string>URL:</string>
