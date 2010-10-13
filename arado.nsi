@@ -8,7 +8,7 @@
 
 ;--------------------------------
 ; Define your application name
-!define APPNAME "Arado-Websearch"
+!define APPNAME "Arado"
 !define VERSION "0.01"
 !define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
 
@@ -156,6 +156,7 @@ file .\release\Arado.exe
 
 ;Create uninstaller
 WriteUninstaller "$INSTDIR\Uninstall.exe"
+Call Firewallsettings
 
 
 SetOutPath "$INSTDIR"
@@ -168,14 +169,11 @@ CreateShortCut "$FAVORITES\Websearch.lnk"  "http://arado.sourceforge.net/" "" ""
 
 ; Autorun in Start menu: not needed because it is in registry /=> switched now to startup = Autorun: 
 ; WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Arado"   "$INSTDIR\Arado.exe -a  silent /nosplash /minimized" 
+
 CreateShortCut "$SMSTARTUP\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0 SW_SHOWMINIMIZED
-
-
-
 
 ; Homepage Link icon disabled:
 ; CreateShortCut "$SMPROGRAMS\${APPNAME}\Homepage.lnk" "$INSTDIR\Homepage" "" "$INSTDIR\Homepage" 0
-
 
 CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
 CreateShortCut "$QUICKLAUNCH\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
@@ -197,10 +195,94 @@ sectionEnd
 # Create a section to define what the uninstaller does.
 # The section will always be named "Uninstall".
 
-section "Uninstall"
+;--------------------------------
+;Uninstaller Section
 
-# Always delete uninstaller first.
+Section "Uninstall"
 
-RMDir /r $INSTDIR
+; A Souvenir
+CreateShortCut "$DESKTOP\Homepage.lnk" "http://arado.sourceforge.net/" "" "http://arado.sourceforge.net/" 0
+CreateShortCut "$FAVORITES\Websearch.lnk"  "http://arado.sourceforge.net/" "" "http://arado.sourceforge.net/"  0
 
-sectionEnd
+
+; Delete files and uninstaller
+Delete "$INSTDIR\Uninstall.exe"
+Delete "$INSTDIR\*.*"
+
+
+; Remove directories used
+  RMDir "$SMPROGRAMS\${APPNAME}"
+	RMDir /r "$PROFILE\.arado" 
+	RMDir /r "$INSTDIR"     
+	RMDir /r "$INSTDIR\*.*" 
+  
+
+DeleteRegKey HKCU "Software\arado"
+DeleteRegKey /ifempty HKCU "Software\arado"
+
+
+Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" 
+RMDir "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" 
+
+Delete "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" 
+RMDir "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" 
+
+	
+Delete "$SMPROGRAMS\Arado.lnk" 
+RMDir  "$SMPROGRAMS\Arado.lnk" 
+
+	
+; Remove desktop shortcut
+  Delete "$DESKTOP\${APPNAME}.lnk" 
+
+; Remove Quicklaunch shortcut
+  Delete "$QUICKLAUNCH\${APPNAME}.lnk" 
+  
+; Delete "$SMPROGRAMS\${APPNAME}.lnk"
+  
+
+; Remove Quicklaunch shortcut
+  Delete "$QUICKLAUNCH\${APPNAME}.lnk"
+	
+; Remove Autostart shortcut
+	Delete "$SMSTARTUP\${APPNAME}.lnk" 
+
+  RMDir "$SMPROGRAMS\${APPNAME}"
+ Delete "$SMPROGRAMS\${APPNAME}"
+	
+	
+SectionEnd
+
+
+; ----------------------------------------
+; FUNCTIONS Firewall Exceptions 
+
+ Function Firewallsettings  
+; http://nsis.sourceforge.net/NSIS_Simple_Firewall_Plugin
+; Add an application to the firewall exception list - All Networks - All IP Version - Enabled
+
+SimpleFC::AddApplication "Arado.exe" "$INSTDIR\Arado.exe" 0 2 "" 1
+
+
+; Add an application rule to allow incoming TCP access on this application
+  SimpleFC::AdvAddRule "Incoming requests (TCP incoming)" \ 
+    "Allows incoming requests." "6" "0" "1" "7" "1" "PathToApplication" \ 
+    "" "@$INSTDIR\Arado.exe,-10000" "29998" "" "" ""
+  Pop $0 ; return error(1)/success(0)
+ 
+; Add an application rule to allow incoming TCP access on this application
+  SimpleFC::AdvAddRule "Incoming requests (TCP incoming)" \ 
+    "Allows incoming requests." "6" "0" "1" "7" "1" "PathToApplication" \ 
+    "" "@$INSTDIR\Arado.exe,-10000" "80" "" "" ""
+  Pop $0 ; return error(1)/success(0)
+
+ FunctionEnd
+
+;--------------------------------
+;Uninstaller Functions
+
+Function un.onInit
+
+  !insertmacro MUI_UNGETLANGUAGE
+  
+FunctionEnd
