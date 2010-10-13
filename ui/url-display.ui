@@ -178,7 +178,7 @@
             <string>Arado is a networked URL Database, which saves your added URLs and syncs newest URLs with your connected devices.</string>
            </property>
            <property name="text">
-            <string>Surfers' Hyper Galaxy</string>
+            <string>Web Surfers' URL Galaxy</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
