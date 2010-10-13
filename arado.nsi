@@ -22,7 +22,7 @@ Name "${APPNAMEANDVERSION}"
 ;Default installation folder:
 InstallDir "$INSTDIR\Arado"
 
-;InstallDirRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Dooble-Web-Browser" "UninstallString"
+;InstallDirRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Arado" "UninstallString"
 
 OutFile "Arado-Websearch-${VERSION}-Win-Setup.exe"
 BrandingText "${APPNAMEANDVERSION}"
@@ -137,7 +137,7 @@ SetCompressor LZMA
 LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it first."
 
 ;--------------------------------
-;Installer Section DOOBLE
+;Installer Section
 
 # Default section start.
 
@@ -187,7 +187,7 @@ WriteRegStr HKCU "Software\Arado\arado\database" "ipbase"   "$INSTDIR\ipbase.sql
 WriteRegStr HKCU "Software\Arado\arado\database" "urlbase"   "$INSTDIR\urlbase.sql" 
 
 WriteRegStr HKCU "Software\Arado\arado\http" "run"   "true" 
-WriteRegStr HKCU "Software\Arado\arado\http" "port"   "0x00000050 (80)"
+WriteRegDWORD HKCU "Software\Arado\arado\http" "port"   "80"
 
 
 # Default section end.
