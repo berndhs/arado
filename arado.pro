@@ -30,7 +30,7 @@ QT		+= gui network sql multimedia
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1
-
+ICON		= Images\arado-logo-colo-128.png
 
 TRANS_DIR = translate
 TRANSLATIONS += $$TRANS_DIR/arado_de.ts
@@ -40,7 +40,8 @@ MOC_DIR = tmp/moc
 RCC_DIR = tmp/rcc
 OBJECTS_DIR = tmp/obj
 
-RESOURCES   = arado.qrc
+RESOURCES        = arado.qrc
+RC_FILE          = arado.rc
 
 FORMS		=	ui/aradomain.ui \
                         ui/DebugLog.ui \
