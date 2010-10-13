@@ -125,7 +125,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>Save the added data to Arado!</string>
+      <string>Save the added data to Arado and create an Arado-Flashmark!</string>
      </property>
      <property name="text">
       <string>Arado!</string>
