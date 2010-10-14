@@ -241,6 +241,10 @@ AradoMain::Connect ()
                this, SLOT (PeersAdded (int)));
     }
   }
+  if (httpServer) {
+    connect (httpServer, SIGNAL (AddedPeers (int)),
+             this, SLOT (PeersAdded (int)));
+  }
   if (connDisplay && httpClient) {
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
     connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (Poll(bool)));
@@ -496,10 +500,7 @@ void
 AradoMain::HaveNewPeer (QString peerid)
 {
   Q_UNUSED (peerid)
-  RefreshPeers ();
-  if (connDisplay) {
-    connDisplay->ShowPeers ();
-  }
+  PeersAdded ();
 }
 
 void
@@ -507,6 +508,9 @@ AradoMain::PeersAdded (int howmany)
 {
   if (howmany > 0) {
     RefreshPeers ();
+    if (connDisplay) {
+      connDisplay->ShowPeers ();
+    }
   }
 }
 

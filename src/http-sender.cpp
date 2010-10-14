@@ -34,12 +34,13 @@
 #include <QUuid>
 #include <QBuffer>
 #include <QMessageBox>
+#include <QTimer>
 
 namespace arado
 {
 
 HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
-                       bool letGet, bool letPut, bool talkAddr,
+                       bool letGet, bool letPut, bool talkAddr, bool talkUrl,
                        const QMap <QString, QString> & expectedFrom,
                        const QMap <QString, QString> & expectedType,
                        const QMap <QString, quint64> & accepted)
@@ -55,6 +56,7 @@ HttpSender::HttpSender (int sock, QObject *parent, DBManager *dbm, Policy *pol,
    grantGet (letGet),
    allowPut (letPut),
    tradeAddr (talkAddr),
+   tradeUrl (talkUrl),
    collectingPut (false),
    expectPeer (expectedFrom),
    expectType (expectedType),
@@ -251,6 +253,8 @@ HttpSender::HandleRequest (const QString & reqType,
       datatype = right.toUpper();
       if (datatype == "ADDR" && !tradeAddr) {
         wrongType = true;
+      } else if (datatype == "URL" && !tradeUrl) {
+        wrongType = true;
       }
     } else if (left == QString ("level")) {
       level = right.toUpper ();
@@ -443,7 +447,14 @@ void
 HttpSender::ReceiveAddrs (AradoStreamParser & parser)
 {
   AradoPeerList peers = parser.ReadAradoPeerList ();
-qDebug () << " got " << peers.size() << " Peers in message ";
+qDebug () << " HttpSender got " << peers.size() << " Peers in message ";
+  #if 0
+QMessageBox box;
+box.setText (QString ("HttpSender receives peers: ") 
+             + QString::number(peers.size()));
+QTimer::singleShot (15000, &box, SLOT (accept()));
+box.exec ();
+  #endif
   int numAdded (0);
   bool added (false);
   AradoPeerList::iterator  cuit;

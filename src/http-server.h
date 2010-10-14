@@ -56,6 +56,11 @@ private slots:
   void  MarkExpected (QString path, QString host, QString datatype);
   void  MarkReceiving (QString path);
   void  CleanAccept ();
+  void  PeersAdded (int howmany = 1);
+
+signals:
+
+  void AddedPeers (int howmany);
 
 protected:
 
@@ -80,6 +85,7 @@ private:
   bool          grantGet;
   bool          allowPut;
   bool          tradeAddr;
+  bool          tradeUrl;
 
 };
 

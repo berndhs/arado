@@ -28,6 +28,8 @@
 #include "ui_connection-display.h"
 #include "arado-peer.h"
 
+class QTimer;
+
 namespace arado
 {
 
@@ -94,7 +96,8 @@ private:
   Ui_ConnectionDisplay   ui;
 
   DBManager             *db;
-  bool                  haveNew;
+  bool                   haveNew;
+  QTimer                *refreshTimer;
 
 };
 

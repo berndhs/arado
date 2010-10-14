@@ -152,6 +152,7 @@ private:
   bool                   askGet;
   bool                   offerPut;
   bool                   tradeAddr;
+  bool                   tradeUrl;
 
   QList  <QNetworkReply*>             requestUrlWait;
   QList  <QNetworkReply*>             requestAddrWait;

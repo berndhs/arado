@@ -45,7 +45,8 @@ HttpClient::HttpClient (QObject *parent)
    network (0),
    askGet (true),
    offerPut (true),
-   tradeAddr (true)
+   tradeAddr (true),
+   tradeUrl (true)
 {
   network = new QNetworkAccessManager (this);
   connect (network, SIGNAL (finished (QNetworkReply *)),
@@ -56,6 +57,8 @@ HttpClient::HttpClient (QObject *parent)
   Settings ().setValue ("http/putoffer",offerPut);
   tradeAddr = Settings().value ("trade/addresses",tradeAddr).toBool();
   Settings().setValue ("trade/addresses", tradeAddr);
+  tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
+  Settings().setValue ("trade/urls", tradeUrl);
 }
 
 void
@@ -133,7 +136,9 @@ HttpClient::PollPeers (const QStringList & peerList)
     if (peers.contains (nick)) {
       int serverNum = peers[nick];
       if (servers.contains (serverNum)) {
-        Poll (servers[serverNum]);
+        if (tradeUrl) {
+          Poll (servers[serverNum]);
+        }
         if (tradeAddr) {
           PollAddr (servers[serverNum]);
         }
@@ -154,7 +159,7 @@ HttpClient::PollAll (bool reloadServers)
   ServerMap::iterator sit;
   for (sit = servers.begin(); sit != servers.end(); sit++) {
     PollAddr (*sit);
-    Poll (*sit);
+    //Poll (*sit);
   }
   qDebug () << " HttpClient Poll done ";
 }
@@ -432,7 +437,14 @@ void
 HttpClient::ReceiveAddrs (AradoStreamParser & parser)
 {
   AradoPeerList peers = parser.ReadAradoPeerList ();
-qDebug () << " got " << peers.size() << " Peers in message ";
+qDebug () << " HttpClient got " << peers.size() << " Peers in message ";
+  #if 0
+QMessageBox box;
+box.setText (QString ("HttpClient receives peers: ") 
+             + QString::number(peers.size()));
+QTimer::singleShot (15000, &box, SLOT (accept()));
+box.exec ();
+  #endif
   int numAdded (0);
   bool added (false);
   AradoPeerList::iterator  cuit;
@@ -451,6 +463,7 @@ qDebug () << " got " << peers.size() << " Peers in message ";
       }
     }
   }
+  qDebug () << " emit AddedPeers " << numAdded;
   emit AddedPeers (numAdded);
 }
 

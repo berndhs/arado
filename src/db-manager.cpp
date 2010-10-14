@@ -95,7 +95,8 @@ DBManager::Start ()
              << "ippeers"
              << "ippeerindex"
              << "peeruuid"
-             << "uuindex";
+             << "uuindex"
+             << "uniqueuu";
 
   CheckDBComplete (ipBase, ipElements);
 
@@ -298,6 +299,7 @@ DBManager::AddPeer (AradoPeer & peer)
   qDebug () << " tried " << ok << " " << add.executedQuery();
   }
   CloseTransaction (DB_Address);
+  qDebug () << " AddPeer return " << ok;
   return ok;
 }
 

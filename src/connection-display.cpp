@@ -34,9 +34,13 @@ namespace arado
 
 ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   :QWidget (parent),
-   db (0)
+   db (0),
+   haveNew (true),
+   refreshTimer (0)
 {
   ui.setupUi (this);
+
+  connect (refreshTimer, SIGNAL (timeout()), this, SLOT (ShowPeers()));
 
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));

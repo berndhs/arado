@@ -56,6 +56,8 @@ HttpServer::HttpServer (QObject *parent)
   Settings ().setValue ("http/putallow",allowPut);
   tradeAddr = Settings().value ("trade/addresses",tradeAddr).toBool();
   Settings().setValue ("trade/addresses", tradeAddr);
+  tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
+  Settings().setValue ("trade/urls", tradeUrl);
 }
 
 bool
@@ -96,13 +98,14 @@ void
 HttpServer::incomingConnection (int sock)
 {
   HttpSender * sender = new HttpSender (sock, this, db, policy, 
-                                        grantGet, allowPut, tradeAddr,
+                                        grantGet, allowPut, tradeAddr, tradeUrl,
                                         expectPeer, expectData, lastAccept);
   connect (sender, SIGNAL (finished()), sender, SLOT (deleteLater ()));
   connect (sender, SIGNAL (ExpectData (QString, QString, QString)),
            this, SLOT (MarkExpected (QString, QString, QString)));
   connect (sender, SIGNAL (ReceivingData (QString)),
            this, SLOT (MarkReceiving (QString)));
+  connect (sender, SIGNAL (AddedPeers (int)), this, SLOT (PeersAdded (int)));
   sender->start ();
 }
 
@@ -139,6 +142,11 @@ HttpServer::CleanAccept ()
   }
 }
 
+void
+HttpServer::PeersAdded (int howmany)
+{
+  emit AddedPeers (howmany);
+}
 
 } // namespace
 
