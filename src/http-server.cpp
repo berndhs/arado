@@ -54,10 +54,10 @@ HttpServer::HttpServer (QObject *parent)
   Settings ().setValue ("http/getgrant",grantGet);
   allowPut = Settings().value("http/putallow",allowPut).toBool();
   Settings ().setValue ("http/putallow",allowPut);
-  tradeAddr = Settings().value ("trade/addresses",tradeAddr).toBool();
-  Settings().setValue ("trade/addresses", tradeAddr);
+  tradeAddr = Settings().value ("transfer/addresses",tradeAddr).toBool();
+  Settings().setValue ("transfer/addresses", tradeAddr);
   tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
-  Settings().setValue ("trade/urls", tradeUrl);
+  Settings().setValue ("transfer/urls", tradeUrl);
 }
 
 bool

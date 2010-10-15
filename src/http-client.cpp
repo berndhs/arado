@@ -56,10 +56,10 @@ HttpClient::HttpClient (QObject *parent)
   Settings ().setValue ("http/getask",askGet);
   offerPut = Settings().value("http/putoffer",offerPut).toBool();
   Settings ().setValue ("http/putoffer",offerPut);
-  tradeAddr = Settings().value ("trade/addresses",tradeAddr).toBool();
-  Settings().setValue ("trade/addresses", tradeAddr);
+  tradeAddr = Settings().value ("transfer/addresses",tradeAddr).toBool();
+  Settings().setValue ("transfer/addresses", tradeAddr);
   tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
-  Settings().setValue ("trade/urls", tradeUrl);
+  Settings().setValue ("transfer/urls", tradeUrl);
 }
 
 void
@@ -471,7 +471,7 @@ qDebug () << " HttpClient got " << peers.size() << " Peers in message ";
       if (db->HavePeer (cuit->Uuid())) {
         continue;
       }
-      cuit->SetNick (tr("AradoElvis%1").arg(seq));
+      cuit->SetNick (tr("AradoElvis_%1").arg(seq));
       cuit->Demote ();
       added = db->AddPeer (*cuit);
       if (added) {
