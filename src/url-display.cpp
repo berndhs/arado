@@ -287,6 +287,8 @@ UrlDisplay::Picked (QTableWidgetItem *item)
       CellMenuUrl (item);
     } else if (tipo == Cell_Desc) {
       CellMenuDesc (item);
+    } else if (tipo == Cell_Hash) {
+      CellMenuSendHash (item);
     } else {
       CellMenu (item);
     } 
@@ -359,6 +361,51 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
   }
 }
 
+void
+UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark to Facebook
+{
+  if (item == 0) {
+    return;
+  }
+  QAction * facebookAction = new QAction (tr("Send Flashmark to Facebook"),this);
+  facebookAction->setIcon(QPixmap(":/images/facebook.png"));
+  //
+  QAction * twitterAction = new QAction (tr("Send Flashmark to Twitter"),this);
+  twitterAction->setIcon(QPixmap(":/images/twitter.png"));
+  //
+  QAction * socnetAction = new QAction (tr("Send Flashmark to Socnet3"),this);
+  socnetAction->setIcon(QPixmap(":/images/wizard.png"));
+  //
+  QList<QAction*> list;
+  list.append (facebookAction);
+  list.append (twitterAction);
+  list.append (socnetAction);
+
+
+  QAction * select = CellMenu (item, list);
+  if (select == facebookAction) {
+    QUrl hash (item->text());
+    //define URL format of social network API
+    // http://www.facebook.com/share.php?u=HASHASURL
+    QDesktopServices::openUrl (hash);
+  }
+
+  if (select == twitterAction) {
+    QUrl hash (item->text());
+    //define URL format of social network API
+    // http://twitter.com/share?url=HASHASURL&via=AddThis&text=DESCRIPTION
+    QDesktopServices::openUrl (hash);
+  }
+
+  if (select == socnetAction) {
+    QUrl hash (item->text());
+    //define URL format of social network API
+    // e.g. Gmail: https://mail.google.com/mail/?view=cm&fs=1&to
+    // &su=DESCRIPTION&body=URL&ui=2&tf=1&shva=1
+    QDesktopServices::openUrl (hash);
+  }
+
+}
 
 void
 UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)

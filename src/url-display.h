@@ -93,6 +93,7 @@ private:
   void     Unlock ();
   void     ShowUrls (AradoUrlList & urls);
   void     CellMenuUrl (const QTableWidgetItem * item);
+  void     CellMenuSendHash (const QTableWidgetItem * item);
   void     CellMenuDesc (const QTableWidgetItem * item);
   QAction* CellMenu (const QTableWidgetItem *item,
                     const QList <QAction*> extraActions
