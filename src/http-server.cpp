@@ -30,6 +30,7 @@
 #include "policy.h"
 #include <QTcpServer>
 #include <QDateTime>
+#include <QHostInfo>
 
 using namespace deliberate;
 
@@ -72,7 +73,7 @@ HttpServer::Start ()
   acceptPause = Settings().value ("http/coolingtime",acceptPause).toInt();
   Settings().setValue ("http/coolingtime",acceptPause);
   if (runServer) {
-    Listen (QHostAddress (serverAddrString), serverPort);
+    Listen (serverAddrString, serverPort);
   }
   acceptCleaner.start (acceptPause);
   return false;
@@ -92,6 +93,23 @@ HttpServer::Listen (const QHostAddress & address,
   bool ok = listen (address, port);
   running |= ok;
   return ok;
+}
+
+bool
+HttpServer::Listen (const QString & host, quint16 port)
+{
+  if (deliberate::IsIp6Address (host) || deliberate::IsIp4Address (host)) {
+    return Listen (QHostAddress (host), port);
+  } else {
+    QHostInfo hinfo = QHostInfo::fromName (host);
+qDebug () << "listener " << host << "  address list " << hinfo.addresses();
+    QList<QHostAddress> addrList = hinfo.addresses();
+    QHostAddress addr;
+    if (!addrList.isEmpty()) {
+      addr = hinfo.addresses().first ();
+      return Listen (addr, port);
+    }
+  }
 }
 
 void

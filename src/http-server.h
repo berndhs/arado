@@ -48,6 +48,7 @@ public:
   bool Start ();
   bool Stop ();
   bool Running () { return running; }
+  bool Listen ( const QString & host, quint16 port = 0);
   bool Listen ( const QHostAddress & address = QHostAddress::Any, 
                 quint16 port = 0 );
 
