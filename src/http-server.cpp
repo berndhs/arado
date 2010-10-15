@@ -41,7 +41,7 @@ HttpServer::HttpServer (QObject *parent)
   :QTcpServer (parent),
    serverAddrString ("localhost"),
    serverPort (80),
-   runServer (false),
+   runServer (true),
    running (false),
    db (0),
    acceptCleaner (this),
