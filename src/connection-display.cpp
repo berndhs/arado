@@ -62,7 +62,13 @@ void
 ConnectionDisplay::DoStartSync ()
 {
   emit StartSync (haveNew);
-  haveNew = false;
+  haveNew = true;
+  QMessageBox  box;
+  box.setWindowTitle(tr("Arado"));
+  box.setIconPixmap(QPixmap(":/images/noatunloopsong.png"));
+  box.setText ("New Devices and latest URLs synced");
+  QTimer::singleShot (15000, &box, SLOT (accept()));
+  box.exec ();
 }
 
 void
