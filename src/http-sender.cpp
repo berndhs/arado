@@ -347,7 +347,9 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype,
     parse.SetOutDevice (tcpSocket);
     parse.Write (urls);
   } else if (datatype == QString ("ADDR")) {
-    AradoPeerList peers = db->GetPeers (level);
+    AradoPeerList peers = db->GetPeers ("A");
+    peers += db->GetPeers ("B");
+    peers += db->GetPeers ("C");
     AradoStreamParser parse;
     parse.SetOutDevice (tcpSocket);
     parse.Write (peers);
