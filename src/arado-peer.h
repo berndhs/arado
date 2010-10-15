@@ -25,6 +25,7 @@
 #include <QString>
 #include <QList>
 #include <QUuid>
+#include <QDebug>
 
 namespace arado
 {
@@ -69,6 +70,8 @@ public:
 
   static QString Demote (const QString & level);
   static QString Promote (const QString & level);
+
+  void  DebugDump ();
 
 private:
   

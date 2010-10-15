@@ -23,6 +23,7 @@
 #include "arado-stream-parser.h"
 #include "policy.h"
 #include "arado-peer.h"
+#include "http-client-reply.h"
 #include "deliberate.h"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -229,11 +230,11 @@ HttpClient::SendUrlRequestGet (const QUrl & basicUrl)
   req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
   req.setRawHeader ("User-Agent", "AradoURG/0.1");
   qDebug () << " Url request query " << req.url();
-  QNetworkReply * reply;
+  HttpClientReply * reply (0);
   if (network) {
-    reply = network->get (req);
+    reply = HttpClientReply::Get (network, req, HRT_Request, HDT_Url);
+    SaveReply (reply);
   }
-  requestUrlWait.append (reply);
 }
 
 void
@@ -246,11 +247,12 @@ HttpClient::SendUrlOfferGet (const QUrl & basicUrl)
   offer.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
   offer.setRawHeader ("User-Agent", "AradoofferWait");
   qDebug () << " Url offer query " << offer.url();
-  QNetworkReply * reply;
+  HttpClientReply * reply;
   if (network) {
-    reply = network->get (offer);
+    reply = HttpClientReply::Get (network, offer, HRT_Offer, HDT_Url);
+    reply->SetOrigUrl (offer.url());
+    SaveReply (reply);
   }
-  offerWait[reply] = offer.url();
 }
 
 void
@@ -266,11 +268,11 @@ HttpClient::SendAddrRequestGet (const QUrl & basicUrl)
   req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
   req.setRawHeader ("User-Agent", "AradoARG/0.1");
   qDebug () << " Addr request query " << req.url();
-  QNetworkReply * reply;
+  HttpClientReply * reply;
   if (network) {
-    reply = network->get (req);
+    reply = HttpClientReply::Get (network, req, HRT_Request, HDT_Addr);
+    SaveReply (reply);
   }
-  requestAddrWait.append (reply);
 }
 
 void
@@ -284,48 +286,60 @@ HttpClient::SendAddrOfferGet (const QUrl & basicUrl)
   offer.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
   offer.setRawHeader ("User-Agent", "AradoAOG/0.1");
   qDebug () << " Addr offer query " << offer.url();
-  QNetworkReply * reply;
+  HttpClientReply * reply;
   if (network) {
-    reply = network->get (offer);
+    reply = HttpClientReply::Get (network, offer, HRT_Offer, HDT_Addr);
+    reply->SetOrigUrl (offer.url());
+    SaveReply (reply);
   }
-  offerWait[reply] = offer.url();
 }
 
 void
 HttpClient::HandleReply (QNetworkReply * reply)
 {
-  if (!finishedCount.contains(reply)) {
-    finishedCount[reply] = 0;
-  }
-  finishedCount[reply] += 1;
-  qDebug () << " reply " << reply << " finished " << finishedCount[reply] << " times";
+  HttpClientReply  * hcReply = CheckReply (reply);
   qDebug () << " original request url " << reply->request().url();
   qDebug () << " original request headers " << reply->request().rawHeaderList();
-  qDebug () << " in url wait " << requestUrlWait.contains (reply);
-  qDebug () << " in put wait " << putWait.contains (reply);
-  qDebug () << " in offer url wait " << offerWait.contains (reply);
-  if (requestUrlWait.contains (reply) || requestAddrWait.contains (reply)) {
-    ProcessRequestReply (reply);
-  } else if (offerWait.contains (reply)) {
-    QUrl  originalUrl = offerWait[reply];
-    offerWait.remove (reply);
-    ProcessOfferReply (reply, originalUrl);
-  } else if (putWait.contains (reply)) {
-    QBuffer * putbuf = putWait[reply];
-    delete putbuf;
-    putWait.remove (reply);
-    reply->deleteLater ();
-  } else {
-    reply->deleteLater ();
+  if (hcReply == 0) {
+    qDebug () << " Unexpected Reply " << reply;
+    return;
   }
+  ForgetReply (hcReply);
+  HttpRequestType   hrt = hcReply->Type();
+  HttpDataType      hdt = hcReply->DataType();
+  qDebug () << " reply for Request type " << hrt << " data type " << hdt;
+  qDebug () << " status/error " << reply->error();
+  QUrl originalUrl;
+  switch (hrt) {
+  case HRT_Request:
+    ProcessRequestReply (hcReply);
+    break;
+  case HRT_Offer:
+    originalUrl = hcReply->OrigUrl ();
+qDebug () << " Reply Case 2";
+    ProcessOfferReply (hcReply, originalUrl);
+    break;
+  case HRT_Put:
+    delete putWait[hcReply];
+    break;
+  default:
+    break;
+  }
+  delete hcReply;
 }
 
 void
-HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
+HttpClient::ProcessOfferReply (HttpClientReply * reply, const QUrl & origUrl)
 {
+  if (reply == 0) {
+    return;
+  }
+  if (reply->Reply() == 0) {
+    return;
+  }
   AradoStreamParser parser;
   QBuffer buf;
-  buf.setData (reply->readAll());
+  buf.setData (reply->Reply()->readAll());
   qDebug () << " raw reply " << buf.buffer();
   buf.open (QBuffer::ReadOnly);
   buf.seek (0);
@@ -335,7 +349,6 @@ HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
   qDebug () << " Offer Reply command " << msg.Cmd();
   qDebug () << " Offer Reply status " << msg.Value ("status");
   qDebug () << " Offer Reply path " << msg.Value ("uupath");
-  reply->deleteLater();
   if (db && network && (msg.Cmd() == QString ("uupath"))
      && (msg.Value ("status") == QString ("send"))) {
     QUrl uploadUrl;
@@ -343,7 +356,7 @@ HttpClient::ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl)
     uploadUrl.setHost (origUrl.host());
     uploadUrl.setPort (origUrl.port());
     QString datatype = origUrl.queryItemValue ("type").toUpper();
-qDebug () << " Offer Rply datatype " << datatype;
+    HttpDataType  hdt (HDT_None);
     QString uupath (msg.Value("uupath"));
     if (uupath.length() > 0) {
       uploadUrl.setPath (QString ("/aradouu/") + uupath);
@@ -353,11 +366,13 @@ qDebug () << " Offer Rply datatype " << datatype;
       if (datatype == "URL") {
         AradoUrlList urls = db->GetRecent (100);
         parser.Write (urls);
+        hdt = HDT_Url;
       } else if (datatype == "ADDR") {
         AradoPeerList peers = db->GetPeers ("A");
         peers += db->GetPeers ("B");
         peers += db->GetPeers ("C");
         parser.Write (peers);
+        hdt = HDT_Addr;
       } 
       data->close ();
       qDebug () << " PUT write Buffer size " << data->buffer().size();
@@ -367,25 +382,35 @@ qDebug () << " Offer Rply datatype " << datatype;
       req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));
       req.setRawHeader ("User-Agent", "AradoOR/0.1");
       req.setRawHeader ("X-Data-Type", datatype.toUtf8());
-      network->put (req, data);
+qDebug () << " Offer Reply datatype " << datatype;
+qDebug () << " Offer Reply upload to " << req.url ();
+      HttpClientReply * hr = HttpClientReply::Put (network, req, 
+                                      HRT_Put, hdt, data);
+      putWait[hr] = data;
+      SaveReply (hr);
     }
   }
 }
 
 
 void
-HttpClient::ProcessRequestReply (QNetworkReply * reply)
+HttpClient::ProcessRequestReply (HttpClientReply * hcReply)
 {
-  qDebug () << " network reply " << reply;
+  qDebug () << " network reply " << hcReply;
+  QNetworkReply *netReply = hcReply->Reply();
+  if (netReply == 0) {
+    qDebug () << " Bad Empty reply " << hcReply;
+    return;
+  }
   QStringList replyMsg;
   replyMsg << QString ("Network Reply");
-  replyMsg << QString ("URL %1").arg(reply->url().toString());
-  replyMsg << QString ("remote port %1").arg(reply->url().port());
-  int err = reply->error ();
+  replyMsg << QString ("URL %1").arg(netReply->url().toString());
+  replyMsg << QString ("remote port %1").arg(netReply->url().port());
+  int err = netReply->error ();
   replyMsg << QString ("error %1").arg (err);
   replyMsg << QString ("req data type ");
-  replyMsg << reply->request().url().queryItemValue ("type");
-  QList <QNetworkReply::RawHeaderPair>  hdrs = reply->rawHeaderPairs();
+  replyMsg << netReply->request().url().queryItemValue ("type");
+  QList <QNetworkReply::RawHeaderPair>  hdrs = netReply->rawHeaderPairs();
   for (int i=0; i<hdrs.size (); i++) {
     QString hdrLine (QString ("%1 => %2")
                       .arg (QString (hdrs[i].first))
@@ -394,18 +419,15 @@ HttpClient::ProcessRequestReply (QNetworkReply * reply)
   }
   if (err == 0) {
     AradoStreamParser parser;
-    SkipWhite (reply);
-    parser.SetInDevice (reply, false);
-    if (requestUrlWait.contains (reply)) {
-      requestUrlWait.removeAll (reply);
+    SkipWhite (netReply);
+    parser.SetInDevice (netReply, false);
+    if (hcReply->DataType() == HDT_Url) {
       ReceiveUrls (parser);
-    } else if (requestAddrWait.contains (reply)) {
-      requestAddrWait.removeAll (reply);
+    } else if (hcReply->DataType() == HDT_Addr) {
       ReceiveAddrs (parser);
     }
   }
   qDebug () << replyMsg;
-  reply->deleteLater ();
 }
 
 void
@@ -438,13 +460,6 @@ HttpClient::ReceiveAddrs (AradoStreamParser & parser)
 {
   AradoPeerList peers = parser.ReadAradoPeerList ();
 qDebug () << " HttpClient got " << peers.size() << " Peers in message ";
-  #if 0
-QMessageBox box;
-box.setText (QString ("HttpClient receives peers: ") 
-             + QString::number(peers.size()));
-QTimer::singleShot (15000, &box, SLOT (accept()));
-box.exec ();
-  #endif
   int numAdded (0);
   bool added (false);
   AradoPeerList::iterator  cuit;
@@ -452,6 +467,7 @@ box.exec ();
     quint64 seq = QDateTime::currentDateTime().toTime_t();
     seq *= 10000;
     for (cuit = peers.begin(); cuit != peers.end(); cuit++, seq++) {
+      qDebug () << " HttpClient got peer " ; cuit->DebugDump ();
       if (db->HavePeer (cuit->Uuid())) {
         continue;
       }
@@ -503,6 +519,31 @@ HttpClient::ReloadServers (const QString & kind)
       }
     }
   }
+}
+
+void
+HttpClient::SaveReply (HttpClientReply * hcr)
+{
+  if (hcr) {
+    replyWait [hcr->Reply()] = hcr;
+  }
+}
+
+void
+HttpClient::ForgetReply (const HttpClientReply * hcr)
+{
+  replyWait.remove (hcr->Reply());
+}
+
+HttpClientReply *
+HttpClient::CheckReply (QNetworkReply *nr)
+{
+  if (nr) {
+    if (replyWait.contains (nr)) {
+      return replyWait[nr];
+    }
+  }
+  return 0;
 }
 
 

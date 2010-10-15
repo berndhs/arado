@@ -40,6 +40,7 @@ namespace arado
 
 class Policy;
 class AradoStreamParser;
+class HttpClientReply;
 
 class HttpAddress {
 public:
@@ -137,8 +138,12 @@ private:
   void ReceiveAddrs (AradoStreamParser & parser);
 
   void SkipWhite (QIODevice *dev);
-  void ProcessRequestReply (QNetworkReply * reply);
-  void ProcessOfferReply (QNetworkReply * reply, const QUrl & origUrl);
+  void ProcessRequestReply (HttpClientReply * reply);
+  void ProcessOfferReply (HttpClientReply * reply, const QUrl & origUrl);
+
+  void              SaveReply  (HttpClientReply * hcr);
+  void              ForgetReply (const HttpClientReply * hcr);
+  HttpClientReply * CheckReply (QNetworkReply * nr);
 
 
   DBManager   *db;
@@ -154,11 +159,8 @@ private:
   bool                   tradeAddr;
   bool                   tradeUrl;
 
-  QList  <QNetworkReply*>             requestUrlWait;
-  QList  <QNetworkReply*>             requestAddrWait;
-  QMap   <QNetworkReply*, QUrl>       offerWait;
-  QMap   <QNetworkReply*, QBuffer*>   putWait;
-  QMap   <QNetworkReply*, int>        finishedCount;
+  QMap   <QNetworkReply*, HttpClientReply*>  replyWait;
+  QMap   <HttpClientReply*, QBuffer*>   putWait;
 
 
 };

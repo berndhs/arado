@@ -30,7 +30,7 @@ QT		+= gui network sql multimedia
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1
-ICON		= Images\arado-logo-colo-128.png
+ICON		= images/arado-logo-colo-128.png
 
 TRANS_DIR = translate
 TRANSLATIONS += $$TRANS_DIR/arado_de.ts
@@ -78,6 +78,8 @@ HEADERS		=	src/aradomain.h \
                    src/add-peer.h \
                    src/arado-peer.h \
                    src/poll-sequence.h \
+                   src/http-client-reply.h \
+                   src/http-types.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -107,6 +109,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/add-peer.cpp \
                    src/arado-peer.cpp \
                    src/poll-sequence.cpp \
+                   src/http-client-reply.cpp \
 
 
 TARGET		= bin/arado

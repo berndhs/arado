@@ -77,5 +77,19 @@ AradoPeer::Demote (const QString & level)
   return newLevel;
 }
 
+void
+AradoPeer::DebugDump ()
+{
+  qDebug () << "AradoPeer [" 
+                 << "Nick (" << nick << ") "
+                 << "addr (" << addr << ") "
+                 << "addrType (" << addrType << ") "
+                 << "level (" << level << ") "
+                 << "port (" << port << ") "
+                 << "uuid (" << uuid << ") "
+                 << "state (" << state << ") "
+                 << "]";
+}
+
 } // namespace
 

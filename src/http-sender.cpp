@@ -252,8 +252,10 @@ HttpSender::HandleRequest (const QString & reqType,
     } else if (left == QString ("type")) {
       datatype = right.toUpper();
       if (datatype == "ADDR" && !tradeAddr) {
+qDebug () << __LINE__ << " Wrong Type " << datatype;
         wrongType = true;
       } else if (datatype == "URL" && !tradeUrl) {
+qDebug () << __LINE__ << " Wrong Type " << datatype;
         wrongType = true;
       }
     } else if (left == QString ("level")) {
@@ -296,7 +298,7 @@ HttpSender::ReplyInvalid (const QString & message, int error)
   lines << "Server: AradoErr/0.1\r\n";
   lines << "\r\n";
   lines << QDateTime::currentDateTime().toString () << "\n";
-  qDebug () << " sending error message " << lines;
+  qDebug () << "Reply INVALID sending error message " << lines;
   ostream << lines.join ("");
   tcpSocket->flush ();
   tcpSocket->close ();
@@ -448,20 +450,14 @@ HttpSender::ReceiveAddrs (AradoStreamParser & parser)
 {
   AradoPeerList peers = parser.ReadAradoPeerList ();
 qDebug () << " HttpSender got " << peers.size() << " Peers in message ";
-  #if 0
-QMessageBox box;
-box.setText (QString ("HttpSender receives peers: ") 
-             + QString::number(peers.size()));
-QTimer::singleShot (15000, &box, SLOT (accept()));
-box.exec ();
-  #endif
   int numAdded (0);
   bool added (false);
   AradoPeerList::iterator  cuit;
   if (db) {
     quint64 seq = QDateTime::currentDateTime().toTime_t();
     seq *= 10000;
-    for (cuit = peers.begin(); cuit != peers.end(); cuit++, seq++) {
+    for (cuit = peers.begin(); cuit != peers.end(); cuit++, seq++) {     
+      qDebug () << " HttpSender got peer " ; cuit->DebugDump ();
       if (db->HavePeer (cuit->Uuid())) {
         continue;
       }

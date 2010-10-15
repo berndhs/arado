@@ -40,8 +40,6 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 {
   ui.setupUi (this);
 
-  connect (refreshTimer, SIGNAL (timeout()), this, SLOT (ShowPeers()));
-
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.pushButton_A, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
