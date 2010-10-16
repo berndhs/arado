@@ -43,6 +43,7 @@
 #include <QTimer>
 #include <QResizeEvent>
 #include <QDebug>
+#include <QUrl>
 
 namespace arado
 {
@@ -384,26 +385,38 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
 
   QAction * select = CellMenu (item, list);
   if (select == facebookAction) {
-    QUrl hash (item->text());
-    //define URL format of social network API
-    // http://www.facebook.com/share.php?u=HASHASURL
-    // e.g.. http://www.facebook.com/sharer.php?u=http://arado-flashmark.0e745faa8fca5071dc7655f8f2532e82d19ce7d2.net
-    QDesktopServices::openUrl (hash);
+
+    QUrl facebookpost;
+    QString str = (item->text());
+         str.prepend("http://arado-flashmark.");
+         str.prepend("http://www.facebook.com/sharer.php?u=");
+         str.append(".net");
+    facebookpost = QUrl (str);
+    QDesktopServices::openUrl (facebookpost);
   }
 
   if (select == twitterAction) {
-    QUrl hash (item->text());
-    //define URL format of social network API
-    // http://twitter.com/share?url=http://arado-flashmark.0e745faa8fca5071dc7655f8f2532e82d19ce7d2.net
-    // &via=AddThis&text=DESCRIPTION
-    QDesktopServices::openUrl (hash);
+
+      QUrl twitterpost;
+      QString str = (item->text());
+           str.prepend("http://arado-flashmark.");
+           str.prepend("http://twitter.com/share?url=");
+           str.append(".net");
+           str.append("&via=AddThis&text=DESCRIPTION");
+      twitterpost = QUrl (str);
+      QDesktopServices::openUrl (twitterpost);
+
   }
 
   if (select == deliciousAction) {
-    QUrl hash (item->text());
-    // define URL format of social network delicious API:
-    // https://api.del.icio.us/v1/posts/add?&url=http://arado-flashmark.0e745faa8fca5071dc7655f8f2532e82d19ce7d2.net
-    QDesktopServices::openUrl (hash);
+
+      QUrl deliciouspost;
+      QString str = (item->text());
+           str.prepend("http://arado-flashmark.");
+           str.prepend("https://api.del.icio.us/v1/posts/add?&url=");
+           str.append(".net");
+      deliciouspost = QUrl (str);
+      QDesktopServices::openUrl (deliciouspost);
   }
 
 }
