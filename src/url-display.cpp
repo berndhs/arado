@@ -373,13 +373,13 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
   QAction * twitterAction = new QAction (tr("Send Flashmark to Twitter"),this);
   twitterAction->setIcon(QPixmap(":/images/twitter.png"));
   //
-  QAction * socnetAction = new QAction (tr("Send Flashmark to Socnet3"),this);
-  socnetAction->setIcon(QPixmap(":/images/wizard.png"));
+  QAction * deliciousAction = new QAction (tr("Send Flashmark to Delicious"),this);
+  deliciousAction->setIcon(QPixmap(":/images/delicious.png"));
   //
   QList<QAction*> list;
   list.append (facebookAction);
   list.append (twitterAction);
-  list.append (socnetAction);
+  list.append (deliciousAction);
 
 
   QAction * select = CellMenu (item, list);
@@ -397,7 +397,7 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
     QDesktopServices::openUrl (hash);
   }
 
-  if (select == socnetAction) {
+  if (select == deliciousAction) {
     QUrl hash (item->text());
     //define URL format of social network API
     // e.g. Gmail: https://mail.google.com/mail/?view=cm&fs=1&to
