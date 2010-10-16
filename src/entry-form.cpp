@@ -25,6 +25,7 @@
 #include "db-manager.h"
 #include <QMessageBox>
 #include <QSound>
+#include <QStyle>
 
 namespace arado
 {
@@ -35,6 +36,7 @@ EntryForm::EntryForm (QWidget *parent)
 {
   ui.setupUi (this);
   connect (ui.saveButton, SIGNAL (clicked()), this, SLOT (Save()));
+  ui.saveButton->setStyleSheet( "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 224), stop:1 rgb(100, 230, 100));" );
   connect (ui.cancelButton, SIGNAL (clicked()), this, SLOT (Clear()));
   connect (ui.doneButton, SIGNAL (clicked()), this, SLOT (Done ()));
   hide ();
