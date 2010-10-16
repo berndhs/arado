@@ -400,9 +400,8 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
       QUrl twitterpost;
       QString str = (item->text());
            str.prepend("http://arado-flashmark.");
-           str.prepend("http://twitter.com/share?url=");
+           str.prepend("http://twitthis.com/twit?url=");
            str.append(".net");
-           str.append("&via=AddThis&text=DESCRIPTION");
       twitterpost = QUrl (str);
       QDesktopServices::openUrl (twitterpost);
 
