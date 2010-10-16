@@ -78,14 +78,14 @@
    </widget>
    <widget class="QMenu" name="menuNetwork">
     <property name="title">
-     <string>Network</string>
+     <string>Connect</string>
     </property>
-    <addaction name="actionAddServer"/>
+    <addaction name="actionPoll"/>
     <addaction name="separator"/>
     <addaction name="actionImportIP"/>
     <addaction name="actionExportIP"/>
     <addaction name="separator"/>
-    <addaction name="actionPoll"/>
+    <addaction name="actionAddServer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuData"/>
