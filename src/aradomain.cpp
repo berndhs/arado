@@ -645,7 +645,7 @@ AradoMain::MailUuid ()
    QMessageBox  webmailbox (this);
    webmailbox.setWindowTitle (tr("Arado"));
    webmailbox.setText (tr ("If you have no e-Mail-Client on your Desktop installed,"
-                           "use one these Webmailers:"));
+                           " use one these Webmailers:"));
    //
    QPushButton * gmailBut = webmailbox.addButton (tr("GMail"),
                             QMessageBox::YesRole);
