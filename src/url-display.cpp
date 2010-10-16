@@ -387,21 +387,22 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
     QUrl hash (item->text());
     //define URL format of social network API
     // http://www.facebook.com/share.php?u=HASHASURL
+    // e.g.. http://www.facebook.com/sharer.php?u=http://arado-flashmark.0e745faa8fca5071dc7655f8f2532e82d19ce7d2.net
     QDesktopServices::openUrl (hash);
   }
 
   if (select == twitterAction) {
     QUrl hash (item->text());
     //define URL format of social network API
-    // http://twitter.com/share?url=HASHASURL&via=AddThis&text=DESCRIPTION
+    // http://twitter.com/share?url=http://arado-flashmark.0e745faa8fca5071dc7655f8f2532e82d19ce7d2.net
+    // &via=AddThis&text=DESCRIPTION
     QDesktopServices::openUrl (hash);
   }
 
   if (select == deliciousAction) {
     QUrl hash (item->text());
-    //define URL format of social network API
-    // e.g. Gmail: https://mail.google.com/mail/?view=cm&fs=1&to
-    // &su=DESCRIPTION&body=URL&ui=2&tf=1&shva=1
+    // define URL format of social network delicious API:
+    // https://api.del.icio.us/v1/posts/add?&url=http://arado-flashmark.0e745faa8fca5071dc7655f8f2532e82d19ce7d2.net
     QDesktopServices::openUrl (hash);
   }
 
