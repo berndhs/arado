@@ -28,6 +28,7 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QDebug>
+#include <QStyle>
 
 namespace arado
 {
@@ -43,6 +44,7 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.pushButton_A, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
+  ui.buttonAddDevice->setStyleSheet( "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 224), stop:1 rgb(100, 230, 100));" );
   connect (ui.pushButton_B, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.pushButton_C, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
