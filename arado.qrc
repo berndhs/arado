@@ -36,6 +36,11 @@
         <file alias="claim-white.png">images/arado-claim-white.png</file>
         <file>images/facebook.png</file>
         <file>images/twitter.png</file>
+        <file>images/thunderbird.png</file>
+        <file>images/gmail.png</file>
+        <file>images/ymail.png</file>
+        <file>images/hotmail.png</file>
+        <file>images/aim.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>

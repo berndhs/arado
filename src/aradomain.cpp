@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QUrl>
 #include <QTimer>
+#include <QStyle>
 #include "deliberate.h"
 #include "version.h"
 #include "config-edit.h"
@@ -539,6 +540,11 @@ AradoMain::Poll (bool haveNew)
 void
 AradoMain::MailUuid ()
 {
+
+  //
+  // Define Desktop-Mail-Client-Url: mailUrl
+  //
+
   QString welcomeline (tr("Please join me at Arado."));
   QString blankline (tr(""));
   QString uuline (tr("Add my Arado-UUID: %1").arg (ownUuid));
@@ -562,6 +568,137 @@ AradoMain::MailUuid ()
   // add external IP and Port automatically to mail body.
   // add transparent-logo under the text.
   QDesktopServices::openUrl (mailUrl);
+
+  
+  //
+  // Define Webmail-Url: gmailUrl
+  //
+
+  QUrl   gmailUrl;
+  gmailUrl.setScheme ("https://mail.google.com/mail/?view=cm&fs=1&to&su=My%20Arado%20UUID&ui=2&tf=1&shva=1&body=");
+  QStringList gmailBody;
+  gmailBody << welcomeline
+           << blankline
+           << uuline
+           << blankline
+           << ipline
+           << portline
+           << blankline
+           << webpageline ;
+  gmailUrl.addQueryItem ("",gmailBody.join("\r\n"));
+
+  //
+  // Define Webmail-Url: ymailUrl
+  //
+
+  QUrl   ymailUrl;
+  ymailUrl.setScheme ("http://www.yahoo.com/mail/?view=cm&fs=1&to&su=My%20Arado%20UUID&ui=2&tf=1&shva=1&body=");
+  QStringList ymailBody;
+  ymailBody << welcomeline
+            << blankline
+            << uuline
+            << blankline
+            << ipline
+            << portline
+            << blankline
+            << webpageline ;
+   ymailUrl.addQueryItem ("",ymailBody.join("\r\n"));
+
+   //
+   // Define Webmail-Url: hotmailUrl
+   //
+
+   QUrl   hotmailUrl;
+   hotmailUrl.setScheme ("http://www.hotmail.com/mail/?view=cm&fs=1&to&su=My%20Arado%20UUID&ui=2&tf=1&shva=1&body=");
+   QStringList hotmailBody;
+   hotmailBody << welcomeline
+             << blankline
+             << uuline
+             << blankline
+             << ipline
+             << portline
+             << blankline
+             << webpageline ;
+    hotmailUrl.addQueryItem ("",hotmailBody.join("\r\n"));
+
+    //
+    // Define Webmail-Url: aolmailUrl
+    //
+
+    QUrl   aolmailUrl;
+    aolmailUrl.setScheme ("http://www.mail.aol.com/mail/?view=cm&fs=1&to&su=My%20Arado%20UUID&ui=2&tf=1&shva=1&body=");
+    QStringList aolmailBody;
+    aolmailBody << welcomeline
+              << blankline
+              << uuline
+              << blankline
+              << ipline
+              << portline
+              << blankline
+              << webpageline ;
+     aolmailUrl.addQueryItem ("",aolmailBody.join("\r\n"));
+
+   //
+   // Open additional Messagebox for Webmail
+   //
+
+   QMessageBox  webmailbox (this);
+   webmailbox.setWindowTitle (tr("Arado"));
+   webmailbox.setText (tr ("If you have no e-Mail-Client on your Desktop installed,"
+                           "use one these Webmailers:"));
+   //
+   QPushButton * gmailBut = webmailbox.addButton (tr("GMail"),
+                            QMessageBox::YesRole);
+   gmailBut->setIcon(QPixmap(":/images/gmail.png"));
+   gmailBut->setToolTip (tr("Open GMail in the Browser."));
+   //
+   QPushButton * ymailBut = webmailbox.addButton (tr("YMail"),
+                            QMessageBox::YesRole);
+   ymailBut->setIcon(QPixmap(":/images/ymail.png"));
+   ymailBut->setToolTip (tr("Open Yahoo-Mail in the Browser."));
+   //
+   QPushButton * hotmailBut = webmailbox.addButton (tr("Hotmail"),
+                            QMessageBox::YesRole);
+   hotmailBut->setIcon(QPixmap(":/images/hotmail.png"));
+   hotmailBut->setToolTip (tr("Open Hotmail in the Browser."));
+   //
+   QPushButton * aolmailBut = webmailbox.addButton (tr("AOL-Mail"),
+                            QMessageBox::YesRole);
+   aolmailBut->setIcon(QPixmap(":/images/aim.png"));
+   aolmailBut->setToolTip (tr("Open AOL-Mail in the Browser."));
+   //
+   QPushButton * webokBut = webmailbox.addButton (tr(" I will use my Desktop e-Mail-Client"),
+                            QMessageBox::AcceptRole);
+   webokBut->setIcon(QPixmap(":/images/thunderbird.png"));
+   webokBut->setLayoutDirection(Qt::RightToLeft);
+   webokBut->setToolTip (tr("If you have no e-Mail-Client on your Desktop,"
+                        " we suggest to look for one of these open source e-Mail-Clients:"
+                        " KMail, Sylpheed, Evolution, Claws Mail or Thunderbird."));
+   //webokBut->setStyleSheet( "background-color: rgb(100, 230, 100);" );  // know bug, useage instead:
+   webokBut->setStyleSheet( "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 224), stop:1 rgb(100, 230, 100));" );
+
+
+   QTimer::singleShot (15000, &webmailbox, SLOT (accept()));
+
+   webmailbox.exec ();
+
+   //
+
+   if (webmailbox.clickedButton() == gmailBut) {
+   QDesktopServices::openUrl (gmailUrl);
+   }
+   
+   if (webmailbox.clickedButton() == ymailBut) {
+   QDesktopServices::openUrl (ymailUrl);
+   }
+
+   if (webmailbox.clickedButton() == hotmailBut) {
+   QDesktopServices::openUrl (hotmailUrl);
+   }
+
+   if (webmailbox.clickedButton() == aolmailBut) {
+   QDesktopServices::openUrl (aolmailUrl);
+   }
 }
 
 void
