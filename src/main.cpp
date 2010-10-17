@@ -58,8 +58,6 @@ main (int argc, char *argv[])
   opts.AddStringOption ("lang","l",
                    QObject::tr("language (2-letter lower case)"));
 
-  arado::AradoMain  arado (0,&app);
-
   deliberate::UseMyOwnMessageHandler ();
 
   bool optsOk = opts.Parse (argc, argv);
@@ -92,21 +90,27 @@ main (int argc, char *argv[])
     if (newlocale != locale) {   
       QString xlateFile (QString ("arado_") + newlocale);
       QString langDir (":/translate");
-      bool found = translate.load (xlateFile, langDir);
+      translate.load (xlateFile, langDir);
       QTextCodec::setCodecForTr (QTextCodec::codecForName ("utf8"));
       app.installTranslator (&translate);
     }
   }
 
   /** the real main program starts here **/
+  int appresult (0);
+  bool again (false);
+  do {
+    arado::AradoMain  arado (0,&app);
 
-  arado.setWindowIcon (QIcon (":/arado-logo-colo-128.png"));
-  app.setWindowIcon (arado.windowIcon());
-  arado.Start ();
+    arado.setWindowIcon (QIcon (":/arado-logo-colo-128.png"));
+    app.setWindowIcon (arado.windowIcon());
+    arado.Start ();
 
-  int appresult = app.exec ();
+    appresult = app.exec ();
+    again = arado.Again ();
+  } while (again);
 
-  return appresult + 42;
+  return appresult;
 
 
 }

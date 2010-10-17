@@ -58,6 +58,8 @@ public:
 
   void closeEvent (QCloseEvent * event);
 
+  bool Again ();
+
 public slots:
 
   void Quit ();
@@ -84,6 +86,8 @@ private slots:
   void MailUuid ();
   void DisplayUuid ();
 
+  void Restart ();
+
 private:
 
   void  Connect ();
@@ -109,6 +113,7 @@ private:
   QTimer             *httpPoll;
   int                 httpDefaultPort;
   QUuid               ownUuid;
+  bool                runAgain;
 
 };
 

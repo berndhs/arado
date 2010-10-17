@@ -72,7 +72,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    httpClient (0),
    httpPoll (0),
    httpDefaultPort (29998),
-   ownUuid (QUuid())
+   ownUuid (QUuid()),
+   runAgain (false)
 {
   app = pa;
   mainUi.setupUi (this);
@@ -100,6 +101,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
 void
 AradoMain::Start ()
 {
+  runAgain = false;
   qDebug () << "Arado Starting " << QDateTime::currentDateTime();
   if (!setupDone) {
     if (Settings().contains("sizes/main")) {
@@ -128,6 +130,21 @@ AradoMain::Start ()
   StartServers ();
   StartClients ();
   RefreshPeers ();
+}
+
+bool
+AradoMain::Again ()
+{
+  bool again = runAgain;
+  runAgain = false;
+  return again;
+}
+
+void
+AradoMain::Restart ()
+{
+  runAgain = true;
+  Quit ();
 }
 
 void
@@ -215,6 +232,8 @@ AradoMain::Connect ()
            this, SLOT (MailUuid ()));
   connect (mainUi.actionShowUuid, SIGNAL (triggered()),
            this, SLOT (DisplayUuid ()));
+  connect (mainUi.actionRestart, SIGNAL (triggered()),
+           this, SLOT (Restart ()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -574,19 +593,13 @@ AradoMain::DisplayUuid ()
                .arg (ownUuid.toString()));
   QPushButton * copyBut = box.addButton (tr("Copy UUID"), 
                            QMessageBox::YesRole);
-  // QPushButton * mailuuidBut = box.addButton (tr("Mail UUID"),
-  //                         QMessageBox::YesRole);
-  QPushButton * okBut = box.addButton (tr("OK"),
-                           QMessageBox::AcceptRole);
+  box.addButton (tr("OK"),
+                 QMessageBox::AcceptRole);
   QTimer::singleShot (30000, &box, SLOT (accept()));
   box.exec ();
   if (box.clickedButton() == copyBut) {
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText (ownUuid.toString ());
-  // connect mail button
-  // if (box.clickedButton() == mailuuidBut) {
-  // emit MailUuid (); // :-(
-  //  }
   }
 }
 
