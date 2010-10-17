@@ -272,7 +272,7 @@ UrlDisplay::GetSearchResult (int resultId)
       }
     }
     ShowUrls (urls);
-    ui.bottomLabel->setText (tr("Search Results %1").arg (searchData));
+    ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
   }
 }
 

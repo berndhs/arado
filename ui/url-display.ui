@@ -342,7 +342,7 @@
          </column>
          <column>
           <property name="text">
-           <string>First Contact</string>
+           <string>Time</string>
           </property>
           <property name="font">
            <font>

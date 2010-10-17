@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add Device-IP to start a connection</string>
+   <string>First Contact - Add Device-IP-Address to start a connection</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../arado.qrc">
