@@ -410,12 +410,17 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
   if (select == deliciousAction) {
 
       QUrl deliciouspost;
+
+      QTableWidgetItem * itemtitle = new QTableWidgetItem ();
+      itemtitle-> setData (Url_Celltype, Cell_Desc); // needs a fix to get the cell_desc as string
+
+      QString title = (itemtitle->text());
       QString str = (item->text());
            str.prepend("http://arado-flashmark.");
            str.prepend("http://www.delicious.com/save?url=");
            str.append(".net");
-           str.append("&title=");
-           str.append("Stringofdescriptioncell");
+           str.append("&title=Arado-Flashmark:%20");
+           str.append(title);
       deliciouspost = QUrl (str);
       QDesktopServices::openUrl (deliciouspost);
   }
