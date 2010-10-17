@@ -412,8 +412,10 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
       QUrl deliciouspost;
       QString str = (item->text());
            str.prepend("http://arado-flashmark.");
-           str.prepend("https://api.del.icio.us/v1/posts/add?&url=");
+           str.prepend("http://www.delicious.com/save?url=");
            str.append(".net");
+           str.append("&title=");
+           str.append("Stringofdescriptioncell");
       deliciouspost = QUrl (str);
       QDesktopServices::openUrl (deliciouspost);
   }
