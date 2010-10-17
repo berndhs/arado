@@ -74,6 +74,8 @@ public:
   bool  GetMatching (QStringList & hashList, 
                      const QStringList & keys,
                      bool combineAnd = true);
+  bool  SearchAny (QStringList & hashList,
+                   const QStringList & keys);
   bool  StartTransaction (DBType  t = DB_Url);
   bool  CloseTransaction (DBType  t = DB_Url);
 

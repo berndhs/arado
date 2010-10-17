@@ -68,6 +68,21 @@ qDebug () << " they want search for single " << key;
   return searchId;
 }
 
+int
+Search::Liberal (const QString & keystring)
+{
+qDebug () << " Liberal search";
+  if (busy) {
+    return -1;
+  }
+  keys.clear ();
+  keys.append (keystring.split (QRegExp("\\s+"),QString::SkipEmptyParts));
+  results.clear ();
+  searchId++;
+  QTimer::singleShot (10,this,SLOT (DoAnySearch ()));
+  return searchId;
+}
+
 bool
 Search::ResultReady (int resultId)
 {
@@ -115,6 +130,21 @@ Search::DoSearch ()
   if (db) {
     results.clear ();
     db->GetMatching (results, keys);
+    emit Ready (searchId);
+    busy = false;
+  } else {
+    results.clear ();
+    emit Ready (searchId);
+    busy = false;
+  }
+}
+
+void
+Search::DoAnySearch ()
+{
+  if (db) {
+    results.clear ();
+    db->SearchAny (results, keys);
     emit Ready (searchId);
     busy = false;
   } else {

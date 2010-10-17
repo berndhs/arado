@@ -476,6 +476,39 @@ DBManager::GetMatching (QStringList & hashList,
   return (ok);
 }
 
+bool
+DBManager::SearchAny (QStringList & hashList, 
+                        const QStringList & keys)
+{
+  hashList.clear ();
+  if (keys.size() < 1) {
+    return false;
+  }
+  QString cmd ("select distinct urltable.hashid "
+                "from urltable, keywords where ");
+  QString wherePhrase ("(urltable.url LIKE \"\%%1\%\") "
+                       " OR (urltable.hashid LIKE \"\%%1\%\") "
+                       " OR (keywords.hashid = urltable.hashid AND "
+                            " keywords.keyword LIKE \"\%%1\%\") "
+                       " OR (urltable.description LIKE \"\%%1\%\") ");
+  QString combine (" OR ");
+  cmd.append (wherePhrase.arg (keys.at(0)));
+  for (int i=1; i<keys.size(); i++) {
+    cmd.append (combine);
+    cmd.append (wherePhrase.arg (keys.at(i)));
+  }
+  QSqlQuery select (urlBase);
+  bool ok = select.exec (cmd);
+  qDebug () << "SEARCH " << ok << " for " << select.executedQuery();
+  QString hash;
+  while (ok && select.next ()) {
+    hash = select.value(0).toString();
+    hashList.append (hash);
+  }
+  qDebug () << " SEARCH got " << hashList.size() << " results";
+  return (ok);
+}
+
 AradoPeerList
 DBManager::GetPeers (const QString & kind)
 {
