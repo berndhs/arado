@@ -155,7 +155,7 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     ui.urlTable->setSortingEnabled (allowSort);
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
-    QString labelText (tr("Recent to %1").arg (labelTime));
+    QString labelText (tr("Collective Consciousness to %1").arg (labelTime));
     item = new QTableWidgetItem (tr(""));
     item->setToolTip (tr("Browse"));
     item->setData (Url_Celltype, Cell_Browse);
