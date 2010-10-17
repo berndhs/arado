@@ -38,6 +38,14 @@
        <height>24</height>
       </size>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0.968, y1:0.932, x2:0.513, y2:0.5, stop:0 rgba(183, 235, 255, 255), stop:1 rgba(255, 255, 255, 255));</string>
+     </property>
     </widget>
    </item>
    <item row="3" column="0">
@@ -58,6 +66,16 @@
        <verstretch>15</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0.968, y1:0.932, x2:0.513, y2:0.5, stop:0 rgba(183, 235, 255, 255), stop:1 rgba(255, 255, 255, 255));</string>
+     </property>
     </widget>
    </item>
    <item row="6" column="2" rowspan="4">
@@ -68,8 +86,17 @@
        <verstretch>20</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <italic>false</italic>
+      </font>
+     </property>
      <property name="toolTip">
-      <string>enter keywords separated by newline, comma (,) or semicolon (;)</string>
+      <string>Enter some keywords for the URL. Each line a new keyword or pair of words (phrase as one keyword), avoid comma (,) or semicolon (;).</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0.968, y1:0.932, x2:0.513, y2:0.5, stop:0 rgba(183, 235, 255, 255), stop:1 rgba(255, 255, 255, 255));</string>
      </property>
     </widget>
    </item>
@@ -101,9 +128,6 @@
    </item>
    <item row="6" column="0">
     <widget class="QLabel" name="label_3">
-     <property name="toolTip">
-      <string>Enter some keywords for the URL.</string>
-     </property>
      <property name="text">
       <string>Keywords:</string>
      </property>
