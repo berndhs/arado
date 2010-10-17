@@ -83,6 +83,7 @@ bool
 HttpServer::Stop ()
 {
   acceptCleaner.stop ();
+  close ();
   return true;
 }
 
@@ -91,6 +92,7 @@ HttpServer::Listen (const QHostAddress & address,
                           quint16 port)
 {
   bool ok = listen (address, port);
+  qDebug () << " listen " << ok << " address " << address << " port " << port;
   running |= ok;
   return ok;
 }
@@ -98,6 +100,7 @@ HttpServer::Listen (const QHostAddress & address,
 bool
 HttpServer::Listen (const QString & host, quint16 port)
 {
+qDebug () << " try listen to host " << host << " port " << port;
   if (deliberate::IsIp6Address (host) || deliberate::IsIp4Address (host)) {
     return Listen (QHostAddress (host), port);
   } else {
@@ -110,6 +113,7 @@ qDebug () << "listener " << host << "  address list " << hinfo.addresses();
       return Listen (addr, port);
     }
   }
+  return false;
 }
 
 void

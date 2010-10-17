@@ -412,7 +412,7 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
       QUrl deliciouspost;
 
       QTableWidgetItem * itemtitle = new QTableWidgetItem ();
-      itemtitle-> setData (Url_Celltype, Cell_Desc); // needs a fix to get the cell_desc as string
+      itemtitle-> setData (Url_Celltype, Cell_Desc); 
 
       QString title = (itemtitle->text());
       QString str = (item->text());

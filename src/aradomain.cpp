@@ -144,6 +144,8 @@ void
 AradoMain::Restart ()
 {
   runAgain = true;
+  StopServers ();
+  StopClients ();
   Quit ();
 }
 
@@ -179,6 +181,17 @@ AradoMain::StartClients ()
 }
 
 void
+AradoMain::StopClients ()
+{
+  if (httpPoll) {
+    httpPoll->stop ();
+  }
+  if (httpClient) {
+    httpClient->DropAllServers ();
+  }
+}
+
+void
 AradoMain::AddServer ()
 {
   addPeerDialog->Run ();
@@ -191,17 +204,6 @@ AradoMain::AddFeed ()
   box.setText ("Add RSS/Atom is TBD");
   QTimer::singleShot (15000, &box, SLOT (accept()));
   box.exec ();
-}
-
-void
-AradoMain::StopClients ()
-{
-  if (httpPoll) {
-    httpPoll->stop ();
-  }
-  if (httpClient) {
-    httpClient->DropAllServers ();
-  }
 }
 
 void
