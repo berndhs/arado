@@ -323,6 +323,7 @@ AradoMain::slotAbout ()
   mb.setText(text);
   mb.setStandardButtons(QMessageBox::Ok);
   mb.setIconPixmap(QPixmap(":/arado-logo-colo-128.png"));
+  mb.setStyleSheet( "background-color: qlineargradient(spread:pad, x1:0.968, y1:0.932, x2:0.513, y2:0.5, stop:0 rgba(183, 235, 255, 255), stop:1 rgba(255, 255, 255, 255));" );
   mb.exec();
 }
 
