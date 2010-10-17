@@ -1,16 +1,7 @@
 ideas for possible things to implement by occasion:
 
-01a) Search for 2 or more keywords.
-
-04) collector that collects communicator peer addresses - 1 for each communicator
 
 05) add Base64 I2p Support
-
-07) address type, this can contain ANY type of address
-  - specific address types
-    - testing stream communicator addresses
-    - direct communicator addresses
-    - gnutella addresses
 
 08)  communicator throttling mechanisms
   - bucket algorithms for trusted/recommended/episodic sources of data
@@ -91,8 +82,30 @@ which causes this Good Rated Url to be on top and spread again.
      timestamp is local, and other nodes will recoginize the hash (sha) and
      won't update the URL.
 
+39) Extended Search: Second Press on Search Button could ask the connected peers for hash or keyword, option to disable in settings, default on
 
+40) No hardcoded url to webmailers for UUID Mailsent
 
+41) OWN Ip and UUID is sent over Sync Button-Press, but not by default, otherwise a lot of users will not connect.
+
+42) Move Database to another hard disk.
+
+43) Get/api: replace "arado" in url-string with UUID. Mabye make "request" = "r" and count = "c" to be shorter?
+
+44) https?
+
+45) Extended Search: Second press on the Search button, with same searchterms, ask a few central searchengines, e.g. yacy Portals,
+but extended search should not ask Arado nodes, as this search is done locally as filter only.
+
+46) Thumbnail-image: Search URL Cell for webloadable URL, if not found/loadable, do the same for keywords cell,
+    load the url in a hidden Qtwebkit-window process and make a thumbnail
+    Start this process and load the Weburl in case, the user clicks on the description cell with then higher Hight, and display the thumbnail png on the left.
+    The Arado XML then might need an entryitem >thumbnail< which points to a hash for the image database cache with 1000 impage entries
+    or and reply get to the server to generate then (in a webinterface) 10 thumbnails
+    http://127.0.0.1/arado?request=recent&count=5   -> might need to be extended then with "&webgui=true", to know get requestes to create 10 thumbnails
+    are of interest.
+
+===============================================================================================================
 DONE:
 
 --) DONE: database of URLs  - 1 of these (DONE)
@@ -143,3 +156,13 @@ DONE) communicator to collect/send URLs  - 3 of these
 
 --) Save button in connections/devices tab closes the tab, opening over command like settings or status bar click
     -- THere is no way to open the connections tab right now.
+
+--) DONE: address type, this can contain ANY type of address
+  - specific address types
+    - testing stream communicator addresses
+    - direct communicator addresses
+    - gnutella addresses
+
+--) DONE: collector that collects communicator peer addresses - 1 for each communicator
+
+--) DONE: Search for 2 or more keywords.
