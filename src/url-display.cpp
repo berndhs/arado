@@ -290,6 +290,8 @@ UrlDisplay::Picked (QTableWidgetItem *item)
       CellMenuDesc (item);
     } else if (tipo == Cell_Hash) {
       CellMenuSendHash (item);
+    } else if (tipo == Cell_Time) {
+      CellMenuTime (item);
     } else {
       CellMenu (item);
     } 
@@ -359,6 +361,27 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
   if (select == openAction) {
     QUrl url (item->text());
     QDesktopServices::openUrl (url);
+  }
+}
+
+
+void
+UrlDisplay::CellMenuTime (const QTableWidgetItem * item)
+{
+  if (item == 0) {
+    return;
+  }
+  QAction * excludefromshownurlsAction = new QAction (tr("Dont show up again: Remove URL"),this);
+  excludefromshownurlsAction->setIcon(QPixmap(":/images/cancel.png"));
+  QList<QAction*> list;
+  list.append (excludefromshownurlsAction);
+
+  QAction * select = CellMenu (item, list);
+  if (select == excludefromshownurlsAction) {
+    QUrl url (item->text());
+    QDesktopServices::openUrl (url); // change to:
+    // blacklist Url = filter searchresults for hashbucket.
+    // add hash to blacklist in a .txt file for hashes and keywords not to show these results in searchresults.
   }
 }
 
