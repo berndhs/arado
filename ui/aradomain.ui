@@ -212,6 +212,10 @@
    </property>
   </action>
   <action name="actionRestart">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/exec.png</normaloff>:/images/exec.png</iconset>
+   </property>
    <property name="text">
     <string>Restart</string>
    </property>

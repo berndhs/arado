@@ -42,6 +42,7 @@
         <file>images/ymail.png</file>
         <file>images/hotmail.png</file>
         <file>images/aim.png</file>
+        <file>images/exec.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
