@@ -173,7 +173,7 @@ void
 UrlDisplay::UrlsAdded (int numAdded)
 {
   Q_UNUSED (numAdded)
-  QString labelText = tr("Network update at %1")
+  QString labelText = tr("Last update at %1")
                        .arg(QDateTime::currentDateTime().toString("hh:mm:ss"));
   ui.bottomLabel->setText (labelText);
 }
