@@ -297,6 +297,7 @@ HttpSender::ReplyInvalid (const QString & message, int error)
   lines << "Connection: close\r\n";
   lines << "Server: AradoErr/0.1\r\n";
   lines << "\r\n";
+  lines << message << "\r\n";
   lines << QDateTime::currentDateTime().toString () << "\n";
   qDebug () << "Reply INVALID sending error message " << lines;
   ostream << lines.join ("");

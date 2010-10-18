@@ -48,7 +48,8 @@ HttpServer::HttpServer (QObject *parent)
    acceptPause (15),
    grantGet (true),
    allowPut (true),
-   tradeAddr (true)
+   tradeAddr (true),
+   tradeUrl (true)
 {
   connect (&acceptCleaner, SIGNAL (timeout()), this, SLOT (CleanAccept()));
   grantGet = Settings().value ("http/getgrant",grantGet).toBool();
@@ -57,7 +58,7 @@ HttpServer::HttpServer (QObject *parent)
   Settings ().setValue ("http/putallow",allowPut);
   tradeAddr = Settings().value ("transfer/addresses",tradeAddr).toBool();
   Settings().setValue ("transfer/addresses", tradeAddr);
-  tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
+  tradeUrl = Settings().value ("transfer/urls",tradeUrl).toBool();
   Settings().setValue ("transfer/urls", tradeUrl);
 }
 
