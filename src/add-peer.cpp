@@ -131,7 +131,7 @@ AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
   bool added (false);
   bool writeit (true);
   if (db) {
-    bool isknown = db->HavePeer (nick);
+    bool isknown = db->HavePeerS (nick) || db->HavePeerU (uuid);
     if (uuid.isNull()) {
       QMessageBox::StandardButton okOrNo = QMessageBox::warning (this,
            tr("Arado"), tr("The UUID is not valid!\n"
@@ -157,7 +157,7 @@ AddPeerDialog::AddPeer (QString nick, QString addr, QString addrType,
       int choice = box.exec ();
       writeit = (choice & QMessageBox::Yes);
       if (writeit) {
-        db->RemovePeer (nick);
+        db->RemovePeerS (nick);
       }
     }
     if (writeit) {

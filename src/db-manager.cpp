@@ -221,13 +221,14 @@ DBManager::AddUrl (AradoUrl & url)
 }
 
 void
-DBManager::RemovePeer (const QString & peerid)
+DBManager::RemovePeerS (const QString & peerid)
 {
   QString delPattern ("delete from %1 where peerid = \"%2\"");
   QSqlQuery delqry (ipBase);
   delqry.exec (delPattern.arg("stablepeers").arg(peerid));
   delqry.exec (delPattern.arg("transientpeers").arg(peerid));
   delqry.exec (delPattern.arg("ippeers").arg(peerid));
+  delqry.exec (delPattern.arg("peeruuid").arg(peerid));
 }
 
 void
@@ -304,7 +305,7 @@ DBManager::AddPeer (AradoPeer & peer)
 }
 
 bool
-DBManager::HavePeer (const QString & peerid)
+DBManager::HavePeerS (const QString & peerid)
 {
   QString cmd ("select peerid from ippeers where peerid = \"%1\"");
   QSqlQuery select (ipBase);
@@ -319,17 +320,68 @@ DBManager::HavePeer (const QString & peerid)
 }
 
 bool
-DBManager::HavePeer (const QUuid & uuid)
+DBManager::ReadPeerS (const QString & peerid, AradoPeer & peer)
 {
-  QString cmd = QString ("select peerid from peeruuid "
+  QString cmd (QString ("select address, port from ippeers "
+                        " where peerid = \"%1\"")
+                        .arg (peerid));
+  QSqlQuery select (ipBase);
+  bool ok = select.exec (cmd);
+  if (ok && select.next ()) {
+    peer.SetNick (peerid);
+    peer.SetAddr (select.value(0).toString());
+    peer.SetPort (select.value(1).toInt());
+    cmd = QString ("select uuid from peeruuid "
+                   " where peerid = \"%1\"")
+                  .arg (peer.Nick());
+    ok = select.exec (cmd);
+    if (ok && select.next ()) {
+      peer.SetUuid (QUuid (select.value(0).toString()));
+      return true;
+    }
+  }
+  return false;
+}
+
+bool
+DBManager::ReadPeerU (const QUuid & uuid, AradoPeer & peer)
+{
+  QString cmd (QString ("select peerid from peeruuid "
+                   " where uuid = \"%1\"")
+                  .arg (uuid));
+  QSqlQuery select (ipBase);
+  bool ok = select.exec (cmd);
+  if (ok && select.next ()) {
+    peer.SetUuid (uuid);
+    peer.SetNick (select.value(0).toString());
+    cmd = QString ("select address, port from ippeers "
+                   " where peerid = \"%1\"")
+                   .arg (peer.Nick());
+    ok = select.exec (cmd);
+    if (ok && select.next ()) {
+      peer.SetAddr (select.value (0).toString());
+      peer.SetPort (select.value (1).toInt());
+      return true;
+    }
+  }
+  return false;
+}
+
+bool
+DBManager::HavePeerU (const QUuid & uuid)
+{
+  QString cmd = QString ("select uuid from peeruuid "
                " where uuid = \"%1\"").arg(uuid.toString());
   QSqlQuery select (ipBase);
   bool ok = select.exec (cmd);
-  bool foundit (false);
   if (ok && select.next()) {
-    foundit = true;
+    QUuid storedUuid = QUuid (select.value(0).toString());
+    qDebug () << " look for " << uuid << " found " << storedUuid;
+    if (storedUuid == uuid) {
+      return true;
+    }
   }
-  return foundit;
+  return false;
 }
 
 bool

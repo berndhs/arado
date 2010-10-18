@@ -468,7 +468,7 @@ qDebug () << " HttpClient got " << peers.size() << " Peers in message ";
     seq *= 10000;
     for (cuit = peers.begin(); cuit != peers.end(); cuit++, seq++) {
       qDebug () << " HttpClient got peer " ; cuit->DebugDump ();
-      if (db->HavePeer (cuit->Uuid())) {
+      if (db->HavePeerU (cuit->Uuid())) {
         continue;
       }
       cuit->SetNick (tr("AradoElvis_%1").arg(seq));

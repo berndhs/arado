@@ -26,6 +26,7 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QByteArray>
+#include <QDebug>
 
 namespace arado
 {
@@ -61,6 +62,7 @@ HttpClientReply::Get (QNetworkAccessManager * nam,
 {
   if (nam) {
     QNetworkReply * reply = nam->get (req);
+    qDebug () << " sent GET to url " << req.url();
     if (reply) {
       return new HttpClientReply (reply, hrt, hdt);
     }
@@ -77,6 +79,7 @@ HttpClientReply::Put (QNetworkAccessManager * nam,
 {
   if (nam) {
     QNetworkReply * reply = nam->put (req, data);
+    qDebug () << " sent PUT1 to url " << req.url();
     if (reply) {
       return new HttpClientReply (reply, hrt, hdt);
     }
@@ -93,6 +96,7 @@ HttpClientReply::Put (QNetworkAccessManager * nam,
 {
   if (nam) {
     QNetworkReply * reply = nam->put (req, data);
+    qDebug () << " sent PUT2 to url " << req.url();
     if (reply) {
       return new HttpClientReply (reply, hrt, hdt);
     }

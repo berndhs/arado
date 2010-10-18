@@ -54,9 +54,11 @@ public:
   bool  AddKeywords (AradoUrl & url);
 
   bool  AddPeer (AradoPeer & peer);
-  bool  HavePeer (const QString & peerid);
-  bool  HavePeer (const QUuid & uuid);
-  void  RemovePeer (const QString & peerid);
+  bool  ReadPeerS (const QString & peerid, AradoPeer &peer);
+  bool  ReadPeerU (const QUuid   & uuid,   AradoPeer &peer);
+  bool  HavePeerS (const QString & peerid);
+  bool  HavePeerU (const QUuid & uuid);
+  void  RemovePeerS (const QString & peerid);
   void  MovePeer (const QString & peerid, 
                   const QString & newLevel, 
                   const QString & oldLevel);

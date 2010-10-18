@@ -65,12 +65,6 @@ ConnectionDisplay::DoStartSync ()
 {
   emit StartSync (haveNew);
   haveNew = true;
-  QMessageBox  box;
-  box.setWindowTitle(tr("Arado"));
-  box.setIconPixmap(QPixmap(":/images/noatunloopsong.png"));
-  box.setText ("New Devices and latest URLs synced");
-  QTimer::singleShot (15000, &box, SLOT (accept()));
-  box.exec ();
 }
 
 void
@@ -270,7 +264,7 @@ ConnectionDisplay::DoDeleteDevice ()
     QTableWidget * table = item->tableWidget();
     QTableWidgetItem * nickItem = FindCell (table, item->row(), Cell_Nick);
     if (nickItem) {
-      db->RemovePeer (nickItem->text());
+      db->RemovePeerS (nickItem->text());
       QTimer::singleShot (500,this,SLOT (ShowPeers()));
     }
   }
