@@ -98,16 +98,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
 
-  QPixmap pixmap(":/images/splash.png");
-     QSplashScreen *splash = new QSplashScreen(pixmap, Qt::WindowStaysOnTopHint);
-     splash->show();
-     QSound arado("arado.wav");
-     arado.play();
-     QTime time;
-     time.start();
-     while ( time.elapsed() < 1500 );
-     delete splash;
-
 }
 
 /// \brief Start the main window, initialize
