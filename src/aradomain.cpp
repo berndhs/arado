@@ -14,6 +14,7 @@
 #include <QUrl>
 #include <QTimer>
 #include <QStyle>
+#include <QSound>
 #include "deliberate.h"
 #include "version.h"
 #include "config-edit.h"
@@ -100,6 +101,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   QPixmap pixmap(":/images/splash.png");
      QSplashScreen *splash = new QSplashScreen(pixmap, Qt::WindowStaysOnTopHint);
      splash->show();
+     QSound arado("arado.wav");
+     arado.play();
      QTime time;
      time.start();
      while ( time.elapsed() < 1500 );
