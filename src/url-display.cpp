@@ -44,6 +44,7 @@
 #include <QResizeEvent>
 #include <QDebug>
 #include <QUrl>
+#include <QKeySequence>
 
 namespace arado
 {
@@ -73,6 +74,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
            this, SLOT (Refresh ()));
   connect (ui.searchButton, SIGNAL (clicked ()),
            this, SLOT (DoSearch ()));
+  ui.searchButton->setShortcut(QKeySequence(Qt::Key_Return));
   connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
   refreshUrls = new QTimer (this);
   connect (refreshUrls, SIGNAL (timeout()), this, SLOT (Refresh()));
