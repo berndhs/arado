@@ -391,13 +391,13 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
   if (item == 0) {
     return;
   }
-  QAction * facebookAction = new QAction (tr("Send Flashmark to Facebook"),this);
+  QAction * facebookAction = new QAction (tr("Post Flashmark to Facebook as Message"),this);
   facebookAction->setIcon(QPixmap(":/images/facebook.png"));
   //
-  QAction * twitterAction = new QAction (tr("Send Flashmark to Twitter"),this);
+  QAction * twitterAction = new QAction (tr("Post Flashmark to Twitter as Message"),this);
   twitterAction->setIcon(QPixmap(":/images/twitter.png"));
   //
-  QAction * deliciousAction = new QAction (tr("Send Flashmark to Delicious"),this);
+  QAction * deliciousAction = new QAction (tr("Post Flashmark to Delicious as Message"),this);
   deliciousAction->setIcon(QPixmap(":/images/delicious.png"));
   //
   QList<QAction*> list;
@@ -411,9 +411,8 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
 
     QUrl facebookpost;
     QString str = (item->text());
-         str.prepend("http://arado-flashmark.");
+         str.prepend("magnet:?xt=urn:sha1:");
          str.prepend("http://www.facebook.com/sharer.php?u=");
-         str.append(".net");
     facebookpost = QUrl (str);
     QDesktopServices::openUrl (facebookpost);
   }
@@ -422,9 +421,8 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
 
       QUrl twitterpost;
       QString str = (item->text());
-           str.prepend("http://arado-flashmark.");
+           str.prepend("magnet:?xt=urn:sha1:");
            str.prepend("http://twitthis.com/twit?url=");
-           str.append(".net");
       twitterpost = QUrl (str);
       QDesktopServices::openUrl (twitterpost);
 
@@ -439,9 +437,8 @@ UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark t
 
       QString title = (itemtitle->text());
       QString str = (item->text());
-           str.prepend("http://arado-flashmark.");
+           str.prepend("magnet:?xt=urn:sha1:");
            str.prepend("http://www.delicious.com/save?url=");
-           str.append(".net");
            str.append("&title=Arado-Flashmark:%20");
            str.append(title);
       deliciouspost = QUrl (str);

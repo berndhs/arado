@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QFileInfo>
+#include <QSplashScreen>
+#include <QTimer>
 #include "arado-url.h"
 #include "file-comm.h"
 #include <QDebug>
@@ -94,6 +96,15 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
+
+  QPixmap pixmap(":/images/splash.png");
+     QSplashScreen *splash = new QSplashScreen(pixmap, Qt::WindowStaysOnTopHint);
+     splash->show();
+     QTime time;
+     time.start();
+     while ( time.elapsed() < 1500 );
+     delete splash;
+
 }
 
 /// \brief Start the main window, initialize
