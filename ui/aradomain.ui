@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -123,7 +123,7 @@
      <normaloff>:/images/usbpendrive_unmount.png</normaloff>:/images/usbpendrive_unmount.png</iconset>
    </property>
    <property name="text">
-    <string>Import File</string>
+    <string>Import URL-File</string>
    </property>
   </action>
   <action name="actionEnterData">
@@ -141,7 +141,7 @@
      <normaloff>:/images/cdrom_mount.png</normaloff>:/images/cdrom_mount.png</iconset>
    </property>
    <property name="text">
-    <string>Export File</string>
+    <string>Export URL-File</string>
    </property>
   </action>
   <action name="actionAddFeed">
@@ -222,7 +222,7 @@
      <normaloff>:/images/heartbeat.png</normaloff>:/images/heartbeat.png</iconset>
    </property>
    <property name="text">
-    <string>Configure Server/Listener</string>
+    <string>Configure External Address</string>
    </property>
    <property name="toolTip">
     <string>Configure Arado Base: Enter your external IP-Adress and forwarded (!) Port (ideally Port 80 or 29998 by default)</string>

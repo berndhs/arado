@@ -76,6 +76,8 @@ ListenerEdit::Save ()
   bool save (false);
   if (uuid.isNull()) {
     QMessageBox  reallyBox (this);
+    reallyBox.setWindowTitle(tr("Arado"));
+    reallyBox.setIconPixmap(QPixmap(":/images/messagebox_info.png"));
     reallyBox.setIcon (QMessageBox::Warning);
     reallyBox.setStandardButtons (QMessageBox::Yes | QMessageBox::No);
     reallyBox.setText (tr("The UUID is not valid!\n"
