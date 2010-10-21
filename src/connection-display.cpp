@@ -25,6 +25,7 @@
 #include "arado-peer.h"
 #include "db-manager.h"
 #include "deliberate.h"
+#include "aradomain.h"
 #include <QItemSelectionModel>
 #include <QMessageBox>
 #include <QTimer>
@@ -50,6 +51,8 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   connect (ui.pushButton_B, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.pushButton_C, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
+  connect (ui.buttonExternalip, SIGNAL (triggered()),
+           this, SLOT (EditListener ()));
   connect (ui.buttonMoveLeft, SIGNAL (clicked()),
            this, SLOT (MoveLeft()));
   connect (ui.buttonMoveRight, SIGNAL (clicked()),
