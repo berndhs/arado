@@ -51,7 +51,7 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   connect (ui.pushButton_B, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.pushButton_C, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
-  connect (ui.buttonExternalip, SIGNAL (triggered()),
+  connect (ui.buttonExternalIp, SIGNAL (clicked()),
            this, SLOT (EditListener ()));
   connect (ui.buttonMoveLeft, SIGNAL (clicked()),
            this, SLOT (MoveLeft()));
@@ -76,6 +76,13 @@ void
 ConnectionDisplay::DoAddDevice ()
 {
   emit AddDevice ();
+}
+
+void
+ConnectionDisplay::EditListener ()
+{
+qDebug () << " connection display want edit listener";
+  emit WantEditListener();
 }
 
 void

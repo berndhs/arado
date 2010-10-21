@@ -6,19 +6,32 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>618</width>
-    <height>228</height>
+    <width>473</width>
+    <height>269</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Arado Heartbeat Base: Enter your external IP-Address/Port Settings</string>
+   <string>Server-Listen Settings</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../arado.qrc">
     <normaloff>:/arado-logo-colo-128.png</normaloff>:/arado-logo-colo-128.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0" colspan="2">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label_4">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Edit your external IP-Address/Port or UUID:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -30,11 +43,11 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>IP/Name/Address:</string>
+      <string>IP/Name/ID:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="2" colspan="2">
+   <item row="1" column="1">
     <widget class="QLineEdit" name="addressEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -44,7 +57,23 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="2">
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>10</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Port:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
     <widget class="QSpinBox" name="portBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -55,31 +84,58 @@
      <property name="maximum">
       <number>65535</number>
      </property>
-     <property name="value">
-      <number>80</number>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>10</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>UUID</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="2" colspan="2">
+   <item row="3" column="1">
     <widget class="QLineEdit" name="uuidEdit">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>30</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhPreferUppercase|Qt::ImhUppercaseOnly</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="4">
+   <item row="4" column="0">
+    <widget class="QRadioButton" name="onCheck">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Listen ON</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>inuseGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QRadioButton" name="offCheck">
+     <property name="text">
+      <string>OFF</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>inuseGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="saveButton">
@@ -128,77 +184,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="5" column="2">
-    <widget class="QRadioButton" name="offCheck">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>OFF</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>inuseGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="5" column="0" colspan="2">
-    <widget class="QRadioButton" name="onCheck">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>Listen:  ON</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>inuseGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>10</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>Port:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="label_5">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>10</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>Your UUID:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLabel" name="label_4">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Enter your external IP-Address/Port to connect:</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

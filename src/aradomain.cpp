@@ -276,7 +276,9 @@ AradoMain::Connect ()
     connect (httpServer, SIGNAL (AddedPeers (int)),
              this, SLOT (PeersAdded (int)));
   }
-  if (connDisplay && httpClient) {
+  if (connDisplay) {
+    connect (connDisplay, SIGNAL (WantEditListener()),
+            this, SLOT (EditListener()));
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
     connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (Poll(bool)));
   }

@@ -507,7 +507,7 @@
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="buttonExternalip">
+      <widget class="QPushButton" name="buttonExternalIp">
        <property name="toolTip">
         <string>Arado Heartbeat Base.</string>
        </property>

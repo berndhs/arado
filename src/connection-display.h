@@ -75,12 +75,14 @@ private slots:
   void DoDeleteDevice ();
   void MoveLeft ();
   void MoveRight ();
+  void EditListener ();
 
 signals:
 
   void StartSync (bool reload=false);
   void AddDevice ();
   void HaveNewPeer ();
+  void WantEditListener ();
 
 private:
 
