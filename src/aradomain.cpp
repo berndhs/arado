@@ -479,12 +479,14 @@ AradoMain::DoIpImport ()
     AradoPeerList list = parser.ReadAradoPeerList ();
     file.close ();
     AradoPeerList::iterator it;
+    quint64 seq = QDateTime::currentDateTime().toTime_t();
+    seq *= 10000;
     QString elvis ("Elvis");
     elvis = Settings().value ("personal/elvis",elvis).toString();
     Settings().setValue ("personal/elvis",elvis);
     int e (1);
     for (it=list.begin(); it != list.end(); it++, e++) {
-      it->SetNick (QString ("%1%2").arg(elvis).arg(e));
+      it->SetNick (QString ("%1%2").arg(elvis).arg(seq+e));
       dbMgr.AddPeer (*it);
     }
     RefreshPeers ();

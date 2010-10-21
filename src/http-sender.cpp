@@ -464,7 +464,7 @@ qDebug () << " HttpSender got " << peers.size() << " Peers in message ";
       if (db->HavePeerU (cuit->Uuid())) {
         continue;
       }
-      cuit->SetNick (tr("AradoElvis%1").arg(seq));
+      cuit->SetNick (tr("AradoElvis_%1").arg(seq));
       cuit->Demote ();
       added = db->AddPeer (*cuit);
       if (added) {
