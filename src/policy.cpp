@@ -88,7 +88,7 @@ void
 Policy::Load (DBManager * dbm)
 {
   int  startms = clock.elapsed ();
-  int numEntries;
+  int numEntries(0);
   if (dbm) {
     AradoUrlList  latest;  
     latest = dbm->GetRecent (1000);
