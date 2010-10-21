@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
-    <height>202</height>
+    <width>618</width>
+    <height>228</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -148,7 +148,7 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>Arado Heartbeat Base:  ON</string>
+      <string>Listen:  ON</string>
      </property>
      <attribute name="buttonGroup">
       <string>inuseGroup</string>
@@ -184,16 +184,6 @@
      </property>
      <property name="text">
       <string>Your UUID:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../arado.qrc">:/images/heartbeat.png</pixmap>
      </property>
     </widget>
    </item>
