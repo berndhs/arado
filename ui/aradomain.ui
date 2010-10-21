@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -222,7 +222,7 @@
      <normaloff>:/images/heartbeat.png</normaloff>:/images/heartbeat.png</iconset>
    </property>
    <property name="text">
-    <string>Configure Arado Heartbeat Base</string>
+    <string>Configure Server/Listener</string>
    </property>
    <property name="toolTip">
     <string>Configure Arado Base: Enter your external IP-Adress and forwarded (!) Port (ideally Port 80 or 29998 by default)</string>

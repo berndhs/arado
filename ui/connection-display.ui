@@ -512,11 +512,7 @@
         <string>Arado Heartbeat Base.</string>
        </property>
        <property name="text">
-        <string>Enter your External Address / Port:</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../arado.qrc">
-         <normaloff>:/images/heartbeat.png</normaloff>:/images/heartbeat.png</iconset>
+        <string>External Address / Port:</string>
        </property>
       </widget>
      </item>
