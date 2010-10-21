@@ -51,6 +51,7 @@ FORMS		=	ui/aradomain.ui \
                         ui/entry-form.ui \
                         ui/address-input.ui \
                         ui/feed-input.ui \
+                        ui/listener-edit.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
@@ -80,6 +81,7 @@ HEADERS		=	src/aradomain.h \
                    src/poll-sequence.h \
                    src/http-client-reply.h \
                    src/http-types.h \
+                   src/listener-edit.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -110,6 +112,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/arado-peer.cpp \
                    src/poll-sequence.cpp \
                    src/http-client-reply.cpp \
+                   src/listener-edit.cpp \
 
 
 TARGET		= bin/arado

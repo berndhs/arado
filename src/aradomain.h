@@ -44,6 +44,7 @@ class Policy;
 class HttpServer;
 class HttpClient;
 class AddPeerDialog;
+class ListenerEdit;
 class PollSequence;
 
 class AradoMain : public QMainWindow
@@ -83,6 +84,7 @@ private slots:
   void UrlsAdded (int howmany);
   void HaveNewPeer (QString peerid);
   void Poll (bool haveNew=false);
+  void EditListener ();
   void MailUuid ();
   void DisplayUuid ();
 
@@ -105,6 +107,7 @@ private:
   ConnectionDisplay  *connDisplay;
   EntryForm          *entryForm;
   AddPeerDialog      *addPeerDialog;
+  ListenerEdit       *listenerEdit;
   DBManager           dbMgr;
   Policy             *policy;
   PollSequence       *sequencer;

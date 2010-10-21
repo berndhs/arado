@@ -24,11 +24,13 @@
 #include "connection-display.h"
 #include "arado-peer.h"
 #include "db-manager.h"
+#include "deliberate.h"
 #include <QItemSelectionModel>
 #include <QMessageBox>
 #include <QTimer>
 #include <QDebug>
 #include <QStyle>
+#include <QFont>
 
 namespace arado
 {
@@ -76,6 +78,18 @@ ConnectionDisplay::DoAddDevice ()
 void
 ConnectionDisplay::ShowPeers ()
 {
+  QString addr = deliberate::Settings().value ("http/address").toString();
+  quint16 port = deliberate::Settings().value ("http/port").toUInt();
+  bool listening = deliberate::Settings().value ("http/run").toBool ();
+  ui.listenAddr->setText (addr);
+  QFont addrFont = ui.listenAddr->font();
+  if (listening) {
+    addrFont.setStrikeOut (false);
+  } else {
+    addrFont.setStrikeOut (true);
+  }
+  ui.listenAddr->setFont (addrFont);
+  ui.listenPortBox->setValue (port);
   if (db) {
     AradoPeerList peers = db->GetPeers ("A");
     ShowPeers (ui.tableWidget_A, "A", peers);

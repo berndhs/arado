@@ -29,6 +29,7 @@
 #include "http-client.h"
 #include "ui_feed-input.h"
 #include "arado-stream-parser.h"
+#include "listener-edit.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -68,6 +69,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    connDisplay (0),
    entryForm (0),
    addPeerDialog (0),
+   listenerEdit (0),
    dbMgr (this),
    policy (0),
    sequencer (0),
@@ -91,6 +93,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   entryForm->SetDB (&dbMgr);
   addPeerDialog = new AddPeerDialog (this);
   addPeerDialog->SetDB (&dbMgr);
+  listenerEdit = new ListenerEdit (this);
   policy = new Policy (this);
   sequencer = new PollSequence (this);
   sequencer->SetDB (&dbMgr);
@@ -234,6 +237,8 @@ AradoMain::Connect ()
            this, SLOT (DoIpExport ()));
   connect (mainUi.actionImportIP, SIGNAL (triggered()),
            this, SLOT (DoIpImport ()));
+  connect (mainUi.actionListener, SIGNAL (triggered()),
+           this, SLOT (EditListener ()));
   connect (mainUi.actionMailUuid, SIGNAL (triggered()),
            this, SLOT (MailUuid ()));
   connect (mainUi.actionShowUuid, SIGNAL (triggered()),
@@ -607,6 +612,14 @@ AradoMain::DisplayUuid ()
   if (box.clickedButton() == copyBut) {
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText (ownUuid.toString ());
+  }
+}
+
+void
+AradoMain::EditListener ()
+{
+  if (listenerEdit) {
+    listenerEdit->Run ();
   }
 }
 

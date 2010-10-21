@@ -49,16 +49,12 @@
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
     <addaction name="separator"/>
+    <addaction name="actionListener"/>
     <addaction name="actionShowUuid"/>
     <addaction name="actionMailUuid"/>
     <addaction name="separator"/>
     <addaction name="actionRestart"/>
     <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menuDevel">
-    <property name="title">
-     <string>Develop</string>
-    </property>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -91,7 +87,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuData"/>
    <addaction name="menuNetwork"/>
-   <addaction name="menuDevel"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionExit">
@@ -218,6 +213,11 @@
    </property>
    <property name="text">
     <string>Restart</string>
+   </property>
+  </action>
+  <action name="actionListener">
+   <property name="text">
+    <string>Configure Listener</string>
    </property>
   </action>
  </widget>
