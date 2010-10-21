@@ -47,7 +47,8 @@ HttpClient::HttpClient (QObject *parent)
    askGet (true),
    offerPut (true),
    tradeAddr (true),
-   tradeUrl (true)
+   tradeUrl (true),
+   serverSelf (0)
 {
   network = new QNetworkAccessManager (this);
   connect (network, SIGNAL (finished (QNetworkReply *)),
@@ -60,6 +61,19 @@ HttpClient::HttpClient (QObject *parent)
   Settings().setValue ("transfer/addresses", tradeAddr);
   tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
   Settings().setValue ("transfer/urls", tradeUrl);
+
+  serverSelf = new AradoPeer;
+  serverSelf->SetNick ("self");
+  serverSelf->SetAddr (Settings().value ("http/address").toString());
+  serverSelf->SetPort (Settings().value ("http/port").toUInt());
+  serverSelf->SetLevel ("A");
+  bool selfRunning = Settings().value("http/run").toBool();
+  serverSelf->SetUuid (QUuid(Settings().value ("personal/uuid").toString()));
+  if (selfRunning) {
+    serverSelf->SetState (AradoPeer::State_Alive);
+  } else {
+    serverSelf->SetState (AradoPeer::State_Dead);
+  }
 }
 
 void
@@ -368,7 +382,15 @@ HttpClient::ProcessOfferReply (HttpClientReply * reply, const QUrl & origUrl)
         parser.Write (urls);
         hdt = HDT_Url;
       } else if (datatype == "ADDR") {
-        AradoPeerList peers = db->GetPeers ("A");
+        AradoPeerList peers ;
+        if (serverSelf) {
+          if (serverSelf->State() != AradoPeer::State_Dead
+              && !serverSelf->Uuid().isNull()) {
+            peers << *serverSelf;
+            qDebug () << "including self as peer " ; serverSelf->DebugDump ();
+          }
+        }
+        peers += db->GetPeers ("A");
         peers += db->GetPeers ("B");
         peers += db->GetPeers ("C");
         parser.Write (peers);

@@ -41,6 +41,7 @@ namespace arado
 class Policy;
 class AradoStreamParser;
 class HttpClientReply;
+class AradoPeer;
 
 class HttpAddress {
 public:
@@ -158,9 +159,11 @@ private:
   bool                   offerPut;
   bool                   tradeAddr;
   bool                   tradeUrl;
+  AradoPeer             *serverSelf;
 
   QMap   <QNetworkReply*, HttpClientReply*>  replyWait;
   QMap   <HttpClientReply*, QBuffer*>   putWait;
+
 
 
 };

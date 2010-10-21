@@ -38,7 +38,8 @@ public:
      State_Sent = 1,
      State_Scheduled = 2,
      State_New = 3,
-     State_Dead = 4
+     State_Alive = 4,
+     State_Dead = 5
   };
 
   AradoPeer (QString theNick = QString(), 
