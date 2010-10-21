@@ -42,6 +42,10 @@ private slots:
   void Save ();
   void Cancel ();
 
+signals:
+
+  void SuggestRestart ();
+
 private:
 
   Ui_ListenerEdit    ui;

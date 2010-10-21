@@ -285,6 +285,10 @@ AradoMain::Connect ()
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (timeout()), this, SLOT (Poll()));
   }
+  if (listenerEdit) {
+    connect (listenerEdit, SIGNAL (SuggestRestart()),
+            this, SLOT (Restart()));
+  }
 }
 
 /// \brief Close down

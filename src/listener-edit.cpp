@@ -94,6 +94,7 @@ ListenerEdit::Save ()
     Settings().setValue ("http/run",runServer);
     Settings().sync();
     accept ();
+    emit SuggestRestart ();
   }
 }
 

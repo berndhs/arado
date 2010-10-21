@@ -99,6 +99,13 @@ ConnectionDisplay::ShowPeers ()
     addrFont.setStrikeOut (true);
   }
   ui.listenAddr->setFont (addrFont);
+  QFont portFont = ui.listenPortBox->font();
+  if (listening) {
+    portFont.setStrikeOut (false);
+  } else {
+    portFont.setStrikeOut (true);
+  }
+  ui.listenPortBox->setFont (portFont);
   ui.listenPortBox->setValue (port);
   if (db) {
     AradoPeerList peers = db->GetPeers ("A");
