@@ -57,7 +57,6 @@ DBManager::~DBManager ()
 void
 DBManager::Start ()
 {
-  QThread::start();
   QString dataDir = QDesktopServices::storageLocation
                     (QDesktopServices::DataLocation);
   QString ipbasename = dataDir + QDir::separator() + QString ("ipbase.sql");
@@ -69,6 +68,7 @@ DBManager::Start ()
   qDebug () << " ip database name " << ipbasename;
   qDebug () << " url database name " << urlbasename;
 
+  QThread::start();
   StartDB (ipBase, "ipBaseCon", ipbasename);
   ipInTransaction = false;
   StartDB (urlBase, "urlBaseCon", urlbasename);
