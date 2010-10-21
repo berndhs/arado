@@ -291,7 +291,7 @@ UrlDisplay::Picked (QTableWidgetItem *item)
     } else if (tipo == Cell_Desc) {
       CellMenuDesc (item);
     } else if (tipo == Cell_Hash) {
-      CellMenuSendHash (item);
+      CellMenu (item);
     } else if (tipo == Cell_Time) {
       CellMenuTime (item);
     } else {
@@ -373,81 +373,11 @@ UrlDisplay::CellMenuTime (const QTableWidgetItem * item)
   if (item == 0) {
     return;
   }
-  QAction * excludefromshownurlsAction = new QAction (tr("Dont show up again: Remove URL"),this);
-  excludefromshownurlsAction->setIcon(QPixmap(":/images/cancel.png"));
   QList<QAction*> list;
-  list.append (excludefromshownurlsAction);
 
   QAction * select = CellMenu (item, list);
-  if (select == excludefromshownurlsAction) {
-    QUrl url (item->text());
-    QDesktopServices::openUrl (url); // change to:
-    // blacklist Url = filter searchresults for hashbucket.
-    // add hash to blacklist in a .txt file for hashes and keywords not to show these results in searchresults.
-  }
 }
 
-void
-UrlDisplay::CellMenuSendHash (const QTableWidgetItem * item) // Send Flashmark to Facebook
-{
-  if (item == 0) {
-    return;
-  }
-  QAction * facebookAction = new QAction (tr("Post Flashmark to Facebook as Message"),this);
-  facebookAction->setIcon(QPixmap(":/images/facebook.png"));
-  //
-  QAction * twitterAction = new QAction (tr("Post Flashmark to Twitter as Message"),this);
-  twitterAction->setIcon(QPixmap(":/images/twitter.png"));
-  //
-  QAction * deliciousAction = new QAction (tr("Post Flashmark to Delicious as Message"),this);
-  deliciousAction->setIcon(QPixmap(":/images/delicious.png"));
-  //
-  QList<QAction*> list;
-  list.append (facebookAction);
-  list.append (twitterAction);
-  list.append (deliciousAction);
-
-
-  QAction * select = CellMenu (item, list);
-  if (select == facebookAction) {
-
-    QUrl facebookpost;
-    QString str = (item->text());
-         str.prepend("magnet:?xt=urn:sha1:");
-         str.prepend("http://www.facebook.com/sharer.php?u=");
-    facebookpost = QUrl (str);
-    QDesktopServices::openUrl (facebookpost);
-  }
-
-  if (select == twitterAction) {
-
-      QUrl twitterpost;
-      QString str = (item->text());
-           str.prepend("magnet:?xt=urn:sha1:");
-           str.prepend("http://twitthis.com/twit?url=");
-      twitterpost = QUrl (str);
-      QDesktopServices::openUrl (twitterpost);
-
-  }
-
-  if (select == deliciousAction) {
-
-      QUrl deliciouspost;
-
-      QTableWidgetItem * itemtitle = new QTableWidgetItem ();
-      itemtitle-> setData (Url_Celltype, Cell_Desc); 
-
-      QString title = (itemtitle->text());
-      QString str = (item->text());
-           str.prepend("magnet:?xt=urn:sha1:");
-           str.prepend("http://www.delicious.com/save?url=");
-           str.append("&title=Arado-Flashmark:%20");
-           str.append(title);
-      deliciouspost = QUrl (str);
-      QDesktopServices::openUrl (deliciouspost);
-  }
-
-}
 
 void
 UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
