@@ -375,7 +375,7 @@ UrlDisplay::CellMenuTime (const QTableWidgetItem * item)
   }
   QList<QAction*> list;
 
-  QAction * select = CellMenu (item, list);
+  CellMenu (item, list);
 }
 
 

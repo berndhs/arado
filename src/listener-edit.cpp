@@ -51,7 +51,8 @@ ListenerEdit::Run ()
   QUuid uuid = QUuid::createUuid();
   uuid = QUuid (Settings().value ("personal/uuid",
                      uuid.toString()).toString());
-  bool runServer = Settings().value ("http/run",runServer).toBool ();
+  bool runServer (false);
+  runServer = Settings().value ("http/run",runServer).toBool ();
   ui.addressEdit->setText (addr);
   ui.portBox->setValue (port);
   ui.uuidEdit->setText (uuid.toString());
