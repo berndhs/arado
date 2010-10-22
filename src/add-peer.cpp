@@ -37,7 +37,7 @@ namespace arado
 AddPeerDialog::AddPeerDialog (QWidget *parent)
   :QDialog (parent),
    db (0),
-   elvis ("Elvis")
+   elvis ("AradoElvis_")
 {
   addrUi.setupUi (this);
   hide ();
