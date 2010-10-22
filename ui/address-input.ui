@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>289</height>
+    <width>444</width>
+    <height>279</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <normaloff>:/arado-logo-colo-128.png</normaloff>:/arado-logo-colo-128.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="1">
+   <item row="9" column="1">
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -30,14 +30,14 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>IP/Name/ID:</string>
+      <string>IP/Address/Name:</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="2" colspan="2">
+   <item row="9" column="2" colspan="3">
     <widget class="QLineEdit" name="addressEdit"/>
    </item>
-   <item row="6" column="1">
+   <item row="10" column="1">
     <widget class="QLabel" name="label_2">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -53,7 +53,7 @@
      </property>
     </widget>
    </item>
-   <item row="18" column="1">
+   <item row="27" column="1">
     <widget class="QLabel" name="label_4">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -65,67 +65,25 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>Nick:</string>
+      <string>Nick (optional):</string>
      </property>
     </widget>
    </item>
-   <item row="18" column="2" colspan="2">
+   <item row="27" column="2" colspan="3">
     <widget class="QLineEdit" name="nickEdit">
      <property name="toolTip">
       <string>Enter any unique Nick. Duplicates will be overwritten.</string>
      </property>
     </widget>
    </item>
-   <item row="21" column="3">
-    <widget class="QPushButton" name="cancelButton">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Cancel</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2">
+   <item row="10" column="2" colspan="3">
     <widget class="QLineEdit" name="portEdit">
      <property name="placeholderText">
       <string notr="true"/>
      </property>
     </widget>
    </item>
-   <item row="7" column="3">
-    <widget class="QRadioButton" name="flexibleButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text">
-      <string>Flexible</string>
-     </property>
-     <attribute name="buttonGroup">
-      <string>levelGroup</string>
-     </attribute>
-    </widget>
-   </item>
-   <item row="21" column="2">
+   <item row="31" column="2" colspan="2">
     <widget class="QPushButton" name="okButton">
      <property name="minimumSize">
       <size>
@@ -148,7 +106,46 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
+   <item row="3" column="4">
+    <widget class="QRadioButton" name="dnsButton">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>DNS-Domain</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>typeGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QRadioButton" name="ipv6Button">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>IPv6</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>typeGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QRadioButton" name="ipv4Button">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>IPv4</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>typeGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="13" column="2">
     <widget class="QRadioButton" name="constantButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -167,7 +164,67 @@
      </attribute>
     </widget>
    </item>
-   <item row="7" column="2">
+   <item row="11" column="2" colspan="3">
+    <widget class="QLineEdit" name="uuidEdit"/>
+   </item>
+   <item row="11" column="1">
+    <widget class="QLabel" name="label_5">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>UUID:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="label_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Insert IP-Adress and Port of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</string>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../arado.qrc">:/images/server.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="4">
+    <widget class="QRadioButton" name="flexibleButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Flexible</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>levelGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="13" column="3">
     <widget class="QRadioButton" name="remoteButton">
      <property name="enabled">
       <bool>true</bool>
@@ -189,83 +246,98 @@
      </attribute>
     </widget>
    </item>
-   <item row="19" column="2" colspan="2">
-    <widget class="QLineEdit" name="uuidEdit"/>
-   </item>
-   <item row="19" column="1">
-    <widget class="QLabel" name="label_5">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+   <item row="31" column="4">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
      </property>
      <property name="text">
-      <string>UUID</string>
+      <string>Cancel</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
-   <item row="0" column="3">
-    <widget class="QRadioButton" name="dnsButton">
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+   <item row="30" column="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="text">
-      <string>DNS</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
      </property>
-     <attribute name="buttonGroup">
-      <string>typeGroup</string>
-     </attribute>
-    </widget>
+    </spacer>
    </item>
-   <item row="0" column="2">
-    <widget class="QRadioButton" name="ipv6Button">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+   <item row="14" column="3">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="text">
-      <string>IPv6</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
      </property>
-     <attribute name="buttonGroup">
-      <string>typeGroup</string>
-     </attribute>
-    </widget>
+    </spacer>
    </item>
-   <item row="1" column="2">
-    <widget class="QRadioButton" name="ipv4Button">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+   <item row="12" column="2">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="text">
-      <string>IPv4</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
      </property>
-     <attribute name="buttonGroup">
-      <string>typeGroup</string>
-     </attribute>
-    </widget>
+    </spacer>
    </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="label_3">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <item row="4" column="3">
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="toolTip">
-      <string>Insert IP-Adress and Port of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
      </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+    </spacer>
+   </item>
+   <item row="32" column="2">
+    <spacer name="verticalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="5">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../arado.qrc">:/images/server.png</pixmap>
+      <string> </string>
      </property>
     </widget>
    </item>
