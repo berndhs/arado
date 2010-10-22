@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -52,6 +52,7 @@
     <addaction name="actionMailUuid"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
+    <addaction name="actionInitialize"/>
     <addaction name="separator"/>
     <addaction name="actionRestart"/>
     <addaction name="separator"/>
@@ -226,6 +227,11 @@
    </property>
    <property name="toolTip">
     <string>Configure Arado Base: Enter your external IP-Adress and forwarded (!) Port (ideally Port 80 or 29998 by default)</string>
+   </property>
+  </action>
+  <action name="actionInitialize">
+   <property name="text">
+    <string>Initialize</string>
    </property>
   </action>
  </widget>

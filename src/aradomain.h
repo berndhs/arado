@@ -87,6 +87,7 @@ private slots:
   void EditListener ();
   void MailUuid ();
   void DisplayUuid ();
+  void InitSystem ();
 
   void Restart ();
 

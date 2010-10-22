@@ -245,6 +245,8 @@ AradoMain::Connect ()
            this, SLOT (DisplayUuid ()));
   connect (mainUi.actionRestart, SIGNAL (triggered()),
            this, SLOT (Restart ()));
+  connect (mainUi.actionInitialize, SIGNAL (triggered()),
+           this, SLOT (InitSystem()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -629,6 +631,19 @@ AradoMain::EditListener ()
   if (listenerEdit) {
     listenerEdit->Run ();
   }
+}
+
+void
+AradoMain::InitSystem ()
+{
+  AradoPeer initPeer;
+  initPeer.SetNick ("AradoHomeSite");
+  initPeer.SetAddr ("arado.sourceforge.net");
+  initPeer.SetAddrType ("name");
+  initPeer.SetPort (80);
+  initPeer.SetLevel ("A");
+  dbMgr.AddPeer (initPeer);
+  PeersAdded (1);
 }
 
 } // namespace
