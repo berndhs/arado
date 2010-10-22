@@ -637,7 +637,7 @@ void
 AradoMain::InitSystem ()
 {
   AradoPeer initPeer;
-  initPeer.SetNick ("AradoHomeSite");
+  initPeer.SetNick ("AradoElvis_1289784903");
   initPeer.SetAddr ("arado.sourceforge.net");
   initPeer.SetAddrType ("name");
   initPeer.SetPort (80);
