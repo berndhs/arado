@@ -641,7 +641,7 @@ AradoMain::InitSystem ()
   initPeer.SetAddr ("arado.sourceforge.net");
   initPeer.SetAddrType ("name");
   initPeer.SetPort (80);
-  initPeer.SetLevel ("A");
+  initPeer.SetLevel ("C");
   dbMgr.AddPeer (initPeer);
   PeersAdded (1);
 }
