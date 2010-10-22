@@ -25,7 +25,7 @@
 
 TEMPLATE	= app
 LANGUAGE	= C++
-CONFIG		+= qt warn_on debug
+CONFIG		+= qt warn_on build_all
 QT		+= gui network sql multimedia
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
