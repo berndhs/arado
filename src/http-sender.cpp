@@ -155,7 +155,7 @@ HttpSender::ReadFirst ()
       qDebug () << " ++++++++++++ url part as qurl " << reqUrl;
       qDebug () << " request path " << reqUrl.path();
       QString path = reqUrl.path().toLower();
-      if (path == QString ("/arado")) {
+      if (path.startsWith (QString ("/arado"))) {
         QList <QPair<QString,QString> > queryParts = reqUrl.queryItems();
         QList <QPair<QString,QString> >::const_iterator cpit;
         for (cpit = queryParts.constBegin(); 

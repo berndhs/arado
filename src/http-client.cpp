@@ -194,7 +194,7 @@ HttpClient::Poll (HttpAddress & addr)
     }
     qDebug () << " CLIENT Polling host " << basicUrl.host();
     basicUrl.setPort (addr.port);
-    basicUrl.setPath ("/arado");
+    basicUrl.setPath ("/arado/query.php");
 
     if (askGet) {
       SendUrlRequestGet (basicUrl);
@@ -220,7 +220,7 @@ HttpClient::PollAddr (HttpAddress & addr)
     }
     qDebug () << " CLIENT Polling Addr host " << basicUrl.host();
     basicUrl.setPort (addr.port);
-    basicUrl.setPath ("/arado");
+    basicUrl.setPath ("/arado/query.php");
 
     if (askGet) {
       SendAddrRequestGet (basicUrl);
@@ -441,8 +441,18 @@ HttpClient::ProcessRequestReply (HttpClientReply * hcReply)
   }
   if (err == 0) {
     AradoStreamParser parser;
+#define USE_EXTRA_BUFFER 1
+#if USE_EXTRA_BUFFER
+    QBuffer inbuf;
+    inbuf.setData (netReply->readAll());
+    inbuf.open (QBuffer::ReadOnly);
+    SkipWhite (&inbuf);
+    parser.SetInDevice (&inbuf, false);
+qDebug () << " EXTRA BUFFER raw reply " << inbuf.buffer();
+#else
     SkipWhite (netReply);
     parser.SetInDevice (netReply, false);
+#endif
     if (hcReply->DataType() == HDT_Url) {
       ReceiveUrls (parser);
     } else if (hcReply->DataType() == HDT_Addr) {
