@@ -186,6 +186,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
   if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ShowUrls (urls);
+    ui.urlTable->sortByColumn(3,Qt::DescendingOrder);
   }
 }
 
