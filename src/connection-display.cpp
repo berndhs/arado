@@ -114,6 +114,7 @@ ConnectionDisplay::ShowPeers ()
     ShowPeers (ui.tableWidget_B, "B", peers);
     peers = db->GetPeers ("C");
     ShowPeers (ui.tableWidget_C, "C", peers);
+    ui.tableWidget_C->setSortingEnabled(true);
   }
 }
 
