@@ -1,46 +1,45 @@
+; Arado Websearch . Windows exe Installer build script
+; http://arado.sf.net
+;
 ;--------------------------------
 ;Include Modern UI
 
   !include "MUI2.nsh"
-
   !include x64.nsh
-
 
 ;--------------------------------
 ; Define your application name
-!define APPNAME "Arado"
-!define VERSION "0.01"
-!define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
-
-
+  !define APPNAME "Arado"
+  !define VERSION "0.0.2"
+  !define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
 
 ;--------------------------------
 ;General
 
-
-Name "${APPNAMEANDVERSION}"
+  Name "${APPNAMEANDVERSION}"
 ;Default installation folder:
-InstallDir "$INSTDIR\Arado"
+; InstallDir "$INSTDIR\Arado"
+  InstallDir C:\Arado
 
 ;InstallDirRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Arado" "UninstallString"
 
-OutFile "Arado-Websearch-${VERSION}-Win-Setup.exe"
-BrandingText "${APPNAMEANDVERSION}"
+  OutFile "Arado-Websearch-${VERSION}-Win-Setup.exe"
+  BrandingText "${APPNAMEANDVERSION}"
 
-  ;Request application privileges for Windows Vista
+;Request application privileges for Windows Vista
   RequestExecutionLevel admin
 
-
 ; Adds an XP manifest to the installer
-XPStyle on
+  XPStyle on
 
 ; Use compression
-SetCompressor LZMA
+  SetCompressor LZMA
 
 ;--------------------------------
 ;Interface Settings
 
   !define MUI_ABORTWARNING
+
 ; http://forums.winamp.com/showthread.php?s=f9514f23b6cf9fd97bf7b177f2f4a04e&threadid=261299
 ; http://nsis.sourceforge.net/Adding_3_Extra_Text_Lines_on_MUI_Welcome-Finish_Pages
 	!define MUI_WELCOMEPAGE_TITLE_3LINES
@@ -49,8 +48,6 @@ SetCompressor LZMA
 	!define MUI_UNFINISHPAGE_TITLE_3LINES
 	!define MUI_UNPAGE_WELCOME_TITLE_3LINES
 	
-
-
 ;--------------------------------
 ;Language Selection Dialog Settings
 
@@ -64,7 +61,7 @@ SetCompressor LZMA
 ;Pages
 
 	!insertmacro MUI_PAGE_WELCOME
- ; !insertmacro MUI_PAGE_COMPONENTS
+; !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
   !insertmacro MUI_PAGE_FINISH
@@ -73,7 +70,6 @@ SetCompressor LZMA
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
   !insertmacro MUI_UNPAGE_FINISH
-
 
 ;--------------------------------
 ;Languages
@@ -141,65 +137,59 @@ LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it f
 
 # Default section start.
 
-section
+  section
 
 # Define output path.
 
-setOutPath $INSTDIR
+  setOutPath $INSTDIR
 
 # Specify files to go in output path.
 
-file .\release\*.dll
-file .\release\Arado.exe
-
-
+  file .\release\*.dll
+  file .\release\*.wav
+  file .\release\*.gz
+  file .\release\*.php
+  file .\release\arado.exe
 
 ;Create uninstaller
-WriteUninstaller "$INSTDIR\Uninstall.exe"
-Call Firewallsettings
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  Call Firewallsettings
 
+  SetOutPath "$INSTDIR"
+  CreateDirectory "$SMPROGRAMS\${APPNAME}"
+  CreateShortCut "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
+  CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
 
-SetOutPath "$INSTDIR"
-CreateDirectory "$SMPROGRAMS\${APPNAME}"
-CreateShortCut "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
-CreateShortCut "$SMPROGRAMS\Arado.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
-
-
-CreateShortCut "$FAVORITES\Websearch.lnk"  "http://arado.sourceforge.net/" "" "" 0
+  CreateShortCut "$FAVORITES\Websearch.lnk"  "http://arado.sourceforge.net/" "" "" 0
 
 ; Autorun in Start menu: not needed because it is in registry /=> switched now to startup = Autorun: 
 ; WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Arado"   "$INSTDIR\Arado.exe -a  silent /nosplash /minimized" 
 
-CreateShortCut "$SMSTARTUP\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0 SW_SHOWMINIMIZED
+  CreateShortCut "$SMSTARTUP\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0 SW_SHOWMINIMIZED
 
 ; Homepage Link icon disabled:
 ; CreateShortCut "$SMPROGRAMS\${APPNAME}\Homepage.lnk" "$INSTDIR\Homepage" "" "$INSTDIR\Homepage" 0
 
-CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
-CreateShortCut "$QUICKLAUNCH\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
- 
+  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
+  CreateShortCut "$QUICKLAUNCH\${APPNAME}.lnk" "$INSTDIR\Arado.exe" "" "$INSTDIR\Arado.exe" 0
  
 ; currently disabled from startmenu, please start uninstaller.exe from hard disk or windows removal,
 ; CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
  
+  WriteRegStr HKCU "Software\Arado\arado\database" "ipbase"   "$INSTDIR\ipbase.sql" 
+  WriteRegStr HKCU "Software\Arado\arado\database" "urlbase"   "$INSTDIR\urlbase.sql" 
 
-WriteRegStr HKCU "Software\Arado\arado\database" "ipbase"   "$INSTDIR\ipbase.sql" 
-WriteRegStr HKCU "Software\Arado\arado\database" "urlbase"   "$INSTDIR\urlbase.sql" 
-
-WriteRegStr HKCU "Software\Arado\arado\http" "run"   "true" 
-WriteRegDWORD HKCU "Software\Arado\arado\http" "port"   "80"
-
-
+  WriteRegStr HKCU "Software\Arado\arado\http" "run"   "true" 
+  WriteRegDWORD HKCU "Software\Arado\arado\http" "port"   "80"
+	
 # Default section end.
 
 sectionEnd
 
 ;--------------------------------
-
-
-
 # Create a section to define what the uninstaller does.
 # The section will always be named "Uninstall".
+
 
 ;--------------------------------
 ;Uninstaller Section
@@ -207,14 +197,12 @@ sectionEnd
 Section "Uninstall"
 
 ; A Souvenir
-CreateShortCut "$DESKTOP\Homepage.lnk" "http://arado.sourceforge.net/" "" "http://arado.sourceforge.net/" 0
-CreateShortCut "$FAVORITES\Websearch.lnk"  "http://arado.sourceforge.net/" "" "http://arado.sourceforge.net/"  0
-
+  CreateShortCut "$DESKTOP\Homepage.lnk" "http://arado.sourceforge.net/" "" "http://arado.sourceforge.net/" 0
+  CreateShortCut "$FAVORITES\Websearch.lnk"  "http://arado.sourceforge.net/" "" "http://arado.sourceforge.net/"  0
 
 ; Delete files and uninstaller
-Delete "$INSTDIR\Uninstall.exe"
-Delete "$INSTDIR\*.*"
-
+  Delete "$INSTDIR\Uninstall.exe"
+  Delete "$INSTDIR\*.*"
 
 ; Remove directories used
   RMDir "$SMPROGRAMS\${APPNAME}"
@@ -223,21 +211,18 @@ Delete "$INSTDIR\*.*"
 	RMDir /r "$INSTDIR\*.*" 
   
 
-DeleteRegKey HKCU "Software\arado"
-DeleteRegKey /ifempty HKCU "Software\arado"
+  DeleteRegKey HKCU "Software\arado"
+  DeleteRegKey /ifempty HKCU "Software\arado"
 
+  Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" 
+  RMDir "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" 
 
-Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" 
-RMDir "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" 
+  Delete "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" 
+  RMDir "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" 
 
-Delete "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" 
-RMDir "$SMPROGRAMS\${APPNAME}\Start ${APPNAME}.lnk" 
+  Delete "$SMPROGRAMS\Arado.lnk" 
+  RMDir  "$SMPROGRAMS\Arado.lnk" 
 
-	
-Delete "$SMPROGRAMS\Arado.lnk" 
-RMDir  "$SMPROGRAMS\Arado.lnk" 
-
-	
 ; Remove desktop shortcut
   Delete "$DESKTOP\${APPNAME}.lnk" 
 
@@ -246,7 +231,6 @@ RMDir  "$SMPROGRAMS\Arado.lnk"
   
 ; Delete "$SMPROGRAMS\${APPNAME}.lnk"
   
-
 ; Remove Quicklaunch shortcut
   Delete "$QUICKLAUNCH\${APPNAME}.lnk"
 	
@@ -254,11 +238,9 @@ RMDir  "$SMPROGRAMS\Arado.lnk"
 	Delete "$SMSTARTUP\${APPNAME}.lnk" 
 
   RMDir "$SMPROGRAMS\${APPNAME}"
- Delete "$SMPROGRAMS\${APPNAME}"
-	
+  Delete "$SMPROGRAMS\${APPNAME}"
 	
 SectionEnd
-
 
 ; ----------------------------------------
 ; FUNCTIONS Firewall Exceptions 
@@ -267,8 +249,7 @@ SectionEnd
 ; http://nsis.sourceforge.net/NSIS_Simple_Firewall_Plugin
 ; Add an application to the firewall exception list - All Networks - All IP Version - Enabled
 
-SimpleFC::AddApplication "Arado.exe" "$INSTDIR\Arado.exe" 0 2 "" 1
-
+  SimpleFC::AddApplication "Arado.exe" "$INSTDIR\Arado.exe" 0 2 "" 1
 
 ; Add an application rule to allow incoming TCP access on this application
   SimpleFC::AdvAddRule "Incoming requests (TCP incoming)" \ 
@@ -277,10 +258,10 @@ SimpleFC::AddApplication "Arado.exe" "$INSTDIR\Arado.exe" 0 2 "" 1
   Pop $0 ; return error(1)/success(0)
  
 ; Add an application rule to allow incoming TCP access on this application
-  SimpleFC::AdvAddRule "Incoming requests (TCP incoming)" \ 
-    "Allows incoming requests." "6" "0" "1" "7" "1" "PathToApplication" \ 
-    "" "@$INSTDIR\Arado.exe,-10000" "80" "" "" ""
-  Pop $0 ; return error(1)/success(0)
+;  SimpleFC::AdvAddRule "Incoming requests (TCP incoming)" \ 
+;  "Allows incoming requests." "6" "0" "1" "7" "1" "PathToApplication" \ 
+;  "" "@$INSTDIR\Arado.exe,-10000" "80" "" "" ""
+;  Pop $0 ; return error(1)/success(0)
 
  FunctionEnd
 
