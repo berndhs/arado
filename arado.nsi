@@ -151,6 +151,9 @@ LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it f
   file .\release\*.php
   file .\release\arado.exe
 
+  SetOutPath "$INSTDIR\sqldrivers\"
+  file .\release\sqldrivers\*.dll
+
 ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   Call Firewallsettings

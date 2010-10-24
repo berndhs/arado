@@ -202,7 +202,7 @@ DBManager::AddUrl (AradoUrl & url)
   }
   QString desc (url.Description());
   if (desc.length() < 1) {
-    desc = tr("no description");
+    desc = tr("No description for this Arado Flashmark.");
   }
   add.prepare (cmd);
   add.bindValue (0, QVariant (hash));
