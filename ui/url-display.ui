@@ -371,6 +371,14 @@
   </layout>
  </widget>
  <layoutdefault spacing="2" margin="2"/>
+ <tabstops>
+  <tabstop>textInput</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>recentButton</tabstop>
+  <tabstop>addUrlButton</tabstop>
+  <tabstop>urlTable</tabstop>
+  <tabstop>scrollArea</tabstop>
+ </tabstops>
  <resources>
   <include location="../arado.qrc"/>
  </resources>

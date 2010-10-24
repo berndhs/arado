@@ -215,6 +215,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>addressEdit</tabstop>
+  <tabstop>portBox</tabstop>
+  <tabstop>onCheck</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>uuidEdit</tabstop>
+  <tabstop>offCheck</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../arado.qrc"/>
  </resources>

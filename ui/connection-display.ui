@@ -935,6 +935,34 @@
   </action>
  </widget>
  <layoutdefault spacing="2" margin="2"/>
+ <tabstops>
+  <tabstop>buttonAddDevice</tabstop>
+  <tabstop>buttonStartSync</tabstop>
+  <tabstop>buttonExternalIp</tabstop>
+  <tabstop>buttonMoveLeft</tabstop>
+  <tabstop>buttonMoveRight</tabstop>
+  <tabstop>urlamount_A</tabstop>
+  <tabstop>ipask_A</tabstop>
+  <tabstop>slots_A</tabstop>
+  <tabstop>slots_B</tabstop>
+  <tabstop>ipask_B</tabstop>
+  <tabstop>urlamount_B</tabstop>
+  <tabstop>slots_C</tabstop>
+  <tabstop>ipask_C</tabstop>
+  <tabstop>urlamount_C</tabstop>
+  <tabstop>ipcachesize</tabstop>
+  <tabstop>checkboxdisable_C</tabstop>
+  <tabstop>checkBox_I2P</tabstop>
+  <tabstop>pushButton_A</tabstop>
+  <tabstop>pushButton_B</tabstop>
+  <tabstop>pushButton_C</tabstop>
+  <tabstop>buttonDelete</tabstop>
+  <tabstop>tableWidget_C</tabstop>
+  <tabstop>tableWidget_B</tabstop>
+  <tabstop>tableWidget_A</tabstop>
+  <tabstop>listenAddr</tabstop>
+  <tabstop>listenPortBox</tabstop>
+ </tabstops>
  <resources>
   <include location="../arado.qrc"/>
  </resources>

@@ -214,6 +214,14 @@
   </layout>
  </widget>
  <layoutdefault spacing="2" margin="2"/>
+ <tabstops>
+  <tabstop>urlEdit</tabstop>
+  <tabstop>descEdit</tabstop>
+  <tabstop>keyEdit</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>doneButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../arado.qrc"/>
  </resources>

@@ -337,13 +337,27 @@
    <item row="3" column="5">
     <widget class="QLabel" name="label_6">
      <property name="text">
-      <string> </string>
+      <string/>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="1" margin="1"/>
+ <tabstops>
+  <tabstop>ipv4Button</tabstop>
+  <tabstop>addressEdit</tabstop>
+  <tabstop>portEdit</tabstop>
+  <tabstop>uuidEdit</tabstop>
+  <tabstop>constantButton</tabstop>
+  <tabstop>nickEdit</tabstop>
+  <tabstop>okButton</tabstop>
+  <tabstop>remoteButton</tabstop>
+  <tabstop>flexibleButton</tabstop>
+  <tabstop>ipv6Button</tabstop>
+  <tabstop>dnsButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../arado.qrc"/>
  </resources>
