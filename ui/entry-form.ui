@@ -54,7 +54,7 @@
       <string>Enter the title or description of the URL.</string>
      </property>
      <property name="text">
-      <string>Title / Description:</string>
+      <string>Title - Description:</string>
      </property>
     </widget>
    </item>
@@ -129,7 +129,7 @@
    <item row="6" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Keywords / Tags:</string>
+      <string>Keywords - Tags:</string>
      </property>
     </widget>
    </item>
