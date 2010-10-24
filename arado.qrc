@@ -51,6 +51,11 @@
     </qresource>
     <qresource prefix="/translate">
         <file alias="arado_de.qm">translate/arado_de.qm</file>
+        <file alias="arado_en.qm">translate/arado_en.qm</file>
+        <file alias="arado_es.qm">translate/arado_es.qm</file>
+        <file alias="arado_zh-CN-simple.qm">translate/arado_zh-CN-simple.qm</file>
+        <file alias="arado_fr.qm">translate/arado_fr.qm</file>
+        <file alias="arado_sv.qm">translate/arado_sv.qm</file>
     </qresource>
     <qresource prefix="/schemas">
         <file alias="urltable.sql">schemafiles/urltable.sql</file>

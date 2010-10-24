@@ -34,6 +34,12 @@ ICON		= images/arado-logo-colo-128.png
 
 TRANS_DIR = translate
 TRANSLATIONS += $$TRANS_DIR/arado_de.ts
+                $$TRANS_DIR/arado_en.ts
+                $$TRANS_DIR/arado_es.ts
+                $$TRANS_DIR/arado_zh-CN-simple.ts
+                $$TRANS_DIR/arado_fr.ts
+                $$TRANS_DIR/arado_sv.ts
+
 
 UI_DIR = tmp/ui
 MOC_DIR = tmp/moc
