@@ -192,7 +192,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>Insert IP-Adress and Port of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</string>
+      <string>Insert IP-Address and Port and UUID of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</string>
      </property>
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>

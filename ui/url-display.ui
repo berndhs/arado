@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Arado Url Display</string>
+   <string>Arado URL Display</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="2" column="0">
@@ -175,7 +175,7 @@
             </font>
            </property>
            <property name="toolTip">
-            <string>Arado is a networked URL Database, which saves your added URLs and syncs newest URLs with your connected devices.</string>
+            <string>Arado is a networked URL Database, which saves your added bookmarks and syncs newest URLs with your connected devices.</string>
            </property>
            <property name="text">
             <string>Web Surfers' URL Galaxy</string>

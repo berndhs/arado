@@ -43,7 +43,7 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>IP/Name/ID:</string>
+      <string>IP/Address/Name:</string>
      </property>
     </widget>
    </item>

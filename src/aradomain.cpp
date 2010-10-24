@@ -329,7 +329,7 @@ AradoMain::slotAbout ()
 {
   QMessageBox mb(this);
 
-  mb.setWindowTitle(tr("Arado - URL Database"));
+  mb.setWindowTitle(tr("Arado - Websearch"));
   mb.setTextFormat(Qt::RichText);
   QString text = QString("<html>"
              "%1"

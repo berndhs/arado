@@ -226,7 +226,7 @@
     <string>Configure External Address</string>
    </property>
    <property name="toolTip">
-    <string>Configure Arado Base: Enter your external IP-Adress and forwarded (!) Port (ideally Port 80 or 29998 by default)</string>
+    <string>Configure Arado Base: Enter your external IP-Address and forwarded (!) Port (ideally Port 80 or 29998 by default).</string>
    </property>
   </action>
   <action name="actionInitialize">

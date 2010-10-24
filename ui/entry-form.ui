@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Url Entry</string>
+   <string>Add URL</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
@@ -93,7 +93,7 @@
       </font>
      </property>
      <property name="toolTip">
-      <string>Enter some keywords for the URL. Each line a new keyword or pair of words (phrase as one keyword), avoid comma (,) or semicolon (;).</string>
+      <string>Enter some keyword-tags for the URL. Each line a new keyword or pair of words (phrase as one keyword), avoid comma (,) or semicolon (;).</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: qlineargradient(spread:pad, x1:0.968, y1:0.932, x2:0.513, y2:0.5, stop:0 rgba(183, 235, 255, 255), stop:1 rgba(255, 255, 255, 255));</string>
@@ -129,7 +129,7 @@
    <item row="6" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Keywords:</string>
+      <string>Keywords / Tags:</string>
      </property>
     </widget>
    </item>
