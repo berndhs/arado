@@ -86,9 +86,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   urlDisplay = new UrlDisplay (this);
   urlDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (urlDisplay, tr("Websearch"));
-  connDisplay = new ConnectionDisplay (this);
-  connDisplay->SetDB (&dbMgr);
-  mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   entryForm = new EntryForm (this);
   entryForm->SetDB (&dbMgr);
   addPeerDialog = new AddPeerDialog (this);
@@ -100,6 +97,9 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
+  connDisplay = new ConnectionDisplay (this);
+  connDisplay->SetDB (&dbMgr);
+  mainUi.tabWidget->addTab (connDisplay, tr("Network"));
 
 }
 

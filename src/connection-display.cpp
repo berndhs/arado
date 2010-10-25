@@ -42,7 +42,13 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   :QWidget (parent),
    db (0),
    haveNew (true),
-   refreshTimer (0)
+   refreshTimer (0),
+   urlFreqA (600.0),
+   urlFreqB (60.0),
+   urlFreqC (40.0),
+   urlChunkA (60),
+   urlChunkB (40),
+   urlChunkC (20)
 {
   ui.setupUi (this);
 
