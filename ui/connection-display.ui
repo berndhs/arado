@@ -136,7 +136,7 @@
             <double>1000000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>10.000000000000000</double>
+            <double>1.000000000000000</double>
            </property>
            <property name="value">
             <double>720.000000000000000</double>
@@ -296,7 +296,7 @@
             <double>100000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>5.000000000000000</double>
+            <double>1.000000000000000</double>
            </property>
            <property name="value">
             <double>60.000000000000000</double>
@@ -456,7 +456,7 @@
             <double>1000000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>2.000000000000000</double>
+            <double>1.000000000000000</double>
            </property>
            <property name="value">
             <double>40.000000000000000</double>
