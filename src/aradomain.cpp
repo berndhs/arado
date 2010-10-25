@@ -300,6 +300,10 @@ AradoMain::Connect ()
             this, SLOT (EditListener()));
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
     connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (PollNow(bool)));
+    if (sequencer) {
+      connect (connDisplay, SIGNAL (TrafficParamsChanged ()),
+               sequencer, SLOT (Restart()));
+    }
   }
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (timeout()), this, SLOT (Poll()));

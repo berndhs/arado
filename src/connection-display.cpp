@@ -33,6 +33,8 @@
 #include <QStyle>
 #include <QFont>
 
+using namespace deliberate;
+
 namespace arado
 {
 
@@ -46,10 +48,10 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
-  connect (ui.pushButton_A, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
-  ui.buttonAddDevice->setStyleSheet( "background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(255, 255, 224), stop:1 rgb(100, 230, 100));" );
-  connect (ui.pushButton_B, SIGNAL (clicked()), this, SLOT (DoStartSync()));
-  connect (ui.pushButton_C, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
+  ui.buttonAddDevice->setStyleSheet( "background-color:"
+                     " qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+                     "stop:0 rgb(255, 255, 224), "
+                     "stop:1 rgb(100, 230, 100));" );
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
   connect (ui.buttonExternalIp, SIGNAL (clicked()),
            this, SLOT (EditListener ()));
@@ -57,6 +59,12 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
            this, SLOT (MoveLeft()));
   connect (ui.buttonMoveRight, SIGNAL (clicked()),
            this, SLOT (MoveRight()));
+  connect (ui.restartPollButtonA, SIGNAL (clicked()),
+           this, SLOT (ChangeTrafficParams ()));
+  connect (ui.restartPollButtonB, SIGNAL (clicked()),
+           this, SLOT (ChangeTrafficParams ()));
+  connect (ui.restartPollButtonC, SIGNAL (clicked()),
+           this, SLOT (ChangeTrafficParams ()));
 }
 
 void
@@ -88,6 +96,7 @@ qDebug () << " connection display want edit listener";
 void
 ConnectionDisplay::ShowPeers ()
 {
+  LoadTrafficParams ();
   QString addr = deliberate::Settings().value ("http/address").toString();
   quint16 port = deliberate::Settings().value ("http/port").toUInt();
   bool listening = deliberate::Settings().value ("http/run").toBool ();
@@ -336,6 +345,43 @@ ConnectionDisplay::MoveRight ()
       }
     }
   }
+}
+
+void
+ConnectionDisplay::LoadTrafficParams ()
+{
+  urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
+  urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
+  urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
+  urlChunkA = Settings().value ("traffic/urlChunkA",urlChunkA).toInt ();
+  urlChunkB = Settings().value ("traffic/urlChunkB",urlChunkB).toInt ();
+  urlChunkC = Settings().value ("traffic/urlChunkC",urlChunkC).toInt ();
+  ui.freqABox->setValue (urlFreqA);
+  ui.freqBBox->setValue (urlFreqB);
+  ui.freqCBox->setValue (urlFreqC);
+  ui.chunkA->setValue (urlChunkA);
+  ui.chunkB->setValue (urlChunkB);
+  ui.chunkC->setValue (urlChunkC);
+}
+
+void
+ConnectionDisplay::ChangeTrafficParams ()
+{
+  urlFreqA = ui.freqABox->value ();
+  urlFreqB = ui.freqBBox->value ();
+  urlFreqC = ui.freqCBox->value ();
+  urlChunkA = ui.chunkA->value ();
+  urlChunkB = ui.chunkB->value ();
+  urlChunkC = ui.chunkC->value ();
+  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
+  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
+  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  Settings().setValue ("traffic/urlChunkA",urlChunkA);
+  Settings().setValue ("traffic/urlChunkB",urlChunkB);
+  Settings().setValue ("traffic/urlChunkC",urlChunkC);
+  Settings().sync();  
+  emit TrafficParamsChanged ();
+
 }
 
 } // namespace

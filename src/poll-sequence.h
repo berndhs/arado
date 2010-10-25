@@ -50,15 +50,22 @@ public:
 
   void PollClient (HttpClient * httpClient, bool force = 0);
 
+public slots:
+
+  void RefreshParams ();
+  void Restart ();
+
 private slots:
 
   void  PollA ();
   void  PollB ();
   void  PollC ();
+  void  SaveParams ();
 
 private:
 
   void    ComputePeriods ();
+  void    RestartTimers ();
   void    Poll (QSet <QString> & nickSet,
                 QSet <QString>::iterator  & nickIt);
 
@@ -75,6 +82,7 @@ private:
   int      periodB;
   int      periodC;
 
+  /**      chunks in number of Urls per request */
   int      urlChunkA;
   int      urlChunkB;
   int      urlChunkC;

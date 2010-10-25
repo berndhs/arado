@@ -60,6 +60,12 @@
          </item>
          <item>
           <widget class="QLabel" name="label_A">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -78,32 +84,19 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="restartPollButtonA">
+           <property name="text">
+            <string>Restart</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_Slots_A">
-           <property name="text">
-            <string>Available Slots for Constant (up to 10)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="urlamount_A">
-           <property name="minimum">
-            <number>1</number>
-           </property>
-           <property name="maximum">
-            <number>10</number>
-           </property>
-           <property name="value">
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QSpinBox" name="slots_A">
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="chunkA">
            <property name="minimum">
             <number>30</number>
            </property>
@@ -115,36 +108,30 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="0" column="0">
           <widget class="QLabel" name="labelipask_A">
            <property name="text">
-            <string>Connect every (1 - 9 Min):</string>
+            <string>Requests per Hour</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QSpinBox" name="ipask_A">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_URL_A">
+           <property name="text">
+            <string>Amount of URLs in one Query</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QDoubleSpinBox" name="freqABox">
            <property name="toolTip">
             <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
            </property>
            <property name="locale">
-            <locale language="German" country="Germany"/>
-           </property>
-           <property name="minimum">
-            <number>1</number>
+            <locale language="English" country="UnitedStates"/>
            </property>
            <property name="maximum">
-            <number>9</number>
-           </property>
-           <property name="value">
-            <number>9</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_URL_A">
-           <property name="text">
-            <string>Amount of URLs in one Query</string>
+            <double>1000000.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -221,6 +208,12 @@
          </item>
          <item>
           <widget class="QLabel" name="label_B">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -236,39 +229,26 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="restartPollButtonB">
+           <property name="text">
+            <string>Restart</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_Slots_B">
-           <property name="text">
-            <string>Available Slots for Remote (up to 20)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="slots_B">
-           <property name="minimum">
-            <number>5</number>
-           </property>
-           <property name="maximum">
-            <number>20</number>
-           </property>
-           <property name="value">
-            <number>10</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="label_URL_B">
            <property name="text">
             <string>Amount of URLs in one Query</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QSpinBox" name="urlamount_B">
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="chunkB">
            <property name="minimum">
             <number>20</number>
            </property>
@@ -280,29 +260,23 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="0" column="0">
           <widget class="QLabel" name="labelipask_B">
            <property name="text">
-            <string>Connect every (10 - 29 Min):</string>
+            <string>Requests per Hour</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QSpinBox" name="ipask_B">
+         <item row="0" column="1">
+          <widget class="QDoubleSpinBox" name="freqBBox">
            <property name="toolTip">
             <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
            </property>
            <property name="locale">
-            <locale language="German" country="Germany"/>
-           </property>
-           <property name="minimum">
-            <number>10</number>
+            <locale language="English" country="UnitedStates"/>
            </property>
            <property name="maximum">
-            <number>29</number>
-           </property>
-           <property name="value">
-            <number>29</number>
+            <double>100000.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -379,6 +353,12 @@
          </item>
          <item>
           <widget class="QLabel" name="label_C">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -394,39 +374,26 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="restartPollButtonC">
+           <property name="text">
+            <string>Restart</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_Slots_C">
-           <property name="text">
-            <string>Available Slots for Flexible (up to 20)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="slots_C">
-           <property name="minimum">
-            <number>2</number>
-           </property>
-           <property name="maximum">
-            <number>20</number>
-           </property>
-           <property name="value">
-            <number>15</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="label_URL_C">
            <property name="text">
             <string>Amount of URLs in one Query</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QSpinBox" name="urlamount_C">
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="chunkC">
            <property name="minimum">
             <number>10</number>
            </property>
@@ -438,29 +405,23 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="0" column="0">
           <widget class="QLabel" name="labelipask_C">
            <property name="text">
-            <string>Connect every (30 - 120 Min):</string>
+            <string>Requests per Hour</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QSpinBox" name="ipask_C">
+         <item row="0" column="1">
+          <widget class="QDoubleSpinBox" name="freqCBox">
            <property name="toolTip">
             <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
            </property>
            <property name="locale">
-            <locale language="German" country="Germany"/>
-           </property>
-           <property name="minimum">
-            <number>30</number>
+            <locale language="English" country="UnitedStates"/>
            </property>
            <property name="maximum">
-            <number>120</number>
-           </property>
-           <property name="value">
-            <number>60</number>
+            <double>1000000.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -941,15 +902,12 @@
   <tabstop>buttonExternalIp</tabstop>
   <tabstop>buttonMoveLeft</tabstop>
   <tabstop>buttonMoveRight</tabstop>
-  <tabstop>urlamount_A</tabstop>
-  <tabstop>ipask_A</tabstop>
-  <tabstop>slots_A</tabstop>
-  <tabstop>slots_B</tabstop>
-  <tabstop>ipask_B</tabstop>
-  <tabstop>urlamount_B</tabstop>
-  <tabstop>slots_C</tabstop>
-  <tabstop>ipask_C</tabstop>
-  <tabstop>urlamount_C</tabstop>
+  <tabstop>freqABox</tabstop>
+  <tabstop>chunkA</tabstop>
+  <tabstop>freqBBox</tabstop>
+  <tabstop>chunkB</tabstop>
+  <tabstop>freqCBox</tabstop>
+  <tabstop>chunkC</tabstop>
   <tabstop>ipcachesize</tabstop>
   <tabstop>checkboxdisable_C</tabstop>
   <tabstop>checkBox_I2P</tabstop>

@@ -39,6 +39,9 @@ PollSequence::PollSequence (QObject * parent)
    urlFreqA (600.0),
    urlFreqB (60.0),
    urlFreqC (40.0),
+   periodA (0),
+   periodB (0),
+   periodC (0),
    urlChunkA (60),
    urlChunkB (40),
    urlChunkC (20),
@@ -90,32 +93,23 @@ void
 PollSequence::Start ()
 { 
   qDebug () << " Sequence Start";
-  urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
-  urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
-  urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
-  urlChunkA = Settings().value ("traffic/urlChunkA",urlChunkA).toInt ();
-  urlChunkB = Settings().value ("traffic/urlChunkB",urlChunkB).toInt ();
-  urlChunkC = Settings().value ("traffic/urlChunkC",urlChunkC).toInt ();
-  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
-  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
-  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
-  Settings().setValue ("traffic/urlChunkA",urlChunkA);
-  Settings().setValue ("traffic/urlChunkB",urlChunkB);
-  Settings().setValue ("traffic/urlChunkC",urlChunkC);
-  Settings().sync();    
-  ComputePeriods ();    
-  if (periodA > 0) {
-    timerA.start (periodA);
-  }
-  if (periodB > 0) {
-    timerB.start (periodB);
-  }
-  if (periodC > 0) {
-    timerC.start (periodC);
-  }      
+  RefreshParams ();
+  SaveParams ();
+  ComputePeriods ();   
+  RestartTimers ();  
   pollItA = nicksA.begin();
   pollItB = nicksB.begin();
   pollItC = nicksC.begin();             
+}
+
+void
+PollSequence::Restart ()
+{
+  qDebug () << " Sequence Restart";
+  RefreshParams ();
+  SaveParams ();
+  ComputePeriods ();
+  RestartTimers ();
 }
 
 void
@@ -161,6 +155,9 @@ PollSequence::Poll (QSet <QString> & nickSet,
 void
 PollSequence::Stop ()
 {
+  timerA.stop ();
+  timerB.stop ();
+  timerC.stop ();
 }
 
 void
@@ -172,6 +169,43 @@ PollSequence::ComputePeriods ()
   periodC = msPerHour / urlFreqC;  
   qDebug () << " poll periods A " << periodA 
             << " B " << periodB << " C " << periodC;
+}
+
+void
+PollSequence::RefreshParams ()
+{
+  urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
+  urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
+  urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
+  urlChunkA = Settings().value ("traffic/urlChunkA",urlChunkA).toInt ();
+  urlChunkB = Settings().value ("traffic/urlChunkB",urlChunkB).toInt ();
+  urlChunkC = Settings().value ("traffic/urlChunkC",urlChunkC).toInt ();
+}
+
+void
+PollSequence::SaveParams ()
+{
+  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
+  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
+  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  Settings().setValue ("traffic/urlChunkA",urlChunkA);
+  Settings().setValue ("traffic/urlChunkB",urlChunkB);
+  Settings().setValue ("traffic/urlChunkC",urlChunkC);
+  Settings().sync();    
+}
+
+void
+PollSequence::RestartTimers ()
+{ 
+  if (periodA > 0) {
+    timerA.start (periodA);
+  }
+  if (periodB > 0) {
+    timerB.start (periodB);
+  }
+  if (periodC > 0) {
+    timerC.start (periodC);
+  }    
 }
 
 } // namespace

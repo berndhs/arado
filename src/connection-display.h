@@ -76,6 +76,7 @@ private slots:
   void MoveLeft ();
   void MoveRight ();
   void EditListener ();
+  void ChangeTrafficParams ();
 
 signals:
 
@@ -83,9 +84,11 @@ signals:
   void AddDevice ();
   void HaveNewPeer ();
   void WantEditListener ();
+  void TrafficParamsChanged ();
 
 private:
 
+  void LoadTrafficParams ();
   void ShowPeers (QTableWidget * table, QString level, AradoPeerList & peers);
   QTableWidgetItem * OnlyOne (QString action = QString(), bool verify= false);
   void Highlight (QTableWidgetItem *item, AradoPeer & peer);
@@ -100,6 +103,16 @@ private:
   DBManager             *db;
   bool                   haveNew;
   QTimer                *refreshTimer;
+
+  /**      frequencies are per hour */
+  double   urlFreqA;
+  double   urlFreqB;
+  double   urlFreqC;
+
+  /**      chunks in number of Urls per request */
+  int      urlChunkA;
+  int      urlChunkB;
+  int      urlChunkC;
 
 };
 
