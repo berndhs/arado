@@ -84,13 +84,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="restartPollButtonA">
-           <property name="text">
-            <string>Restart</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -110,8 +103,11 @@
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="labelipask_A">
+           <property name="toolTip">
+            <string>Example: 720 connections per hour = one connection each 5 seconds.</string>
+           </property>
            <property name="text">
-            <string>Requests per Hour</string>
+            <string>Connections per Hour</string>
            </property>
           </widget>
          </item>
@@ -125,13 +121,32 @@
          <item row="0" column="1">
           <widget class="QDoubleSpinBox" name="freqABox">
            <property name="toolTip">
-            <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
+            <string/>
            </property>
            <property name="locale">
             <locale language="English" country="UnitedStates"/>
            </property>
+           <property name="decimals">
+            <number>0</number>
+           </property>
+           <property name="minimum">
+            <double>120.000000000000000</double>
+           </property>
            <property name="maximum">
             <double>1000000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>720.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="restartPollButtonA">
+           <property name="text">
+            <string>Save</string>
            </property>
           </widget>
          </item>
@@ -229,13 +244,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="restartPollButtonB">
-           <property name="text">
-            <string>Restart</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -262,21 +270,43 @@
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="labelipask_B">
+           <property name="toolTip">
+            <string>Example: 60 connections per hour = one connection each 60 seconds.</string>
+           </property>
            <property name="text">
-            <string>Requests per Hour</string>
+            <string>Connections per Hour</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QDoubleSpinBox" name="freqBBox">
            <property name="toolTip">
-            <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
+            <string/>
            </property>
            <property name="locale">
             <locale language="English" country="UnitedStates"/>
            </property>
+           <property name="decimals">
+            <number>0</number>
+           </property>
+           <property name="minimum">
+            <double>40.000000000000000</double>
+           </property>
            <property name="maximum">
             <double>100000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>5.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>60.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="restartPollButtonB">
+           <property name="text">
+            <string>Save</string>
            </property>
           </widget>
          </item>
@@ -374,13 +404,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="restartPollButtonC">
-           <property name="text">
-            <string>Restart</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -407,21 +430,43 @@
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="labelipask_C">
+           <property name="toolTip">
+            <string>Example: 40 connections per hour = one connection each 90 seconds.</string>
+           </property>
            <property name="text">
-            <string>Requests per Hour</string>
+            <string>Connections per Hour</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QDoubleSpinBox" name="freqCBox">
            <property name="toolTip">
-            <string>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</string>
+            <string/>
            </property>
            <property name="locale">
             <locale language="English" country="UnitedStates"/>
            </property>
+           <property name="decimals">
+            <number>0</number>
+           </property>
+           <property name="minimum">
+            <double>12.000000000000000</double>
+           </property>
            <property name="maximum">
             <double>1000000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>2.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>40.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="restartPollButtonC">
+           <property name="text">
+            <string>Save</string>
            </property>
           </widget>
          </item>
