@@ -137,6 +137,7 @@ AradoMain::Start ()
   StartServers ();
   StartClients ();
   RefreshPeers ();
+  StartSequencer ();
 }
 
 bool
@@ -195,6 +196,22 @@ AradoMain::StopClients ()
   }
   if (httpClient) {
     httpClient->DropAllServers ();
+  }
+}
+
+void
+AradoMain::StartSequencer ()
+{
+  if (sequencer) {
+    sequencer->Start ();
+  }
+}
+
+void
+AradoMain::StopSequencer ()
+{
+  if (sequencer) {
+    sequencer->Stop ();
   }
 }
 
@@ -282,7 +299,7 @@ AradoMain::Connect ()
     connect (connDisplay, SIGNAL (WantEditListener()),
             this, SLOT (EditListener()));
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
-    connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (Poll(bool)));
+    connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (PollNow(bool)));
   }
   if (httpClient && httpPoll) {
     connect (httpPoll, SIGNAL (timeout()), this, SLOT (Poll()));
@@ -371,10 +388,12 @@ AradoMain::DoneConfigEdit (bool saved)
         policy->Flush ();
         policy->Load (&dbMgr);
       }
+      StopSequencer ();
       StopServers ();
       StopClients ();
       StartServers ();
       StartClients ();
+      StartSequencer ();
     }
   }
 }
@@ -571,10 +590,15 @@ AradoMain::Poll (bool haveNew)
 {
   Q_UNUSED (haveNew)
   if (sequencer && httpClient) {
-    QDateTime from = QDateTime::currentDateTime();
-    QDateTime to = from.addSecs (120);
-    QStringList list = sequencer->PollBy (from.toTime_t (), to.toTime_t());
-    httpClient->PollPeers (list);
+    sequencer->PollClient (httpClient);
+  }
+}
+
+void
+AradoMain::PollNow (bool haveNew)
+{
+  if (sequencer && httpClient) {
+    sequencer->PollClient (httpClient, haveNew);
   }
 }
 

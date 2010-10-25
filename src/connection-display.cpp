@@ -69,7 +69,7 @@ void
 ConnectionDisplay::DoStartSync ()
 {
   emit StartSync (haveNew);
-  haveNew = true;
+  haveNew = false;
 }
 
 void

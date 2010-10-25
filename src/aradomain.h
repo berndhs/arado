@@ -84,6 +84,7 @@ private slots:
   void UrlsAdded (int howmany);
   void HaveNewPeer (QString peerid);
   void Poll (bool haveNew=false);
+  void PollNow (bool haveNew);
   void EditListener ();
   void MailUuid ();
   void DisplayUuid ();
@@ -98,6 +99,8 @@ private:
   void  StartClients ();
   void  StopServers ();
   void  StopClients ();
+  void  StartSequencer ();
+  void  StopSequencer ();
 
   Ui_AradoWin         mainUi;
   QApplication       *app;

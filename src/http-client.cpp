@@ -147,19 +147,24 @@ HttpClient::PollPeers (const QStringList & peerList)
   qDebug () << " nick map " << peers;
   QStringList::const_iterator it;
   for (it = peerList.constBegin(); it != peerList.constEnd(); it++) {
-    QString nick = *it;
-    if (peers.contains (nick)) {
-      int serverNum = peers[nick];
-      if (servers.contains (serverNum)) {
-        if (tradeUrl) {
-          Poll (servers[serverNum]);
-        }
-        if (tradeAddr) {
-          PollAddr (servers[serverNum]);
-        }
-      } else {
-        qDebug () << " NO server " << serverNum << " for " << nick << " server " << servers[serverNum].ident;
+    PollPeer (*it);
+  }
+}
+
+void
+HttpClient::PollPeer (const QString & nick)
+{
+  if (peers.contains (nick)) {
+    int serverNum = peers[nick];
+    if (servers.contains (serverNum)) {
+      if (tradeUrl) {
+        Poll (servers[serverNum]);
       }
+      if (tradeAddr) {
+        PollAddr (servers[serverNum]);
+      }
+    } else {
+      qDebug () << " NO server " << serverNum << " for " << nick << " server " << servers[serverNum].ident;
     }
   }
 }

@@ -25,8 +25,11 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QSet>
+#include <QTimer>
 
 #include "arado-peer.h"
+#include "http-client.h"
 
 namespace arado
 {
@@ -42,12 +45,51 @@ public:
   PollSequence (QObject *parent=0);
 
   void SetDB (DBManager *dbm) { db = dbm; }
+  void Start ();
+  void Stop ();
 
-  QStringList PollBy (quint64 from, quint64 to);
+  void PollClient (HttpClient * httpClient, bool force = 0);
+
+private slots:
+
+  void  PollA ();
+  void  PollB ();
+  void  PollC ();
 
 private:
 
+  void    ComputePeriods ();
+  void    Poll (QSet <QString> & nickSet,
+                QSet <QString>::iterator  & nickIt);
+
   DBManager  *db;
+  HttpClient *client;
+
+  /**      frequencies are per hour */
+  double   urlFreqA;
+  double   urlFreqB;
+  double   urlFreqC;
+
+  /**      periods in milliseconds */
+  int      periodA;
+  int      periodB;
+  int      periodC;
+
+  int      urlChunkA;
+  int      urlChunkB;
+  int      urlChunkC;
+
+  QSet <QString>  nicksA;
+  QSet <QString>  nicksB;
+  QSet <QString>  nicksC;
+
+  QSet <QString>::iterator  pollItA;
+  QSet <QString>::iterator  pollItB;
+  QSet <QString>::iterator  pollItC;
+
+  QTimer    timerA;
+  QTimer    timerB;
+  QTimer    timerC;
 
 } ; 
 

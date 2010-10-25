@@ -111,6 +111,7 @@ public:
 public slots:
 
   void PollPeers (const QStringList & peerList);
+  void PollPeer  (const QString & nick);
 
 
 private slots:
