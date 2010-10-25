@@ -22,6 +22,7 @@
  ****************************************************************/
 
 #include "arado-peer.h"
+#include <QHostAddress>
 
 namespace arado
 {
@@ -75,6 +76,25 @@ AradoPeer::Demote (const QString & level)
     newLevel = "B";
   } 
   return newLevel;
+}
+
+bool
+AradoPeer::IsSelfAddr ()
+{
+  if (addr == "localhost") {
+    return true;
+  }
+  QHostAddress a (addr);
+  bool isSelf = 
+           (addrType == "4" || addrType == "6")
+        && (a == QHostAddress::Null
+            || a == QHostAddress::LocalHost
+            || a == QHostAddress::LocalHostIPv6
+            || a == QHostAddress::Broadcast
+            || a == QHostAddress::Any
+           || a == QHostAddress::AnyIPv6);
+qDebug () << " peer check IsSelf " << isSelf << a;
+  return isSelf;
 }
 
 void

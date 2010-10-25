@@ -72,6 +72,8 @@ public:
   static QString Demote (const QString & level);
   static QString Promote (const QString & level);
 
+  bool   IsSelfAddr ();
+
   void  DebugDump ();
 
 private:
