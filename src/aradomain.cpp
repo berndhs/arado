@@ -139,7 +139,7 @@ AradoMain::Start ()
   RefreshPeers ();
   StartSequencer ();
   if (dbMgr.NumPeers () < 1) {
-    QTimer::singleShot (10000,this,SLOT (InitSystem()));
+    QTimer::singleShot (5000,this,SLOT (InitSystem()));
   }
 }
 
