@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="14"/>
         <source>First Contact - Add Device-IP-Address to start a connection</source>
-        <translation type="unfinished">SIMPLE - 戰鬥巡航 - 新增设备的IP的地址，开始连接</translation>
+        <translation type="unfinished">戰鬥巡航 - 新增设备的IP的地址，开始连接</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="33"/>
