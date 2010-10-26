@@ -236,7 +236,7 @@
      <normaloff>:/images/konquest.png</normaloff>:/images/konquest.png</iconset>
    </property>
    <property name="text">
-    <string>Boost Network</string>
+    <string>Join Galaxy</string>
    </property>
   </action>
  </widget>
