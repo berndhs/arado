@@ -52,6 +52,7 @@
     <addaction name="actionMailUuid"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionInitialize"/>
     <addaction name="separator"/>
     <addaction name="actionRestart"/>
@@ -214,7 +215,7 @@
      <normaloff>:/images/exec.png</normaloff>:/images/exec.png</iconset>
    </property>
    <property name="text">
-    <string>Restart</string>
+    <string>Restart Arado</string>
    </property>
   </action>
   <action name="actionListener">
@@ -230,8 +231,12 @@
    </property>
   </action>
   <action name="actionInitialize">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/konquest.png</normaloff>:/images/konquest.png</iconset>
+   </property>
    <property name="text">
-    <string>Initialize</string>
+    <string>Boost Network</string>
    </property>
   </action>
  </widget>

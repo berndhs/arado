@@ -44,6 +44,7 @@
         <file>images/aim.png</file>
         <file>images/exec.png</file>
         <file>images/heartbeat.png</file>
+        <file>images/konquest.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
