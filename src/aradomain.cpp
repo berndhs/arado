@@ -138,6 +138,9 @@ AradoMain::Start ()
   StartClients ();
   RefreshPeers ();
   StartSequencer ();
+  if (dbMgr.NumPeers () < 1) {
+    QTimer::singleShot (10000,this,SLOT (InitSystem()));
+  }
 }
 
 bool
@@ -665,13 +668,14 @@ void
 AradoMain::InitSystem ()
 {
   AradoPeer initPeer;
-  initPeer.SetNick ("AradoElvis_1289784903");
+  initPeer.SetNick ("AradoElvis_1288111461");
   initPeer.SetAddr ("arado.sourceforge.net");
   initPeer.SetAddrType ("name");
   initPeer.SetPort (80);
   initPeer.SetLevel ("C");
   dbMgr.AddPeer (initPeer);
   PeersAdded (1);
+  PollNow (true);
 }
 
 } // namespace

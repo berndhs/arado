@@ -319,6 +319,26 @@ DBManager::HavePeerS (const QString & peerid)
   return false;
 }
 
+int
+DBManager::NumPeers (const QString & kind)
+{
+  if (kind == "0") {
+    return NumPeers ("A") + NumPeers ("B") + NumPeers ("C");
+  } else  {
+    QSqlQuery select (ipBase);
+    QString cmd ("select count(peerid) from %1 "
+                          " where %2");
+    bool ok = select.exec ((kind == "A" || kind == "B") ?
+                             cmd.arg ("stablepeers")
+                                .arg (QString ("peerclass = \"%1\"").arg(kind))
+                            : cmd.arg ("transientpeers").arg ("1"));
+    if (ok && select.next ()) {
+      return select.value(0).toInt();
+    }                     
+  }
+  return 0;
+}
+
 bool
 DBManager::ReadPeerS (const QString & peerid, AradoPeer & peer)
 {

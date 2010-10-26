@@ -62,6 +62,8 @@ public:
   void  MovePeer (const QString & peerid, 
                   const QString & newLevel, 
                   const QString & oldLevel);
+
+  int   NumPeers (const QString & kind = QString ("0"));
   
   AradoUrlList  GetRecent (int howmany);
 
