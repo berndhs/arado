@@ -37,6 +37,7 @@ TRANSLATIONS += $$TRANS_DIR/arado_de.ts \
                 $$TRANS_DIR/arado_en.ts \
                 $$TRANS_DIR/arado_es.ts \
                 $$TRANS_DIR/arado_zh-CN-simple.ts \
+                $$TRANS_DIR/arado_zh_TW.ts \
                 $$TRANS_DIR/arado_fr.ts \
                 $$TRANS_DIR/arado_sv.ts \
 
