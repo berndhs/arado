@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="14"/>
         <source>First Contact - Add Device-IP-Address to start a connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファーストコンタクトの追加 - デバイスのIPアドレスが接続を開始する</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="33"/>
@@ -58,7 +58,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="160"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">定数</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="163"/>
@@ -75,17 +75,18 @@
     <message>
         <location filename="../ui/address-input.ui" line="195"/>
         <source>Insert IP-Address and Port and UUID of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Übersetzung von Englisch nach Japanisch
+挿入のIPアドレスとポートとUUIDは、お使いのデバイスの接続先とする。リモートデバイスのポートは、リモートのNAT /ルータで転送されることを確認してください。</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="220"/>
         <source>Flexible</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">柔軟性</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="242"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リモート</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="258"/>
@@ -98,12 +99,12 @@
     <message>
         <location filename="../ui/aradomain.ui" line="14"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - アラド - ウェブ検索</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="47"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">システム</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="64"/>
@@ -118,7 +119,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="81"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="101"/>
@@ -193,7 +194,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="239"/>
         <source>Join Galaxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">銀河に参加</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="227"/>
@@ -422,7 +423,7 @@
     <message>
         <location filename="../ui/entry-form.ui" line="20"/>
         <source>Enter any URL. It will be shortend to an ARADO-Flashmark you can post into any board, chat or email.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">任意のURLを入力してください。それはあなたが、任意のボードに投稿することができますチャットしたり、電子メールアラド- Flashmarkに短絡されます。</translation>
     </message>
     <message>
         <location filename="../ui/entry-form.ui" line="23"/>
@@ -523,7 +524,7 @@
     <message>
         <location filename="../ui/listener-edit.ui" line="30"/>
         <source>Enter your external IP-Address/Port or edit UUID:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">：アドレス/ポートまたはUUIDを編集する - あなたの外部IPアドレスを入力します</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="46"/>
@@ -693,7 +694,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="81"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">検索</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="116"/>
@@ -703,7 +704,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="119"/>
         <source>Show Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">地図最近の</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="150"/>
@@ -876,7 +877,7 @@ Do you want to replace it?</source>
         <source>Your Arado UUID is 
 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのアラドのUUIDは、 %1</translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="644"/>

@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="14"/>
         <source>First Contact - Add Device-IP-Address to start a connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pierwszy kontakt - Dodaj Device IP Address nawiązać połączenie</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="33"/>
@@ -58,7 +58,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="160"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stały</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="163"/>
@@ -75,17 +75,17 @@
     <message>
         <location filename="../ui/address-input.ui" line="195"/>
         <source>Insert IP-Address and Port and UUID of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw adres IP i port i UUID urządzenia, które chcesz połączyć. Upewnij się, że port zdalne urządzenie jest przekazywane w Nat remote / Router.</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="220"/>
         <source>Flexible</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elastyczny</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="242"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zdalnego</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="258"/>
@@ -98,12 +98,12 @@
     <message>
         <location filename="../ui/aradomain.ui" line="14"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - Wyszukiwarka</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="47"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">System</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="64"/>
@@ -118,7 +118,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="81"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">skontaktować się</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="101"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="239"/>
         <source>Join Galaxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dołącz do Galaxy</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="227"/>
@@ -422,7 +422,7 @@
     <message>
         <location filename="../ui/entry-form.ui" line="20"/>
         <source>Enter any URL. It will be shortend to an ARADO-Flashmark you can post into any board, chat or email.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wprowadź URL. Będzie to zwarty do ARADO-Flashmark można wysłać na żadnej płycie, czat lub e-mail.</translation>
     </message>
     <message>
         <location filename="../ui/entry-form.ui" line="23"/>
@@ -523,7 +523,7 @@
     <message>
         <location filename="../ui/listener-edit.ui" line="30"/>
         <source>Enter your external IP-Address/Port or edit UUID:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wpisz swój zewnętrzny IP - Adres / Port lub edytować UUID:</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="46"/>
@@ -693,7 +693,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="81"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Szukaj</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="116"/>
@@ -703,7 +703,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="119"/>
         <source>Show Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pokaż ostatnie</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="150"/>
@@ -876,7 +876,7 @@ Do you want to replace it?</source>
         <source>Your Arado UUID is 
 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Twoje Arado UUID jest %1</translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="644"/>

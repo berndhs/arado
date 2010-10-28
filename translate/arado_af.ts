@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="14"/>
         <source>First Contact - Add Device-IP-Address to start a connection</source>
-        <translation type="unfinished">Erster kontakt</translation>
+        <translation type="unfinished">Eerste Contact - Voeg apparaat-IP-adres &apos;n verband te begin</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="33"/>
@@ -58,7 +58,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="160"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konstante</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="163"/>
@@ -75,17 +75,17 @@
     <message>
         <location filename="../ui/address-input.ui" line="195"/>
         <source>Insert IP-Address and Port and UUID of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Insert IP-adres en poort en UUID van jou toestel wat jy wil aansluit by. Seker wees dat die poort van die eksterne apparaat is gestuur in die afgeleë Nat / Router.</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="220"/>
         <source>Flexible</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Buigsame</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="242"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afgeleë</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="258"/>
@@ -98,12 +98,12 @@
     <message>
         <location filename="../ui/aradomain.ui" line="14"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - WebSearch</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="47"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stelsel</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="63"/>
@@ -118,7 +118,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="80"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maak</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="100"/>
@@ -430,7 +430,7 @@
     <message>
         <location filename="../ui/entry-form.ui" line="20"/>
         <source>Enter any URL. It will be shortend to an ARADO-Flashmark you can post into any board, chat or email.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gee &apos;n URL. Dit sal kortsluiting word aan &apos;n ARADO-Flashmark jy kan plaas in enige raad, chat of e-pos.</translation>
     </message>
     <message>
         <location filename="../ui/entry-form.ui" line="23"/>
@@ -531,7 +531,7 @@
     <message>
         <location filename="../ui/listener-edit.ui" line="30"/>
         <source>Enter your external IP-Address/Port or edit UUID:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gee jou eksterne IP - Adres / Port of wysig UUID:</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="46"/>
@@ -696,7 +696,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="81"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soek</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="116"/>
@@ -706,7 +706,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="119"/>
         <source>Show Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wys Recent</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="150"/>
@@ -875,7 +875,7 @@
     <message>
         <location filename="../src/aradomain.cpp" line="613"/>
         <source>Your Arado UUID is   %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Din Arado UUID är %1</translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="616"/>

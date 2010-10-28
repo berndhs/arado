@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="14"/>
         <source>First Contact - Add Device-IP-Address to start a connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Первый контакт - Добавить устройство IP-адрес, чтобы начать подключение</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="33"/>
@@ -58,7 +58,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="160"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Постоянная</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="163"/>
@@ -75,17 +75,17 @@
     <message>
         <location filename="../ui/address-input.ui" line="195"/>
         <source>Insert IP-Address and Port and UUID of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вставьте IP-адрес и порт и UUID устройства вы хотите подключиться. Убедитесь, что порт удаленного устройства направляется в удаленный NAT / маршрутизатор.</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="220"/>
         <source>Flexible</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">гибкая</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="242"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">удаленный</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="258"/>
@@ -98,12 +98,12 @@
     <message>
         <location filename="../ui/aradomain.ui" line="14"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado -Арадо - Веб-поиск</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="47"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Система</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="64"/>
@@ -118,7 +118,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="81"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">связаться</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="101"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="239"/>
         <source>Join Galaxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Присоединиться к Галактики</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="227"/>
@@ -422,7 +422,7 @@
     <message>
         <location filename="../ui/entry-form.ui" line="20"/>
         <source>Enter any URL. It will be shortend to an ARADO-Flashmark you can post into any board, chat or email.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Введите URL-адрес. Он будет замкнут на АРАДО-Flashmark вы можете разместить на любой доске, чата или электронной почты.</translation>
     </message>
     <message>
         <location filename="../ui/entry-form.ui" line="23"/>
@@ -523,7 +523,7 @@
     <message>
         <location filename="../ui/listener-edit.ui" line="30"/>
         <source>Enter your external IP-Address/Port or edit UUID:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Введите ваш внешний IP - адрес / порт или изменить UUID:</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="46"/>
@@ -693,7 +693,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="81"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поиск</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="116"/>
@@ -703,7 +703,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="119"/>
         <source>Show Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать последние</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="150"/>
@@ -876,7 +876,7 @@ Do you want to replace it?</source>
         <source>Your Arado UUID is 
 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ваш Арадо UUID является</translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="644"/>

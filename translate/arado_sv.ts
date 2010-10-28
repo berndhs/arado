@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="14"/>
         <source>First Contact - Add Device-IP-Address to start a connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">First Contact - Lägg enhetens IP-adress för att ansluta</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="33"/>
@@ -58,7 +58,7 @@
     <message>
         <location filename="../ui/address-input.ui" line="160"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konstant</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="163"/>
@@ -75,17 +75,17 @@
     <message>
         <location filename="../ui/address-input.ui" line="195"/>
         <source>Insert IP-Address and Port and UUID of your device you want to connect to. Be sure the port of the remote device is forwarded in the remote Nat/Router.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sätt IP-adress och port och UUID på din enhet du vill ansluta till. Var noga med hamnen i den fjärranslutna enheten har överlämnats i den avlägsna NAT / router.</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="220"/>
         <source>Flexible</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Flexibla</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="242"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">fjärrkontroll</translation>
     </message>
     <message>
         <location filename="../ui/address-input.ui" line="258"/>
@@ -98,111 +98,111 @@
     <message>
         <location filename="../ui/aradomain.ui" line="14"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - Webbsökning</translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="47"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">System</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="63"/>
+        <location filename="../ui/aradomain.ui" line="64"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="69"/>
+        <location filename="../ui/aradomain.ui" line="70"/>
         <source>Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="80"/>
+        <location filename="../ui/aradomain.ui" line="81"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">kontakt</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="100"/>
+        <location filename="../ui/aradomain.ui" line="101"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="109"/>
+        <location filename="../ui/aradomain.ui" line="110"/>
         <source>About Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="118"/>
+        <location filename="../ui/aradomain.ui" line="119"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="127"/>
+        <location filename="../ui/aradomain.ui" line="128"/>
         <source>Import URL-File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="136"/>
+        <location filename="../ui/aradomain.ui" line="137"/>
         <source>Add URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="145"/>
+        <location filename="../ui/aradomain.ui" line="146"/>
         <source>Export URL-File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="154"/>
+        <location filename="../ui/aradomain.ui" line="155"/>
         <source>Edit RSS-Import-URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="163"/>
+        <location filename="../ui/aradomain.ui" line="164"/>
         <source>Import IP-List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="172"/>
+        <location filename="../ui/aradomain.ui" line="173"/>
         <source>Export IP-List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="181"/>
+        <location filename="../ui/aradomain.ui" line="182"/>
         <source>Add Device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="190"/>
+        <location filename="../ui/aradomain.ui" line="191"/>
         <source>Start Sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="199"/>
+        <location filename="../ui/aradomain.ui" line="200"/>
         <source>Display own UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="208"/>
+        <location filename="../ui/aradomain.ui" line="209"/>
         <source>Mail own UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="217"/>
-        <source>Restart</source>
+        <location filename="../ui/aradomain.ui" line="218"/>
+        <source>Restart Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="226"/>
+        <location filename="../ui/aradomain.ui" line="239"/>
+        <source>Join Galaxy</source>
+        <translation type="unfinished">Bli Galaxy</translation>
+    </message>
+    <message>
+        <location filename="../ui/aradomain.ui" line="227"/>
         <source>Configure External Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="229"/>
+        <location filename="../ui/aradomain.ui" line="230"/>
         <source>Configure Arado Base: Enter your external IP-Address and forwarded (!) Port (ideally Port 80 or 29998 by default).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/aradomain.ui" line="234"/>
-        <source>Initialize</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -237,185 +237,177 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="71"/>
+        <location filename="../ui/connection-display.ui" line="77"/>
         <source>Constant Devices are stable and trusted (e.g. desktop-pc at home).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="74"/>
+        <location filename="../ui/connection-display.ui" line="80"/>
         <source>Constant Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="88"/>
-        <source>Available Slots for Constant (up to 10)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="121"/>
-        <source>Connect every (1 - 9 Min):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="128"/>
-        <location filename="../ui/connection-display.ui" line="293"/>
-        <location filename="../ui/connection-display.ui" line="451"/>
-        <source>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="147"/>
-        <location filename="../ui/connection-display.ui" line="266"/>
-        <location filename="../ui/connection-display.ui" line="424"/>
+        <location filename="../ui/connection-display.ui" line="117"/>
+        <location filename="../ui/connection-display.ui" line="254"/>
+        <location filename="../ui/connection-display.ui" line="414"/>
         <source>Amount of URLs in one Query</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="166"/>
-        <location filename="../ui/connection-display.ui" line="324"/>
-        <location filename="../ui/connection-display.ui" line="488"/>
+        <location filename="../ui/connection-display.ui" line="168"/>
+        <location filename="../ui/connection-display.ui" line="328"/>
+        <location filename="../ui/connection-display.ui" line="494"/>
         <source>Nick</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="171"/>
-        <location filename="../ui/connection-display.ui" line="329"/>
-        <location filename="../ui/connection-display.ui" line="493"/>
+        <location filename="../ui/connection-display.ui" line="173"/>
+        <location filename="../ui/connection-display.ui" line="333"/>
+        <location filename="../ui/connection-display.ui" line="499"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="176"/>
-        <location filename="../ui/connection-display.ui" line="334"/>
-        <location filename="../ui/connection-display.ui" line="498"/>
+        <location filename="../ui/connection-display.ui" line="178"/>
+        <location filename="../ui/connection-display.ui" line="338"/>
+        <location filename="../ui/connection-display.ui" line="504"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="202"/>
-        <location filename="../ui/connection-display.ui" line="860"/>
+        <location filename="../ui/connection-display.ui" line="204"/>
+        <location filename="../ui/connection-display.ui" line="866"/>
         <source>Connect Devices and start to sync URLs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="232"/>
+        <location filename="../ui/connection-display.ui" line="240"/>
         <source>Remote Devices are networked neighbour machines (e.g. your PC at work or family).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="235"/>
+        <location filename="../ui/connection-display.ui" line="243"/>
         <source>Remote Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="246"/>
-        <source>Available Slots for Remote (up to 20)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="286"/>
-        <source>Connect every (10 - 29 Min):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="360"/>
+        <location filename="../ui/connection-display.ui" line="364"/>
         <source>Add Device to Flexible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="390"/>
+        <location filename="../ui/connection-display.ui" line="400"/>
         <source>Flexible Devices change the connection info very often (e.g. like wireless or mobile Devices).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="393"/>
+        <location filename="../ui/connection-display.ui" line="403"/>
         <source>Flexible Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="404"/>
-        <source>Available Slots for Flexible (up to 20)</source>
+        <location filename="../ui/connection-display.ui" line="107"/>
+        <source>Example: 720 connections per hour = one connection each 5 seconds.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="444"/>
-        <source>Connect every (30 - 120 Min):</source>
+        <location filename="../ui/connection-display.ui" line="110"/>
+        <location filename="../ui/connection-display.ui" line="277"/>
+        <location filename="../ui/connection-display.ui" line="437"/>
+        <source>Connections per Hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="512"/>
+        <location filename="../ui/connection-display.ui" line="149"/>
+        <location filename="../ui/connection-display.ui" line="309"/>
+        <location filename="../ui/connection-display.ui" line="469"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/connection-display.ui" line="274"/>
+        <source>Example: 60 connections per hour = one connection each 60 seconds.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/connection-display.ui" line="434"/>
+        <source>Example: 40 connections per hour = one connection each 90 seconds.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/connection-display.ui" line="518"/>
         <source>Arado Heartbeat Base.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="515"/>
+        <location filename="../ui/connection-display.ui" line="521"/>
         <source>External Address / Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="689"/>
+        <location filename="../ui/connection-display.ui" line="695"/>
         <source>Device Cache Max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="696"/>
+        <location filename="../ui/connection-display.ui" line="702"/>
         <source>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="718"/>
+        <location filename="../ui/connection-display.ui" line="724"/>
         <source>Disable flexible devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="731"/>
+        <location filename="../ui/connection-display.ui" line="737"/>
         <source>Enable  only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="754"/>
+        <location filename="../ui/connection-display.ui" line="760"/>
         <source>Add any marked Device to Constant.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="757"/>
+        <location filename="../ui/connection-display.ui" line="763"/>
         <source>Make Constant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="786"/>
+        <location filename="../ui/connection-display.ui" line="792"/>
         <source>Delete any marked Device and send it to Nirvana.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="789"/>
+        <location filename="../ui/connection-display.ui" line="795"/>
         <source>Delete Device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="818"/>
+        <location filename="../ui/connection-display.ui" line="824"/>
         <source>Add any marked Device to Flexible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="827"/>
+        <location filename="../ui/connection-display.ui" line="833"/>
         <source>Make Flexible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="863"/>
-        <location filename="../ui/connection-display.ui" line="933"/>
+        <location filename="../ui/connection-display.ui" line="869"/>
+        <location filename="../ui/connection-display.ui" line="939"/>
         <source>Start Sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="898"/>
+        <location filename="../ui/connection-display.ui" line="904"/>
         <source>Boot with an IP+Port, if the IP-cache is empty or outdated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="901"/>
-        <location filename="../ui/connection-display.ui" line="924"/>
+        <location filename="../ui/connection-display.ui" line="907"/>
+        <location filename="../ui/connection-display.ui" line="930"/>
         <source>Add Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -430,7 +422,7 @@
     <message>
         <location filename="../ui/entry-form.ui" line="20"/>
         <source>Enter any URL. It will be shortend to an ARADO-Flashmark you can post into any board, chat or email.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ange en webbadress. Det kommer att bli kortsluten till en Arado-Flashmark du kan skicka in någon styrelse, chatt eller e-post.</translation>
     </message>
     <message>
         <location filename="../ui/entry-form.ui" line="23"/>
@@ -531,7 +523,7 @@
     <message>
         <location filename="../ui/listener-edit.ui" line="30"/>
         <source>Enter your external IP-Address/Port or edit UUID:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skriv in ditt externa IP - adress / Port eller redigera UUID:</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="46"/>
@@ -696,7 +688,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="81"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sök</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="116"/>
@@ -706,7 +698,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="119"/>
         <source>Show Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visa senaste</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="150"/>
@@ -798,96 +790,96 @@ Do you want to replace it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="91"/>
+        <location filename="../src/aradomain.cpp" line="102"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="332"/>
+        <location filename="../src/aradomain.cpp" line="353"/>
         <source>Arado - Websearch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="353"/>
+        <location filename="../src/aradomain.cpp" line="374"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="386"/>
+        <location filename="../src/aradomain.cpp" line="409"/>
         <source>Add URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="415"/>
+        <location filename="../src/aradomain.cpp" line="438"/>
         <source>Import File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="417"/>
-        <location filename="../src/aradomain.cpp" line="448"/>
+        <location filename="../src/aradomain.cpp" line="440"/>
+        <location filename="../src/aradomain.cpp" line="471"/>
         <source>Arado Url Files (*.xml);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="446"/>
+        <location filename="../src/aradomain.cpp" line="469"/>
         <source>Export URL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="469"/>
+        <location filename="../src/aradomain.cpp" line="492"/>
         <source>Import Address File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="471"/>
-        <location filename="../src/aradomain.cpp" line="510"/>
+        <location filename="../src/aradomain.cpp" line="494"/>
+        <location filename="../src/aradomain.cpp" line="533"/>
         <source>Arado Address Files (*.xml);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="508"/>
+        <location filename="../src/aradomain.cpp" line="531"/>
         <source>Export Address File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="589"/>
+        <location filename="../src/aradomain.cpp" line="617"/>
         <source>Please join me at Arado.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="591"/>
+        <location filename="../src/aradomain.cpp" line="619"/>
         <source>Add my Arado-UUID: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="592"/>
+        <location filename="../src/aradomain.cpp" line="620"/>
         <source>http://arado.sf.net Websearch - Syncs, shortens and searches within (y)our URLs and Bookmarks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="596"/>
+        <location filename="../src/aradomain.cpp" line="624"/>
         <source>My Arado UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="611"/>
+        <location filename="../src/aradomain.cpp" line="639"/>
         <source>Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="613"/>
+        <location filename="../src/aradomain.cpp" line="641"/>
         <source>Your Arado UUID is 
 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Din Arado UUID är %1</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="616"/>
+        <location filename="../src/aradomain.cpp" line="644"/>
         <source>Copy UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="618"/>
+        <location filename="../src/aradomain.cpp" line="646"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -895,22 +887,22 @@ Do you want to replace it?</source>
 <context>
     <name>arado::ConnectionDisplay</name>
     <message>
-        <location filename="../src/connection-display.cpp" line="140"/>
+        <location filename="../src/connection-display.cpp" line="155"/>
         <source>UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="261"/>
+        <location filename="../src/connection-display.cpp" line="276"/>
         <source>Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="267"/>
+        <location filename="../src/connection-display.cpp" line="282"/>
         <source>Please Select an Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="269"/>
+        <location filename="../src/connection-display.cpp" line="284"/>
         <source>Only 1 Item please.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -935,7 +927,7 @@ will not be saved.</source>
 <context>
     <name>arado::HttpClient</name>
     <message>
-        <location filename="../src/http-client.cpp" line="506"/>
+        <location filename="../src/http-client.cpp" line="511"/>
         <source>AradoElvis_%1</source>
         <translation type="unfinished"></translation>
     </message>
