@@ -130,7 +130,7 @@
             <number>0</number>
            </property>
            <property name="minimum">
-            <double>120.000000000000000</double>
+            <double>1.000000000000000</double>
            </property>
            <property name="maximum">
             <double>1000000.000000000000000</double>
@@ -290,7 +290,7 @@
             <number>0</number>
            </property>
            <property name="minimum">
-            <double>40.000000000000000</double>
+            <double>6.000000000000000</double>
            </property>
            <property name="maximum">
             <double>100000.000000000000000</double>
