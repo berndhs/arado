@@ -108,15 +108,6 @@ ConnectionDisplay::ShowPeers ()
   bool listening = deliberate::Settings().value ("http/run").toBool ();
   if (addr == "localhost") {
     ui.listenAddr->setText (tr("Please Configure External Address"));
-    ui.listenAddr->setStyleSheet("background-color:"
-                                 "qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,"
-                                 " stop:0 rgba(255, 0, 0, 255),"
-                                 " stop:0.166 rgba(255, 255, 0, 255),"
-                                 " stop:0.333 rgba(0, 255, 0, 255),"
-                                 " stop:0.5 rgba(0, 255, 255, 255),"
-                                 " stop:0.666 rgba(0, 0, 255, 255),"
-                                 " stop:0.833 rgba(255, 0, 255, 255),"
-                                 " stop:1 rgba(255, 0, 0, 255));" );
   } else {
     ui.listenAddr->setText (addr);
   }
