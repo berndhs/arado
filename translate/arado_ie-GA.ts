@@ -417,7 +417,7 @@
     <message>
         <location filename="../ui/entry-form.ui" line="14"/>
         <source>Add URL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuir URL</translation>
     </message>
     <message>
         <location filename="../ui/entry-form.ui" line="20"/>
@@ -797,7 +797,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../src/aradomain.cpp" line="356"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - Cuardach gréasáin </translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="377"/>
@@ -807,7 +807,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../src/aradomain.cpp" line="412"/>
         <source>Add URL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuir URL</translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="441"/>

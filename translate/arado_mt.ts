@@ -409,7 +409,7 @@
         <location filename="../ui/connection-display.ui" line="907"/>
         <location filename="../ui/connection-display.ui" line="930"/>
         <source>Add Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Żid Device</translation>
     </message>
 </context>
 <context>
@@ -797,7 +797,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../src/aradomain.cpp" line="356"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - tiftix bl-internet </translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="377"/>

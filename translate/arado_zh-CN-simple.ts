@@ -108,104 +108,112 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
         <translation type="unfinished">系统</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="63"/>
+        <location filename="../ui/aradomain.ui" line="64"/>
         <source>Help</source>
         <translation type="unfinished">帮助</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="69"/>
+        <location filename="../ui/aradomain.ui" line="70"/>
         <source>Data</source>
         <translation type="unfinished">数据</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="80"/>
+        <location filename="../ui/aradomain.ui" line="81"/>
         <source>Connect</source>
         <translation type="unfinished">连接</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="100"/>
+        <location filename="../ui/aradomain.ui" line="101"/>
         <source>Exit</source>
         <translation type="unfinished">退出</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="109"/>
+        <location filename="../ui/aradomain.ui" line="110"/>
         <source>About Arado</source>
         <translation type="unfinished">关于Arado 阿拉道</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="118"/>
+        <location filename="../ui/aradomain.ui" line="119"/>
         <source>Settings</source>
         <translation type="unfinished">设置</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="127"/>
+        <location filename="../ui/aradomain.ui" line="128"/>
         <source>Import URL-File</source>
         <translation type="unfinished">进口网址文件</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="136"/>
+        <location filename="../ui/aradomain.ui" line="137"/>
         <source>Add URL</source>
         <translation type="unfinished">添加网址</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="145"/>
+        <location filename="../ui/aradomain.ui" line="146"/>
         <source>Export URL-File</source>
         <translation type="unfinished">出口的网址文件</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="154"/>
+        <location filename="../ui/aradomain.ui" line="155"/>
         <source>Edit RSS-Import-URL</source>
         <translation type="unfinished">编辑RSS的导入，网址</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="163"/>
+        <location filename="../ui/aradomain.ui" line="164"/>
         <source>Import IP-List</source>
         <translation type="unfinished">进口的IP列表</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="172"/>
+        <location filename="../ui/aradomain.ui" line="173"/>
         <source>Export IP-List</source>
         <translation type="unfinished">出口IP的名单</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="181"/>
+        <location filename="../ui/aradomain.ui" line="182"/>
         <source>Add Device</source>
         <translation type="unfinished">添加设备</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="190"/>
+        <location filename="../ui/aradomain.ui" line="191"/>
         <source>Start Sync</source>
         <translation type="unfinished">启动同步</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="199"/>
+        <location filename="../ui/aradomain.ui" line="200"/>
         <source>Display own UUID</source>
         <translation type="unfinished">发挥自己的UUID</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="208"/>
+        <location filename="../ui/aradomain.ui" line="209"/>
         <source>Mail own UUID</source>
         <translation type="unfinished">邮件本身的UUID</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="217"/>
-        <source>Restart</source>
-        <translation type="unfinished">重新开始</translation>
+        <location filename="../ui/aradomain.ui" line="218"/>
+        <source>Restart Arado</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="226"/>
+        <location filename="../ui/aradomain.ui" line="239"/>
+        <source>Join Galaxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart</source>
+        <translation type="obsolete">重新开始</translation>
+    </message>
+    <message>
+        <location filename="../ui/aradomain.ui" line="227"/>
         <source>Configure External Address</source>
         <translation type="unfinished">配置外部地址</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="229"/>
+        <location filename="../ui/aradomain.ui" line="230"/>
         <source>Configure Arado Base: Enter your external IP-Address and forwarded (!) Port (ideally Port 80 or 29998 by default).</source>
         <translation type="unfinished">配置 Arado 基地：输入您的外部IP地址和端口转发（最好是80或29998端口默认情况下）（！）。</translation>
     </message>
     <message>
-        <location filename="../ui/aradomain.ui" line="234"/>
         <source>Initialize</source>
-        <translation type="unfinished">初始化</translation>
+        <translation type="obsolete">初始化</translation>
     </message>
 </context>
 <context>
@@ -239,185 +247,177 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
         <translation type="unfinished">新增设备到常数。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="71"/>
+        <location filename="../ui/connection-display.ui" line="77"/>
         <source>Constant Devices are stable and trusted (e.g. desktop-pc at home).</source>
         <translation type="unfinished">恒装置稳定和信任的（例如，在家用台式机，PC机）。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="74"/>
+        <location filename="../ui/connection-display.ui" line="80"/>
         <source>Constant Devices</source>
         <translation type="unfinished">恒装置</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="88"/>
-        <source>Available Slots for Constant (up to 10)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="121"/>
-        <source>Connect every (1 - 9 Min):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="128"/>
-        <location filename="../ui/connection-display.ui" line="293"/>
-        <location filename="../ui/connection-display.ui" line="451"/>
-        <source>IP-connections of your devices are dropped for sync-balancing reasons each X minutes (10-30).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="147"/>
-        <location filename="../ui/connection-display.ui" line="266"/>
-        <location filename="../ui/connection-display.ui" line="424"/>
+        <location filename="../ui/connection-display.ui" line="117"/>
+        <location filename="../ui/connection-display.ui" line="254"/>
+        <location filename="../ui/connection-display.ui" line="414"/>
         <source>Amount of URLs in one Query</source>
         <translation type="unfinished">在一个网址金额查询</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="166"/>
-        <location filename="../ui/connection-display.ui" line="324"/>
-        <location filename="../ui/connection-display.ui" line="488"/>
+        <location filename="../ui/connection-display.ui" line="168"/>
+        <location filename="../ui/connection-display.ui" line="328"/>
+        <location filename="../ui/connection-display.ui" line="494"/>
         <source>Nick</source>
         <translation type="unfinished">昵称</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="171"/>
-        <location filename="../ui/connection-display.ui" line="329"/>
-        <location filename="../ui/connection-display.ui" line="493"/>
+        <location filename="../ui/connection-display.ui" line="173"/>
+        <location filename="../ui/connection-display.ui" line="333"/>
+        <location filename="../ui/connection-display.ui" line="499"/>
         <source>Address</source>
         <translation type="unfinished">地址</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="176"/>
-        <location filename="../ui/connection-display.ui" line="334"/>
-        <location filename="../ui/connection-display.ui" line="498"/>
+        <location filename="../ui/connection-display.ui" line="178"/>
+        <location filename="../ui/connection-display.ui" line="338"/>
+        <location filename="../ui/connection-display.ui" line="504"/>
         <source>Port</source>
         <translation type="unfinished">港口</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="202"/>
-        <location filename="../ui/connection-display.ui" line="860"/>
+        <location filename="../ui/connection-display.ui" line="204"/>
+        <location filename="../ui/connection-display.ui" line="866"/>
         <source>Connect Devices and start to sync URLs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="232"/>
+        <location filename="../ui/connection-display.ui" line="240"/>
         <source>Remote Devices are networked neighbour machines (e.g. your PC at work or family).</source>
         <translation type="unfinished">远程设备是网络邻居机器（例如你在工作或家庭电脑）。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="235"/>
+        <location filename="../ui/connection-display.ui" line="243"/>
         <source>Remote Devices</source>
         <translation type="unfinished">远程设备</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="246"/>
-        <source>Available Slots for Remote (up to 20)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="286"/>
-        <source>Connect every (10 - 29 Min):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/connection-display.ui" line="360"/>
+        <location filename="../ui/connection-display.ui" line="364"/>
         <source>Add Device to Flexible.</source>
         <translation type="unfinished">新增设备到灵活。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="390"/>
+        <location filename="../ui/connection-display.ui" line="400"/>
         <source>Flexible Devices change the connection info very often (e.g. like wireless or mobile Devices).</source>
         <translation type="unfinished">灵活的连接信息设备变化经常（如无线或移动设备，如）。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="393"/>
+        <location filename="../ui/connection-display.ui" line="403"/>
         <source>Flexible Devices</source>
         <translation type="unfinished">灵活的设备</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="404"/>
-        <source>Available Slots for Flexible (up to 20)</source>
+        <location filename="../ui/connection-display.ui" line="107"/>
+        <source>Example: 720 connections per hour = one connection each 5 seconds.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="444"/>
-        <source>Connect every (30 - 120 Min):</source>
+        <location filename="../ui/connection-display.ui" line="110"/>
+        <location filename="../ui/connection-display.ui" line="277"/>
+        <location filename="../ui/connection-display.ui" line="437"/>
+        <source>Connections per Hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="512"/>
+        <location filename="../ui/connection-display.ui" line="149"/>
+        <location filename="../ui/connection-display.ui" line="309"/>
+        <location filename="../ui/connection-display.ui" line="469"/>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+    <message>
+        <location filename="../ui/connection-display.ui" line="274"/>
+        <source>Example: 60 connections per hour = one connection each 60 seconds.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/connection-display.ui" line="434"/>
+        <source>Example: 40 connections per hour = one connection each 90 seconds.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/connection-display.ui" line="518"/>
         <source>Arado Heartbeat Base.</source>
         <translation type="unfinished">Arado 心跳基地。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="515"/>
+        <location filename="../ui/connection-display.ui" line="521"/>
         <source>External Address / Port:</source>
         <translation type="unfinished">外部的IP地址/端口:</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="689"/>
+        <location filename="../ui/connection-display.ui" line="695"/>
         <source>Device Cache Max</source>
         <translation type="unfinished">高速缓存的最大设备</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="696"/>
+        <location filename="../ui/connection-display.ui" line="702"/>
         <source>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</source>
         <translation type="unfinished">知识产权在您的IP缓存不会忽略金额（1500-5000）。起来，如果所有的IP地址还有联系已经过时或脱机和连接后，启动失败。然后，每分钟的请求被发送到启动IP的连接，以填补100缓存的百分比</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="718"/>
+        <location filename="../ui/connection-display.ui" line="724"/>
         <source>Disable flexible devices</source>
         <translation type="unfinished">灵活的设备停用</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="731"/>
+        <location filename="../ui/connection-display.ui" line="737"/>
         <source>Enable  only</source>
         <translation type="unfinished">仅启用</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="754"/>
+        <location filename="../ui/connection-display.ui" line="760"/>
         <source>Add any marked Device to Constant.</source>
         <translation type="unfinished">添加任何标记设备到常数。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="757"/>
+        <location filename="../ui/connection-display.ui" line="763"/>
         <source>Make Constant</source>
         <translation type="unfinished">做出不断的</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="786"/>
+        <location filename="../ui/connection-display.ui" line="792"/>
         <source>Delete any marked Device and send it to Nirvana.</source>
         <translation type="unfinished">删除任何标记的设备并将其发送到涅槃。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="789"/>
+        <location filename="../ui/connection-display.ui" line="795"/>
         <source>Delete Device</source>
         <translation type="unfinished">删除设备</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="818"/>
+        <location filename="../ui/connection-display.ui" line="824"/>
         <source>Add any marked Device to Flexible.</source>
         <translation type="unfinished">以灵活的标记添加任何设备。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="827"/>
+        <location filename="../ui/connection-display.ui" line="833"/>
         <source>Make Flexible</source>
         <translation type="unfinished">作出弹性</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="863"/>
-        <location filename="../ui/connection-display.ui" line="933"/>
+        <location filename="../ui/connection-display.ui" line="869"/>
+        <location filename="../ui/connection-display.ui" line="939"/>
         <source>Start Sync</source>
         <translation type="unfinished">启动同步</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="898"/>
+        <location filename="../ui/connection-display.ui" line="904"/>
         <source>Boot with an IP+Port, if the IP-cache is empty or outdated.</source>
         <translation type="unfinished">一个IP +端口启动，如果IP缓存是空的或过时。</translation>
     </message>
     <message>
-        <location filename="../ui/connection-display.ui" line="901"/>
-        <location filename="../ui/connection-display.ui" line="924"/>
+        <location filename="../ui/connection-display.ui" line="907"/>
+        <location filename="../ui/connection-display.ui" line="930"/>
         <source>Add Device</source>
         <translation type="unfinished">添加设备</translation>
     </message>
@@ -505,7 +505,7 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     <message>
         <location filename="../ui/feed-input.ui" line="26"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消</translation>
     </message>
     <message>
         <location filename="../ui/feed-input.ui" line="43"/>
@@ -520,7 +520,7 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     <message>
         <location filename="../ui/feed-input.ui" line="72"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确定</translation>
     </message>
 </context>
 <context>
@@ -552,8 +552,12 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="137"/>
+        <source> ON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>ON</source>
-        <translation type="unfinished">关于</translation>
+        <translation type="obsolete">关于</translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="140"/>
@@ -597,7 +601,7 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     <message>
         <location filename="../ui/DebugLog.ui" line="37"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭</translation>
     </message>
     <message>
         <location filename="../ui/DebugLog.ui" line="44"/>
@@ -644,27 +648,32 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     </message>
     <message>
         <location filename="../src/cmdoptions.cpp" line="61"/>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/cmdoptions.cpp" line="64"/>
-        <source>--</source>
+        <source>		</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/cmdoptions.cpp" line="65"/>
-        <source>( -</source>
+        <source> ( -</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/cmdoptions.cpp" line="66"/>
-        <source>)</source>
+        <source>) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/cmdoptions.cpp" line="68"/>
-        <source>value</source>
+        <source> value  </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cmdoptions.cpp" line="61"/>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/cmdoptions.cpp" line="64"/>
+        <source>--</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -781,13 +790,23 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     </message>
     <message>
         <location filename="../src/add-peer.cpp" line="137"/>
-        <source>The UUID is not valid! Proceed anyway?</source>
-        <translation type="unfinished">UUID被无效！继续吗？</translation>
+        <source>The UUID is not valid!
+Proceed anyway?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/add-peer.cpp" line="151"/>
+        <source>Nick %1 already exists!
+Do you want to replace it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The UUID is not valid! Proceed anyway?</source>
+        <translation type="obsolete">UUID被无效！继续吗？</translation>
+    </message>
+    <message>
         <source>Nick %1 already exists! Do you want to replace it?</source>
-        <translation type="unfinished">尼克%1已经存在！你想取代它吗？</translation>
+        <translation type="obsolete">尼克%1已经存在！你想取代它吗？</translation>
     </message>
 </context>
 <context>
@@ -798,117 +817,124 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
         <translation type="unfinished">网页搜寻</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="91"/>
+        <location filename="../src/aradomain.cpp" line="102"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="332"/>
+        <location filename="../src/aradomain.cpp" line="356"/>
         <source>Arado - Websearch</source>
         <translation type="unfinished">Arado 阿拉道 - 网页搜寻</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="353"/>
+        <location filename="../src/aradomain.cpp" line="377"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">设置</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="386"/>
+        <location filename="../src/aradomain.cpp" line="412"/>
         <source>Add URL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">添加网址</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="415"/>
+        <location filename="../src/aradomain.cpp" line="441"/>
         <source>Import File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="417"/>
-        <location filename="../src/aradomain.cpp" line="448"/>
+        <location filename="../src/aradomain.cpp" line="443"/>
+        <location filename="../src/aradomain.cpp" line="474"/>
         <source>Arado Url Files (*.xml);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="446"/>
+        <location filename="../src/aradomain.cpp" line="472"/>
         <source>Export URL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="469"/>
+        <location filename="../src/aradomain.cpp" line="495"/>
         <source>Import Address File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="471"/>
-        <location filename="../src/aradomain.cpp" line="510"/>
+        <location filename="../src/aradomain.cpp" line="497"/>
+        <location filename="../src/aradomain.cpp" line="536"/>
         <source>Arado Address Files (*.xml);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="508"/>
+        <location filename="../src/aradomain.cpp" line="534"/>
         <source>Export Address File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="589"/>
+        <location filename="../src/aradomain.cpp" line="620"/>
         <source>Please join me at Arado.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="591"/>
+        <location filename="../src/aradomain.cpp" line="622"/>
         <source>Add my Arado-UUID: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="592"/>
+        <location filename="../src/aradomain.cpp" line="623"/>
         <source>http://arado.sf.net Websearch - Syncs, shortens and searches within (y)our URLs and Bookmarks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="596"/>
+        <location filename="../src/aradomain.cpp" line="627"/>
         <source>My Arado UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="611"/>
+        <location filename="../src/aradomain.cpp" line="642"/>
         <source>Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="613"/>
-        <source>Your Arado UUID is   %1</source>
+        <location filename="../src/aradomain.cpp" line="644"/>
+        <source>Your Arado UUID is 
+
+%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="616"/>
+        <location filename="../src/aradomain.cpp" line="647"/>
         <source>Copy UUID</source>
         <translation type="unfinished">复制的UUID</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="618"/>
+        <location filename="../src/aradomain.cpp" line="649"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确定</translation>
     </message>
 </context>
 <context>
     <name>arado::ConnectionDisplay</name>
     <message>
-        <location filename="../src/connection-display.cpp" line="140"/>
+        <location filename="../src/connection-display.cpp" line="110"/>
+        <source>Please Configure External Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/connection-display.cpp" line="168"/>
         <source>UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="261"/>
+        <location filename="../src/connection-display.cpp" line="289"/>
         <source>Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="267"/>
+        <location filename="../src/connection-display.cpp" line="295"/>
         <source>Please Select an Item</source>
         <translation type="unfinished">请选择一个项目</translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="269"/>
+        <location filename="../src/connection-display.cpp" line="297"/>
         <source>Only 1 Item please.</source>
         <translation type="unfinished">只有一个项目吧。</translation>
     </message>
@@ -924,15 +950,20 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
 <context>
     <name>arado::EntryForm</name>
     <message>
-        <location filename="../src/entry-form.cpp" line="79"/>
         <source>Invalid URL string &quot;%2&quot; will not be saved.</source>
-        <translation type="unfinished">无效的URL字符串“%2”将不会被保存。</translation>
+        <translation type="obsolete">无效的URL字符串“%2”将不会被保存。</translation>
+    </message>
+    <message>
+        <location filename="../src/entry-form.cpp" line="79"/>
+        <source>Invalid URL string &quot;%2&quot;
+will not be saved.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>arado::HttpClient</name>
     <message>
-        <location filename="../src/http-client.cpp" line="506"/>
+        <location filename="../src/http-client.cpp" line="511"/>
         <source>AradoElvis_%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -954,8 +985,13 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     </message>
     <message>
         <location filename="../src/listener-edit.cpp" line="84"/>
+        <source>The UUID is not valid!
+Proceed anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The UUID is not valid! Proceed anyway?</source>
-        <translation type="unfinished">UUID被无效！继续吗</translation>
+        <translation type="obsolete">UUID被无效！继续吗</translation>
     </message>
 </context>
 <context>
@@ -1007,8 +1043,13 @@ Wörterbuch - Detaillierten Wörterbucheintrag anzeigen</translation>
     </message>
     <message>
         <location filename="../src/url-display.cpp" line="337"/>
-        <source></source>
+        <source>    </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/url-display.cpp" line="337"/>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/url-display.cpp" line="338"/>

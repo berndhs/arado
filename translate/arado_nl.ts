@@ -800,91 +800,91 @@ Do you want to replace it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="353"/>
+        <location filename="../src/aradomain.cpp" line="356"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arado - Web zoeken</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="374"/>
+        <location filename="../src/aradomain.cpp" line="377"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="409"/>
+        <location filename="../src/aradomain.cpp" line="412"/>
         <source>Add URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="438"/>
+        <location filename="../src/aradomain.cpp" line="441"/>
         <source>Import File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="440"/>
-        <location filename="../src/aradomain.cpp" line="471"/>
+        <location filename="../src/aradomain.cpp" line="443"/>
+        <location filename="../src/aradomain.cpp" line="474"/>
         <source>Arado Url Files (*.xml);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="469"/>
+        <location filename="../src/aradomain.cpp" line="472"/>
         <source>Export URL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="492"/>
+        <location filename="../src/aradomain.cpp" line="495"/>
         <source>Import Address File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="494"/>
-        <location filename="../src/aradomain.cpp" line="533"/>
+        <location filename="../src/aradomain.cpp" line="497"/>
+        <location filename="../src/aradomain.cpp" line="536"/>
         <source>Arado Address Files (*.xml);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="531"/>
+        <location filename="../src/aradomain.cpp" line="534"/>
         <source>Export Address File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="617"/>
+        <location filename="../src/aradomain.cpp" line="620"/>
         <source>Please join me at Arado.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="619"/>
+        <location filename="../src/aradomain.cpp" line="622"/>
         <source>Add my Arado-UUID: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="620"/>
+        <location filename="../src/aradomain.cpp" line="623"/>
         <source>http://arado.sf.net Websearch - Syncs, shortens and searches within (y)our URLs and Bookmarks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="624"/>
+        <location filename="../src/aradomain.cpp" line="627"/>
         <source>My Arado UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="639"/>
+        <location filename="../src/aradomain.cpp" line="642"/>
         <source>Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="641"/>
+        <location filename="../src/aradomain.cpp" line="644"/>
         <source>Your Arado UUID is 
 
 %1</source>
         <translation type="unfinished">Uw Arado UUID is %1</translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="644"/>
+        <location filename="../src/aradomain.cpp" line="647"/>
         <source>Copy UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aradomain.cpp" line="646"/>
+        <location filename="../src/aradomain.cpp" line="649"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -892,22 +892,27 @@ Do you want to replace it?</source>
 <context>
     <name>arado::ConnectionDisplay</name>
     <message>
-        <location filename="../src/connection-display.cpp" line="155"/>
+        <location filename="../src/connection-display.cpp" line="110"/>
+        <source>Please Configure External Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/connection-display.cpp" line="168"/>
         <source>UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="276"/>
+        <location filename="../src/connection-display.cpp" line="289"/>
         <source>Arado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="282"/>
+        <location filename="../src/connection-display.cpp" line="295"/>
         <source>Please Select an Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/connection-display.cpp" line="284"/>
+        <location filename="../src/connection-display.cpp" line="297"/>
         <source>Only 1 Item please.</source>
         <translation type="unfinished"></translation>
     </message>
