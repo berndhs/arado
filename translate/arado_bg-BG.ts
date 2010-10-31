@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="be_BY">
+<TS version="2.0" language="bg_BG">
 <context>
     <name>AddressDialog</name>
     <message>
@@ -98,7 +98,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="14"/>
         <source>Arado - Websearch</source>
-        <translation type="unfinished">Arado - Арад вэб-пошуку</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="47"/>
@@ -143,7 +143,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="137"/>
         <source>Add URL</source>
-        <translation type="unfinished">Дадаць URL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="146"/>
@@ -168,7 +168,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="182"/>
         <source>Add Device</source>
-        <translation type="unfinished">Дадаць прылада</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="191"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="227"/>
         <source>Configure External Address</source>
-        <translation type="unfinished">Настройка знешняга адрасы (IP)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/aradomain.ui" line="230"/>
@@ -203,7 +203,7 @@
     <message>
         <location filename="../ui/aradomain.ui" line="239"/>
         <source>Join Galaxy</source>
-        <translation type="unfinished">Далучыцца да Галяктыкі</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -523,7 +523,7 @@
     <message>
         <location filename="../ui/listener-edit.ui" line="30"/>
         <source>Enter your external IP-Address/Port or edit UUID:</source>
-        <translation type="unfinished">Калі ласка, увядзіце ваш знешні IP-адрас / порт або змяніць UUID:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/listener-edit.ui" line="46"/>
@@ -688,7 +688,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="81"/>
         <source>Search</source>
-        <translation type="unfinished">Пошук</translation>
+        <translation type="unfinished">Търсене</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="116"/>
@@ -698,7 +698,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="119"/>
         <source>Show Recent</source>
-        <translation type="unfinished">Паказаць апошнія</translation>
+        <translation type="unfinished">Покажи последните</translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="150"/>
@@ -743,7 +743,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="323"/>
         <source>Title/Description</source>
-        <translation type="unfinished">Назва / Апісанне</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="334"/>
@@ -753,7 +753,7 @@
     <message>
         <location filename="../ui/url-display.ui" line="345"/>
         <source>Time</source>
-        <translation type="unfinished">Час</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/url-display.ui" line="356"/>
@@ -787,12 +787,12 @@ Do you want to replace it?</source>
     <message>
         <location filename="../src/aradomain.cpp" line="88"/>
         <source>Websearch</source>
-        <translation type="unfinished">Вэб-пошук</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="102"/>
         <source>Network</source>
-        <translation type="unfinished">Сетка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/aradomain.cpp" line="356"/>
