@@ -64,6 +64,9 @@ public:
                   const QString & oldLevel);
 
   int   NumPeers (const QString & kind = QString ("0"));
+
+  qint64 UrlsAdded () { return urlAddCount; }
+  qint64 PeersAdded () { return peerAddCount; }
   
   AradoUrlList  GetRecent (int howmany);
 
@@ -103,6 +106,8 @@ private:
   bool             ipInTransaction;
   bool             urlInTransaction;
   bool             dbRunning;
+  qint64           urlAddCount;
+  qint64           peerAddCount;
 
 };
 

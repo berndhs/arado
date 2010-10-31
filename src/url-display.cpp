@@ -157,13 +157,25 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     ui.urlTable->setSortingEnabled (allowSort);
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
-    QString labelText (tr("Recent Consciousness to %1").arg (labelTime));
+    int urlAddCount (0);
+    if (db) {
+      urlAddCount = db->UrlsAdded();
+    };
+    if (urlAddCount > 0) {
+    QString countText (tr("Urls Added this Session %1")
+                         .arg (urlAddCount));
+      ui.countLabel->setText (countText);
+    } else {
+      ui.countLabel->setText ("");
+    }
+    QString labelText (tr("Recent Consciousness to %1")
+                           .arg (labelTime));
+    ui.bottomLabel->setText (labelText);
     item = new QTableWidgetItem (tr(""));
     item->setToolTip (tr("Browse"));
     item->setData (Url_Celltype, Cell_Browse);
     item->setIcon (browseIcon);
     ui.urlTable->setItem (u, 4, item);
-    ui.bottomLabel->setText (labelText);
   }
   if (ui.urlTable->rowCount() > 0) {
     normalRowHeight = ui.urlTable->rowHeight (0);

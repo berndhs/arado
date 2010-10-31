@@ -43,7 +43,9 @@ DBManager::DBManager (QObject * parent)
   :QThread (parent),
    ipInTransaction (false),
    urlInTransaction (false),
-   dbRunning (false)
+   dbRunning (false),
+   urlAddCount (0),
+   peerAddCount (0)
 {
 }
 
@@ -213,6 +215,7 @@ DBManager::AddUrl (AradoUrl & url)
   ok &= AddUrlTimestamp (url.Hash(), ts);
   if (ok) {
     url.SetTimestamp (ts);
+    urlAddCount ++;
   }
   CloseTransaction (DB_Url);
   yieldCurrentThread ();
@@ -229,6 +232,7 @@ DBManager::RemovePeerS (const QString & peerid)
   delqry.exec (delPattern.arg("transientpeers").arg(peerid));
   delqry.exec (delPattern.arg("ippeers").arg(peerid));
   delqry.exec (delPattern.arg("peeruuid").arg(peerid));
+  peerAddCount--;
 }
 
 void
@@ -297,6 +301,9 @@ DBManager::AddPeer (AradoPeer & peer)
     add.bindValue (2, QVariant (peer.Addr ()));
     add.bindValue (3, QVariant (peer.Port ()));
     ok = add.exec ();
+    if (ok) {
+      peerAddCount ++;
+    }
   qDebug () << " tried " << ok << " " << add.executedQuery();
   }
   CloseTransaction (DB_Address);
