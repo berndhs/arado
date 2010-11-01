@@ -162,9 +162,9 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
       urlAddCount = db->UrlsAdded();
     };
     if (urlAddCount > 0) {
-    QString countText (tr("<<Recent URLs available: %1")
+    QString countText (tr("Show Recent: %1")
                          .arg (urlAddCount));
-      ui.countLabel->setText (countText);
+      ui.recentButton->setText (countText);
     } else {
       ui.countLabel->setText ("");
     }
