@@ -165,8 +165,8 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString countText (tr("Show Recent: %1")
                          .arg (urlAddCount));
       ui.recentButton->setText (countText);
-    } else {
-      ui.countLabel->setText ("");
+   // } else {
+   //   ui.countLabel->setText ("");
     }
     QString labelText (tr("Recent Consciousness to %1")
                            .arg (labelTime));
