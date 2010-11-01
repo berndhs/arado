@@ -123,6 +123,12 @@
      <property name="textFormat">
       <enum>Qt::RichText</enum>
      </property>
+     <property name="pixmap">
+      <pixmap resource="../arado.qrc">:/images/heartbeat.png</pixmap>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="openExternalLinks">
       <bool>true</bool>
      </property>

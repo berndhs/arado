@@ -148,6 +148,10 @@
            <property name="text">
             <string>Save</string>
            </property>
+           <property name="icon">
+            <iconset resource="../arado.qrc">
+             <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
+           </property>
           </widget>
          </item>
         </layout>
@@ -307,6 +311,10 @@
           <widget class="QPushButton" name="restartPollButtonB">
            <property name="text">
             <string>Save</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../arado.qrc">
+             <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
            </property>
           </widget>
          </item>
@@ -468,6 +476,10 @@
            <property name="text">
             <string>Save</string>
            </property>
+           <property name="icon">
+            <iconset resource="../arado.qrc">
+             <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
+           </property>
           </widget>
          </item>
         </layout>
@@ -519,6 +531,10 @@
        </property>
        <property name="text">
         <string>External Address / Port:</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../arado.qrc">
+         <normaloff>:/images/heartbeat.png</normaloff>:/images/heartbeat.png</iconset>
        </property>
       </widget>
      </item>
