@@ -59,7 +59,7 @@ HttpClient::HttpClient (QObject *parent)
   Settings ().setValue ("http/putoffer",offerPut);
   tradeAddr = Settings().value ("transfer/addresses",tradeAddr).toBool();
   Settings().setValue ("transfer/addresses", tradeAddr);
-  tradeUrl = Settings().value ("trade/urls",tradeUrl).toBool();
+  tradeUrl = Settings().value ("transfer/urls",tradeUrl).toBool();
   Settings().setValue ("transfer/urls", tradeUrl);
 
   serverSelf = new AradoPeer;
