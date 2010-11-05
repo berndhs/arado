@@ -107,7 +107,7 @@ ConnectionDisplay::ShowPeers ()
   quint16 port = deliberate::Settings().value ("http/port").toUInt();
   bool listening = deliberate::Settings().value ("http/run").toBool ();
   if (addr == "localhost") {
-    ui.listenAddr->setText (tr("Please Configure External Address"));
+    ui.listenAddr->setText (tr("<- - - - - Please Configure External Address !"));
   } else {
     ui.listenAddr->setText (addr);
   }
