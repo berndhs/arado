@@ -227,10 +227,13 @@ AradoMain::AddServer ()
 void
 AradoMain::AddFeed ()
 {
-  QMessageBox  box;
-  box.setText ("Add RSS/Atom is TBD");
-  QTimer::singleShot (15000, &box, SLOT (accept()));
-  box.exec ();
+   Ui_FeedDialog  feedUi;
+   QDialog           enterFeed (this);
+   feedUi.setupUi (&enterFeed);
+   connect (feedUi.okButton, SIGNAL (clicked()), &enterFeed, SLOT (accept()));
+   connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
+   feedUi.feedEdit->setText ("http://rss.feedsportal.com/c/617/f/8093/index.rss");
+   int response = enterFeed.exec ();
 }
 
 void
