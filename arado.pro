@@ -135,6 +135,7 @@ HEADERS		=	src/aradomain.h \
                    src/http-client-reply.h \
                    src/http-types.h \
                    src/listener-edit.h \
+                   src/rssfeed.h \
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -166,6 +167,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/poll-sequence.cpp \
                    src/http-client-reply.cpp \
                    src/listener-edit.cpp \
+                   src/rssfeed.cpp \
 
 
 TARGET		= bin/arado
