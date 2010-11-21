@@ -74,6 +74,8 @@
     <addaction name="actionImportFile"/>
     <addaction name="actionExportFile"/>
     <addaction name="separator"/>
+    <addaction name="actionCrawl"/>
+    <addaction name="separator"/>
     <addaction name="actionAddFeed"/>
    </widget>
    <widget class="QMenu" name="menuNetwork">
@@ -237,6 +239,18 @@
    </property>
    <property name="text">
     <string>Join Galaxy</string>
+   </property>
+  </action>
+  <action name="actionCrawl">
+   <property name="icon">
+    <iconset resource="../arado.qrc">
+     <normaloff>:/images/wizard.png</normaloff>:/images/wizard.png</iconset>
+   </property>
+   <property name="text">
+    <string>Lookup more...</string>
+   </property>
+   <property name="toolTip">
+    <string>Lookup: Crawl all selected URLs for more URLs from this context.</string>
    </property>
   </action>
  </widget>
