@@ -23,13 +23,11 @@ ideas for possible things to implement by occasion:
     -- Yes, this would be a nice thing to have. Maybe in a context menu of
        one of the items on the line, where there already is a mailto function.
 
-
-09) allow to add ONE Rss/Atom feed to be added to get automatically new urls with title = description.
-  -- Why only one? If we add this, it only makes sense to add an arbitrary
-     number of RSS feeds. Then we need an additional database, or additional
-     tables in the ipbase.sql, to manage all the RSS feeds. This is real work.
-  -- Only One RSS Feed per user, as all other feeds come over other users.
-	RSS feed needs only one user to add the feed for all connected devices.
+09) -- Add RSS Support for more than one URL 
+	- Timer to load feeds periodically (maybe load now button)
+	- maybe add more than one feed (new tab or vanishing sidebar -> show urls in the front table)
+	- Save Feedurls in an XML
+	- add rss url item CATEGORY as Keywords to database (needs QString instead of QUrl)
 
 10) settings option for enabled or disabled: "show time in display"-table
   -- what for? We don't want optional cloumns if we can avoid it. Add complexity
@@ -100,3 +98,11 @@ but extended search should not ask Arado nodes, as this search is done locally a
     are of interest.
 
 29) Count the amount of the Url and Device database.
+
+30) add crawler to Arado for StartingUrls (grub, or any other)
+
+31) hide gui elements in Network tab (frequency, Chunk size)
+
+
+
+
