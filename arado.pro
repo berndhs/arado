@@ -26,7 +26,7 @@
 TEMPLATE	= app
 LANGUAGE	= C++
 CONFIG		+= qt warn_on build_all
-QT		+= gui network sql multimedia
+QT		+= gui network sql multimedia xml
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1
@@ -135,7 +135,7 @@ HEADERS		=	src/aradomain.h \
                    src/http-client-reply.h \
                    src/http-types.h \
                    src/listener-edit.h \
-                   src/rssfeed.h \
+                   src/addfeed.h
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -167,9 +167,8 @@ SOURCES		=	src/aradomain.cpp \
                    src/poll-sequence.cpp \
                    src/http-client-reply.cpp \
                    src/listener-edit.cpp \
-                   src/rssfeed.cpp \
+                   src/addfeed.cpp
 
 
 TARGET		= bin/arado
 PROJECTNAME	= ARADO
-

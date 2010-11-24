@@ -34,6 +34,7 @@ class QTimer;
 namespace arado
 {
 
+class AddRssFeed;
 class ConfigEdit;
 class FileComm;
 class UrlDisplay;
@@ -115,6 +116,7 @@ private:
   DBManager           dbMgr;
   Policy             *policy;
   PollSequence       *sequencer;
+  AddRssFeed         *addRssFeed;
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;

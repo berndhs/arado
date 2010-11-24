@@ -30,6 +30,7 @@
 #include "ui_feed-input.h"
 #include "arado-stream-parser.h"
 #include "listener-edit.h"
+#include "addfeed.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -73,6 +74,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    dbMgr (this),
    policy (0),
    sequencer (0),
+   addRssFeed(0),
    httpServer (0),
    httpClient (0),
    httpPoll (0),
@@ -94,6 +96,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   policy = new Policy (this);
   sequencer = new PollSequence (this);
   sequencer->SetDB (&dbMgr);
+  addRssFeed = new AddRssFeed (this);
+  addRssFeed->SetDB (&dbMgr);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
@@ -235,6 +239,10 @@ AradoMain::AddFeed ()
    connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
    feedUi.feedEdit->setText ("http://rss.feedsportal.com/c/617/f/8093/index.rss");
    int response = enterFeed.exec ();
+   if(response==QDialog::Accepted) {
+       addRssFeed->AddFeedUrl(feedUi.feedEdit->text());
+       // Timer: Repeat every 10 minutes
+   }
 }
 
 void
