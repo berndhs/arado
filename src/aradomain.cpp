@@ -237,12 +237,12 @@ AradoMain::AddFeed ()
    feedUi.setupUi (&enterFeed);
    connect (feedUi.okButton, SIGNAL (clicked()), &enterFeed, SLOT (accept()));
    connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
-   feedUi.feedEdit->setText ("http://rss.feedsportal.com/c/617/f/8093/index.rss");
+   //feedUi.feedEdit->setText ("http://www.freewarefiles.com/rss/newfiles.xml"); // example Feedurl with category = keywords
    int response = enterFeed.exec ();
    if(response==QDialog::Accepted) {
        addRssFeed->AddFeedUrl(feedUi.feedEdit->text());
-       // Timer: Repeat every 10 minutes
    }
+   //QTimer::singleShot (5000, this, SLOT (accept())); // FeedUrl(s) must be saved somewhere 
 }
 
 void
