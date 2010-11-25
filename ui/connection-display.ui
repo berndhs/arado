@@ -415,7 +415,7 @@
          <item>
           <widget class="QCheckBox" name="checkAdvViewBox">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
@@ -424,7 +424,7 @@
             <string>Advanced View</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -719,19 +719,22 @@
    <item row="2" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="labelipcachesize">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
        </property>
        <property name="text">
-        <string>Device Cache Max</string>
+        <string>Device Cache Max:</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QSpinBox" name="ipcachesize">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="toolTip">
         <string>Amount of IP-adresses in your IP-cache (1500-5000). Rise up, if all IP-adresses are outdated or offline and connections fail after a start.  Then each minute a request is sent to the boot-IP-connections, to fill the cache for 100%.</string>
@@ -750,7 +753,7 @@
      <item>
       <widget class="QCheckBox" name="checkboxdisable_C">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
@@ -763,7 +766,7 @@
      <item>
       <widget class="QCheckBox" name="checkBox_I2P">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
@@ -979,7 +982,6 @@
  <tabstops>
   <tabstop>buttonAddDevice</tabstop>
   <tabstop>buttonStartSync</tabstop>
-  <tabstop>buttonExternalIp</tabstop>
   <tabstop>buttonMoveLeft</tabstop>
   <tabstop>buttonMoveRight</tabstop>
   <tabstop>freqABox</tabstop>

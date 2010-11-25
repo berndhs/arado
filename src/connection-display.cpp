@@ -52,6 +52,11 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
 {
   ui.setupUi (this);
 
+  /* Hide Advanced gui */
+  checkAdvViewBox(false);
+  connect(ui.checkAdvViewBox, SIGNAL(toggled(bool)), this, SLOT(checkAdvViewBox(bool)));
+  //
+
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   ui.buttonAddDevice->setStyleSheet( "background-color:"
@@ -393,5 +398,53 @@ ConnectionDisplay::ChangeTrafficParams ()
   emit TrafficParamsChanged ();
 
 }
+
+void ConnectionDisplay::checkAdvViewBox(bool show)
+{
+    if (show) {
+         ui.freqABox->setVisible(true);
+         ui.freqBBox->setVisible(true);
+         ui.freqCBox->setVisible(true);
+         ui.chunkA->setVisible(true);
+         ui.chunkB->setVisible(true);
+         ui.chunkC->setVisible(true);
+         ui.restartPollButtonA->setVisible(true);
+         ui.restartPollButtonB->setVisible(true);
+         ui.restartPollButtonC->setVisible(true);
+         ui.label_URL_A->setVisible(true);
+         ui.label_URL_B->setVisible(true);
+         ui.label_URL_C->setVisible(true);
+         ui.labelipask_A->setVisible(true);
+         ui.labelipask_B->setVisible(true);
+         ui.labelipask_C->setVisible(true);
+         ui.checkBox_I2P->setVisible(true);
+         ui.checkboxdisable_C->setVisible(true);
+         ui.ipcachesize->setVisible(true);
+         ui.labelipcachesize->setVisible(true);
+
+
+    } else {
+         ui.freqABox->setVisible(false);
+         ui.freqBBox->setVisible(false);
+         ui.freqCBox->setVisible(false);
+         ui.chunkA->setVisible(false);
+         ui.chunkB->setVisible(false);
+         ui.chunkC->setVisible(false);
+         ui.restartPollButtonA->setVisible(false);
+         ui.restartPollButtonB->setVisible(false);
+         ui.restartPollButtonC->setVisible(false);
+         ui.label_URL_A->setVisible(false);
+         ui.label_URL_B->setVisible(false);
+         ui.label_URL_C->setVisible(false);
+         ui.labelipask_A->setVisible(false);
+         ui.labelipask_B->setVisible(false);
+         ui.labelipask_C->setVisible(false);
+         ui.checkBox_I2P->setVisible(false);
+         ui.checkboxdisable_C->setVisible(false);
+         ui.ipcachesize->setVisible(false);
+         ui.labelipcachesize->setVisible(false);
+    }
+}
+
 
 } // namespace

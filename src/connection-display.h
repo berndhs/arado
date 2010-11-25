@@ -77,6 +77,7 @@ private slots:
   void MoveRight ();
   void EditListener ();
   void ChangeTrafficParams ();
+  void checkAdvViewBox(bool show);
 
 signals:
 
