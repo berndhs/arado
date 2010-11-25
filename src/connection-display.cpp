@@ -424,6 +424,7 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
          ui.checkboxdisable_C->setVisible(true);
          ui.ipcachesize->setVisible(true);
          ui.labelipcachesize->setVisible(true);
+         ui.buttonDelete->setVisible(true);
          ui.listenAddr->setVisible(true);
          ui.listenPortBox->setVisible(true);
          ui.buttonExternalIp->setVisible(true);
@@ -448,6 +449,7 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
          ui.checkboxdisable_C->setVisible(false);
          ui.ipcachesize->setVisible(false);
          ui.labelipcachesize->setVisible(false);
+         ui.buttonDelete->setVisible(false);
          //
          if (addr == "localhost") {
          ui.listenAddr->setVisible(true);
