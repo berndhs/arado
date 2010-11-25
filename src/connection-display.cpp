@@ -401,6 +401,9 @@ ConnectionDisplay::ChangeTrafficParams ()
 
 void ConnectionDisplay::checkAdvViewBox(bool show)
 {
+    LoadTrafficParams ();
+    QString addr = deliberate::Settings().value ("http/address").toString();
+
     if (show) {
          ui.freqABox->setVisible(true);
          ui.freqBBox->setVisible(true);
@@ -421,7 +424,9 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
          ui.checkboxdisable_C->setVisible(true);
          ui.ipcachesize->setVisible(true);
          ui.labelipcachesize->setVisible(true);
-
+         ui.listenAddr->setVisible(true);
+         ui.listenPortBox->setVisible(true);
+         ui.buttonExternalIp->setVisible(true);
 
     } else {
          ui.freqABox->setVisible(false);
@@ -443,6 +448,17 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
          ui.checkboxdisable_C->setVisible(false);
          ui.ipcachesize->setVisible(false);
          ui.labelipcachesize->setVisible(false);
+         //
+         if (addr == "localhost") {
+         ui.listenAddr->setVisible(true);
+         ui.listenPortBox->setVisible(true);
+         ui.buttonExternalIp->setVisible(true);
+         } else {
+         ui.listenAddr->setVisible(false);
+         ui.listenPortBox->setVisible(false);
+         ui.buttonExternalIp->setVisible(false);
+         }
+         //
     }
 }
 
