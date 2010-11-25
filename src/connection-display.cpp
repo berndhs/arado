@@ -403,6 +403,7 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
 {
     LoadTrafficParams ();
     QString addr = deliberate::Settings().value ("http/address").toString();
+    bool listening = deliberate::Settings().value ("http/run").toBool ();
 
     if (show) {
          ui.freqABox->setVisible(true);
@@ -455,10 +456,16 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
          ui.listenAddr->setVisible(true);
          ui.listenPortBox->setVisible(true);
          ui.buttonExternalIp->setVisible(true);
-         } else {
+         }
+         else if (listening) {
          ui.listenAddr->setVisible(false);
          ui.listenPortBox->setVisible(false);
          ui.buttonExternalIp->setVisible(false);
+         }
+         else {
+         ui.listenAddr->setVisible(true);
+         ui.listenPortBox->setVisible(true);
+         ui.buttonExternalIp->setVisible(true);
          }
          //
     }
