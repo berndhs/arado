@@ -303,7 +303,7 @@ border-image: url(:/images/btn3.png) 4;
             </size>
            </property>
            <property name="toolTip">
-            <string>Add URL: Press the logo and add an URL to your local database. A pop-up window asks you to add the URL, description and keywords.</string>
+            <string>Add URL: Press the logo and add an URL to your database. </string>
            </property>
            <property name="text">
             <string/>
@@ -331,7 +331,7 @@ border-image: url(:/images/btn3.png) 4;
             </font>
            </property>
            <property name="toolTip">
-            <string>Arado is a networked URL Database, which saves your added bookmarks and syncs newest URLs with your connected devices.</string>
+            <string/>
            </property>
            <property name="text">
             <string>Web Surfers' URL Galaxy</string>
@@ -413,6 +413,9 @@ background: white;</string>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_2">
+           <property name="toolTip">
+            <string>Arado Websearch is a networked URL Database, which saves your added bookmarks and RSS-Feeds and syncs newest URLs with your connected devices.</string>
+           </property>
            <property name="text">
             <string/>
            </property>
