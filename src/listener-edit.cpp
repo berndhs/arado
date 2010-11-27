@@ -39,6 +39,12 @@ ListenerEdit::ListenerEdit (QWidget *parent)
   ui.setupUi (this);
   connect (ui.saveButton, SIGNAL (clicked()), this, SLOT (Save ()));
   connect (ui.cancelButton, SIGNAL (clicked()), this, SLOT (Cancel ()));
+
+  /* Hide Proxy gui elements */
+  useproxyguicheckbox(false);
+  connect(ui.useproxyguicheckbox, SIGNAL(toggled(bool)), this, SLOT(useproxyguicheckbox(bool)));
+  //
+
 }
 
 void
@@ -100,6 +106,27 @@ ListenerEdit::Save ()
     emit SuggestRestart ();
   }
 }
+
+
+void ListenerEdit::useproxyguicheckbox(bool useproxyguicheckbox)
+{
+    if (ui.useproxyguicheckbox->isChecked()) {
+
+    ui.comboBox_proxytype->setVisible(true);
+    ui.comboBox_proxytype->setVisible(true);
+    ui.label_proxyusername->setVisible(true);
+    ui.lineEdit_proxyusername->setVisible(true);
+    ui.label_proxypassword->setVisible(true);
+    ui.lineEdit_proxypassword->setVisible(true);
+    } else {
+    ui.comboBox_proxytype->setVisible(false);
+    ui.comboBox_proxytype->setVisible(false);
+    ui.label_proxyusername->setVisible(false);
+    ui.lineEdit_proxyusername->setVisible(false);
+    ui.label_proxypassword->setVisible(false);
+    ui.lineEdit_proxypassword->setVisible(false);
+    }
+ }
 
 
 } // namespace

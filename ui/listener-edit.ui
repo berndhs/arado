@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
-    <height>208</height>
+    <width>566</width>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -47,7 +47,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2" colspan="3">
+   <item row="3" column="2" colspan="3">
     <widget class="QLineEdit" name="addressEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -57,7 +57,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="5" column="0">
     <widget class="QLabel" name="label_2">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -73,7 +73,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="2">
+   <item row="5" column="2">
     <widget class="QSpinBox" name="portBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -89,7 +89,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="8" column="0">
     <widget class="QLabel" name="label_5">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -105,7 +105,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2" colspan="3">
+   <item row="8" column="2" colspan="4">
     <widget class="QLineEdit" name="uuidEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -115,26 +115,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::RichText</enum>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../arado.qrc">:/images/heartbeat.png</pixmap>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="openExternalLinks">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="3">
+   <item row="5" column="3">
     <widget class="QRadioButton" name="onCheck">
      <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
@@ -147,7 +128,7 @@
      </attribute>
     </widget>
    </item>
-   <item row="2" column="4">
+   <item row="5" column="4">
     <widget class="QRadioButton" name="offCheck">
      <property name="text">
       <string>OFF</string>
@@ -157,7 +138,7 @@
      </attribute>
     </widget>
    </item>
-   <item row="5" column="2" colspan="3">
+   <item row="10" column="2" colspan="4">
     <layout class="QHBoxLayout" name="horizontalLayout2">
      <item>
       <widget class="QPushButton" name="saveButton">
@@ -219,7 +200,85 @@
      </item>
     </layout>
    </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="showmyip">
+     <property name="toolTip">
+      <string>Show my external IP: Press this button to open a browser window.</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/heartbeat.png</normaloff>:/images/heartbeat.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="5">
+    <widget class="QCheckBox" name="useproxyguicheckbox">
+     <property name="text">
+      <string>use Proxy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2" colspan="3">
+    <widget class="QLineEdit" name="lineEdit_proxyusername"/>
+   </item>
+   <item row="7" column="2" colspan="3">
+    <widget class="QLineEdit" name="lineEdit_proxypassword"/>
+   </item>
+   <item row="1" column="2" colspan="3">
+    <widget class="QComboBox" name="comboBox_proxytype">
+     <item>
+      <property name="text">
+       <string>Http</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Socks5</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_proxyusername">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Proxy Username:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="label_proxypassword">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Proxy Password:</string>
+     </property>
+    </widget>
+   </item>
   </layout>
+  <action name="useproxyguicheckbox_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Use Proxy</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>addressEdit</tabstop>
