@@ -165,8 +165,6 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QString countText (tr("Show Recent: %1")
                          .arg (urlAddCount));
       ui.recentButton->setText (countText);
-   // } else {
-   //   ui.countLabel->setText ("");
     }
     QString labelText (tr("Recent Consciousness to %1")
                            .arg (labelTime));
@@ -367,6 +365,27 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
   if (item == 0) {
     return;
   }
+  //
+  QString convertedurl (item->text());
+
+  if (convertedurl.trimmed().toLower().startsWith("http://www.youtube.com/watch?v="))
+   {
+    convertedurl = convertedurl.replace("http://www.youtube.com/watch?v=", "http://www.youtube-mp3.org/get?video_id=");
+
+    QAction * playAction = new QAction (tr("Convert Youtube-URL to MP3"),this);
+    playAction->setIcon(QPixmap(":/images/youtubemp3play.png"));
+
+    QList<QAction*> list;
+    list.append (playAction);
+
+    QAction * select = CellMenu (item, list);
+    if (select == playAction) {
+      QDesktopServices::openUrl (convertedurl);
+    }
+   }
+   else
+  {
+  //
   QAction * openAction = new QAction (tr("Browse URL"),this);
   openAction->setIcon(QPixmap(":/images/kugar.png"));
   QList<QAction*> list;
@@ -376,6 +395,7 @@ UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
   if (select == openAction) {
     QUrl url (item->text());
     QDesktopServices::openUrl (url);
+  }
   }
 }
 
