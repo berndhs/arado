@@ -118,9 +118,36 @@ ListenerEdit::Save ()
 void ListenerEdit::useproxyguicheckbox(bool useproxyguicheckbox)
 {
     if (ui.useproxyguicheckbox->isChecked()) {
-        ui.proxyWidget->setVisible(true);
+        ui.label_proxyhost->setVisible(true);
+        ui.lineEdit_proxyhost->setVisible(true);
+        ui.comboBox_proxytype->setVisible(true);
+        ui.label_proxytype->setVisible(true);
+        ui.label_proxyport->setVisible(true);
+        ui.lineEdit_proxyport->setVisible(true);
+        ui.label_proxyusername->setVisible(true);
+        ui.lineEdit_proxyusername->setVisible(true);
+        ui.label_proxypassword->setVisible(true);
+        ui.lineEdit_proxypassword->setVisible(true);
+        ui.portBox->setVisible(false);
+        ui.label_port->setVisible(false);
+        ui.addressEdit->setVisible(false);
+        ui.label_address->setVisible(false);
+
     } else {
-        ui.proxyWidget->setVisible(false);
+        ui.label_proxyhost->setVisible(false);
+        ui.lineEdit_proxyhost->setVisible(false);
+        ui.comboBox_proxytype->setVisible(false);
+        ui.label_proxytype->setVisible(false);
+        ui.label_proxyport->setVisible(false);
+        ui.lineEdit_proxyport->setVisible(false);
+        ui.label_proxyusername->setVisible(false);
+        ui.lineEdit_proxyusername->setVisible(false);
+        ui.label_proxypassword->setVisible(false);
+        ui.lineEdit_proxypassword->setVisible(false);
+        ui.portBox->setVisible(true);
+        ui.label_port->setVisible(true);
+        ui.addressEdit->setVisible(true);
+        ui.label_address->setVisible(true);
     }
  }
 
