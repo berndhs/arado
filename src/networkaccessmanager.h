@@ -19,40 +19,26 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#ifndef ADDFEED_H
-#define ADDFEED_H
+#ifndef NETWORKACCESSMANAGER_H
+#define NETWORKACCESSMANAGER_H
 
 #include <QObject>
-#include <QNetworkReply>
-#include "db-manager.h"
+#include <QNetworkAccessManager>
 
 namespace arado
 {
 
-    class NetworkAccessManager;
-class AddRssFeed : public QObject
+class NetworkAccessManager : public QNetworkAccessManager
 {
     Q_OBJECT
 public:
-    explicit AddRssFeed(QObject *parent = 0);
-
-    void SetDB (DBManager *dbm) { db = dbm; }
-    void AddFeedUrl (QString url);
+    explicit NetworkAccessManager(QObject *parent = 0);
 
 signals:
 
 public slots:
-    virtual void httpFinished (QNetworkReply *reply);
 
-private:
-
-    NetworkAccessManager *qnam;
-    DBManager             *db;
-    QNetworkReply         *reply;
-    QNetworkRequest       *request;
 };
 
 }
-
-#endif // ADDFEED_H
-
+#endif // NETWORKACCESSMANAGER_H

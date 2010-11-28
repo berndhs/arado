@@ -23,6 +23,7 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QDomDocument>
+#include "networkaccessmanager.h"
 
 namespace arado
 {
@@ -30,7 +31,7 @@ namespace arado
 AddRssFeed::AddRssFeed(QObject *parent) :
     QObject(parent)
 {
-    qnam=new QNetworkAccessManager(this);
+    qnam=new NetworkAccessManager(parent);
 }
 
 void
@@ -73,6 +74,7 @@ AddRssFeed::AddFeedUrl (QString urlText) {
     QUrl feedUrl=QUrl (urlText, QUrl::TolerantMode);
 
     request=new QNetworkRequest(feedUrl);
+
     reply=qnam->get(*request);
 
     connect(qnam, SIGNAL(finished(QNetworkReply *)),

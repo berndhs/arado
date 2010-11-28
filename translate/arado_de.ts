@@ -379,7 +379,7 @@
         <location filename="../ui/connection-display.ui" line="254"/>
         <location filename="../ui/connection-display.ui" line="414"/>
         <source>Amount of URLs in one Query</source>
-        <translation type="unfinished">Menge der URLs in einer Anfrage</translation>
+        <translation type="unfinished">Menge der URLs in einer Abfrage</translation>
     </message>
     <message>
         <location filename="../ui/connection-display.ui" line="168"/>

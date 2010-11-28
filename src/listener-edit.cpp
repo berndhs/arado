@@ -97,6 +97,13 @@ ListenerEdit::Save ()
     save = true;
   }
   if (save) {
+    Settings().setValue ("proxy/useproxy",ui.useproxyguicheckbox->isChecked());
+    Settings().setValue ("proxy/type",ui.comboBox_proxytype->currentText());
+    Settings().setValue ("proxy/user",ui.lineEdit_proxyusername->text());
+    Settings().setValue ("proxy/password",ui.lineEdit_proxypassword->text());
+    Settings().setValue ("proxy/host",ui.lineEdit_proxyhost->text());
+    Settings().setValue ("proxy/port",ui.lineEdit_proxyport->text());
+
     Settings().setValue ("http/address",addr);
     Settings().setValue ("http/port",port);
     Settings().setValue ("personal/uuid",uuid.toString());
@@ -111,20 +118,9 @@ ListenerEdit::Save ()
 void ListenerEdit::useproxyguicheckbox(bool useproxyguicheckbox)
 {
     if (ui.useproxyguicheckbox->isChecked()) {
-
-    ui.comboBox_proxytype->setVisible(true);
-    ui.comboBox_proxytype->setVisible(true);
-    ui.label_proxyusername->setVisible(true);
-    ui.lineEdit_proxyusername->setVisible(true);
-    ui.label_proxypassword->setVisible(true);
-    ui.lineEdit_proxypassword->setVisible(true);
+        ui.proxyWidget->setVisible(true);
     } else {
-    ui.comboBox_proxytype->setVisible(false);
-    ui.comboBox_proxytype->setVisible(false);
-    ui.label_proxyusername->setVisible(false);
-    ui.lineEdit_proxyusername->setVisible(false);
-    ui.label_proxypassword->setVisible(false);
-    ui.lineEdit_proxypassword->setVisible(false);
+        ui.proxyWidget->setVisible(false);
     }
  }
 

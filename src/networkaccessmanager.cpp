@@ -19,40 +19,35 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#ifndef ADDFEED_H
-#define ADDFEED_H
+#include <QNetworkProxy>
+#include "deliberate.h"
+#include "networkaccessmanager.h"
 
-#include <QObject>
-#include <QNetworkReply>
-#include "db-manager.h"
+using namespace deliberate;
 
 namespace arado
 {
 
-    class NetworkAccessManager;
-class AddRssFeed : public QObject
+NetworkAccessManager::NetworkAccessManager(QObject *parent) :
+    QNetworkAccessManager(parent)
 {
-    Q_OBJECT
-public:
-    explicit AddRssFeed(QObject *parent = 0);
-
-    void SetDB (DBManager *dbm) { db = dbm; }
-    void AddFeedUrl (QString url);
-
-signals:
-
-public slots:
-    virtual void httpFinished (QNetworkReply *reply);
-
-private:
-
-    NetworkAccessManager *qnam;
-    DBManager             *db;
-    QNetworkReply         *reply;
-    QNetworkRequest       *request;
-};
+    if(Settings().contains("proxy/useproxy") && Settings().value ("proxy/useproxy").toBool()) {
+        QNetworkProxy proxy;
+        if(Settings().value ("proxy/type")=="Socks5") {
+            proxy.setType(QNetworkProxy::Socks5Proxy);
+        } else {
+            proxy.setType(QNetworkProxy::HttpProxy);
+        }
+        QString username=Settings().value ("proxy/user").toString().trimmed();
+        if(username.length()>0) {
+            proxy.setUser(username);
+            proxy.setPassword(Settings().value ("proxy/password").toString());
+        }
+        proxy.setHostName(Settings().value ("proxy/host").toString());
+        proxy.setPort(Settings().value ("proxy/port").toUInt());
+        this->setProxy(proxy);
+    }
 
 }
 
-#endif // ADDFEED_H
-
+}
