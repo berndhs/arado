@@ -44,7 +44,12 @@ ListenerEdit::ListenerEdit (QWidget *parent)
   useproxyguicheckbox(false);
   connect(ui.useproxyguicheckbox, SIGNAL(toggled(bool)), this, SLOT(useproxyguicheckbox(bool)));
   //
-
+  connect (ui.lineEdit_proxyhost, SIGNAL (clicked()), this, SLOT (Proxyhost ()));
+  connect (ui.comboBox_proxytype, SIGNAL (clicked()), this, SLOT (Proxytype ()));
+  connect (ui.lineEdit_proxyport, SIGNAL (clicked()), this, SLOT (Proxyport ()));
+  connect (ui.lineEdit_proxyusername, SIGNAL (clicked()), this, SLOT (Proxyusername ()));
+  connect (ui.lineEdit_proxypassword, SIGNAL (clicked()), this, SLOT (Proxypassword ()));
+  //
 }
 
 void
@@ -59,11 +64,37 @@ ListenerEdit::Run ()
                      uuid.toString()).toString());
   bool runServer (false);
   runServer = Settings().value ("http/run",runServer).toBool ();
+  //
+  QString useproxyguicheckbox ("");
+  useproxyguicheckbox = Settings().value ("proxy/useproxy",useproxyguicheckbox).toString();
+
+  QString proxyhost ("");
+  proxyhost = Settings().value ("proxy/host",proxyhost).toString();
+
+  QString proxytype ("");
+  proxytype= Settings().value ("proxy/type",proxytype).toString();
+
+  // quint16 proxyport ("");  // -> needs a check
+  // proxyport= Settings().value ("proxy/port",proxyport).toUInt();
+
+  QString proxyusername ("");
+  proxyusername= Settings().value ("proxy/user",proxyusername).toString();
+
+  QString proxypassword ("");
+  proxypassword= Settings().value ("proxy/password",proxypassword).toString();
+  //
   ui.addressEdit->setText (addr);
   ui.portBox->setValue (port);
   ui.uuidEdit->setText (uuid.toString());
   ui.onCheck->setChecked (runServer);
   ui.offCheck->setChecked (!runServer);
+  //
+  ui.lineEdit_proxyhost->setText (proxyhost);
+  // ui.comboBox_proxytype->setValue (proxytype); // -> needs a check
+  // ui.lineEdit_proxyport->setValue (proxyport); // -> needs a check
+  ui.lineEdit_proxyusername->setText (proxyusername);
+  ui.lineEdit_proxypassword->setText (proxypassword);
+  //
   show ();
 }
 

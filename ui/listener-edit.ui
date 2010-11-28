@@ -275,7 +275,7 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text">
-      <string>Port:</string>
+      <string>Proxyport:</string>
      </property>
     </widget>
    </item>
