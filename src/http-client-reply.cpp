@@ -27,6 +27,7 @@
 #include <QNetworkRequest>
 #include <QByteArray>
 #include <QDebug>
+#include "networkaccessmanager.h"
 
 namespace arado
 {
@@ -55,7 +56,7 @@ HttpClientReply::~HttpClientReply ()
 }
 
 HttpClientReply *
-HttpClientReply::Get (QNetworkAccessManager * nam, 
+HttpClientReply::Get (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt)
@@ -71,7 +72,7 @@ HttpClientReply::Get (QNetworkAccessManager * nam,
 }
 
 HttpClientReply *
-HttpClientReply::Put (QNetworkAccessManager * nam, 
+HttpClientReply::Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
@@ -88,7 +89,7 @@ HttpClientReply::Put (QNetworkAccessManager * nam,
 }
 
 HttpClientReply *
-HttpClientReply::Put (QNetworkAccessManager * nam, 
+HttpClientReply::Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,

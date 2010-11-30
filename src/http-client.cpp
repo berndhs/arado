@@ -25,6 +25,7 @@
 #include "arado-peer.h"
 #include "http-client-reply.h"
 #include "deliberate.h"
+#include "networkaccessmanager.h"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -50,7 +51,7 @@ HttpClient::HttpClient (QObject *parent)
    tradeUrl (true),
    serverSelf (0)
 {
-  network = new QNetworkAccessManager (this);
+  network = new NetworkAccessManager (this);
   connect (network, SIGNAL (finished (QNetworkReply *)),
            this, SLOT (HandleReply (QNetworkReply *)));
   askGet = Settings().value ("http/getask",askGet).toBool();

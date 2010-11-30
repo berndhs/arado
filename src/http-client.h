@@ -29,8 +29,9 @@
 #include <QUrl>
 #include "db-manager.h"
 #include <QMap>
+#include "networkaccessmanager.h"
 
-class QNetworkAccessManager;
+class NetworkAccessManager;
 class QNetworkReply;
 class QIODevice;
 class QBuffer;
@@ -155,7 +156,7 @@ private:
   QMap <QString, int>    peers;
   int                    nextServer;
 
-  QNetworkAccessManager *network;
+  NetworkAccessManager *network;
   bool                   askGet;
   bool                   offerPut;
   bool                   tradeAddr;

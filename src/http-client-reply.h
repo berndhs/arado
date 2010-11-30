@@ -24,8 +24,9 @@
 
 #include "http-types.h"
 #include <QUrl>
+#include "networkaccessmanager.h"
 
-class QNetworkAccessManager;
+class NetworkAccessManager;
 class QNetworkReply;
 class QNetworkRequest;
 class QByteArray;
@@ -40,16 +41,16 @@ public:
 
   ~HttpClientReply ();
 
-  static HttpClientReply * Get (QNetworkAccessManager * nam, 
+  static HttpClientReply * Get (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt);
-  static HttpClientReply * Put (QNetworkAccessManager * nam, 
+  static HttpClientReply * Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
               QIODevice             * data);
-  static HttpClientReply * Put (QNetworkAccessManager * nam, 
+  static HttpClientReply * Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
