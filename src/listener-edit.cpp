@@ -89,12 +89,13 @@ ListenerEdit::Run ()
   ui.onCheck->setChecked (runServer);
   ui.offCheck->setChecked (!runServer);
   //
-  ui.lineEdit_proxyhost->setText (proxyhost);
-  // ui.comboBox_proxytype->setValue (proxytype); // -> needs a check
-  // ui.lineEdit_proxyport->setValue (proxyport); // -> needs a check
-  ui.lineEdit_proxyusername->setText (proxyusername);
-  ui.lineEdit_proxypassword->setText (proxypassword);
-  //
+  ui.useproxyguicheckbox->setChecked(Settings().value("proxy/useproxy",false).toBool());
+  int idx=ui.comboBox_proxytype->findText(Settings().value("proxy/type","").toString());
+  if(idx>=0)  ui.comboBox_proxytype->setCurrentIndex(idx);
+  ui.lineEdit_proxyhost->setText(Settings().value("proxy/host","").toString());
+  ui.lineEdit_proxyport->setText(Settings().value("proxy/port","").toString());
+  ui.lineEdit_proxyusername->setText(Settings().value("proxy/user","").toString());
+  ui.lineEdit_proxypassword->setText(Settings().value("proxy/password","").toString());
   show ();
 }
 
