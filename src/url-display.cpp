@@ -129,7 +129,7 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     stamp = url.Timestamp ();
     Lock ();
     ui.urlTable->setSortingEnabled (false);
-    QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash()));
+    QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash().toUpper()));
     item->setData (Url_Celltype, Cell_Hash);
     item->setToolTip (tr("Arado-Flashmark"));
     ui.urlTable->setItem (u,0,item);
