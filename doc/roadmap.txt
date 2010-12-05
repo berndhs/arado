@@ -6,8 +6,6 @@ ideas for possible things to implement by occasion:
 02)  communicator throttling mechanisms
   - bucket algorithms for trusted/recommended/episodic sources of data
 
-03) sha1-cell: can it be always upper case alphabet?  A23984OJGUP76BGOUJHZGUO0GZFG
-
 04) copy out of the sha1 can have the prefix "Arado-ID" 
 
 05) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
@@ -28,6 +26,7 @@ ideas for possible things to implement by occasion:
 	- maybe add more than one feed (new tab or vanishing sidebar -> show urls in the front table)
 	- Save Feedurls in an XML
 	- add rss url item CATEGORY as Keywords to database (needs QString instead of QUrl)
+    - in the gui as a tab: like in qbittorrent.sf.net, exactly that style and functions.
 
 10) settings option for enabled or disabled: "show time in display"-table
   -- what for? We don't want optional cloumns if we can avoid it. Add complexity
@@ -97,11 +96,9 @@ but extended search should not ask Arado nodes, as this search is done locally a
     http://127.0.0.1/arado?request=recent&count=5   -> might need to be extended then with "&webgui=true", to know get requestes to create 10 thumbnails
     are of interest.
 
-29) Count the amount of the Url and Device database.
-
 30) add crawler to Arado for StartingUrls (grub, or any other)
 
-31) hide gui elements in Network tab (frequency, Chunk size)
+32) Run URL Database in RAM-cache only modus for 10 MB of urls (new entries deleting the oldest)
 
 
 
