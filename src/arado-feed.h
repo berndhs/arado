@@ -1,3 +1,6 @@
+#ifndef ARADO_FEED_H
+#define ARADO_FEED_H
+
 /****************************************************************
  * This file is distributed under the following license:
  *
@@ -19,41 +22,33 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#ifndef ADDFEED_H
-#define ADDFEED_H
-
-#include <QObject>
-#include <QNetworkReply>
-#include "db-manager.h"
+#include <QString>
+#include <QUrl>
+#include <QList>
 
 namespace arado
 {
+class AradoFeed {
 
-class NetworkAccessManager;
-
-class AddRssFeed : public QObject
-{
-  Q_OBJECT
 public:
-  explicit AddRssFeed(QObject *parent = 0);
 
-  void SetDB (DBManager *dbm) { db = dbm; }
-  void AddFeedUrl (QString url);
+  AradoFeed ();
+  AradoFeed (const QString & nick, const QUrl & url);
 
-signals:
+  QString Nick () const { return theNick; }
+  QUrl    Url () const { return theUrl; }
 
-public slots:
-  virtual void httpFinished (QNetworkReply *reply);
+  void SetNick (const QString & nick) { theNick = nick; }
+  void SetUrl  (const QUrl & url) { theUrl = url; }
 
 private:
 
-  NetworkAccessManager *qnam;
-  DBManager             *db;
-  QNetworkReply         *reply;
-  QNetworkRequest       *request;
+  QString   theNick;
+  QUrl      theUrl;
 };
+
+typedef QList <AradoFeed>   AradoFeedList;
 
 } // namespace
 
-#endif // ADDFEED_H
-
+#endif

@@ -105,6 +105,7 @@ FORMS		=	ui/aradomain.ui \
                         ui/address-input.ui \
                         ui/feed-input.ui \
                         ui/listener-edit.ui \
+                        ui/rss-list.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
@@ -136,6 +137,8 @@ HEADERS		=	src/aradomain.h \
                    src/http-types.h \
                    src/listener-edit.h \
                    src/addfeed.h \
+                   src/rss-list.h \
+                   src/arado-feed.h \
                    src/networkaccessmanager.h
 
 
@@ -169,7 +172,9 @@ SOURCES		=	src/aradomain.cpp \
                    src/http-client-reply.cpp \
                    src/listener-edit.cpp \
                    src/addfeed.cpp \
-                   src/networkaccessmanager.cpp
+                   src/rss-list.cpp \
+                   src/arado-feed.cpp \
+                   src/networkaccessmanager.cpp \
 
 
 TARGET		= bin/arado

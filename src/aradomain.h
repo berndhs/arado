@@ -47,6 +47,7 @@ class HttpClient;
 class AddPeerDialog;
 class ListenerEdit;
 class PollSequence;
+class RssList;
 
 class AradoMain : public QMainWindow
 {
@@ -117,6 +118,7 @@ private:
   Policy             *policy;
   PollSequence       *sequencer;
   AddRssFeed         *addRssFeed;
+  RssList            *rssList;
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;

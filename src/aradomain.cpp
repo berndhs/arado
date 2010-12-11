@@ -31,6 +31,7 @@
 #include "arado-stream-parser.h"
 #include "listener-edit.h"
 #include "addfeed.h"
+#include "rss-list.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -75,6 +76,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    policy (0),
    sequencer (0),
    addRssFeed(0),
+   rssList (0),
    httpServer (0),
    httpClient (0),
    httpPoll (0),
@@ -98,6 +100,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   sequencer->SetDB (&dbMgr);
   addRssFeed = new AddRssFeed (this);
   addRssFeed->SetDB (&dbMgr);
+  rssList = new RssList (this);
+  rssList->SetDB (&dbMgr);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
@@ -105,6 +109,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
+  mainUi.tabWidget->addTab (rssList, tr("Rss Feeds"));
 
 }
 
@@ -142,6 +147,9 @@ AradoMain::Start ()
   StartServers ();
   StartClients ();
   RefreshPeers ();
+  if (rssList) {
+    rssList->Show ();
+  }
   StartSequencer ();
   if (dbMgr.NumPeers () < 1) {
     QTimer::singleShot (5000,this,SLOT (InitSystem()));

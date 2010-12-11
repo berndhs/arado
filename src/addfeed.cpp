@@ -15,7 +15,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
@@ -29,56 +29,56 @@ namespace arado
 {
 
 AddRssFeed::AddRssFeed(QObject *parent) :
-    QObject(parent)
+  QObject(parent)
 {
-    qnam=new NetworkAccessManager(parent);
+  qnam=new NetworkAccessManager(parent);
 }
 
 void
-AddRssFeed::httpFinished (QNetworkReply *reply) {
-    QDomDocument dom;
-    dom.setContent(reply);
-    QDomNodeList nodeList=dom.elementsByTagName("item");
-    for(unsigned int n=0; n<nodeList.length(); n++) {
-        QDomNode node=nodeList.item(n);
-        QString title,link,category;
-        for(unsigned int c=0; c<node.childNodes().length(); c++) {
-                QDomNode child=node.childNodes().item(c);
-                if(child.nodeName().toLower()=="title") {
-                    title=child.firstChild().nodeValue();
-                }
-                else if(child.nodeName().toLower()=="link") {
-                    link=child.firstChild().nodeValue();
-                }
-                else if(child.nodeName().toLower()=="category") {
-                    category=child.firstChild().nodeValue();
-                }
-        }
-        if(title.length()>0 && link.length()>0) {
-            AradoUrl  newurl;
-            newurl.SetUrl (link);
-            newurl.SetDescription(title);
-            //newurl.SetKeywords (category);
-            if(newurl.IsValid ()) {
-                db->AddUrl (newurl);       
-            }
-        }
+AddRssFeed::httpFinished (QNetworkReply *reply)
+{
+  QDomDocument dom;
+  dom.setContent(reply);
+  QDomNodeList nodeList=dom.elementsByTagName("item");
+  for (unsigned int n=0; n<nodeList.length(); n++) {
+    QDomNode node=nodeList.item(n);
+    QString title,link,category;
+    for (unsigned int c=0; c<node.childNodes().length(); c++) {
+      QDomNode child=node.childNodes().item(c);
+      if(child.nodeName().toLower()=="title") {
+        title=child.firstChild().nodeValue();
+      } else if(child.nodeName().toLower()=="link") {
+        link=child.firstChild().nodeValue();
+      } else if(child.nodeName().toLower()=="category") {
+        category=child.firstChild().nodeValue();
+      }
     }
+    if (title.length()>0 && link.length()>0) {
+      AradoUrl  newurl;
+      newurl.SetUrl (link);
+      newurl.SetDescription(title);
+      //newurl.SetKeywords (category);
+      if(newurl.IsValid ()) {
+        db->AddUrl (newurl);
+      }
+    }
+  }
 
-    this->reply->deleteLater();
-    this->reply=NULL;
+  this->reply->deleteLater();
+  this->reply=NULL;
 }
 
 void
-AddRssFeed::AddFeedUrl (QString urlText) {
-    QUrl feedUrl=QUrl (urlText, QUrl::TolerantMode);
+AddRssFeed::AddFeedUrl (QString urlText)
+{
+  QUrl feedUrl=QUrl (urlText, QUrl::TolerantMode);
 
-    request=new QNetworkRequest(feedUrl);
+  request=new QNetworkRequest(feedUrl);
 
-    reply=qnam->get(*request);
+  reply=qnam->get(*request);
 
-    connect(qnam, SIGNAL(finished(QNetworkReply *)),
-            this, SLOT(httpFinished(QNetworkReply *)));
+  connect (qnam, SIGNAL(finished(QNetworkReply *)),
+          this, SLOT(httpFinished(QNetworkReply *)));
 }
 
 }

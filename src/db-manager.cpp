@@ -61,20 +61,35 @@ DBManager::Start ()
 {
   QString dataDir = QDesktopServices::storageLocation
                     (QDesktopServices::DataLocation);
-  QString ipbasename = dataDir + QDir::separator() + QString ("ipbase.sql");
-  QString urlbasename = dataDir + QDir::separator() + QString ("urlbase.sql");
-  ipbasename = Settings().value ("database/ipbase",ipbasename).toString();
+  QString ipbasename = dataDir + QDir::separator() 
+                               + QString ("ipbase.sql");
+  QString urlbasename = dataDir + QDir::separator() 
+                                + QString ("urlbase.sql");
+  QString feedbasename = dataDir + QDir::separator() 
+                                + QString ("feedbase.sql");
+
+  ipbasename = Settings().value ("database/ipbase",ipbasename)
+                         .toString();
   Settings().setValue ("database/ipbase",ipbasename);
-  urlbasename = Settings().value ("database/urlbase",urlbasename).toString();
+
+  urlbasename = Settings().value ("database/urlbase",urlbasename)
+                          .toString();
   Settings().setValue ("database/urlbase",urlbasename);
+
+  feedbasename = Settings().value ("database/feedbase",feedbasename)
+                          .toString();
+  Settings().setValue ("database/feedbase",feedbasename);
+
   qDebug () << " ip database name " << ipbasename;
   qDebug () << " url database name " << urlbasename;
+  qDebug () << " feed database name " << feedbasename;
 
   QThread::start();
   StartDB (ipBase, "ipBaseCon", ipbasename);
   ipInTransaction = false;
   StartDB (urlBase, "urlBaseCon", urlbasename);
   urlInTransaction = false;
+  StartDB (feedBase, "feedBaseCon", feedbasename);
 
   QStringList  urlElements ;
   urlElements << "urltable"
@@ -101,6 +116,11 @@ DBManager::Start ()
              << "uniqueuu";
 
   CheckDBComplete (ipBase, ipElements);
+
+  QStringList feedElements;
+  feedElements << "rssfeeds"
+               << "uniquerssfeeds";
+  CheckDBComplete (feedBase, feedElements);
 
   dbRunning = true;
 }
@@ -662,6 +682,47 @@ DBManager::FillPeerUuids (AradoPeerList & list)
       it->SetUuid (QUuid(uuidStr));
     }
   }
+}
+
+bool
+DBManager::WriteFeed (const QString & nick,
+                      const QUrl & url)
+{
+  QSqlQuery  query (feedBase);
+  QString   cmd ("insert or replace into rssfeeds (nick, url) "
+                  "values (?, ?)");
+  query.prepare (cmd);
+  query.bindValue (0,QVariant (nick));
+  query.bindValue (1,QVariant (url.toString()));
+  bool ok = query.exec ();
+  qDebug () << " WriteFeed " << ok << query.executedQuery() ;
+  return ok;
+}
+
+bool
+DBManager::RemoveFeed (const QString & nick)
+{
+  QSqlQuery query (feedBase);
+  QString cmd ("delete from rssfeeds where nick='%1'");
+  bool ok = query.exec (cmd.arg (nick));
+  return ok;
+}
+
+AradoFeedList
+DBManager::GetFeeds ()
+{
+  AradoFeedList list;
+  QSqlQuery select (feedBase);
+  QString cmd ("select nick, url from rssfeeds where 1 "
+               " order by nick ASC");
+  bool ok = select.exec (cmd);
+qDebug () << " feed select query " << ok << select.executedQuery();
+  while (ok && select.next ()) {
+    QString nick = select.value(0).toString();
+    QUrl url = QUrl (select.value(1).toString());
+    list.append (AradoFeed (nick, url));
+  }
+  return list;
 }
 
 bool

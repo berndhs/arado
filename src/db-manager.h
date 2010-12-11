@@ -27,6 +27,7 @@
 #include <QSqlDatabase>
 #include "arado-url.h"
 #include "arado-peer.h"
+#include "arado-feed.h"
 
 namespace arado
 {
@@ -40,7 +41,8 @@ public:
   enum DBType { 
         DB_None = 0,
         DB_Url = 1,
-        DB_Address = 2
+        DB_Address = 2,
+        DB_Rss = 3
         };
   
   DBManager (QObject *parent =0);
@@ -83,6 +85,14 @@ public:
                      bool combineAnd = true);
   bool  SearchAny (QStringList & hashList,
                    const QStringList & keys);
+
+  bool  WriteFeed (const QString & nick,
+                   const QUrl & url);
+  bool  RemoveFeed (const QString & nick);
+
+  AradoFeedList  GetFeeds ();
+  
+
   bool  StartTransaction (DBType  t = DB_Url);
   bool  CloseTransaction (DBType  t = DB_Url);
 
@@ -102,6 +112,7 @@ private:
 
   QSqlDatabase     ipBase;
   QSqlDatabase     urlBase;
+  QSqlDatabase     feedBase;
 
   bool             ipInTransaction;
   bool             urlInTransaction;
