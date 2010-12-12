@@ -250,13 +250,13 @@ AradoMain::AddFeed ()
 }
 
 void
-AradoMain::DoneAddFeed ()
+AradoMain::DoneAddFeed (bool changed)
 {
   if (rssList) {
     int tabNum = mainUi.tabWidget->indexOf (rssList);
     mainUi.tabWidget->removeTab (tabNum);
   }
-  if (rssPoll) {
+  if (rssPoll && changed) {
     rssPoll->Stop ();
     rssPoll->Start ();
   }
@@ -345,8 +345,8 @@ AradoMain::Connect ()
             this, SLOT (Restart()));
   }
   if (rssList) {
-    connect (rssList, SIGNAL (Closed()),
-             this, SLOT (DoneAddFeed ()));
+    connect (rssList, SIGNAL (Closed(bool)),
+             this, SLOT (DoneAddFeed (bool)));
   }
   if (rssPoll) {
     connect (rssPoll, SIGNAL (PolledRss (QString)),

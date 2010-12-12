@@ -70,7 +70,7 @@ public slots:
   void slotAbout();
   void DoConfigEdit ();
   void DoneConfigEdit (bool saved);
-  void DoneAddFeed ();
+  void DoneAddFeed (bool changed);
   void DoFileImport ();
   void DoFileExport ();
   void DoIpImport ();

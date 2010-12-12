@@ -52,7 +52,7 @@ private slots:
 
 signals:
 
-  void Closed ();
+  void Closed (bool changed);
 
 private:
 
@@ -62,6 +62,7 @@ private:
 
   Ui_RssFeedList  ui;
   DBManager      *dbm;
+  bool            changedSomething;
   
 };
 

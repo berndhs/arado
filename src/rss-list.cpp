@@ -34,7 +34,8 @@ namespace arado
 
 RssList::RssList (QWidget *parent)
   :QWidget (parent),
-   dbm (0)
+   dbm (0),
+   changedSomething (false)
 {
   ui.setupUi (this);
   hide ();
@@ -68,7 +69,8 @@ RssList::DoClose ()
 {
   ui.feedTable->clearContents ();
   Hide ();
-  emit Closed ();
+  emit Closed (changedSomething);
+  changedSomething = false;
 }
 
 void
@@ -106,6 +108,7 @@ RssList::DoDelete ()
     rit++;
   }
   ListFeeds ();
+  changedSomething = true;
 }
 
 void
@@ -132,6 +135,7 @@ RssList::DoSave ()
     sit++;
   }
   ui.feedTable->clearSelection ();
+  changedSomething = true;
 }
 
 void
