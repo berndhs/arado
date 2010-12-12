@@ -38,7 +38,8 @@ public:
   explicit AddRssFeed(QObject *parent = 0);
 
   void SetDB (DBManager *dbm) { db = dbm; }
-  void AddFeedUrl (QString url);
+  void PollFeed (QString url);
+
 
 signals:
 
@@ -50,7 +51,6 @@ private:
   NetworkAccessManager *qnam;
   DBManager             *db;
   QNetworkReply         *reply;
-  QNetworkRequest       *request;
 };
 
 } // namespace

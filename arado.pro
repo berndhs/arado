@@ -138,6 +138,7 @@ HEADERS		=	src/aradomain.h \
                    src/listener-edit.h \
                    src/addfeed.h \
                    src/rss-list.h \
+                   src/rss-poll.h \
                    src/arado-feed.h \
                    src/networkaccessmanager.h
 
@@ -173,6 +174,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/listener-edit.cpp \
                    src/addfeed.cpp \
                    src/rss-list.cpp \
+                   src/rss-poll.cpp \
                    src/arado-feed.cpp \
                    src/networkaccessmanager.cpp \
 

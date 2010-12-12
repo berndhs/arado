@@ -50,6 +50,10 @@ private slots:
   void  DoClose ();
   void  DoSave ();
 
+signals:
+
+  void Closed ();
+
 private:
 
   void Connect ();

@@ -446,6 +446,12 @@ UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
   }
 }
 
+void
+UrlDisplay::SetMiddleMessage (const QString & msg)
+{
+  ui.middleLabel->setText (msg);
+}
+
 
 } // namespace
 

@@ -15,7 +15,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
@@ -29,24 +29,25 @@ namespace arado
 {
 
 NetworkAccessManager::NetworkAccessManager(QObject *parent) :
-    QNetworkAccessManager(parent)
+  QNetworkAccessManager(parent)
 {
-    if(Settings().contains("proxy/useproxy") && Settings().value ("proxy/useproxy").toBool()) {
-        QNetworkProxy proxy;
-        if(Settings().value ("proxy/type")=="Socks5") {
-            proxy.setType(QNetworkProxy::Socks5Proxy);
-        } else {
-            proxy.setType(QNetworkProxy::HttpProxy);
-        }
-        QString username=Settings().value ("proxy/user").toString().trimmed();
-        if(username.length()>0) {
-            proxy.setUser(username);
-            proxy.setPassword(Settings().value ("proxy/password").toString());
-        }
-        proxy.setHostName(Settings().value ("proxy/host").toString());
-        proxy.setPort(Settings().value ("proxy/port").toUInt());
-        this->setProxy(proxy);
+  if (Settings().contains("proxy/useproxy") 
+       && Settings().value ("proxy/useproxy").toBool()) {
+    QNetworkProxy proxy;
+    if (Settings().value ("proxy/type")=="Socks5") {
+      proxy.setType (QNetworkProxy::Socks5Proxy);
+    } else {
+      proxy.setType (QNetworkProxy::HttpProxy);
     }
+    QString username=Settings().value ("proxy/user").toString().trimmed();
+    if (username.length()>0) {
+      proxy.setUser (username);
+      proxy.setPassword (Settings().value ("proxy/password").toString());
+    }
+    proxy.setHostName (Settings().value ("proxy/host").toString());
+    proxy.setPort (Settings().value ("proxy/port").toUInt());
+    this->setProxy (proxy);
+  }
 
 }
 

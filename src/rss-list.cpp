@@ -37,6 +37,7 @@ RssList::RssList (QWidget *parent)
    dbm (0)
 {
   ui.setupUi (this);
+  hide ();
   Connect ();
 }
 
@@ -67,6 +68,7 @@ RssList::DoClose ()
 {
   ui.feedTable->clearContents ();
   Hide ();
+  emit Closed ();
 }
 
 void

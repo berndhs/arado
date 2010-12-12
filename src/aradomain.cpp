@@ -32,6 +32,7 @@
 #include "listener-edit.h"
 #include "addfeed.h"
 #include "rss-list.h"
+#include "rss-poll.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -75,8 +76,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    dbMgr (this),
    policy (0),
    sequencer (0),
-   addRssFeed(0),
    rssList (0),
+   rssPoll (0),
    httpServer (0),
    httpClient (0),
    httpPoll (0),
@@ -98,10 +99,10 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   policy = new Policy (this);
   sequencer = new PollSequence (this);
   sequencer->SetDB (&dbMgr);
-  addRssFeed = new AddRssFeed (this);
-  addRssFeed->SetDB (&dbMgr);
   rssList = new RssList (this);
   rssList->SetDB (&dbMgr);
+  rssPoll = new RssPoll (this);
+  rssPoll->SetDB (&dbMgr);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
@@ -109,7 +110,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
-  mainUi.tabWidget->addTab (rssList, tr("Rss Feeds"));
 
 }
 
@@ -147,10 +147,10 @@ AradoMain::Start ()
   StartServers ();
   StartClients ();
   RefreshPeers ();
-  if (rssList) {
-    rssList->Show ();
-  }
   StartSequencer ();
+  if (rssPoll) {
+    rssPoll->Start ();
+  }
   if (dbMgr.NumPeers () < 1) {
     QTimer::singleShot (5000,this,SLOT (InitSystem()));
   }
@@ -170,6 +170,9 @@ AradoMain::Restart ()
   runAgain = true;
   StopServers ();
   StopClients ();
+  if (rssPoll) {
+    rssPoll->Stop ();
+  }
   Quit ();
 }
 
@@ -240,17 +243,23 @@ AradoMain::AddServer ()
 void
 AradoMain::AddFeed ()
 {
-   Ui_FeedDialog  feedUi;
-   QDialog           enterFeed (this);
-   feedUi.setupUi (&enterFeed);
-   connect (feedUi.okButton, SIGNAL (clicked()), &enterFeed, SLOT (accept()));
-   connect (feedUi.cancelButton, SIGNAL (clicked()), &enterFeed, SLOT (reject()));
-   //feedUi.feedEdit->setText ("http://www.freewarefiles.com/rss/newfiles.xml"); // example Feedurl with category = keywords
-   int response = enterFeed.exec ();
-   if(response==QDialog::Accepted) {
-       addRssFeed->AddFeedUrl(feedUi.feedEdit->text());
-   }
-   //QTimer::singleShot (5000, this, SLOT (accept())); // FeedUrl(s) must be saved somewhere 
+  if (rssList) {
+    mainUi.tabWidget->addTab (rssList, tr("Rss Feeds"));
+    rssList->Show();
+  }
+}
+
+void
+AradoMain::DoneAddFeed ()
+{
+  if (rssList) {
+    int tabNum = mainUi.tabWidget->indexOf (rssList);
+    mainUi.tabWidget->removeTab (tabNum);
+  }
+  if (rssPoll) {
+    rssPoll->Stop ();
+    rssPoll->Start ();
+  }
 }
 
 void
@@ -335,6 +344,14 @@ AradoMain::Connect ()
     connect (listenerEdit, SIGNAL (SuggestRestart()),
             this, SLOT (Restart()));
   }
+  if (rssList) {
+    connect (rssList, SIGNAL (Closed()),
+             this, SLOT (DoneAddFeed ()));
+  }
+  if (rssPoll) {
+    connect (rssPoll, SIGNAL (PolledRss (QString)),
+             this, SLOT (PolledRss (QString)));
+  }
 }
 
 /// \brief Close down
@@ -418,9 +435,15 @@ AradoMain::DoneConfigEdit (bool saved)
       StopSequencer ();
       StopServers ();
       StopClients ();
+      if (rssPoll) {
+        rssPoll->Stop();
+      }
       StartServers ();
       StartClients ();
       StartSequencer ();
+      if (rssPoll) {
+        rssPoll->Start ();
+      }
     }
   }
 }
@@ -696,6 +719,19 @@ AradoMain::InitSystem ()
   dbMgr.AddPeer (initPeer);
   PeersAdded (1);
   PollNow (true);
+}
+
+void
+AradoMain::PolledRss (QString nick)
+{
+  if (nick.length() > 0) {
+    QDateTime now = QDateTime::currentDateTime();
+    urlDisplay->SetMiddleMessage (tr("%1: Polled RSS \"%2\"")
+                      .arg(now.toString(tr ("hh:mm:ss")))
+                      .arg(nick));  
+  } else {
+    urlDisplay->SetMiddleMessage ("");
+  }
 }
 
 } // namespace

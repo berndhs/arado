@@ -48,6 +48,7 @@ class AddPeerDialog;
 class ListenerEdit;
 class PollSequence;
 class RssList;
+class RssPoll;
 
 class AradoMain : public QMainWindow
 {
@@ -69,6 +70,7 @@ public slots:
   void slotAbout();
   void DoConfigEdit ();
   void DoneConfigEdit (bool saved);
+  void DoneAddFeed ();
   void DoFileImport ();
   void DoFileExport ();
   void DoIpImport ();
@@ -91,6 +93,7 @@ private slots:
   void MailUuid ();
   void DisplayUuid ();
   void InitSystem ();
+  void PolledRss (QString nick);
 
   void Restart ();
 
@@ -117,8 +120,8 @@ private:
   DBManager           dbMgr;
   Policy             *policy;
   PollSequence       *sequencer;
-  AddRssFeed         *addRssFeed;
   RssList            *rssList;
+  RssPoll            *rssPoll;
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;

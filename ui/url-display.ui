@@ -36,8 +36,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>806</width>
-        <height>511</height>
+        <width>878</width>
+        <height>510</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -153,10 +153,10 @@
        </item>
        <item row="0" column="0">
         <layout class="QGridLayout" name="gridLayout">
-         <item row="3" column="2">
+         <item row="3" column="3">
           <layout class="QHBoxLayout" name="horizontalLayout"/>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="3">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QPushButton" name="searchButton">
@@ -344,7 +344,7 @@ border-image: url(:/images/btn3.png) 4;
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="1" column="2">
           <widget class="QLineEdit" name="textInput">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -381,7 +381,7 @@ background: white;</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
+         <item row="2" column="3">
           <widget class="QLabel" name="bottomLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -419,6 +419,13 @@ background: white;</string>
            <property name="toolTip">
             <string>Arado Websearch is a networked URL Database, which saves your added bookmarks and RSS-Feeds and syncs newest URLs with your connected devices.</string>
            </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="middleLabel">
            <property name="text">
             <string/>
            </property>

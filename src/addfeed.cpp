@@ -69,13 +69,13 @@ AddRssFeed::httpFinished (QNetworkReply *reply)
 }
 
 void
-AddRssFeed::AddFeedUrl (QString urlText)
+AddRssFeed::PollFeed (QString urlText)
 {
   QUrl feedUrl=QUrl (urlText, QUrl::TolerantMode);
 
-  request=new QNetworkRequest(feedUrl);
+  QNetworkRequest request (feedUrl);
 
-  reply=qnam->get(*request);
+  reply=qnam->get(request);
 
   connect (qnam, SIGNAL(finished(QNetworkReply *)),
           this, SLOT(httpFinished(QNetworkReply *)));
