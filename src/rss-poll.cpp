@@ -86,7 +86,8 @@ RssPoll::Stop ()
 void
 RssPoll::Poll ()
 {
-  AradoFeedList::iterator nextPoll = lastPolled++;
+  AradoFeedList::iterator nextPoll = lastPolled;
+  nextPoll++;
   if (nextPoll == feedList.end()) {
     nextPoll = feedList.begin();
   }
@@ -96,6 +97,7 @@ RssPoll::Poll ()
   feeder->PollFeed (nextPoll->Url().toString());
   lastNick = nextPoll->Nick();
   lastPolled = nextPoll;
+qDebug () << " RssPoll  polled " << nextPoll->Nick() << nextPoll->Url();
   emit PolledRss (lastNick);
 }
 
