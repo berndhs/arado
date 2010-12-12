@@ -28,6 +28,7 @@
 #include <QTimer>
 #include <QUrl>
 #include <QString>
+#include <QDebug>
 
 using namespace deliberate;
 
@@ -40,6 +41,7 @@ RssPoll::RssPoll (QObject *parent)
    feeder (0)
 {
   feeder = new AddRssFeed (this);
+  feedList.clear ();
   pollTimer = new QTimer (this);
   connect (pollTimer, SIGNAL (timeout()), this, SLOT(Poll()));
 }
@@ -57,6 +59,7 @@ RssPoll::Start ()
   int period (5*60); // 5 minutes
   period = Settings().value ("rss/pollperiod",period).toInt();
   Settings().setValue ("rss/pollperiod",period);
+  lastPolled = feedList.begin();
   if (dbm) {
     feedList = dbm->GetFeeds();
     lastNick.clear ();
@@ -86,6 +89,9 @@ RssPoll::Stop ()
 void
 RssPoll::Poll ()
 {
+  if (feedList.empty ()) {
+    return;
+  }
   AradoFeedList::iterator nextPoll = lastPolled;
   nextPoll++;
   if (nextPoll == feedList.end()) {
@@ -97,9 +103,7 @@ RssPoll::Poll ()
   feeder->PollFeed (nextPoll->Url().toString());
   lastNick = nextPoll->Nick();
   lastPolled = nextPoll;
-qDebug () << " RssPoll  polled " << nextPoll->Nick() << nextPoll->Url();
   emit SigPolledRss (lastNick);
-qDebug () << " RssPoll back from emit";
 }
 
 } // namespace
