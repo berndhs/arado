@@ -157,15 +157,6 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     ui.urlTable->setSortingEnabled (allowSort);
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
-    int urlAddCount (0);
-    if (db) {
-      urlAddCount = db->UrlsAdded();
-    };
-    if (urlAddCount > 0) {
-    QString countText (tr("Show Recent: %1")
-                         .arg (urlAddCount));
-      ui.recentButton->setText (countText);
-    }
     QString labelText (tr("Recent Consciousness to %1")
                            .arg (labelTime));
     ui.bottomLabel->setText (labelText);
@@ -179,6 +170,24 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     normalRowHeight = ui.urlTable->rowHeight (0);
     bigRowHeight = qMin (3*normalRowHeight, ui.urlTable->size().height());
   }
+  ShowAddCount ();
+}
+
+void
+UrlDisplay::ShowAddCount ()
+{
+  int urlAddCount (0);
+  if (db) {
+    urlAddCount = db->UrlsAdded();
+  };
+  QString countText;
+  if (urlAddCount > 0) {
+    countText = tr("Show Recent: %1")
+                      .arg (urlAddCount);
+  } else {
+    countText = tr("Show Recent");
+  }
+  ui.recentButton->setText (countText);
 }
 
 void

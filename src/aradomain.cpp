@@ -97,6 +97,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   addPeerDialog->SetDB (&dbMgr);
   listenerEdit = new ListenerEdit (this);
   policy = new Policy (this);
+  dbMgr.SetPolicy (policy);
   sequencer = new PollSequence (this);
   sequencer->SetDB (&dbMgr);
   rssList = new RssList (this);
@@ -724,6 +725,9 @@ AradoMain::InitSystem ()
 void
 AradoMain::PolledRss (QString nick)
 {
+  if (urlDisplay == 0) {
+    return;
+  }
   if (nick.length() > 0) {
     QDateTime now = QDateTime::currentDateTime();
     urlDisplay->SetMiddleMessage (tr("%1: Polled RSS \"%2\"")
@@ -732,6 +736,7 @@ AradoMain::PolledRss (QString nick)
   } else {
     urlDisplay->SetMiddleMessage ("");
   }
+  urlDisplay->ShowAddCount ();
 }
 
 } // namespace

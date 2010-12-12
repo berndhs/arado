@@ -59,7 +59,7 @@ Policy::AddUrl (DBManager &dbm, AradoUrl &url)
 #endif
     } else {
       AddHash (hashNew);
-      ok = dbm.AddUrl (url);
+      ok = dbm.PrivateAddUrl (url);
       qDebug () << " Policy Accept saving " << ok << url.Url();
     }
     return ok;

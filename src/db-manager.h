@@ -32,6 +32,8 @@
 namespace arado
 {
 
+class Policy;
+
 class DBManager : public QThread
 {
 Q_OBJECT
@@ -52,7 +54,9 @@ public:
   void  Stop ();
   bool  Running () { return dbRunning; }
 
+  void  SetPolicy (Policy *pol);
   bool  AddUrl (AradoUrl & url);
+  bool  AddUrl (Policy *pol, AradoUrl & url);
   bool  AddKeywords (AradoUrl & url);
 
   bool  AddPeer (AradoPeer & peer);
@@ -98,6 +102,8 @@ public:
 
 private:
 
+  bool  PrivateAddUrl (AradoUrl & url);
+
   void StartDB  (QSqlDatabase & db, 
                  const QString & conName, 
                  const QString & dbFilename);
@@ -119,6 +125,10 @@ private:
   bool             dbRunning;
   qint64           urlAddCount;
   qint64           peerAddCount;
+
+  Policy          *policy;
+
+friend class Policy;
 
 };
 

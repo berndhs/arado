@@ -72,7 +72,7 @@ RssPoll::Start ()
     feeder->SetDB (dbm);
   }
   pollTimer->start (period*1000);
-  QTimer::singleShot (100, this, SLOT (Poll()));
+  QTimer::singleShot (3*1000, this, SLOT (Poll()));
 }
 
 void

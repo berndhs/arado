@@ -24,6 +24,7 @@
 #include "db-manager.h"
 #include "deliberate.h"
 #include "arado-url.h"
+#include "policy.h"
 #include <QDesktopServices>
 #include <QFile>
 #include <QDir>
@@ -45,7 +46,8 @@ DBManager::DBManager (QObject * parent)
    urlInTransaction (false),
    dbRunning (false),
    urlAddCount (0),
-   peerAddCount (0)
+   peerAddCount (0),
+   policy (0)
 {
 }
 
@@ -54,6 +56,12 @@ DBManager::~DBManager ()
   if (dbRunning) {
     Stop ();
   }
+}
+
+void
+DBManager::SetPolicy (Policy * pol)
+{
+  policy = pol;
 }
 
 void
@@ -207,7 +215,23 @@ qDebug () << " tried " << ok << " to create element with "
 }
 
 bool
+DBManager::AddUrl (Policy *pol, AradoUrl & url)
+{
+  if (pol) {
+    return pol->AddUrl (*this, url);
+  } else {
+    return false;
+  }
+}
+
+bool
 DBManager::AddUrl (AradoUrl & url)
+{
+  return AddUrl (policy, url);
+}
+
+bool
+DBManager::PrivateAddUrl (AradoUrl & url)
 {
   if (!url.IsValid ()) {
     return false;         // don't want known bad URLs in the database
