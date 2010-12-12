@@ -99,6 +99,7 @@ EntryForm::Save ()
   }
   newurl.SetKeywords (trimmedList);
   if (db) {
+    newurl.ComputeHash ();
     db->AddUrl (newurl);
   }
   Clear ();
