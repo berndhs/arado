@@ -39,6 +39,7 @@ main (int argc, char *argv[])
   QCoreApplication::setOrganizationName ("Arado");
   QCoreApplication::setOrganizationDomain ("arado.sourceforge.net");
   deliberate::ProgramVersion pv ("Arado");
+  QCoreApplication::setApplicationVersion (pv.VersionNumber());
   QSettings  settings;
   deliberate::SetSettings (settings);
   settings.setValue ("program",pv.MyName());

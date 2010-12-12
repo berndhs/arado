@@ -28,23 +28,28 @@
  
 namespace deliberate {
 
-  QString ProgramVersion::VersionNumber ("0.1.5");
+  QString ProgramVersion::MyVersionNumber ("0.1.5");
 
-  QString ProgramVersion::ProgramName("Arado");
+  QString ProgramVersion::MyProgramName("Arado");
   QString ProgramVersion::copyright ("Copyright (C) 2010 Arado Team");
   
   ProgramVersion::ProgramVersion (QString pgmname)
   {
-    ProgramName = pgmname;
+    MyProgramName = pgmname;
   }
   
   QString ProgramVersion::Version ()
   { 
-    return ProgramName + QString (" Version " )
-                   + VersionNumber + " " + QString(__DATE__) + " "
+    return MyProgramName + QString (" Version " )
+                   + MyVersionNumber + " " + QString(__DATE__) + " "
 		       + QString(__TIME__)
 		       + QString("\r\n")
 		       + copyright;
+  }
+
+  QString ProgramVersion::VersionNumber ()
+  {
+    return MyVersionNumber;
   }
 
   void ProgramVersion::ShowVersionWindow ()
@@ -63,7 +68,7 @@ namespace deliberate {
   
   QString ProgramVersion::MyName()
   { 
-    return ProgramName;
+    return MyProgramName;
   }
 
 }

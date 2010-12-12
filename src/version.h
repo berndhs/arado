@@ -35,14 +35,15 @@ public:
   
   static QString Version (); 
   static QString MyName ();
+  static QString VersionNumber ();
   
   static void ShowVersionWindow ();
   static void CLIVersion ();
   
 private:
 
-  static QString VersionNumber;
-  static QString ProgramName;
+  static QString MyVersionNumber;
+  static QString MyProgramName;
   static QString copyright;
 
 };
