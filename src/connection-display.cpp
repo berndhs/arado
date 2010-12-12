@@ -17,7 +17,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
@@ -60,9 +60,9 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
   connect (ui.buttonStartSync, SIGNAL (clicked()), this, SLOT (DoStartSync()));
   connect (ui.buttonAddDevice, SIGNAL (clicked()), this, SLOT (DoAddDevice()));
   ui.buttonAddDevice->setStyleSheet( "background-color:"
-                     " qlineargradient(x1:0, y1:0, x2:0, y2:1, "
-                     "stop:0 rgb(255, 255, 224), "
-                     "stop:1 rgb(100, 230, 100));" );
+                                     " qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+                                     "stop:0 rgb(255, 255, 224), "
+                                     "stop:1 rgb(100, 230, 100));" );
   connect (ui.buttonDelete, SIGNAL (clicked()), this, SLOT (DoDeleteDevice()));
   connect (ui.buttonExternalIp, SIGNAL (clicked()),
            this, SLOT (EditListener ()));
@@ -100,7 +100,7 @@ ConnectionDisplay::DoAddDevice ()
 void
 ConnectionDisplay::EditListener ()
 {
-qDebug () << " connection display want edit listener";
+  qDebug () << " connection display want edit listener";
   emit WantEditListener();
 }
 
@@ -143,8 +143,8 @@ ConnectionDisplay::ShowPeers ()
 }
 
 void
-ConnectionDisplay::ShowPeers (QTableWidget * table, 
-                              QString level, 
+ConnectionDisplay::ShowPeers (QTableWidget * table,
+                              QString level,
                               AradoPeerList & peers)
 {
   if (table == 0) {
@@ -184,17 +184,17 @@ ConnectionDisplay::Highlight (QTableWidgetItem *item, AradoPeer & peer)
     font.setBold (false);
     font.setStrikeOut (false);
     switch (state) {
-      case AradoPeer::State_Sent:
-        font.setBold (true);
-        break;
-      case AradoPeer::State_Scheduled:
-        font.setItalic (true);
-        break;
-      case AradoPeer::State_Dead:
-        font.setStrikeOut (true);
-        break;
-      default:
-        break;
+    case AradoPeer::State_Sent:
+      font.setBold (true);
+      break;
+    case AradoPeer::State_Scheduled:
+      font.setItalic (true);
+      break;
+    case AradoPeer::State_Dead:
+      font.setStrikeOut (true);
+      break;
+    default:
+      break;
     }
     item->setFont (font);
   }
@@ -213,8 +213,8 @@ ConnectionDisplay::FindPeer (QTableWidget *table, const QString &nick)
       QTableWidgetItem * item = table->item(r,c);
       if (item) {
         if (ConnCellType(item->data(Conn_Celltype).toInt()) == Cell_Nick
-           && item->text () == nick) {
-           return r;
+            && item->text () == nick) {
+          return r;
         }
       }
     }
@@ -243,7 +243,7 @@ ConnectionDisplay::FindPeer (QString & nick, QTableWidget **table, int & row)
 QTableWidgetItem *
 ConnectionDisplay::FindCell (const QTableWidget *table,
                              int   row,
-                         ConnCellType ct)
+                             ConnCellType ct)
 {
   if (table == 0) {
     return 0;
@@ -269,7 +269,7 @@ ConnectionDisplay::ChangePeer (AradoPeer & peer)
   if (found) {
     QTableWidgetItem * item = FindCell (*table, row, Cell_Nick);
     if (item) {
-      Highlight (item, peer);   
+      Highlight (item, peer);
     }
   }
 }
@@ -295,8 +295,8 @@ ConnectionDisplay::OnlyOne (QString action, bool verify)
     complain = false;
     if (verify) {
       msg = action;
-      mbox.setStandardButtons (QMessageBox::Yes 
-                            | QMessageBox::No);
+      mbox.setStandardButtons (QMessageBox::Yes
+                               | QMessageBox::No);
     } else {
       yes = true;
     }
@@ -308,7 +308,7 @@ ConnectionDisplay::OnlyOne (QString action, bool verify)
   }
   if (yes) {
     return selected.at(0);
-  } 
+  }
   return 0;
 }
 
@@ -368,15 +368,9 @@ ConnectionDisplay::LoadTrafficParams ()
   urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
   urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
   urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
-  urlChunkA = Settings().value ("traffic/urlChunkA",urlChunkA).toInt ();
-  urlChunkB = Settings().value ("traffic/urlChunkB",urlChunkB).toInt ();
-  urlChunkC = Settings().value ("traffic/urlChunkC",urlChunkC).toInt ();
   ui.freqABox->setValue (urlFreqA);
   ui.freqBBox->setValue (urlFreqB);
   ui.freqCBox->setValue (urlFreqC);
-  ui.chunkA->setValue (urlChunkA);
-  ui.chunkB->setValue (urlChunkB);
-  ui.chunkC->setValue (urlChunkC);
 }
 
 void
@@ -385,90 +379,36 @@ ConnectionDisplay::ChangeTrafficParams ()
   urlFreqA = ui.freqABox->value ();
   urlFreqB = ui.freqBBox->value ();
   urlFreqC = ui.freqCBox->value ();
-  urlChunkA = ui.chunkA->value ();
-  urlChunkB = ui.chunkB->value ();
-  urlChunkC = ui.chunkC->value ();
   Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
   Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
   Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
-  Settings().setValue ("traffic/urlChunkA",urlChunkA);
-  Settings().setValue ("traffic/urlChunkB",urlChunkB);
-  Settings().setValue ("traffic/urlChunkC",urlChunkC);
-  Settings().sync();  
+  Settings().sync();
   emit TrafficParamsChanged ();
 
 }
 
 void ConnectionDisplay::checkAdvViewBox(bool show)
 {
-    LoadTrafficParams ();
-    QString addr = deliberate::Settings().value ("http/address").toString();
-    bool listening = deliberate::Settings().value ("http/run").toBool ();
+  LoadTrafficParams ();
+  QString addr = deliberate::Settings().value ("http/address").toString();
 
-    if (show) {
-         ui.freqABox->setVisible(true);
-         ui.freqBBox->setVisible(true);
-         ui.freqCBox->setVisible(true);
-         ui.chunkA->setVisible(true);
-         ui.chunkB->setVisible(true);
-         ui.chunkC->setVisible(true);
-         ui.restartPollButtonA->setVisible(true);
-         ui.restartPollButtonB->setVisible(true);
-         ui.restartPollButtonC->setVisible(true);
-         ui.label_URL_A->setVisible(true);
-         ui.label_URL_B->setVisible(true);
-         ui.label_URL_C->setVisible(true);
-         ui.labelipask_A->setVisible(true);
-         ui.labelipask_B->setVisible(true);
-         ui.labelipask_C->setVisible(true);
-         ui.checkBox_I2P->setVisible(true);
-         ui.checkboxdisable_C->setVisible(true);
-         ui.ipcachesize->setVisible(true);
-         ui.labelipcachesize->setVisible(true);
-         ui.buttonDelete->setVisible(true);
-         ui.listenAddr->setVisible(true);
-         ui.listenPortBox->setVisible(true);
-         ui.buttonExternalIp->setVisible(true);
+  ui.freqABox->setVisible(show);
+  ui.freqBBox->setVisible(show);
+  ui.freqCBox->setVisible(show);
+  ui.restartPollButtonA->setVisible(show);
+  ui.restartPollButtonB->setVisible(show);
+  ui.restartPollButtonC->setVisible(show);
 
-    } else {
-         ui.freqABox->setVisible(false);
-         ui.freqBBox->setVisible(false);
-         ui.freqCBox->setVisible(false);
-         ui.chunkA->setVisible(false);
-         ui.chunkB->setVisible(false);
-         ui.chunkC->setVisible(false);
-         ui.restartPollButtonA->setVisible(false);
-         ui.restartPollButtonB->setVisible(false);
-         ui.restartPollButtonC->setVisible(false);
-         ui.label_URL_A->setVisible(false);
-         ui.label_URL_B->setVisible(false);
-         ui.label_URL_C->setVisible(false);
-         ui.labelipask_A->setVisible(false);
-         ui.labelipask_B->setVisible(false);
-         ui.labelipask_C->setVisible(false);
-         ui.checkBox_I2P->setVisible(false);
-         ui.checkboxdisable_C->setVisible(false);
-         ui.ipcachesize->setVisible(false);
-         ui.labelipcachesize->setVisible(false);
-         ui.buttonDelete->setVisible(false);
-         //
-         if (addr == "localhost") {
-         ui.listenAddr->setVisible(true);
-         ui.listenPortBox->setVisible(true);
-         ui.buttonExternalIp->setVisible(true);
-         }
-         else if (listening) {
-         ui.listenAddr->setVisible(false);
-         ui.listenPortBox->setVisible(false);
-         ui.buttonExternalIp->setVisible(false);
-         }
-         else {
-         ui.listenAddr->setVisible(true);
-         ui.listenPortBox->setVisible(true);
-         ui.buttonExternalIp->setVisible(true);
-         }
-         //
-    }
+  ui.labelipask_A->setVisible(show);
+  ui.labelipask_B->setVisible(show);
+  ui.labelipask_C->setVisible(show);
+  ui.buttonDelete->setVisible(show);
+  ui.listenAddr->setVisible(show);
+  ui.listenPortBox->setVisible(show);
+  ui.buttonExternalIp->setVisible(show);
+  ui.listenAddr->setVisible(show);
+  ui.listenPortBox->setVisible(show);
+  ui.buttonExternalIp->setVisible(show);
 }
 
 
