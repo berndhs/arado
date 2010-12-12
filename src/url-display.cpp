@@ -187,16 +187,20 @@ UrlDisplay::ShowAddCount ()
   } else {
     countText = tr("Show Recent");
   }
+qDebug () << "ShowAddCount  " << urlAddCount << countText;
   ui.recentButton->setText (countText);
 }
 
 void
 UrlDisplay::UrlsAdded (int numAdded)
 {
-  Q_UNUSED (numAdded)
   QString labelText = tr("Last update at %1")
-                       .arg(QDateTime::currentDateTime().toString("hh:mm:ss"));
+                       .arg(QDateTime::currentDateTime()
+                         .toString("hh:mm:ss"));
   ui.bottomLabel->setText (labelText);
+  if (numAdded > 0) {
+    ShowAddCount ();
+  }
 }
 
 void

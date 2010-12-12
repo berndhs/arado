@@ -98,7 +98,8 @@ RssPoll::Poll ()
   lastNick = nextPoll->Nick();
   lastPolled = nextPoll;
 qDebug () << " RssPoll  polled " << nextPoll->Nick() << nextPoll->Url();
-  emit PolledRss (lastNick);
+  emit SigPolledRss (lastNick);
+qDebug () << " RssPoll back from emit";
 }
 
 } // namespace

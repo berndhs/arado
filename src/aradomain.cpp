@@ -350,8 +350,8 @@ AradoMain::Connect ()
              this, SLOT (DoneAddFeed (bool)));
   }
   if (rssPoll) {
-    connect (rssPoll, SIGNAL (PolledRss (QString)),
-             this, SLOT (PolledRss (QString)));
+    connect (rssPoll, SIGNAL (SigPolledRss (QString)),
+             this, SLOT (CatchPolledRss (QString)));
   }
 }
 
@@ -723,7 +723,7 @@ AradoMain::InitSystem ()
 }
 
 void
-AradoMain::PolledRss (QString nick)
+AradoMain::CatchPolledRss (QString nick)
 {
   if (urlDisplay == 0) {
     return;

@@ -52,12 +52,7 @@ Policy::AddUrl (DBManager &dbm, AradoUrl &url)
   QByteArray hashNew = url.Hash ();
   if (hashNew == hashOrig) {
     bool ok (false);
-    if (IsKnown (hashNew)) {
-#if 0
-      ok = dbm.AddKeywords (url);
-      qDebug () << " Policy Accept updating " << ok << url.Url();
-#endif
-    } else {
+    if (!IsKnown (hashNew)) {
       AddHash (hashNew);
       ok = dbm.PrivateAddUrl (url);
       qDebug () << " Policy Accept saving " << ok << url.Url();

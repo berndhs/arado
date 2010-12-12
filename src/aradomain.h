@@ -93,7 +93,7 @@ private slots:
   void MailUuid ();
   void DisplayUuid ();
   void InitSystem ();
-  void PolledRss (QString nick);
+  void CatchPolledRss (QString nick);
 
   void Restart ();
 

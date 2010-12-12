@@ -54,7 +54,7 @@ private slots:
 
 signals:
 
-  void PolledRss (QString nick);
+  void SigPolledRss (QString nick);
 
 private:
 

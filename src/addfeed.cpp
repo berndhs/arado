@@ -58,6 +58,7 @@ AddRssFeed::httpFinished (QNetworkReply *reply)
       newurl.SetUrl (link);
       newurl.SetDescription(title);
       //newurl.SetKeywords (category);
+      newurl.ComputeHash ();
       if(newurl.IsValid ()) {
         db->AddUrl (newurl);
       }
