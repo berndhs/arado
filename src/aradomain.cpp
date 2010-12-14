@@ -245,7 +245,7 @@ void
 AradoMain::AddFeed ()
 {
   if (rssList) {
-    mainUi.tabWidget->addTab (rssList, tr("Rss Feeds"));
+    mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));
     rssList->Show();
   }
 }
