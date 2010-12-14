@@ -111,7 +111,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
-  mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));
+  // mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));  // Bug: does not load feedurl database
 
 }
 
