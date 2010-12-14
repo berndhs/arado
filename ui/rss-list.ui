@@ -38,7 +38,7 @@
      </attribute>
      <column>
       <property name="text">
-       <string>Nick</string>
+       <string>Feed-Name</string>
       </property>
      </column>
      <column>
