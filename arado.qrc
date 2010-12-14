@@ -50,6 +50,7 @@
         <file>images/btn2.png</file>
         <file>images/btn3.png</file>
         <file>images/youtubemp3play.png</file>
+        <file>images/rssbackground.gif</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>

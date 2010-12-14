@@ -63,7 +63,7 @@ public:
   void  SetDB (DBManager *dbm);
 
   void  ShowRecent (int howmany, bool whenHidden = false);
-  void  SetMiddleMessage (const QString &msg);
+  void  SetStatusMessage (const QString &msg);
 
 public slots:
 

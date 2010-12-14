@@ -460,9 +460,9 @@ UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
 }
 
 void
-UrlDisplay::SetMiddleMessage (const QString & msg)
+UrlDisplay::SetStatusMessage (const QString & msg)
 {
-  ui.middleLabel->setText (msg);
+  ui.bottomLabel->setText (msg);
 }
 
 

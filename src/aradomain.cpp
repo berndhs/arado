@@ -111,6 +111,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
+  mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));
 
 }
 
@@ -245,7 +246,8 @@ void
 AradoMain::AddFeed ()
 {
   if (rssList) {
-    mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));
+    int tabnum = mainUi.tabWidget->addTab (rssList,tr("RSS Feeds"));
+        mainUi.tabWidget->setCurrentIndex (tabnum);
     rssList->Show();
   }
 }
@@ -730,11 +732,11 @@ AradoMain::CatchPolledRss (QString nick)
   }
   if (nick.length() > 0) {
     QDateTime now = QDateTime::currentDateTime();
-    urlDisplay->SetMiddleMessage (tr("%1: Polled RSS \"%2\"")
-                      .arg(now.toString(tr ("hh:mm:ss")))
-                      .arg(nick));  
+    urlDisplay->SetStatusMessage (tr("Recent Consciousness for \"%1\": %2")
+                      .arg(nick)
+                      .arg(now.toString(tr ("hh:mm:ss"))));
   } else {
-    urlDisplay->SetMiddleMessage ("");
+    urlDisplay->SetStatusMessage ("");
   }
   urlDisplay->ShowAddCount ();
 }
