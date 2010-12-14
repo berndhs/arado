@@ -103,7 +103,6 @@ FORMS		=	ui/aradomain.ui \
                         ui/connection-display.ui \
                         ui/entry-form.ui \
                         ui/address-input.ui \
-                        ui/feed-input.ui \
                         ui/listener-edit.ui \
                         ui/rss-list.ui \
 
