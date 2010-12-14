@@ -10,7 +10,7 @@
 ;--------------------------------
 ; Define your application name
   !define APPNAME "Arado"
-  !define VERSION "0.1.0"
+  !define VERSION "0.1.5"
   !define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
 
 ;--------------------------------
@@ -181,6 +181,7 @@ LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it f
  
   WriteRegStr HKCU "Software\Arado\arado\database" "ipbase"   "$INSTDIR\ipbase.sql" 
   WriteRegStr HKCU "Software\Arado\arado\database" "urlbase"   "$INSTDIR\urlbase.sql" 
+  WriteRegStr HKCU "Software\Arado\arado\database" "feedbase"   "$INSTDIR\feedbase.sql" 
 
   WriteRegStr HKCU "Software\Arado\arado\http" "run"   "true" 
   WriteRegDWORD HKCU "Software\Arado\arado\http" "port"   "80"
