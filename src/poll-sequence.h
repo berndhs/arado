@@ -82,11 +82,6 @@ private:
   int      periodB;
   int      periodC;
 
-  /**      chunks in number of Urls per request */
-  int      urlChunkA;
-  int      urlChunkB;
-  int      urlChunkC;
-
   QSet <QString>  nicksA;
   QSet <QString>  nicksB;
   QSet <QString>  nicksC;

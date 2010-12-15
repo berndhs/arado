@@ -26,7 +26,18 @@
 TEMPLATE	= app
 LANGUAGE	= C++
 CONFIG		+= qt warn_on build_all
-QT		+= gui network sql multimedia xml
+QT		+= gui network sql xml
+!include ("options.pri") {
+  message ("using defaults, no options.pri")
+} else {
+  message ("configured for $$DISTRO")
+  fedora {
+  }
+  ubuntu {
+  }
+  win32 {
+  }
+}
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1

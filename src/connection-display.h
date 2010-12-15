@@ -110,11 +110,6 @@ private:
   double   urlFreqB;
   double   urlFreqC;
 
-  /**      chunks in number of Urls per request */
-  int      urlChunkA;
-  int      urlChunkB;
-  int      urlChunkC;
-
 };
 
 } // arado

@@ -69,6 +69,27 @@ findqmake () {
     fi
   fi
 }
+
+#
+# function to find distro
+#
+find_distro () {
+DISTRO=linux
+if [ -e /etc/system-release ]
+then
+  DISTRO=`head -1 /etc/system-release \
+         | awk '{print $1}' \
+         | tr '[:upper:]' '[:lower:]'`
+else
+  if [ -e /etc/issue ]
+  then
+    DISTRO=`head -1 /etc/issue \
+	| awk '{print $1}' \
+	| tr '[:upper:]' '[:lower:]'`
+  fi
+fi
+}
+
 find_lrelease () {
 
   LREL=`which lrelease`
@@ -116,6 +137,7 @@ usage () {
    echo "Options:"
    echo "--help             Show this help message and quit"
    echo "--prefix=PREFIX    Install into PREFIX [${PREFIX}]"
+   echo "--distro=DISTRO    Do distro specific things [${DISTRO}]"
    echo
 }
 
@@ -127,6 +149,7 @@ usage () {
 COPYRIGHT=" Copyright (C) 2010 Bernd Stramm"
 PREFIX=/usr
 OPTIONS_FILE=options.pri
+find_distro
 
 # 
 # command line arguments:
@@ -156,6 +179,10 @@ case $ac_option in
    PREFIX=$ac_optarg
    $ac_shift
    ;;
+  --distro)
+   DISTRO=$ac_optarg
+   $ac_shift
+   ;;
   *)
    echo "Bad option " $ac_option " " $ac_optarg
    usage
@@ -166,6 +193,7 @@ shift
 
 done 
 
+
 #
 # see if we are on windows and need a special name for "make"
 #
@@ -175,6 +203,7 @@ if [ $OSLEN -gt 5 ] ; then
   MAKE_PROGRAM="mingw32-make.exe"
   QMAKE="qmake.exe"
   LRELEASE="lrelease.exe"
+  DISTRO="win32"
 else
   MAKE_PROGRAM="make"
   # 
@@ -188,5 +217,12 @@ fi
 # generate Makefile
 # by executing qmake
 #
+
+#
+# make options include file for qmake
+#
+echo "DISTRO = ${DISTRO}" > ${OPTIONS_FILE}
+echo "CONFIG += ${DISTRO}" >> ${OPTIONS_FILE}
+echo "DEFINES += DISTRO_${DISTRO}=1" >> ${OPTIONS_FILE}
 
 $QMAKE arado.pro

@@ -45,10 +45,7 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
    refreshTimer (0),
    urlFreqA (600.0),
    urlFreqB (60.0),
-   urlFreqC (40.0),
-   urlChunkA (60),
-   urlChunkB (40),
-   urlChunkC (20)
+   urlFreqC (40.0)
 {
   ui.setupUi (this);
 

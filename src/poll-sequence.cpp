@@ -42,9 +42,6 @@ PollSequence::PollSequence (QObject * parent)
    periodA (0),
    periodB (0),
    periodC (0),
-   urlChunkA (60),
-   urlChunkB (40),
-   urlChunkC (20),
    timerA (this),
    timerB (this),
    timerC (this)
@@ -177,9 +174,6 @@ PollSequence::RefreshParams ()
   urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
   urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
   urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
-  urlChunkA = Settings().value ("traffic/urlChunkA",urlChunkA).toInt ();
-  urlChunkB = Settings().value ("traffic/urlChunkB",urlChunkB).toInt ();
-  urlChunkC = Settings().value ("traffic/urlChunkC",urlChunkC).toInt ();
 }
 
 void
@@ -188,9 +182,6 @@ PollSequence::SaveParams ()
   Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
   Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
   Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
-  Settings().setValue ("traffic/urlChunkA",urlChunkA);
-  Settings().setValue ("traffic/urlChunkB",urlChunkB);
-  Settings().setValue ("traffic/urlChunkC",urlChunkC);
   Settings().sync();    
 }
 
