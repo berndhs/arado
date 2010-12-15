@@ -27,7 +27,6 @@
 #include "search.h"
 #include "http-server.h"
 #include "http-client.h"
-#include "ui_feed-input.h"
 #include "arado-stream-parser.h"
 #include "listener-edit.h"
 #include "addfeed.h"
