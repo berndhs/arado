@@ -39,9 +39,20 @@ AddRssFeed::httpFinished (QNetworkReply *reply)
 {
   QDomDocument dom;
   dom.setContent(reply);
-  QDomNodeList nodeList=dom.elementsByTagName("item");
-  for (unsigned int n=0; n<nodeList.length(); n++) {
-    QDomNode node=nodeList.item(n);
+  QDomNodeList rssList = dom.elementsByTagName ("item");
+  QDomNodeList atomList = dom.elementsByTagName ("entry");
+  ParseItems (rssList);
+  ParseItems (atomList);
+
+  this->reply->deleteLater();
+  this->reply=NULL;
+}
+
+void
+AddRssFeed::ParseItems (QDomNodeList & itemList)
+{
+  for (unsigned int n=0; n<itemList.length(); n++) {
+    QDomNode node=itemList.item(n);
     QString title,link,category;
     for (unsigned int c=0; c<node.childNodes().length(); c++) {
       QDomNode child=node.childNodes().item(c);
@@ -49,24 +60,18 @@ AddRssFeed::httpFinished (QNetworkReply *reply)
         title=child.firstChild().nodeValue();
       } else if(child.nodeName().toLower()=="link") {
         link=child.firstChild().nodeValue();
-      } else if(child.nodeName().toLower()=="category") {
-        category=child.firstChild().nodeValue();
-      }
+      } 
     }
     if (title.length()>0 && link.length()>0) {
       AradoUrl  newurl;
       newurl.SetUrl (link);
       newurl.SetDescription(title);
-      //newurl.SetKeywords (category);
       newurl.ComputeHash ();
       if(newurl.IsValid ()) {
         db->AddUrl (newurl);
       }
     }
   }
-
-  this->reply->deleteLater();
-  this->reply=NULL;
 }
 
 void
