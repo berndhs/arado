@@ -49,6 +49,12 @@
 namespace arado
 {
 
+const int UrlDisplay::Col_Mark (0);
+const int UrlDisplay::Col_Title (2);
+const int UrlDisplay::Col_Url (3);
+const int UrlDisplay::Col_Time (4);
+const int UrlDisplay::Col_Browse (1);
+
 UrlDisplay::UrlDisplay (QWidget * parent)
   :QWidget (parent),
    db (0),
@@ -123,6 +129,8 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
   ui.urlTable->clearContents ();
   ui.urlTable->setRowCount (urls.size());
   ui.urlTable->setEditTriggers (0);
+  ui.urlTable->setColumnWidth (Col_Browse, 
+               browseIcon.availableSizes().at(0).width());
   for (int u=0; u<urls.size(); u++) {
     quint64 stamp;
     AradoUrl url = urls[u];
@@ -132,7 +140,7 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash().toUpper()));
     item->setData (Url_Celltype, Cell_Hash);
     item->setToolTip (tr("Arado-Flashmark"));
-    ui.urlTable->setItem (u,0,item);
+    ui.urlTable->setItem (u,Col_Mark,item);
 
     item = new QTableWidgetItem (url.Description ());
     item->setData (Url_Celltype, Cell_Desc);
@@ -142,17 +150,17 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
       words = tr ("no keywords");
     }
     item->setToolTip (words);
-    ui.urlTable->setItem (u,1,item);
+    ui.urlTable->setItem (u,Col_Title,item);
 
     item = new QTableWidgetItem (url.Url().toString());
     item->setData (Url_Celltype, Cell_Url);
-    ui.urlTable->setItem (u,2,item);
+    ui.urlTable->setItem (u,Col_Url,item);
 
     QString time = QDateTime::fromTime_t (stamp).toString(Qt::ISODate);
     time.replace ('T'," ");
     item = new QTableWidgetItem (time);
     item->setData (Url_Celltype, Cell_Time);
-    ui.urlTable->setItem (u,3,item);
+    ui.urlTable->setItem (u,Col_Time,item);
     Unlock ();
     ui.urlTable->setSortingEnabled (allowSort);
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
@@ -164,7 +172,7 @@ UrlDisplay::ShowUrls (AradoUrlList & urls)
     item->setToolTip (tr("Browse"));
     item->setData (Url_Celltype, Cell_Browse);
     item->setIcon (browseIcon);
-    ui.urlTable->setItem (u, 4, item);
+    ui.urlTable->setItem (u, Col_Browse, item);
   }
   if (ui.urlTable->rowCount() > 0) {
     normalRowHeight = ui.urlTable->rowHeight (0);
@@ -209,7 +217,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
   if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ShowUrls (urls);
-    ui.urlTable->sortByColumn(3,Qt::DescendingOrder);
+    ui.urlTable->sortByColumn(Col_Time,Qt::DescendingOrder);
   }
 }
 

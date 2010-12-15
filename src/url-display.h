@@ -114,6 +114,12 @@ private:
   int               bigRowHeight;
   QIcon             browseIcon;
 
+  static const int Col_Mark;
+  static const int Col_Title;
+  static const int Col_Url;
+  static const int Col_Time;
+  static const int Col_Browse;
+
 };
 
 } // namespace

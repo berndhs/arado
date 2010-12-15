@@ -107,7 +107,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Title/Description</string>
+           <string/>
           </property>
           <property name="font">
            <font>
@@ -118,7 +118,18 @@
          </column>
          <column>
           <property name="text">
-           <string>URL</string>
+           <string>Title</string>
+          </property>
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Url</string>
           </property>
           <property name="font">
            <font>
@@ -130,17 +141,6 @@
          <column>
           <property name="text">
            <string>Time</string>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Browse</string>
           </property>
           <property name="font">
            <font>
