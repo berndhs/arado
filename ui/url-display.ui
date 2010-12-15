@@ -36,8 +36,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>878</width>
-        <height>510</height>
+        <width>780</width>
+        <height>528</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -245,41 +245,6 @@ border-image: url(:/images/btn3.png) 4;
              <property name="icon">
               <iconset resource="../arado.qrc">
                <normaloff>:/images/clock.png</normaloff>:/images/clock.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>32</width>
-               <height>32</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="crawlButton">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>43</height>
-              </size>
-             </property>
-             <property name="toolTip">
-              <string>Lookup: Crawl all selected URLs for more URLs from this context.</string>
-             </property>
-             <property name="text">
-              <string>Lookup</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../arado.qrc">
-               <normaloff>:/images/wizard.png</normaloff>:/images/wizard.png</iconset>
              </property>
              <property name="iconSize">
               <size>

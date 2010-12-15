@@ -60,7 +60,8 @@ RssList::Connect ()
 {
   connect (ui.newButton, SIGNAL (clicked()), this, SLOT (DoAdd()));
   connect (ui.deleteButton, SIGNAL (clicked()), this, SLOT (DoDelete()));
-  connect (ui.closeButton, SIGNAL (clicked()), this, SLOT (DoClose()));
+  connect (ui.closeButton1, SIGNAL (clicked()), this, SLOT (DoClose()));
+  connect (ui.closeButton2, SIGNAL (clicked()), this, SLOT (DoClose()));
   connect (ui.saveButton, SIGNAL (clicked()), this, SLOT (DoSave()));
 }
 
