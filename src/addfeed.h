@@ -26,6 +26,8 @@
 #include <QNetworkReply>
 #include "db-manager.h"
 
+class QDomNodeList;
+
 namespace arado
 {
 
@@ -47,6 +49,8 @@ public slots:
   virtual void httpFinished (QNetworkReply *reply);
 
 private:
+
+  void ParseItems (QDomNodeList & itemList);
 
   NetworkAccessManager *qnam;
   DBManager             *db;
