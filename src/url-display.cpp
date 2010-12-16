@@ -77,7 +77,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
   connect (ui.recentButton, SIGNAL (clicked ()),
-           this, SLOT (Refresh ()));
+           this, SLOT (RecentButton ()));
   connect (ui.searchButton, SIGNAL (clicked ()),
            this, SLOT (DoSearch ()));
   ui.searchButton->setShortcut(QKeySequence(Qt::Key_Return));
@@ -100,6 +100,13 @@ void
 UrlDisplay::AddButton ()
 {
   emit AddUrl (ui.textInput->text());
+}
+
+void
+UrlDisplay::RecentButton ()
+{
+  ui.urlTable->clearSelection ();
+  Refresh ();
 }
 
 void
@@ -126,6 +133,10 @@ UrlDisplay::Unlock ()
 void
 UrlDisplay::ShowUrls (AradoUrlList & urls)
 {
+  QList <QTableWidgetItem*> selection = ui.urlTable->selectedItems();
+  if (!selection.isEmpty()) {
+    return;
+  }
   ui.urlTable->clearContents ();
   ui.urlTable->setRowCount (urls.size());
   ui.urlTable->setEditTriggers (0);

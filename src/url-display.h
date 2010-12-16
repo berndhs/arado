@@ -78,6 +78,8 @@ public slots:
 
 private slots:
 
+  void RecentButton ();
+
   void ActiveCell (int row, int col, int oldRow, int oldCol);
 
 signals:
