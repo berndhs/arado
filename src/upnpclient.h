@@ -27,29 +27,30 @@
 
 #include "miniupnp/miniupnpc.h"
 
-namespace arado {
+namespace arado
+{
 
 class UPnPClient : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    explicit UPnPClient(QObject *parent = 0);
-    ~UPnPClient();
-    bool Init();
-    bool RemoveRedirection();
-    bool ChangeRedirection(const char * eport);
-    bool AddRedirection(const char * iport, const char * eport);
+  explicit UPnPClient(QObject *parent = 0);
+  ~UPnPClient();
+  bool Init();
+  bool RemoveRedirection();
+  bool ChangeRedirection(const char * eport);
+  bool AddRedirection(const char * iport, const char * eport);
 
 signals:
 
 public slots:
 
 private:
-    char lanaddr[64];	/* my ip address on the LAN */
-    bool hasUPnP;
-    char eport[64];
-    struct UPNPUrls urls;
-    struct IGDdatas data;
+  char lanaddr[64];	/* my ip address on the LAN */
+  bool hasUPnP;
+  char eport[64];
+  struct UPNPUrls urls;
+  struct IGDdatas data;
 
 };
 

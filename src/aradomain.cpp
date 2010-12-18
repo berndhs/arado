@@ -148,16 +148,21 @@ AradoMain::Start ()
   }
   show ();
 
-
   if(uPnPClient) { delete uPnPClient; }
-  uPnPClient=new UPnPClient(this);
-  if(uPnPClient->Init()) {
+  bool doUpnp (false);
+  doUpnp = Settings ().value("http/useupnp",doUpnp).toBool();
+  Settings().setValue ("http/useupnp",doUpnp);
+  if (doUpnp) {
+    uPnPClient=new UPnPClient(this);
+    if (uPnPClient->Init()) {
       char port[64];
       int portInt;
 
       portInt=Settings().value("http/port").toInt();
       snprintf(port,sizeof(port),"%i",portInt);
+      printf ("calling uPnPClient ChangeDirection for port %s\n",port);
       uPnPClient->ChangeRedirection(port);
+    } 
   }
 
   StartServers ();

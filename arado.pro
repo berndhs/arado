@@ -42,7 +42,9 @@ QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1
 ICON		 = images/arado-logo-colo-128.png
-LIBS            += src/miniupnp/libws2_32.a
+win32 {
+  LIBS            += src/miniupnp/libws2_32.a
+}
 
 TRANS_DIR = translate
 TRANSLATIONS += $$TRANS_DIR/arado_de.ts \
@@ -152,7 +154,21 @@ HEADERS		=	src/aradomain.h \
                    src/rss-poll.h \
                    src/arado-feed.h \
                    src/networkaccessmanager.h \
-                   src/upnpclient.h
+                   src/miniupnp/bsdqueue.h \
+                   src/miniupnp/codelength.h \
+                   src/miniupnp/connecthostport.h \
+                   src/miniupnp/declspec.h \
+                   src/miniupnp/igd_desc_parse.h \
+                   src/miniupnp/minisoap.h \
+                   src/miniupnp/minissdpc.h \
+                   src/miniupnp/miniupnpc.h \
+                   src/miniupnp/miniupnpcstrings.h \
+                   src/miniupnp/miniwget.h \
+                   src/miniupnp/minixml.h \
+                   src/miniupnp/upnpcommands.h \
+                   src/miniupnp/upnperrors.h \
+                   src/miniupnp/upnpreplyparse.h \
+                   src/upnpclient.h \
 
 
 SOURCES		=	src/aradomain.cpp \
