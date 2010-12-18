@@ -148,7 +148,10 @@ AradoMain::Start ()
   }
   show ();
 
-  if(uPnPClient) { delete uPnPClient; }
+  if(uPnPClient) { 
+    delete uPnPClient;
+    uPnPClient = 0;
+  }
   bool doUpnp (false);
   doUpnp = Settings ().value("http/upnpenable",doUpnp).toBool();
   Settings().setValue ("http/upnpenable",doUpnp);
