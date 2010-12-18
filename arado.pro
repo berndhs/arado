@@ -41,7 +41,8 @@ QT		+= gui network sql xml
 QMAKE_CLEAN	+= ARADO
 QMAKE_CXXFLAGS  += -Wall 
 DEFINES         += DELIBERATE_DEBUG=1
-ICON		= images/arado-logo-colo-128.png
+ICON		 = images/arado-logo-colo-128.png
+LIBS             = src/miniupnp/libws2_32.a
 
 TRANS_DIR = translate
 TRANSLATIONS += $$TRANS_DIR/arado_de.ts \
@@ -199,6 +200,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/miniupnp/connecthostport.c \
                    src/miniupnp/upnpreplyparse.c \
                    src/upnpclient.cpp
+
 
 
 TARGET		= bin/arado
