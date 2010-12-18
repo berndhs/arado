@@ -316,6 +316,7 @@ UrlDisplay::GetSearchResult (int resultId)
         urls.append (url);
       }
     }
+    ui.urlTable->clearSelection ();
     ShowUrls (urls);
     ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
   }
