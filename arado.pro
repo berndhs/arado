@@ -43,7 +43,7 @@ QMAKE_CXXFLAGS  += -Wall
 DEFINES         += DELIBERATE_DEBUG=1
 ICON		 = images/arado-logo-colo-128.png
 win32 {
-  LIBS            += src/miniupnp/libws2_32.a
+  LIBS            += -L/src/miniupnp/libws2_32.a
 }
 
 TRANS_DIR = translate
