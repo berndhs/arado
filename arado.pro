@@ -150,7 +150,8 @@ HEADERS		=	src/aradomain.h \
                    src/rss-list.h \
                    src/rss-poll.h \
                    src/arado-feed.h \
-                   src/networkaccessmanager.h
+                   src/networkaccessmanager.h \
+                   src/upnpclient.h
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -187,6 +188,17 @@ SOURCES		=	src/aradomain.cpp \
                    src/rss-poll.cpp \
                    src/arado-feed.cpp \
                    src/networkaccessmanager.cpp \
+                   src/miniupnp/miniupnpc.c \
+                   src/miniupnp/igd_desc_parse.c \
+                   src/miniupnp/minixml.c \
+                   src/miniupnp/minisoap.c \
+                   src/miniupnp/miniwget.c \
+                   src/miniupnp/upnpcommands.c \
+                   src/miniupnp/upnperrors.c \
+                   src/miniupnp/minissdpc.c \
+                   src/miniupnp/connecthostport.c \
+                   src/miniupnp/upnpreplyparse.c \
+                   src/upnpclient.cpp
 
 
 TARGET		= bin/arado

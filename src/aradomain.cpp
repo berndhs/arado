@@ -32,6 +32,7 @@
 #include "addfeed.h"
 #include "rss-list.h"
 #include "rss-poll.h"
+#include "upnpclient.h"
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -82,7 +83,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    httpPoll (0),
    httpDefaultPort (29998),
    ownUuid (QUuid()),
-   runAgain (false)
+   runAgain (false),
+   uPnPClient(0)
 {
   app = pa;
   mainUi.setupUi (this);
@@ -145,6 +147,19 @@ AradoMain::Start ()
     }
   }
   show ();
+
+
+  if(uPnPClient) { delete uPnPClient; }
+  uPnPClient=new UPnPClient(this);
+  if(uPnPClient->Init()) {
+      char port[64];
+      int portInt;
+
+      portInt=Settings().value("http/port").toInt();
+      snprintf(port,sizeof(port),"%i",portInt);
+      uPnPClient->ChangeRedirection(port);
+  }
+
   StartServers ();
   StartClients ();
   RefreshPeers ();

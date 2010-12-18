@@ -49,6 +49,7 @@ class ListenerEdit;
 class PollSequence;
 class RssList;
 class RssPoll;
+class UPnPClient;
 
 class AradoMain : public QMainWindow
 {
@@ -128,6 +129,7 @@ private:
   int                 httpDefaultPort;
   QUuid               ownUuid;
   bool                runAgain;
+  UPnPClient *uPnPClient;
 
 };
 
