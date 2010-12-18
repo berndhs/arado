@@ -150,8 +150,8 @@ AradoMain::Start ()
 
   if(uPnPClient) { delete uPnPClient; }
   bool doUpnp (false);
-  doUpnp = Settings ().value("http/useupnp",doUpnp).toBool();
-  Settings().setValue ("http/useupnp",doUpnp);
+  doUpnp = Settings ().value("http/upnpenable",doUpnp).toBool();
+  Settings().setValue ("http/upnpenable",doUpnp);
   if (doUpnp) {
     uPnPClient=new UPnPClient(this);
     if (uPnPClient->Init()) {
