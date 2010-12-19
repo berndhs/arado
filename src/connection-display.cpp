@@ -389,7 +389,7 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
   LoadTrafficParams ();
   QString addr = deliberate::Settings().value ("http/address").toString();
   bool listening = deliberate::Settings().value ("http/run").toBool ();
-  bool showaddr = (addr == "localhost" || !listening);
+  bool showaddr = (show || addr == "localhost" || !listening);
 
   ui.freqABox->setVisible(show);
   ui.freqBBox->setVisible(show);
