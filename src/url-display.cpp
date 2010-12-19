@@ -291,6 +291,7 @@ UrlDisplay::DoSearch ()
 {
   searchId = -1;
   if (search) {
+    ui.urlTable->clearContents ();
     searchData = ui.textInput->text();
     searchId = search->Liberal (searchData);
     ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
