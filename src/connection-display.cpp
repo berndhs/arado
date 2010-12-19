@@ -386,56 +386,27 @@ ConnectionDisplay::ChangeTrafficParams ()
 
 void ConnectionDisplay::checkAdvViewBox(bool show)
 {
-    LoadTrafficParams ();
-    QString addr = deliberate::Settings().value ("http/address").toString();
-    bool listening = deliberate::Settings().value ("http/run").toBool ();
+  LoadTrafficParams ();
+  QString addr = deliberate::Settings().value ("http/address").toString();
+  bool listening = deliberate::Settings().value ("http/run").toBool ();
+  bool showaddr = (addr == "localhost" || !listening);
 
-    if (show) {
-         ui.freqABox->setVisible(true);
-         ui.freqBBox->setVisible(true);
-         ui.freqCBox->setVisible(true);
-         ui.restartPollButtonA->setVisible(true);
-         ui.restartPollButtonB->setVisible(true);
-         ui.restartPollButtonC->setVisible(true);
+  ui.freqABox->setVisible(show);
+  ui.freqBBox->setVisible(show);
+  ui.freqCBox->setVisible(show);
 
-         ui.labelipask_A->setVisible(true);
-         ui.labelipask_B->setVisible(true);
-         ui.labelipask_C->setVisible(true);
-         ui.buttonDelete->setVisible(true);
-         ui.listenAddr->setVisible(true);
-         ui.listenPortBox->setVisible(true);
-         ui.buttonExternalIp->setVisible(true);
+  ui.restartPollButtonA->setVisible(show);
+  ui.restartPollButtonB->setVisible(show);
+  ui.restartPollButtonC->setVisible(show);
 
-    } else {
-         ui.freqABox->setVisible(false);
-         ui.freqBBox->setVisible(false);
-         ui.freqCBox->setVisible(false);
-         ui.restartPollButtonA->setVisible(false);
-         ui.restartPollButtonB->setVisible(false);
-         ui.restartPollButtonC->setVisible(false);
+  ui.labelipask_A->setVisible(show);
+  ui.labelipask_B->setVisible(show);
+  ui.labelipask_C->setVisible(show);
+  ui.buttonDelete->setVisible(show);
 
-         ui.labelipask_A->setVisible(false);
-         ui.labelipask_B->setVisible(false);
-         ui.labelipask_C->setVisible(false);
-         ui.buttonDelete->setVisible(false);
-         //
-         if (addr == "localhost") {
-         ui.listenAddr->setVisible(true);
-         ui.listenPortBox->setVisible(true);
-         ui.buttonExternalIp->setVisible(true);
-         }
-         else if (listening) {
-         ui.listenAddr->setVisible(false);
-         ui.listenPortBox->setVisible(false);
-         ui.buttonExternalIp->setVisible(false);
-         }
-         else {
-         ui.listenAddr->setVisible(true);
-         ui.listenPortBox->setVisible(true);
-         ui.buttonExternalIp->setVisible(true);
-         }
-         //
-    }
+  ui.listenAddr->setVisible(showaddr);
+  ui.listenPortBox->setVisible(showaddr);
+  ui.buttonExternalIp->setVisible(showaddr);
 }
 
 
