@@ -294,6 +294,7 @@ UrlDisplay::DoSearch ()
     ui.urlTable->clearContents ();
     searchData = ui.textInput->text();
     searchId = search->Liberal (searchData);
+    ui.textInput->setStyleSheet( "background-color: black");
     ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
   }
 }
@@ -319,6 +320,7 @@ UrlDisplay::GetSearchResult (int resultId)
     }
     ui.urlTable->clearSelection ();
     ShowUrls (urls);
+    ui.textInput->setStyleSheet( "background-color: white");
     ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
   }
 }
