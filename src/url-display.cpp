@@ -25,6 +25,7 @@
 #include "db-manager.h"
 #include "arado-url.h"
 #include "search.h"
+#include "deliberate.h"
 #include <QtGlobal>
 #include <QTableWidgetItem>
 #include <QDateTime>
@@ -46,6 +47,9 @@
 #include <QUrl>
 #include <QKeySequence>
 
+
+using namespace deliberate;
+
 namespace arado
 {
 
@@ -63,7 +67,8 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    locked (false),
    searchId (-1),
    refreshUrls (0),
-   refreshPeriod (18000)
+   refreshPeriod (18),
+   autoRefresh (false)
 {
   search = new Search (this);
   ui.setupUi (this);
@@ -84,7 +89,18 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
   refreshUrls = new QTimer (this);
   connect (refreshUrls, SIGNAL (timeout()), this, SLOT (Refresh()));
-  refreshUrls->start (refreshPeriod);
+
+  refreshPeriod = Settings ().value ("urldisplay/refreshperiod",
+                                 refreshPeriod).toInt();
+  Settings().setValue ("urldisplay/refreshperiod",refreshPeriod);
+  autoRefresh = Settings ().value ("urldisplay/autorefresh",
+                                 autoRefresh).toBool();
+  Settings().setValue ("urldisplay/autorefresh",autoRefresh);
+  if (autoRefresh) {
+    refreshUrls->start (refreshPeriod*1000);
+  } else {
+    refreshUrls->stop ();
+  }
 }
 
 void
@@ -116,8 +132,12 @@ void
 UrlDisplay::Refresh (bool whenHidden)
 {
   ShowRecent (500, whenHidden);
-  if (refreshUrls && !refreshUrls->isActive()) {
-    refreshUrls->start (refreshPeriod);
+  if (refreshUrls) {
+    if (!refreshUrls->isActive() && autoRefresh) {
+      refreshUrls->start (refreshPeriod*1000); 
+    } else if (!autoRefresh) {
+      refreshUrls->stop ();
+    }
   }
 }
 
@@ -209,7 +229,6 @@ UrlDisplay::ShowAddCount ()
   } else {
     countText = tr("Show Recent");
   }
-qDebug () << "ShowAddCount  " << urlAddCount << countText;
   ui.recentButton->setText (countText);
 }
 

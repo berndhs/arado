@@ -112,6 +112,7 @@ private:
   QString           searchData;
   QTimer           *refreshUrls;
   int               refreshPeriod;
+  bool              autoRefresh;
   int               normalRowHeight;
   int               bigRowHeight;
   QIcon             browseIcon;
