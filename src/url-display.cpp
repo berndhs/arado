@@ -293,7 +293,7 @@ UrlDisplay::DoSearch ()
   if (search) {
     searchData = ui.textInput->text();
     searchId = search->Liberal (searchData);
-    ui.bottomLabel->setText (tr("Searching %1").arg (searchData));
+    ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
   }
 }
 
