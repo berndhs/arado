@@ -320,7 +320,7 @@ UrlDisplay::GetSearchResult (int resultId)
     }
     ui.urlTable->clearSelection ();
     ShowUrls (urls);
-    ui.textInput->setStyleSheet( "background-color: white");
+    ui.textInput->setStyleSheet( "background-color: white; border: 2px solid #079E00;");
     ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
   }
 }
