@@ -129,7 +129,9 @@ private:
   int                 httpDefaultPort;
   QUuid               ownUuid;
   bool                runAgain;
+#if USE_MINIUPNP
   UPnPClient *uPnPClient;
+#endif
 
 };
 

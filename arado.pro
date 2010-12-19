@@ -43,7 +43,12 @@ QMAKE_CXXFLAGS  += -Wall
 DEFINES         += DELIBERATE_DEBUG=1
 ICON		 = images/arado-logo-colo-128.png
 win32 {
-  LIBS            += -L/src/miniupnp/libws2_32.a
+  # LIBS            += -lws2_32
+  CONFIG -= use_miniupnp
+  DEFINES += USE_MINIUPNP=0
+} else {
+  CONFIG -= use_miniupnp
+  DEFINES += USE_MINIUPNP=0
 }
 
 TRANS_DIR = translate
@@ -152,8 +157,11 @@ HEADERS		=	src/aradomain.h \
                    src/addfeed.h \
                    src/rss-list.h \
                    src/rss-poll.h \
-                   src/arado-feed.h \
                    src/networkaccessmanager.h \
+                   src/arado-feed.h 
+
+use_miniupnp {
+HEADERS += \
                    src/miniupnp/bsdqueue.h \
                    src/miniupnp/codelength.h \
                    src/miniupnp/connecthostport.h \
@@ -168,7 +176,9 @@ HEADERS		=	src/aradomain.h \
                    src/miniupnp/upnpcommands.h \
                    src/miniupnp/upnperrors.h \
                    src/miniupnp/upnpreplyparse.h \
-                   src/upnpclient.h \
+                   src/upnpclient.h 
+
+}
 
 
 SOURCES		=	src/aradomain.cpp \
@@ -204,7 +214,10 @@ SOURCES		=	src/aradomain.cpp \
                    src/rss-list.cpp \
                    src/rss-poll.cpp \
                    src/arado-feed.cpp \
-                   src/networkaccessmanager.cpp \
+                   src/networkaccessmanager.cpp 
+
+use_miniupnp {
+SOURCES +=         \
                    src/miniupnp/miniupnpc.c \
                    src/miniupnp/igd_desc_parse.c \
                    src/miniupnp/minixml.c \
@@ -216,6 +229,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/miniupnp/connecthostport.c \
                    src/miniupnp/upnpreplyparse.c \
                    src/upnpclient.cpp
+}
 
 
 
