@@ -294,7 +294,7 @@ UrlDisplay::DoSearch ()
     ui.urlTable->clearContents ();
     searchData = ui.textInput->text();
     searchId = search->Liberal (searchData);
-    ui.textInput->setStyleSheet( "background-color: black");
+    ui.textInput->setStyleSheet("background-color: black; border: 2px solid black");
     ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
   }
 }
@@ -320,7 +320,7 @@ UrlDisplay::GetSearchResult (int resultId)
     }
     ui.urlTable->clearSelection ();
     ShowUrls (urls);
-    ui.textInput->setStyleSheet( "background-color: white; border: 2px solid #079E00;");
+    ui.textInput->setStyleSheet("background-color: white; border: 2px solid #079E00;");
     ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
   }
 }
