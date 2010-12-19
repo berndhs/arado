@@ -68,7 +68,8 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    searchId (-1),
    refreshUrls (0),
    refreshPeriod (18),
-   autoRefresh (false)
+   autoRefresh (false),
+   maxUrlsShown (500)
 {
   search = new Search (this);
   ui.setupUi (this);
@@ -101,6 +102,9 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   } else {
     refreshUrls->stop ();
   }
+  maxUrlsShown = Settings().value ("urldisplay/maxshown",
+                            maxUrlsShown).toInt();
+  Settings().setValue ("urldisplay/maxshown",maxUrlsShown);
 }
 
 void
@@ -131,7 +135,9 @@ UrlDisplay::RecentButton ()
 void
 UrlDisplay::Refresh (bool whenHidden)
 {
-  ShowRecent (500, whenHidden);
+  maxUrlsShown = Settings().value ("urldisplay/maxshown",
+                                   maxUrlsShown).toInt();
+  ShowRecent (maxUrlsShown, whenHidden);
   if (refreshUrls) {
     if (!refreshUrls->isActive() && autoRefresh) {
       refreshUrls->start (refreshPeriod*1000); 

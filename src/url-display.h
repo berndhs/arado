@@ -113,6 +113,7 @@ private:
   QTimer           *refreshUrls;
   int               refreshPeriod;
   bool              autoRefresh;
+  int               maxUrlsShown;
   int               normalRowHeight;
   int               bigRowHeight;
   QIcon             browseIcon;
