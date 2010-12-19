@@ -63,7 +63,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    locked (false),
    searchId (-1),
    refreshUrls (0),
-   refreshPeriod (30000)
+   refreshPeriod (18000)
 {
   search = new Search (this);
   ui.setupUi (this);
@@ -112,7 +112,7 @@ UrlDisplay::RecentButton ()
 void
 UrlDisplay::Refresh (bool whenHidden)
 {
-  ShowRecent (1000, whenHidden);
+  ShowRecent (500, whenHidden);
   if (refreshUrls && !refreshUrls->isActive()) {
     refreshUrls->start (refreshPeriod);
   }
