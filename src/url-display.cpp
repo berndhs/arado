@@ -106,6 +106,9 @@ void
 UrlDisplay::RecentButton ()
 {
   ui.urlTable->clearSelection ();
+  if (db) {
+    db->ResetUrlAddCount ();
+  }
   Refresh ();
 }
 

@@ -73,6 +73,9 @@ public:
 
   qint64 UrlsAdded () { return urlAddCount; }
   qint64 PeersAdded () { return peerAddCount; }
+
+  void ResetUrlAddCount () { urlAddCount = 0; }
+  void ResetPeerAddCount () { peerAddCount = 0; }
   
   AradoUrlList  GetRecent (int howmany);
 
