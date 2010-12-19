@@ -8,7 +8,6 @@
 #include <QFileInfo>
 #include <QSplashScreen>
 #include <QTimer>
-#include <QtPlugin>
 #include "arado-url.h"
 #include "file-comm.h"
 #include <QDebug>

@@ -4,7 +4,6 @@
 #include <QLocale>
 #include <QTextCodec>
 #include <QDebug>
-#include <QtPlugin>
 #include "aradomain.h"
 #include "version.h"
 #include "deliberate.h"
