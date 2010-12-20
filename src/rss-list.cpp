@@ -85,6 +85,8 @@ qDebug () << " RssList add Item row " << newrow;
   ui.feedTable->setItem (newrow, 0, nickItem);
   QTableWidgetItem * urlItem = new QTableWidgetItem (tr("http://"));
   ui.feedTable->setItem (newrow, 1, urlItem);
+  ui.feedTable->scrollToBottom ();
+  ui.feedTable->setCurrentCell (newrow, 0);
 }
 
 void
