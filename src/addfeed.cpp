@@ -39,11 +39,20 @@ AddRssFeed::httpFinished (QNetworkReply *reply)
 {
   QDomDocument dom;
   dom.setContent(reply);
+  newUrls.clear ();
   QDomNodeList rssList = dom.elementsByTagName ("item");
   QDomNodeList atomList = dom.elementsByTagName ("entry");
   ParseItems (rssList);
   ParseItems (atomList);
-
+  int count = newUrls.count();
+  if (count > 0) {
+    db->StartTransaction();
+    for (int u=0; u<count; u++) {
+      AradoUrl newUrl (newUrls.at(u));
+      db->AddUrl (newUrl);
+    }
+    db->CloseTransaction();
+  }
   this->reply->deleteLater();
   this->reply=NULL;
 }
@@ -68,6 +77,7 @@ AddRssFeed::ParseItems (QDomNodeList & itemList)
       newurl.SetDescription(title);
       newurl.ComputeHash ();
       if(newurl.IsValid ()) {
+        newUrls.append (newurl);
         db->AddUrl (newurl);
       }
     }

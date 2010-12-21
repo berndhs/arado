@@ -24,6 +24,7 @@
 
 #include <QObject>
 #include <QNetworkReply>
+#include <QList>
 #include "db-manager.h"
 
 class QDomNodeList;
@@ -55,6 +56,7 @@ private:
   NetworkAccessManager *qnam;
   DBManager             *db;
   QNetworkReply         *reply;
+  QList<AradoUrl>            newUrls;
 };
 
 } // namespace
