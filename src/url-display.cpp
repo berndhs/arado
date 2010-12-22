@@ -129,7 +129,7 @@ UrlDisplay::RecentButton ()
   if (db) {
     db->ResetUrlAddCount ();
   }
-  Refresh ();
+  QTimer::singleShot (50,this, SLOT (Refresh ()));
 }
 
 void
