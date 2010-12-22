@@ -10,7 +10,7 @@
 ;--------------------------------
 ; Define your application name
   !define APPNAME "Arado"
-  !define VERSION "0.1.5"
+  !define VERSION "0.1.6"
   !define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
 
 ;--------------------------------
@@ -148,11 +148,11 @@ LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it f
   file .\release\*.dll
   file .\release\*.wav
   file .\release\*.gz
-  file .\release\*.php
+  file .\release\*.zip
   file .\release\arado.exe
 
-  ; SetOutPath "$INSTDIR\sqldrivers\"
-  ; file .\release\sqldrivers\*.dll
+	SetOutPath "$INSTDIR\sqldrivers\"
+  file .\release\sqldrivers\*.dll
 
 ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
