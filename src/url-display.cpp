@@ -126,6 +126,9 @@ void
 UrlDisplay::RecentButton ()
 {
   ui.urlTable->clearSelection ();
+  ui.urlTable->setAlternatingRowColors(false);
+  ui.urlTable->setStyleSheet("background-color: black");
+  ui.bottomLabel->setText (tr("Generating Recent List .........."));
   if (db) {
     db->ResetUrlAddCount ();
   }
@@ -138,6 +141,8 @@ UrlDisplay::Refresh (bool whenHidden)
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
                                    maxUrlsShown).toInt();
   ShowRecent (maxUrlsShown, whenHidden);
+  ui.urlTable->setStyleSheet("background-color: white");
+  ui.urlTable->setAlternatingRowColors(true);
   if (refreshUrls) {
     if (!refreshUrls->isActive() && autoRefresh) {
       refreshUrls->start (refreshPeriod*1000); 
