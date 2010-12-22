@@ -126,9 +126,10 @@ void
 UrlDisplay::RecentButton ()
 {
   ui.urlTable->clearSelection ();
+  ui.urlTable->clearContents();
   ui.urlTable->setAlternatingRowColors(false);
   ui.urlTable->setStyleSheet("background-color: black");
-  ui.bottomLabel->setText (tr("Generating Recent List .........."));
+  ui.bottomLabel->setText (tr("Updating .........."));
   if (db) {
     db->ResetUrlAddCount ();
   }
