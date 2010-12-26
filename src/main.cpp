@@ -46,6 +46,14 @@ main (int argc, char *argv[])
 
   QApplication app (argc, argv);
 
+#ifndef Q_OS_DARWIN
+  // Gnome on Ubuntu has menu icons disabled by default.  I think that's a bad
+  // idea, and makes some menus in Clementine look confusing.
+  QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
+#else
+  QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, true);
+#endif
+
   QString locale = QLocale::system().name();
   QTranslator  translate;
   QString xlateFile (QString ("arado_") + locale);
