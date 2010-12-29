@@ -106,6 +106,8 @@ but extended search should not ask Arado nodes, as this search is done locally a
 
 38) miniupnp implementation with gethostinfo from a DHT, to allow natted peers to be a server.
 
+39) Add keywords to RSS urls from description´s first 100 characters.
+
 
 
 
