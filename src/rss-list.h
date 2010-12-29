@@ -49,6 +49,7 @@ private slots:
   void  DoDelete ();
   void  DoClose ();
   void  DoSave ();
+  void  rsseditadvancedview(bool show);
 
 signals:
 

@@ -63,6 +63,12 @@ RssList::Connect ()
   connect (ui.closeButton1, SIGNAL (clicked()), this, SLOT (DoClose()));
   connect (ui.closeButton2, SIGNAL (clicked()), this, SLOT (DoClose()));
   connect (ui.saveButton, SIGNAL (clicked()), this, SLOT (DoSave()));
+
+  /* Hide Advanced gui */
+  rsseditadvancedview(false);
+  connect(ui.rsseditadvancedview, SIGNAL(toggled(bool)), this, SLOT(rsseditadvancedview(bool)));
+  //
+
 }
 
 void
@@ -167,6 +173,15 @@ qDebug () << " RssList add Item row " << newrow;
   ui.feedTable->setItem (newrow, 0, nickItem);
   QTableWidgetItem * urlItem = new QTableWidgetItem (feed.Url().toString());
   ui.feedTable->setItem (newrow, 1, urlItem);
+}
+
+void RssList::rsseditadvancedview(bool show)
+{
+  ui.saveButton->setVisible(show);
+  ui.closeButton2->setVisible(show);
+  ui.deleteButton->setVisible(show);
+  ui.newButton->setVisible(show);
+  ui.feedTable->setVisible(show);
 }
 
 } // namespace

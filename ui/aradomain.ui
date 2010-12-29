@@ -154,7 +154,7 @@
      <normaloff>:/images/rss.png</normaloff>:/images/rss.png</iconset>
    </property>
    <property name="text">
-    <string>Edit RSS-Feeds</string>
+    <string>My RSS-Feeds</string>
    </property>
   </action>
   <action name="actionImportIP">
