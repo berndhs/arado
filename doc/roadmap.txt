@@ -108,6 +108,8 @@ but extended search should not ask Arado nodes, as this search is done locally a
 
 39) Add keywords to RSS urls from description´s first 100 characters.
 
+40) Damned Splitter: RSS Tab: If unchecked the Edit checkbox, splitter should be moved, expanded, resized or streteched to the max right side.
+
 
 
 
