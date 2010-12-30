@@ -36,8 +36,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>894</width>
-        <height>510</height>
+        <width>836</width>
+        <height>511</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -76,6 +76,9 @@
              </property>
              <property name="toolTip">
               <string>Search for the entered keyword(s).</string>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton { 
@@ -314,11 +317,11 @@ background: white;</string>
             </size>
            </property>
            <property name="toolTip">
-            <string>Search for the entered keyword(s).</string>
+            <string>Search for the entered Arado-Flashmark.</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton { 
-border-image: url(:/images/btn1.png) 4;
+border-image: url(:/images/btn1m.png) 4;
 border-width: 4;
 padding: 0px 6px;
 font-size: 12px;
@@ -329,11 +332,11 @@ color: black;
 }
 
 QPushButton:hover {
-border-image: url(:/images/btn2.png) 4;
+border-image: url(:/images/btn2m.png) 4;
 }
 
 QPushButton:pressed{
-border-image: url(:/images/btn3.png) 4;
+border-image: url(:/images/btn3m.png) 4;
 }</string>
            </property>
            <property name="text">
@@ -342,7 +345,7 @@ Flashmark</string>
            </property>
            <property name="icon">
             <iconset resource="../arado.qrc">
-             <normaloff>:/images/viewmag.png</normaloff>:/images/viewmag.png</iconset>
+             <normaloff>:/images/viewmag_mirror.png</normaloff>:/images/viewmag_mirror.png</iconset>
            </property>
            <property name="iconSize">
             <size>

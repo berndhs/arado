@@ -51,6 +51,10 @@
         <file>images/btn3.png</file>
         <file>images/youtubemp3play.png</file>
         <file>images/rssbackground.png</file>
+        <file>images/viewmag_mirror.png</file>
+        <file>images/btn1m.png</file>
+        <file>images/btn2m.png</file>
+        <file>images/btn3m.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
