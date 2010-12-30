@@ -182,6 +182,7 @@ void RssList::rsseditadvancedview(bool show)
   ui.deleteButton->setVisible(show);
   ui.newButton->setVisible(show);
   ui.feedTable->setVisible(show);
+  ui.splitter->setCollapsible (0, false);
 }
 
 } // namespace
