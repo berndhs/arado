@@ -62,6 +62,7 @@ public:
                            Result resType = Res_List);
 
   virtual int Liberal (const QString & keystring);
+  virtual int Hash (const QString & keyString);
 
   virtual bool ResultReady (int resultId);
   virtual int  ResultSize (int resultId);
@@ -76,6 +77,7 @@ private slots:
 
   virtual void  DoSearch ();
   virtual void  DoAnySearch ();
+  virtual void  DoHashSearch ();
 
 signals:
 

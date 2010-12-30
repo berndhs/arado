@@ -93,6 +93,8 @@ public:
   bool  SearchAny (QStringList & hashList,
                    const QStringList & keys);
 
+  bool  SearchByHash (QStringList & hashList,
+                   const QStringList & hashCandidates);
   bool  WriteFeed (const QString & nick,
                    const QUrl & url);
   bool  RemoveFeed (const QString & nick);

@@ -86,6 +86,8 @@ UrlDisplay::UrlDisplay (QWidget * parent)
            this, SLOT (RecentButton ()));
   connect (ui.searchButton, SIGNAL (clicked ()),
            this, SLOT (DoSearch ()));
+  connect (ui.findHashButton, SIGNAL (clicked()),
+           this, SLOT (DoHashLookup ()));
   ui.searchButton->setShortcut(QKeySequence(Qt::Key_Return));
   connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
   refreshUrls = new QTimer (this);
@@ -328,6 +330,19 @@ UrlDisplay::DoSearch ()
     ui.urlTable->clearContents ();
     searchData = ui.textInput->text();
     searchId = search->Liberal (searchData);
+    ui.textInput->setStyleSheet("background-color: black; border: 2px solid black");
+    ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
+  }
+}
+
+void
+UrlDisplay::DoHashLookup ()
+{
+  searchId = -1;
+  if (search) {
+    ui.urlTable->clearContents ();
+    searchData = ui.textInput->text();
+    searchId = search->Hash (searchData);
     ui.textInput->setStyleSheet("background-color: black; border: 2px solid black");
     ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
   }

@@ -83,6 +83,20 @@ qDebug () << " Liberal search";
   return searchId;
 }
 
+int
+Search::Hash (const QString & keystring)
+{
+qDebug () << " Liberal search";
+  if (busy) {
+    return -1;
+  }
+  keys.clear ();
+  keys.append (keystring.split (QRegExp("\\s+"),QString::SkipEmptyParts));
+  results.clear ();
+  searchId++;
+  QTimer::singleShot (10,this,SLOT (DoHashSearch ()));
+  return searchId;
+}
 bool
 Search::ResultReady (int resultId)
 {
@@ -145,6 +159,21 @@ Search::DoAnySearch ()
   if (db) {
     results.clear ();
     db->SearchAny (results, keys);
+    emit Ready (searchId);
+    busy = false;
+  } else {
+    results.clear ();
+    emit Ready (searchId);
+    busy = false;
+  }
+}
+
+void
+Search::DoHashSearch ()
+{
+  if (db) {
+    results.clear ();
+    db->SearchByHash (results, keys);
     emit Ready (searchId);
     busy = false;
   } else {

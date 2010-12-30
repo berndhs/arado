@@ -72,6 +72,7 @@ public slots:
   void  AddButton ();
   void  DoOpenUrl (QTableWidgetItem * urlItem = 0);
   void  DoSearch ();
+  void  DoHashLookup ();
   void  GetSearchResult (int resultid);
   void  UrlsAdded (int numAdded);
   void  ShowAddCount ();

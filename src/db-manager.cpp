@@ -607,22 +607,55 @@ DBManager::SearchAny (QStringList & hashList,
   if (keys.size() < 1) {
     return false;
   }
-  QString cmd ("select distinct urltable.hashid "
-                "from urltable, keywords where ");
-  QString wherePhrase ("(urltable.url LIKE \"\%%1\%\") "
-                       " OR (urltable.hashid LIKE \"\%%1\%\") "
-                       " OR (keywords.hashid = urltable.hashid AND "
-                            " keywords.keyword LIKE \"\%%1\%\") "
-                       " OR (urltable.description LIKE \"\%%1\%\") ");
-  QString combine (" OR ");
+  QString cmd ("select hashid from (");
+  QString wherePhrase ("select hashid from urltable where "
+                        " (description LIKE \"\%%1\%\" "
+                        " OR url LIKE \"\%%1\%\" )"
+                        " UNION "
+                        " select hashid from keywords where "
+                        "   keyword LIKE \"\%%1\%\" ");
+  QString combine (" UNION ");
+  
   cmd.append (wherePhrase.arg (keys.at(0)));
   for (int i=1; i<keys.size(); i++) {
     cmd.append (combine);
     cmd.append (wherePhrase.arg (keys.at(i)));
   }
+  cmd.append (" )");
   QSqlQuery select (urlBase);
   bool ok = select.exec (cmd);
-  qDebug () << "SEARCH " << ok << " for " << select.executedQuery();
+  qDebug () << "SEARCH command " << cmd;
+  qDebug () << "SEARCH words " << ok << " for " << select.executedQuery();
+  QString hash;
+  while (ok && select.next ()) {
+    hash = select.value(0).toString();
+    hashList.append (hash);
+  }
+  qDebug () << " SEARCH got " << hashList.size() << " results";
+  return (ok);
+}
+
+bool
+DBManager::SearchByHash (QStringList & hashList, 
+                        const QStringList & hashCandidates)
+{
+  hashList.clear ();
+  if (hashCandidates.size() < 1) {
+    return false;
+  }
+  QString cmd ("select distinct hashid "
+                "from urltable where ");
+  QString wherePhrase (" hashid LIKE \"\%%1\%\" ");
+  QString combine (" OR ");
+  
+  cmd.append (wherePhrase.arg (hashCandidates.at(0)));
+  for (int i=1; i<hashCandidates.size(); i++) {
+    cmd.append (combine);
+    cmd.append (wherePhrase.arg (hashCandidates.at(i)));
+  }
+  QSqlQuery select (urlBase);
+  bool ok = select.exec (cmd);
+  qDebug () << "SEARCH hashes " << ok << " for " << select.executedQuery();
   QString hash;
   while (ok && select.next ()) {
     hash = select.value(0).toString();
