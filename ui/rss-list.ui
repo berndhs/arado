@@ -73,29 +73,6 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
-    <widget class="QPushButton" name="deleteButton">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>43</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Delete</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../arado.qrc">
-       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0" colspan="4">
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
@@ -217,7 +194,20 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="3">
+   <item row="0" column="3">
+    <widget class="QCheckBox" name="rsseditadvancedview">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text">
+      <string>Edit</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
     <widget class="QPushButton" name="saveButton">
      <property name="minimumSize">
       <size>
@@ -240,16 +230,26 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="3">
-    <widget class="QCheckBox" name="rsseditadvancedview">
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+   <item row="7" column="3">
+    <widget class="QPushButton" name="deleteButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
      </property>
      <property name="text">
-      <string>Edit</string>
+      <string>Delete</string>
      </property>
-     <property name="checked">
-      <bool>false</bool>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/cancel.png</normaloff>:/images/cancel.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
