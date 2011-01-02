@@ -244,10 +244,10 @@
   <action name="actionCrawl">
    <property name="icon">
     <iconset resource="../arado.qrc">
-     <normaloff>:/images/wizard.png</normaloff>:/images/wizard.png</iconset>
+     <normaloff>:/images/kalzium.png</normaloff>:/images/kalzium.png</iconset>
    </property>
    <property name="text">
-    <string>Lookup more...</string>
+    <string>Crawler Settings</string>
    </property>
    <property name="toolTip">
     <string>Lookup: Crawl all selected URLs for more URLs from this context.</string>
