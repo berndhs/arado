@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FeedDialog</class>
- <widget class="QWidget" name="FeedDialog">
+ <class>CrawlDialog</class>
+ <widget class="QWidget" name="CrawlDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
-    <height>210</height>
+    <width>537</width>
+    <height>228</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,7 +45,7 @@
     </widget>
    </item>
    <item row="7" column="1" colspan="3">
-    <widget class="QLineEdit" name="feedEdit">
+    <widget class="QLineEdit" name="urlEdit">
      <property name="text">
       <string>http://</string>
      </property>

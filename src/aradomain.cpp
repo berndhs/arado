@@ -32,6 +32,7 @@
 #include "addfeed.h"
 #include "rss-list.h"
 #include "rss-poll.h"
+#include "crawler-settings.h"
 #if USE_MINIUPNP
 #include "upnpclient.h"
 #endif
@@ -115,6 +116,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   httpPoll = new QTimer (this);
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
+  crawler = new CrawlerSettings (this);
+  crawler->hide();
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
   // mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));  // Bug: does not load feedurl database
@@ -328,6 +331,8 @@ AradoMain::Connect ()
            this, SLOT (Restart ()));
   connect (mainUi.actionInitialize, SIGNAL (triggered()),
            this, SLOT (InitSystem()));
+  connect (mainUi.actionCrawl, SIGNAL (triggered()),
+           this, SLOT (Crawl()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -736,6 +741,14 @@ AradoMain::EditListener ()
 {
   if (listenerEdit) {
     listenerEdit->Run ();
+  }
+}
+
+void
+AradoMain::Crawl ()
+{
+  if (crawler) {
+    crawler->Run ();
   }
 }
 

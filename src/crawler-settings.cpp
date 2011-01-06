@@ -26,6 +26,24 @@
 namespace arado
 {
 
+CrawlerSettings::CrawlerSettings (QWidget *parent)
+  :QDialog (parent)
+{
+  ui.setupUi (this);
+  connect (ui.cancelButton, SIGNAL (clicked()),
+           this, SLOT (Close()));
+}
 
+void
+CrawlerSettings::Run ()
+{
+  show ();
+}
+
+void
+CrawlerSettings::Close ()
+{
+  reject ();
+}
 
 } // namespace

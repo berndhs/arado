@@ -50,6 +50,7 @@ class PollSequence;
 class RssList;
 class RssPoll;
 class UPnPClient;
+class CrawlerSettings;
 
 class AradoMain : public QMainWindow
 {
@@ -95,6 +96,7 @@ private slots:
   void DisplayUuid ();
   void InitSystem ();
   void CatchPolledRss (QString nick);
+  void Crawl ();
 
   void Restart ();
 
@@ -118,6 +120,7 @@ private:
   EntryForm          *entryForm;
   AddPeerDialog      *addPeerDialog;
   ListenerEdit       *listenerEdit;
+  CrawlerSettings    *crawler;
   DBManager           dbMgr;
   Policy             *policy;
   PollSequence       *sequencer;

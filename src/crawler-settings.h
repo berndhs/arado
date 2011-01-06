@@ -21,10 +21,30 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
+#include "ui_crawler-settings.h"
+
+#include <QDialog>
 
 namespace arado {
 
+class CrawlerSettings : public QDialog 
+{
+Q_OBJECT
+public:
 
+  CrawlerSettings (QWidget * parent=0);
+
+  void Run ();
+
+public slots:
+
+  void Close ();
+
+private:
+
+  Ui_CrawlDialog   ui;
+
+};
 
 
 } // namespace

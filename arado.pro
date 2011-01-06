@@ -124,6 +124,7 @@ FORMS		=	ui/aradomain.ui \
                         ui/address-input.ui \
                         ui/listener-edit.ui \
                         ui/rss-list.ui \
+                        ui/crawler-settings.ui \
 
 HEADERS		=	src/aradomain.h \
                    src/cmdoptions.h \
@@ -158,7 +159,8 @@ HEADERS		=	src/aradomain.h \
                    src/rss-list.h \
                    src/rss-poll.h \
                    src/networkaccessmanager.h \
-                   src/arado-feed.h 
+                   src/arado-feed.h \
+                   src/crawler-settings.h \
 
 use_miniupnp {
 HEADERS += \
@@ -214,7 +216,8 @@ SOURCES		=	src/aradomain.cpp \
                    src/rss-list.cpp \
                    src/rss-poll.cpp \
                    src/arado-feed.cpp \
-                   src/networkaccessmanager.cpp 
+                   src/networkaccessmanager.cpp \
+                   src/crawler-settings.cpp \
 
 use_miniupnp {
 SOURCES +=         \
