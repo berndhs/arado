@@ -156,7 +156,7 @@
      </property>
      <property name="icon">
       <iconset resource="../arado.qrc">
-       <normaloff>:/arado-logo-colo-128.png</normaloff>:/arado-logo-colo-128.png</iconset>
+       <normaloff>:/images/aradocap-transparent32.png</normaloff>:/images/aradocap-transparent32.png</iconset>
      </property>
      <property name="iconSize">
       <size>

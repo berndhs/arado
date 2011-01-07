@@ -56,6 +56,7 @@
         <file>images/btn2m.png</file>
         <file>images/btn3m.png</file>
         <file>images/kalzium.png</file>
+        <file>images/aradocap-transparent32.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
