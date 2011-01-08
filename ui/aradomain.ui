@@ -244,7 +244,7 @@
   <action name="actionCrawl">
    <property name="icon">
     <iconset resource="../arado.qrc">
-     <normaloff>:/images/kalzium.png</normaloff>:/images/kalzium.png</iconset>
+     <normaloff>:/images/openmielke.png</normaloff>:/images/openmielke.png</iconset>
    </property>
    <property name="text">
     <string>Configure Openmielke</string>
