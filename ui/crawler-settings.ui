@@ -214,15 +214,17 @@
        <kerning>false</kerning>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Openmielke is a collector of URLs on websites.</string>
+     </property>
      <property name="text">
-      <string>Crawler Settings</string>
+      <string>Configure Openmielke</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
-  <include location="../arado.qrc"/>
   <include location="../arado.qrc"/>
  </resources>
  <connections/>

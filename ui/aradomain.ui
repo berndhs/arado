@@ -247,7 +247,7 @@
      <normaloff>:/images/kalzium.png</normaloff>:/images/kalzium.png</iconset>
    </property>
    <property name="text">
-    <string>Crawler Settings</string>
+    <string>Configure Openmielke</string>
    </property>
    <property name="toolTip">
     <string>Lookup: Crawl all selected URLs for more URLs from this context.</string>
