@@ -402,6 +402,9 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
   ui.labelipask_A->setVisible(show);
   ui.labelipask_B->setVisible(show);
   ui.labelipask_C->setVisible(show);
+  ui.horizontalSlider_A->setVisible(show);
+  ui.horizontalSlider_B->setVisible(show);
+  ui.horizontalSlider_C->setVisible(show);
   ui.buttonDelete->setVisible(show);
 
   ui.listenAddr->setVisible(showaddr);
