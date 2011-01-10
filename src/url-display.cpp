@@ -67,6 +67,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    locked (false),
    searchId (-1),
    refreshUrls (0),
+   slowTimer (0),
    refreshPeriod (18),
    autoRefresh (false),
    maxUrlsShown (500)
@@ -93,6 +94,9 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   refreshUrls = new QTimer (this);
   connect (refreshUrls, SIGNAL (timeout()), this, SLOT (Refresh()));
 
+  slowTimer = new QTimer (this);
+  connect (slowTimer, SIGNAL (timeout()), this, SLOT (SlowUpdate()));
+
   refreshPeriod = Settings ().value ("urldisplay/refreshperiod",
                                  refreshPeriod).toInt();
   Settings().setValue ("urldisplay/refreshperiod",refreshPeriod);
@@ -104,6 +108,12 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   } else {
     refreshUrls->stop ();
   }
+  int slowPeriod (5*60); 
+  slowPeriod = Settings ().value ("urldisplay/slowperiod",
+                                 slowPeriod).toInt();
+  Settings().setValue ("urldisplay/slowperiod",slowPeriod);
+  slowTimer->start (slowPeriod*1000);
+  QTimer::singleShot (10*1000, this, SLOT (SlowUpdate()));
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
                             maxUrlsShown).toInt();
   Settings().setValue ("urldisplay/maxshown",maxUrlsShown);
@@ -372,6 +382,13 @@ UrlDisplay::GetSearchResult (int resultId)
     ui.textInput->setStyleSheet("background-color: white; border: 2px solid #079E00;");
     ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
   }
+}
+
+void
+UrlDisplay::SlowUpdate ()
+{
+  qint64 numUrls = db->NumUrls();
+  ui.middleLabel->setText (tr("You have about %1 URLs").arg(numUrls));
 }
 
 

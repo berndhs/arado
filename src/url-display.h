@@ -80,6 +80,7 @@ public slots:
 private slots:
 
   void RecentButton ();
+  void SlowUpdate ();
 
   void ActiveCell (int row, int col, int oldRow, int oldCol);
 
@@ -112,6 +113,7 @@ private:
   int               searchId;
   QString           searchData;
   QTimer           *refreshUrls;
+  QTimer           *slowTimer;
   int               refreshPeriod;
   bool              autoRefresh;
   int               maxUrlsShown;
