@@ -130,6 +130,11 @@ DBManager::Start ()
                << "uniquerssfeeds";
   CheckDBComplete (feedBase, feedElements);
 
+  QDateTime now = QDateTime::currentDateTime();
+  QDateTime then = QDateTime (QDate (2112,12,21));
+  qint64 timeDiff = now.msecsTo (then);
+  ranGen.Seed (qAbs (timeDiff));
+  qDebug () << " DBManager random Seed " << qAbs (timeDiff);
   dbRunning = true;
 }
 
@@ -571,6 +576,59 @@ DBManager::GetRecent (int howmany)
     }
   }
   return list;
+}
+
+
+AradoUrlList
+DBManager::GetRandom (int howmany)
+{
+  AradoUrlList list;
+  qint64 maxrow = NumUrls();
+  for (int i=0; i<howmany; i++) {
+    list.append (GetOneRandom(maxrow));
+  }
+  return list;
+}
+
+qint64
+DBManager::NumUrls ()
+{
+  QString cmd = QString ("select count(rowid) from urltable");
+  QSqlQuery select (urlBase);
+  bool ok = select.exec (cmd);
+  if (ok && select.next()) {
+    return select.value(0).toString().toLongLong();
+  } else {
+    return 0;
+  }
+}
+
+AradoUrl
+DBManager::GetOneRandom (qint64 limit)
+{
+  QSqlQuery  select (urlBase);
+  qint64 rownum = ranGen.Random (qAbs (limit));
+  QString  cmd = QString ("select url, description, hashid from urltable "
+                          " where rowid = \"%1\"").arg (rownum);
+  bool ok = select.exec (cmd);
+  if (ok && select.next ()) {
+    QString urlString = select.value(0).toString();
+    QString desc = select.value(1).toString();
+    QString hash = select.value(2).toString();
+    AradoUrl aurl;
+    aurl.SetUrl (QUrl (urlString));
+    aurl.SetDescription (desc);
+    aurl.SetHash (hash.toUtf8());
+
+    QStringList keywords;
+    ReadKeywords (hash, keywords);
+    aurl.SetKeywords (keywords);
+    quint64 stamp (0);
+    ReadTime (hash, stamp);
+    aurl.SetTimestamp (stamp);
+    return aurl;
+  }
+  return AradoUrl();
 }
 
 bool

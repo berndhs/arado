@@ -203,7 +203,8 @@ HttpClient::Poll (HttpAddress & addr)
     basicUrl.setPath ("/arado/query.php");
 
     if (askGet) {
-      SendUrlRequestGet (basicUrl);
+      SendUrlRequestGet (basicUrl, "recent", 50);
+      SendUrlRequestGet (basicUrl, "random", 50);
     }
     if (offerPut) {
       SendUrlOfferGet (basicUrl);
@@ -239,12 +240,14 @@ HttpClient::PollAddr (HttpAddress & addr)
 
 
 void
-HttpClient::SendUrlRequestGet (const QUrl & basicUrl)
+HttpClient::SendUrlRequestGet (const QUrl & basicUrl,
+                               const QString & kind,
+                               int   size)
 {
   QUrl requestUrl (basicUrl);
 
-  requestUrl.addQueryItem (QString ("request"),QString ("recent"));
-  requestUrl.addQueryItem (QString ("count"),QString::number(50));
+  requestUrl.addQueryItem (QString ("request"),kind);
+  requestUrl.addQueryItem (QString ("count"),QString::number(size));
   requestUrl.addQueryItem (QString ("type"),QString ("URL"));
   QNetworkRequest  req (requestUrl);
   req.setHeader (QNetworkRequest::ContentTypeHeader, QString ("xml"));

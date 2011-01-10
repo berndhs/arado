@@ -133,7 +133,9 @@ private:
   void PollAll (bool reloadServers = false);
 
   void SendUrlOfferGet (const QUrl & basicUrl);
-  void SendUrlRequestGet (const QUrl & basicUrl);
+  void SendUrlRequestGet (const QUrl & basicUrl,
+                          const QString & kind = QString ("recent"),
+                          int   size = 50);
   void SendAddrOfferGet (const QUrl & basicUrl);
   void SendAddrRequestGet (const QUrl & basicUrl);
 

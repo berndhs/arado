@@ -103,7 +103,5 @@
         <file alias="uniquerssfeeds.sql">schemafiles/uniquerssfeeds.sql</file>
     </qresource>
     <qresource prefix="/html">
-        <file>html/url-display-view.html</file>
-        <file>html/images/kugar.png</file>
     </qresource>
 </RCC>

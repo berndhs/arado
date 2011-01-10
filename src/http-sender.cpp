@@ -220,6 +220,7 @@ HttpSender::HandleRequest (const QString & reqType,
   bool     useNewest (false);
   bool     cmdRecent (false);
   bool     cmdRange (false);
+  bool     cmdRandom (false);
   bool     isRequest (false);
   bool     isOffer (false);
   bool     isBad (false);
@@ -238,6 +239,7 @@ HttpSender::HandleRequest (const QString & reqType,
     if (left == QString ("request")) {
       cmdRecent |= (right == QString ("recent"));
       cmdRange  |= (right == QString ("range"));
+      cmdRandom |= (right == QString ("random"));
       isBad = isOffer;
     } else if (left == QString ("count")) {
       maxItems = right.toInt();
@@ -275,9 +277,11 @@ qDebug () << __LINE__ << " Wrong Type " << datatype;
       ReplyInvalid (QString ("Not Accepted"),405);
     } else if (wrongType) {
       ReplyInvalid (QString ("Unsupported Type"),405);
-    } else if (isRequest && cmdRecent && !cmdRange) {
+    } else if (isRequest && cmdRecent && !(cmdRange || cmdRandom)) {
       ReplyRecent (maxItems, datatype, level);
-    } else if (isRequest && cmdRange && !cmdRecent) {
+    } else if (isRequest && cmdRandom && !(cmdRecent || cmdRange)) {
+      ReplyRandom (maxItems, datatype, level);
+    } else if (isRequest && cmdRange && !(cmdRecent || cmdRandom)) {
       ReplyRange (useNewest, newest, useOldest, oldest, datatype, level);
     } else if (isOffer && !(cmdRange || cmdRecent)) {
       ReplyOffer (datatype, level);
@@ -330,8 +334,9 @@ HttpSender::ReplyRange (bool useNewest, quint64 newest,
 }
 
 void
-HttpSender::ReplyRecent (int maxItems, const QString & datatype, 
-                        const QString & level    )
+HttpSender::ReplySome (int maxItems, const QString & datatype, 
+                        const QString & level,
+                        bool random)
 {
   QStringList lines;
   lines << "HTTP/1.1 200 OK\r\n";
@@ -343,7 +348,12 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype,
   qDebug () << " sending GOOD reply " << lines.join ("");
   tcpSocket->write (lines.join("").toUtf8());
   if (datatype == QString ("URL")) {
-    AradoUrlList urls = db->GetRecent (maxItems);
+    AradoUrlList urls;
+    if (random) {
+      urls = db->GetRandom (maxItems);
+    } else {
+      urls = db->GetRecent (maxItems);
+    }
     AradoStreamParser parse;
     parse.SetOutDevice (tcpSocket);
     parse.Write (urls);
@@ -360,6 +370,20 @@ HttpSender::ReplyRecent (int maxItems, const QString & datatype,
   }
   tcpSocket->flush ();
   tcpSocket->close ();
+}
+
+void
+HttpSender::ReplyRandom (int maxItems, const QString & datatype,
+                        const QString & level)
+{
+  ReplySome (maxItems, datatype, level, true);
+}
+
+void
+HttpSender::ReplyRecent (int maxItems, const QString & datatype,
+                        const QString & level)
+{
+  ReplySome (maxItems, datatype, level, false);
 }
 
 void

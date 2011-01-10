@@ -93,6 +93,11 @@ private:
                        const QList < QPair <QString,QString > > & items);
   void  ReplyRecent (int maxItems, const QString & datatype , 
                      const QString & level);
+  void  ReplyRandom (int maxItems, const QString & datatype , 
+                     const QString & level);
+  void  ReplySome (int maxItems, const QString & datatype , 
+                     const QString & level,
+                     bool random);
   void  ReplyRange (bool useNewest, quint64 newest, 
                     bool useOldest, quint64 oldest,
                     const QString & datatype, 

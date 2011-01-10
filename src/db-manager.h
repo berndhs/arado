@@ -28,6 +28,7 @@
 #include "arado-url.h"
 #include "arado-peer.h"
 #include "arado-feed.h"
+#include "delib-rng.h"
 
 namespace arado
 {
@@ -71,6 +72,7 @@ public:
 
   int   NumPeers (const QString & kind = QString ("0"));
 
+  qint64 NumUrls ();
   qint64 UrlsAdded () { return urlAddCount; }
   qint64 PeersAdded () { return peerAddCount; }
 
@@ -78,6 +80,7 @@ public:
   void ResetPeerAddCount () { peerAddCount = 0; }
   
   AradoUrlList  GetRecent (int howmany);
+  AradoUrlList  GetRandom (int howmany);
 
   AradoPeerList GetPeers (const QString & kind = QString ("0"));
   AradoPeerList GetPeerAddresses (const QString & peerid,
@@ -121,6 +124,8 @@ private:
 
   void    FillPeerUuids (AradoPeerList & list);
 
+  AradoUrl  GetOneRandom (qint64  limit);
+
   QSqlDatabase     ipBase;
   QSqlDatabase     urlBase;
   QSqlDatabase     feedBase;
@@ -132,6 +137,8 @@ private:
   qint64           peerAddCount;
 
   Policy          *policy;
+
+  deliberate::Rng_LCG_GN  ranGen;
 
 friend class Policy;
 

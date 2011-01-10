@@ -161,6 +161,7 @@ HEADERS		=	src/aradomain.h \
                    src/networkaccessmanager.h \
                    src/arado-feed.h \
                    src/crawler-settings.h \
+                   src/delib-rng.h \
 
 use_miniupnp {
 HEADERS += \
@@ -218,6 +219,7 @@ SOURCES		=	src/aradomain.cpp \
                    src/arado-feed.cpp \
                    src/networkaccessmanager.cpp \
                    src/crawler-settings.cpp \
+                   src/delib-rng.cpp \
 
 use_miniupnp {
 SOURCES +=         \
