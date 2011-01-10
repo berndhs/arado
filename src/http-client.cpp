@@ -387,7 +387,8 @@ HttpClient::ProcessOfferReply (HttpClientReply * reply, const QUrl & origUrl)
       data->open (QBuffer::WriteOnly);
       parser.SetOutDevice (data);
       if (datatype == "URL") {
-        AradoUrlList urls = db->GetRecent (100);
+        AradoUrlList urls = db->GetRecent (50);
+        urls += db->GetRandom (50);
         parser.Write (urls);
         hdt = HDT_Url;
       } else if (datatype == "ADDR") {
