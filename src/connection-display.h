@@ -109,6 +109,8 @@ private:
   double   urlFreqA;
   double   urlFreqB;
   double   urlFreqC;
+  QMap <QString, int>  maxRecent;
+  QMap <QString, int>  maxRandom;
 
 };
 

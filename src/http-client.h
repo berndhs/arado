@@ -105,14 +105,17 @@ public:
                  quint16 port=80);
   void DropServer (int server);
   void DropAllServers ();
-  void PollServer (int server);
 
   void ReloadServers (const QString & kind = QString ("0"));
 
 public slots:
 
-  void PollPeers (const QStringList & peerList);
-  void PollPeer  (const QString & nick);
+  void PollPeers (const QStringList & peerList,
+                  int   maxRecent = 50,
+                  int   maxRandom = 50);
+  void PollPeer  (const QString & nick,
+                  int   maxRecent = 50,
+                  int   maxRandom = 50);
 
 
 private slots:
@@ -128,7 +131,7 @@ private:
 
   typedef QMap <int, HttpAddress> ServerMap;
 
-  void Poll (HttpAddress & addr);
+  void Poll (HttpAddress & addr, int maxRecent, int maxRandom);
   void PollAddr (HttpAddress & addr);
   void PollAll (bool reloadServers = false);
 

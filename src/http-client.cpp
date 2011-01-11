@@ -120,14 +120,6 @@ qDebug () << " add server " << serverUrl;
 }
 
 void
-HttpClient::PollServer (int server)
-{
-  if (servers.contains (server)) {
-    Poll (servers[server]);
-  }
-}
-
-void
 HttpClient::DropServer (int server)
 {
 qDebug () << " drop servers " << server;
@@ -142,24 +134,27 @@ qDebug () << " drop ALL servers ";
 }
 
 void
-HttpClient::PollPeers (const QStringList & peerList)
+HttpClient::PollPeers (const QStringList & peerList,
+                       int maxRecent, int maxRandom)
 {
   qDebug () << " CLIENT polling peers " << peerList;
   qDebug () << " nick map " << peers;
   QStringList::const_iterator it;
   for (it = peerList.constBegin(); it != peerList.constEnd(); it++) {
-    PollPeer (*it);
+    PollPeer (*it, maxRecent, maxRandom);
   }
 }
 
 void
-HttpClient::PollPeer (const QString & nick)
+HttpClient::PollPeer (const QString & nick,
+                      int   maxRecent,
+                      int   maxRandom)
 {
   if (peers.contains (nick)) {
     int serverNum = peers[nick];
     if (servers.contains (serverNum)) {
       if (tradeUrl) {
-        Poll (servers[serverNum]);
+        Poll (servers[serverNum], maxRecent, maxRandom);
       }
       if (tradeAddr) {
         PollAddr (servers[serverNum]);
@@ -186,7 +181,7 @@ HttpClient::PollAll (bool reloadServers)
 }
 
 void
-HttpClient::Poll (HttpAddress & addr)
+HttpClient::Poll (HttpAddress & addr, int maxRecent, int maxRandom)
 {
   if (network) {
     qDebug () << " POLL try for " << addr.ident;
@@ -203,8 +198,8 @@ HttpClient::Poll (HttpAddress & addr)
     basicUrl.setPath ("/arado/query.php");
 
     if (askGet) {
-      SendUrlRequestGet (basicUrl, "recent", 50);
-      SendUrlRequestGet (basicUrl, "random", 50);
+      SendUrlRequestGet (basicUrl, "recent", maxRecent);
+      SendUrlRequestGet (basicUrl, "random", maxRandom);
     }
     if (offerPut) {
       SendUrlOfferGet (basicUrl);

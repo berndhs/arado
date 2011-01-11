@@ -65,9 +65,15 @@ private slots:
 private:
 
   void    ComputePeriods ();
+  void    FindRatios ();
+  void    FindRatio (QString level);
+  void    SaveRatios ();
+  void    SaveRatio (QString level);
   void    RestartTimers ();
   void    Poll (QSet <QString> & nickSet,
-                QSet <QString>::iterator  & nickIt);
+                QSet <QString>::iterator  & nickIt,
+                int  numRecent,
+                int  numRandom);
 
   DBManager  *db;
   HttpClient *client;
@@ -81,6 +87,10 @@ private:
   int      periodA;
   int      periodB;
   int      periodC;
+
+  /**      max chunk counts for random/recent */
+  QMap <QString, int>  maxRecent;
+  QMap <QString, int>  maxRandom;
 
   QSet <QString>  nicksA;
   QSet <QString>  nicksB;

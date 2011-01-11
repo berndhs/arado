@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
+    <width>1298</width>
     <height>480</height>
    </rect>
   </property>
@@ -135,7 +135,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QSlider" name="horizontalSlider_A">
+          <widget class="QSlider" name="ratioSliderA">
            <property name="toolTip">
             <string>If you set the slider to random, you get a backup with old URLs, if you set the slider to recent, you only get new URLs with a fresh timestamp. </string>
            </property>
@@ -304,7 +304,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QSlider" name="horizontalSlider_B">
+          <widget class="QSlider" name="ratioSliderB">
            <property name="toolTip">
             <string>If you set the slider to random, you get a backup with old URLs, if you set the slider to recent, you only get new URLs with a fresh timestamp.</string>
            </property>
@@ -483,7 +483,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QSlider" name="horizontalSlider_C">
+          <widget class="QSlider" name="ratioSliderC">
            <property name="toolTip">
             <string>If you set the slider to random, you get a backup with old URLs, if you set the slider to recent, you only get new URLs with a fresh timestamp.</string>
            </property>

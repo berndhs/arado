@@ -48,7 +48,12 @@ ConnectionDisplay::ConnectionDisplay (QWidget *parent)
    urlFreqC (40.0)
 {
   ui.setupUi (this);
-
+  maxRecent["A"] = 50;
+  maxRecent["B"] = 50;
+  maxRecent["C"] = 50;
+  maxRandom["A"] = 50;
+  maxRandom["B"] = 50;
+  maxRandom["C"] = 50;
   /* Hide Advanced gui */
   checkAdvViewBox(false);
   connect(ui.checkAdvViewBox, SIGNAL(toggled(bool)), this, SLOT(checkAdvViewBox(bool)));
@@ -365,9 +370,33 @@ ConnectionDisplay::LoadTrafficParams ()
   urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
   urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
   urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
+  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
+  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
+  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
   ui.freqABox->setValue (urlFreqA);
   ui.freqBBox->setValue (urlFreqB);
   ui.freqCBox->setValue (urlFreqC);
+  QStringList levels;
+  levels << "A" << "B" << "C";
+  for (int i=0; i<levels.count(); i++) {
+    QString lev = levels.at(i);
+    maxRecent[lev] = Settings().value(QString("traffic/maxrecent%1")
+                                          .arg(lev),
+                                           maxRecent[lev]).toInt();
+    maxRandom[lev] = Settings().value(QString("traffic/maxrandom%1")
+                                          .arg(lev),
+                                           maxRandom[lev]).toInt();
+    Settings().setValue (QString("traffic/maxrecent%1").arg(lev),
+                          maxRecent[lev]);
+    Settings().setValue (QString("traffic/maxrandom%1").arg(lev),
+                          maxRandom[lev]);
+  }
+  ui.ratioSliderA->setMaximum (maxRecent["A"] + maxRandom["A"]);
+  ui.ratioSliderA->setValue (maxRecent["A"]);
+  ui.ratioSliderB->setMaximum (maxRecent["B"] + maxRandom["B"]);
+  ui.ratioSliderB->setValue (maxRecent["B"]);
+  ui.ratioSliderC->setMaximum (maxRecent["C"] + maxRandom["C"]);
+  ui.ratioSliderC->setValue (maxRecent["C"]);
 }
 
 void
@@ -376,9 +405,24 @@ ConnectionDisplay::ChangeTrafficParams ()
   urlFreqA = ui.freqABox->value ();
   urlFreqB = ui.freqBBox->value ();
   urlFreqC = ui.freqCBox->value ();
+  maxRecent["A"] = ui.ratioSliderA->value();
+  maxRandom["A"] = ui.ratioSliderA->maximum() - maxRecent["A"];
+  maxRecent["B"] = ui.ratioSliderB->value();
+  maxRandom["B"] = ui.ratioSliderB->maximum() - maxRecent["B"];
+  maxRecent["C"] = ui.ratioSliderC->value();
+  maxRandom["C"] = ui.ratioSliderC->maximum() - maxRecent["C"];
   Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
   Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
   Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  QStringList levels;
+  levels << "A" << "B" << "C";
+  for (int i=0; i<levels.count(); i++) {
+    QString lev = levels.at(i);
+    Settings().setValue (QString("traffic/maxrecent%1").arg(lev),
+                          maxRecent[lev]);
+    Settings().setValue (QString("traffic/maxrandom%1").arg(lev),
+                          maxRandom[lev]);
+  }
   Settings().sync();
   emit TrafficParamsChanged ();
 
@@ -402,9 +446,9 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
   ui.labelipask_A->setVisible(show);
   ui.labelipask_B->setVisible(show);
   ui.labelipask_C->setVisible(show);
-  ui.horizontalSlider_A->setVisible(show);
-  ui.horizontalSlider_B->setVisible(show);
-  ui.horizontalSlider_C->setVisible(show);
+  ui.ratioSliderA->setVisible(show);
+  ui.ratioSliderB->setVisible(show);
+  ui.ratioSliderC->setVisible(show);
   ui.buttonDelete->setVisible(show);
 
   ui.listenAddr->setVisible(showaddr);

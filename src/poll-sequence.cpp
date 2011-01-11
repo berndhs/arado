@@ -47,6 +47,7 @@ PollSequence::PollSequence (QObject * parent)
    timerC (this)
 {
   ComputePeriods ();
+  FindRatios ();
   connect (&timerA, SIGNAL (timeout()), this, SLOT (PollA()));
   connect (&timerB, SIGNAL (timeout()), this, SLOT (PollB()));
   connect (&timerC, SIGNAL (timeout()), this, SLOT (PollC()));
@@ -113,26 +114,27 @@ void
 PollSequence::PollA ()
 {
   qDebug () << " POLL A set size " << nicksA.size();
-  Poll (nicksA, pollItA);
+  Poll (nicksA, pollItA, maxRecent["A"], maxRandom["A"]);
 }
 
 void
 PollSequence::PollB ()
 {
   qDebug () << " POLL B set size " << nicksB.size();
-  Poll (nicksB, pollItB);
+  Poll (nicksB, pollItB, maxRecent["B"], maxRandom["B"]);
 }
 
 void
 PollSequence::PollC ()
 {
   qDebug () << " POLL C set size " << nicksC.size();
-  Poll (nicksC, pollItC);
+  Poll (nicksC, pollItC, maxRecent["C"], maxRandom["C"]);
 }
 
 void
 PollSequence::Poll (QSet <QString> & nickSet, 
-                    QSet <QString>::iterator & nickIt)
+                    QSet <QString>::iterator & nickIt,
+                    int numRecent, int numRandom)
 {
   if (nickSet.size() < 1) {
     return;
@@ -143,7 +145,7 @@ PollSequence::Poll (QSet <QString> & nickSet,
   if (nickIt != nickSet.end()) {
     if (client) {
       qDebug () << " Sequencer polling " << *nickIt;
-      client->PollPeer (*nickIt);
+      client->PollPeer (*nickIt, numRecent, numRandom);
     }
   }
   nickIt ++;
@@ -169,11 +171,50 @@ PollSequence::ComputePeriods ()
 }
 
 void
+PollSequence::FindRatios ()
+{
+  FindRatio ("A");
+  FindRatio ("B");
+  FindRatio ("C");
+}
+
+void
+PollSequence::SaveRatios ()
+{
+  SaveRatio ("A");
+  SaveRatio ("B");
+  SaveRatio ("C");
+}
+
+void
+PollSequence::SaveRatio (QString level)
+{
+  Settings().setValue (QString("traffic/maxrecent%1").arg(level),
+                          maxRecent[level]);
+  Settings().setValue (QString("traffic/maxrandom%1").arg(level),
+                          maxRandom[level]);
+}
+
+void
+PollSequence::FindRatio (QString level)
+{
+  int maxRec (50);
+  int maxRand (50);
+  maxRec = Settings().value (QString("traffic/maxrecent%1").arg(level),
+                                  maxRec).toInt();
+  maxRand = Settings().value (QString("traffic/maxrandom%1").arg(level),
+                                  maxRand).toInt();
+  maxRecent[level] = maxRec;
+  maxRandom[level] = maxRand;
+}
+
+void
 PollSequence::RefreshParams ()
 {
   urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
   urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
   urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
+  FindRatios ();
 }
 
 void
@@ -182,6 +223,7 @@ PollSequence::SaveParams ()
   Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
   Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
   Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  SaveRatios ();
   Settings().sync();    
 }
 
