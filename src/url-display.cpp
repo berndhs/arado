@@ -388,7 +388,7 @@ void
 UrlDisplay::SlowUpdate ()
 {
   qint64 numUrls = db->NumUrls();
-  ui.middleLabel->setText (tr("You have about %1 URLs").arg(numUrls));
+  ui.middleLabel->setText (tr("Search within about %1 entries.").arg(numUrls));
 }
 
 
