@@ -62,21 +62,29 @@ AddRssFeed::ParseItems (QDomNodeList & itemList)
 {
   for (unsigned int n=0; n<itemList.length(); n++) {
     QDomNode node=itemList.item(n);
-    QString title,link,category;
+    QString title, link, description;
     for (unsigned int c=0; c<node.childNodes().length(); c++) {
       QDomNode child=node.childNodes().item(c);
-      if(child.nodeName().toLower()=="title") {
+      QString name = child.nodeName().toLower();
+      if (name == "title") {
         title=child.firstChild().nodeValue();
-      } else if(child.nodeName().toLower()=="link") {
+      } else if (name == "link") {
         link=child.firstChild().nodeValue();
-      } 
+      } else if (name == "description") {
+        description = child.firstChild().nodeValue ();
+      } else if (name == "summary") {
+        description = child.firstChild().nodeValue ();
+      }
     }
     if (title.length()>0 && link.length()>0) {
       AradoUrl  newurl;
       newurl.SetUrl (link);
       newurl.SetDescription(title);
       newurl.ComputeHash ();
-      if(newurl.IsValid ()) {
+      if (description.length() > 0) {
+        MakeKeywords (newurl, description);
+      }
+      if (newurl.IsValid ()) {
         newUrls.append (newurl);
         db->AddUrl (newurl);
       }
@@ -97,4 +105,23 @@ AddRssFeed::PollFeed (QString urlText)
           this, SLOT(httpFinished(QNetworkReply *)));
 }
 
+bool
+AddRssFeed::LongerString (const QString & s1, const QString & s2)
+{
+  return s1.length() > s2.length();
 }
+
+void
+AddRssFeed::MakeKeywords (AradoUrl & aurl, const QString & description)
+{
+  QStringList words  = description.split(QRegExp("\\s+"), 
+                                      QString::SkipEmptyParts);
+  qSort (words.begin(), words.end(), LongerString);
+  int nw = words.count();
+  for (int w=0; w < nw && w < 8; w++) {
+    aurl.AddKeyword (words.at(w));
+  }
+}
+
+} // namespace
+

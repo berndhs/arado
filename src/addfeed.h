@@ -52,11 +52,14 @@ public slots:
 private:
 
   void ParseItems (QDomNodeList & itemList);
+  void MakeKeywords (AradoUrl & aurl, const QString & description);
 
   NetworkAccessManager *qnam;
   DBManager             *db;
   QNetworkReply         *reply;
   QList<AradoUrl>            newUrls;
+
+  static bool LongerString (const QString & s1, const QString & s2);
 };
 
 } // namespace
