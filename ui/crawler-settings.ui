@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
-    <height>228</height>
+    <width>543</width>
+    <height>232</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Add Feed-URL</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="9" column="3">
@@ -113,13 +116,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>60</width>
-       <height>48</height>
+       <width>90</width>
+       <height>70</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>40</width>
+       <width>32</width>
        <height>16777215</height>
       </size>
      </property>
@@ -174,11 +177,6 @@
        <string>Crawl Hop = 2</string>
       </property>
      </item>
-     <item>
-      <property name="text">
-       <string>Crawl Hop = 3</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item row="9" column="1" colspan="2">
@@ -215,7 +213,10 @@
       </font>
      </property>
      <property name="toolTip">
-      <string>Openmielke is a collector of URLs on websites.</string>
+      <string>Openmielke is a collector of URLs on websites (based on the crawler library of http://openmielke.sf.net). </string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Configure Openmielke</string>

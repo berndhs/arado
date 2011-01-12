@@ -102,6 +102,5 @@
         <file alias="rssfeeds.sql">schemafiles/rssfeeds.sql</file>
         <file alias="uniquerssfeeds.sql">schemafiles/uniquerssfeeds.sql</file>
     </qresource>
-    <qresource prefix="/html">
-    </qresource>
+    <qresource prefix="/html"/>
 </RCC>
