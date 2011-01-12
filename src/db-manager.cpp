@@ -133,9 +133,11 @@ DBManager::Start ()
   QDateTime now = QDateTime::currentDateTime();
   QDateTime then = QDateTime (QDate (2112,12,21));
   qint64 timeDiff = now.msecsTo (then);
+  timeDiff += now.secsTo (then);
   ranGen.Seed (qAbs (timeDiff));
   qDebug () << " DBManager random Seed " << qAbs (timeDiff);
   dbRunning = true;
+  emit InitComplete (dbRunning);
 }
 
 void

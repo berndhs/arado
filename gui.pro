@@ -26,7 +26,7 @@
 TEMPLATE	= app
 LANGUAGE	= C++
 CONFIG		+= qt warn_on build_all
-QT		+= gui network sql xml
+QT		+= gui network sql xml webkit
 !include ("options.pri") {
   message ("using defaults, no options.pri")
 } else {

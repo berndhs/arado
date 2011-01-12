@@ -23,6 +23,9 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QDomDocument>
+#include <QWebPage>
+#include <QWebFrame>
+#include <QWebView>
 #include "networkaccessmanager.h"
 
 namespace arado
@@ -114,12 +117,21 @@ AddRssFeed::LongerString (const QString & s1, const QString & s2)
 void
 AddRssFeed::MakeKeywords (AradoUrl & aurl, const QString & description)
 {
-  QStringList words  = description.split(QRegExp("\\s+"), 
+  QWebView htmlBuffer;
+  htmlBuffer.setHtml (description);
+  
+  QWebPage *page = htmlBuffer.page();
+  if (page) {
+    QWebFrame * frame = page->mainFrame();
+    if (frame) {
+      QStringList words = frame->toPlainText().split(QRegExp("\\s+"), 
                                       QString::SkipEmptyParts);
-  qSort (words.begin(), words.end(), LongerString);
-  int nw = words.count();
-  for (int w=0; w < nw && w < 8; w++) {
-    aurl.AddKeyword (words.at(w));
+      qSort (words.begin(), words.end(), LongerString);
+      int nw = words.count();
+      for (int w=0; w < nw && w < 8; w++) {
+        aurl.AddKeyword (words.at(w));
+      }
+    }
   }
 }
 

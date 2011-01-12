@@ -108,6 +108,10 @@ public:
   bool  StartTransaction (DBType  t = DB_Url);
   bool  CloseTransaction (DBType  t = DB_Url);
 
+signals:
+
+  void InitComplete (bool ok);
+
 private:
 
   bool  PrivateAddUrl (AradoUrl & url);
