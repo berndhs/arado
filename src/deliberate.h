@@ -36,12 +36,30 @@
 
 namespace deliberate {
 
+class DSettings : public QSettings {
+public:
+  QVariant value (const QString & key, 
+                  const QVariant & defaultValue = QVariant());
+  QVariant simpleValue (const QString & key, 
+                  const QVariant & defaultValue = QVariant());
+  void   setValue ( const QString & key, const QVariant & value );
+  void   setSimpleValue ( const QString & key, const QVariant & value );
+
+  QString Prefix ();
+  void SetPrefix (const QString & newPrefix);
+
+private:
+
+  QString  prefix;
+};
 
 QTextStream  & StdOut();
 
-void SetSettings (QSettings & settings);
+void SetSettings (DSettings & settings);
 
-QSettings & Settings ();
+void InitSettings ();
+
+DSettings & Settings ();
 
 bool IsMaemo ();
 

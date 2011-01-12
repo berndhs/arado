@@ -1,5 +1,5 @@
-#ifndef ARADOMAIN_H
-#define ARADOMAIN_H
+#ifndef ARADOGUI_H
+#define ARADOGUI_H
 
 /****************************************************************
  * This file is distributed under the following license:

@@ -25,7 +25,7 @@
 #include "arado-peer.h"
 #include "db-manager.h"
 #include "deliberate.h"
-#include "aradomain.h"
+#include "aradogui.h"
 #include <QItemSelectionModel>
 #include <QMessageBox>
 #include <QTimer>

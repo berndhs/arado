@@ -4,7 +4,7 @@
 #include <QLocale>
 #include <QTextCodec>
 #include <QDebug>
-#include "aradomain.h"
+#include "aradogui.h"
 #include "version.h"
 #include "deliberate.h"
 #include "delib-debug.h"
@@ -40,7 +40,7 @@ main (int argc, char *argv[])
   QCoreApplication::setOrganizationDomain ("arado.sourceforge.net");
   deliberate::ProgramVersion pv ("Arado");
   QCoreApplication::setApplicationVersion (pv.VersionNumber());
-  QSettings  settings;
+  deliberate::DSettings  settings;
   deliberate::SetSettings (settings);
   settings.setValue ("program",pv.MyName());
 

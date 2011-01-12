@@ -76,17 +76,17 @@ DBManager::Start ()
   QString feedbasename = dataDir + QDir::separator() 
                                 + QString ("feedbase.sql");
 
-  ipbasename = Settings().value ("database/ipbase",ipbasename)
+  ipbasename = Settings().simpleValue ("database/ipbase",ipbasename)
                          .toString();
-  Settings().setValue ("database/ipbase",ipbasename);
+  Settings().setSimpleValue ("database/ipbase",ipbasename);
 
-  urlbasename = Settings().value ("database/urlbase",urlbasename)
+  urlbasename = Settings().simpleValue ("database/urlbase",urlbasename)
                           .toString();
-  Settings().setValue ("database/urlbase",urlbasename);
+  Settings().setSimpleValue ("database/urlbase",urlbasename);
 
-  feedbasename = Settings().value ("database/feedbase",feedbasename)
+  feedbasename = Settings().simpleValue ("database/feedbase",feedbasename)
                           .toString();
-  Settings().setValue ("database/feedbase",feedbasename);
+  Settings().setSimpleValue ("database/feedbase",feedbasename);
 
   qDebug () << " ip database name " << ipbasename;
   qDebug () << " url database name " << urlbasename;

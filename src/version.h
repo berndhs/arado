@@ -23,7 +23,9 @@
  ****************************************************************/
 
 #include <QString>
+#if DELIBERATE_DEBUG
 #include "delib-debug.h"
+#endif
 
 namespace deliberate {
 

@@ -1,4 +1,4 @@
-#include "aradomain.h"
+#include "aradogui.h"
 #include <QCloseEvent>
 #include <QApplication>
 #include <QClipboard>
