@@ -30,6 +30,8 @@
 class QCloseEvent;
 class QApplication;
 class QTimer;
+class QProcess;
+class QLocalSocket;
 
 namespace arado
 {
@@ -99,6 +101,10 @@ private slots:
   void Crawl ();
   void ToggleUrlsDisplay();
   void SetupDisplayUrlsAction();
+  void InitEngine ();
+  void ConnectEngine ();
+  void EngineConnected ();
+  void EngineDisconnected ();
 
   void Restart ();
 
@@ -107,8 +113,10 @@ private:
   void  Connect ();
   void  StartServers ();
   void  StartClients ();
+  void  StartEngine ();
   void  StopServers ();
   void  StopClients ();
+  void  StopEngine ();
   void  StartSequencer ();
   void  StopSequencer ();
 
@@ -134,6 +142,11 @@ private:
   int                 httpDefaultPort;
   QUuid               ownUuid;
   bool                runAgain;
+
+  QProcess           *engineProcess;
+  QLocalSocket       *enginePipe;
+  QString             engineService;
+
 #if USE_MINIUPNP
   UPnPClient *uPnPClient;
 #endif

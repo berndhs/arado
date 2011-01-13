@@ -52,7 +52,7 @@ win32 {
   DEFINES += USE_MINIUPNP=0
 }
 
-TARGET		= bin/arado-post
+TARGET		= bin/arado-engine
 PROJECTNAME	= ARADO
 
 
@@ -63,13 +63,13 @@ OBJECTS_DIR = tmp/obj
 
 include ("translate.pri")
 
-HEADERS = src/arado-post.h \
+HEADERS = src/arado-engine.h \
           src/version.h \
           src/deliberate.h \
           src/cmdoptions.h \
 
-SOURCES = src/postmain.cpp \
-          src/arado-post.cpp \
+SOURCES = src/enginemain.cpp \
+          src/arado-engine.cpp \
           src/version.cpp \
           src/deliberate.cpp \
           src/cmdoptions.cpp \

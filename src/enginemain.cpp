@@ -21,7 +21,7 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#include "arado-post.h"
+#include "arado-engine.h"
 #include <QApplication>
 #include <QSettings>
 #include <QTranslator>
@@ -74,9 +74,9 @@ main (int argc, char * argv[])
   }
 
   /** the real main program starts here **/
-  arado::AradoPost  post;
-  post.SetApp (app);
-  post.Start ();
+  arado::AradoEngine  engine;
+  engine.SetApp (app);
+  engine.Start ();
 
   int appresult = app.exec ();
   

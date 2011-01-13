@@ -7,12 +7,14 @@
 #include <QDesktopServices>
 #include <QFileInfo>
 #include <QSplashScreen>
+#include <QProcess>
+#include <QLocalSocket>
 #include <QTimer>
 #include "arado-url.h"
 #include "file-comm.h"
 #include <QDebug>
 #include <QUrl>
-#include <QTimer>
+#include <QThread>
 #include <QStyle>
 #include <QSound>
 #include "deliberate.h"
@@ -86,7 +88,9 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    httpPoll (0),
    httpDefaultPort (29998),
    ownUuid (QUuid()),
-   runAgain (false)
+   runAgain (false),
+   engineProcess (0),
+   enginePipe (0)
 #if USE_MINIUPNP
 ,
    uPnPClient(0)
@@ -179,6 +183,7 @@ AradoMain::Start ()
   }
 #endif
 
+  StartEngine ();
   StartServers ();
   StartClients ();
   RefreshPeers ();
@@ -203,12 +208,92 @@ void
 AradoMain::Restart ()
 {
   runAgain = true;
+  StopEngine ();
   StopServers ();
   StopClients ();
   if (rssPoll) {
     rssPoll->Stop ();
   }
   Quit ();
+}
+
+void
+AradoMain::StartEngine ()
+{
+  if (engineProcess) {
+    disconnect (engineProcess, 0,0,0);
+    delete engineProcess;
+    engineProcess = 0;
+  }
+  engineProcess = new QProcess (this);
+  engineProcess->setProcessChannelMode (QProcess::ForwardedChannels);
+  QString exepath = QCoreApplication::applicationDirPath();
+  QString fullBackName = QString ("%1/arado-engine").arg(exepath);
+  engineProcess->start (fullBackName);
+  connect (engineProcess, SIGNAL (started()), this, SLOT (InitEngine()));
+}
+
+void
+AradoMain::InitEngine ()
+{
+  if (engineProcess) {
+    engineProcess->write ("HELLO\n");
+    QDateTime now = QDateTime::currentDateTime();
+    QDateTime then = QDateTime (QDate(2112,12,12));
+    QString postNum = QString::number(qAbs(now.msecsTo(then)
+                                           - now.secsTo (then)));
+    engineProcess->write (QString ("SERVE %1\n").arg (postNum).toUtf8());
+    engineService = QString ("aradoen%1").arg(postNum);
+    QTimer::singleShot (100, this, SLOT (ConnectEngine()));
+  }
+}
+
+void
+AradoMain::ConnectEngine ()
+{
+  if (enginePipe) {
+    disconnect (enginePipe, 0,0,0);
+    enginePipe->deleteLater();
+    enginePipe = 0;
+  }
+  enginePipe = new QLocalSocket (this);
+  if (enginePipe) {
+    enginePipe->connectToServer (engineService, QLocalSocket::ReadWrite);
+    connect (enginePipe, SIGNAL (connected ()), 
+              this, SLOT (EngineConnected ()));
+    connect (enginePipe, SIGNAL (disconnected ()),
+              this, SLOT (EngineDisconnected ()));
+  }
+}
+
+void
+AradoMain::EngineConnected ()
+{
+}
+
+void
+AradoMain::EngineDisconnected ()
+{
+}
+
+void
+AradoMain::StopEngine ()
+{
+  if (enginePipe) {
+    enginePipe->write ("CLOSE\n");
+    enginePipe->disconnectFromServer ();
+    disconnect (enginePipe, 0,0,0);
+    enginePipe->deleteLater();
+    enginePipe = 0;
+  }
+  if (engineProcess) {
+    qDebug () << " wait for engine stop";
+    QThread::yieldCurrentThread();
+    engineProcess->terminate ();
+    QThread::yieldCurrentThread();
+    bool stopped = engineProcess->waitForFinished (250);
+    qDebug () << " stopped is " << stopped;
+  }
 }
 
 void
@@ -328,8 +413,6 @@ AradoMain::Connect ()
            this, SLOT (MailUuid ()));
   connect (mainUi.actionShowUuid, SIGNAL (triggered()),
            this, SLOT (DisplayUuid ()));
-  connect (mainUi.actionRestart, SIGNAL (triggered()),
-           this, SLOT (Restart ()));
   connect (mainUi.actionInitialize, SIGNAL (triggered()),
            this, SLOT (InitSystem()));
   connect (mainUi.actionCrawl, SIGNAL (triggered()),
@@ -404,6 +487,7 @@ AradoMain::Quit ()
   Settings().setValue ("sizes/main",currentSize);
   Settings().sync();
   dbMgr.Stop ();
+  StopEngine ();
   if (app) {
     app->quit ();
   }
@@ -473,6 +557,7 @@ AradoMain::DoneConfigEdit (bool saved)
         policy->Flush ();
         policy->Load (&dbMgr);
       }
+      StopEngine ();
       StopSequencer ();
       StopServers ();
       StopClients ();
@@ -482,6 +567,7 @@ AradoMain::DoneConfigEdit (bool saved)
       StartServers ();
       StartClients ();
       StartSequencer ();
+      StartEngine ();
       if (rssPoll) {
         rssPoll->Start ();
       }

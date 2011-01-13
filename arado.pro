@@ -24,4 +24,4 @@
 
 
 TEMPLATE	= subdirs
-SUBDIRS = gui.pro post.pro
+SUBDIRS = gui.pro engine.pro

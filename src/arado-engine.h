@@ -1,5 +1,5 @@
-#include "arado-post.h"
-
+#ifndef ARADO_POST_H
+#define ARADO_POST_H
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -22,31 +22,46 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-#include <QTimer>
 #include <QObject>
-#include <QDebug>
+#include <QApplication>
+#include <QLocalServer>
+
+class QFile;
+class QLocalSocket;
 
 namespace arado
 {
-
-AradoPost::AradoPost (QObject *parent)
-  :QObject (parent),
-   app(0)
+class AradoEngine : public QLocalServer 
 {
-}
+Q_OBJECT
 
-void
-AradoPost::Start ()
-{
-  QTimer::singleShot (10*1000, this, SLOT (Quit()));
-}
+public:
 
-void
-AradoPost::Quit ()
-{
-  if (app) {
-    app->quit ();
-  }
-}
+  AradoEngine (QObject * parent=0);
+  ~AradoEngine ();
+  
+  void SetApp (QApplication & qapp) { app = &qapp;}
+
+  void Start ();
+
+private slots:
+
+  void Quit ();
+  void StartServer ();
+  void GetNewConnection ();
+  void Disconnected ();
+  void ReadPipe ();
+
+private:
+
+  void Bailout (const char * msg);
+
+  QApplication   *app;
+  QFile          *stdinFromMain;
+  QLocalSocket   *mainPipe;
+
+};
 
 } // namespace
+
+#endif
