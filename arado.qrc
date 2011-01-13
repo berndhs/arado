@@ -58,6 +58,8 @@
         <file>images/aradocap-transparent32.png</file>
         <file>images/openmielke.png</file>
         <file>images/forward.png</file>
+        <file>images/kmid.png</file>
+        <file>images/webviewer.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
