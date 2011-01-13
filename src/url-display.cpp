@@ -22,6 +22,8 @@
  ****************************************************************/
 
 #include "url-display.h"
+#include "url-display-webview.h"
+#include "url-display-tableview.h"
 #include "db-manager.h"
 #include "arado-url.h"
 #include "search.h"
@@ -42,7 +44,6 @@
 #include <QSizePolicy>
 #include <QAction>
 #include <QTimer>
-#include <QResizeEvent>
 #include <QDebug>
 #include <QUrl>
 #include <QKeySequence>
@@ -53,12 +54,6 @@ using namespace deliberate;
 namespace arado
 {
 
-const int UrlDisplay::Col_Mark (0);
-const int UrlDisplay::Col_Title (2);
-const int UrlDisplay::Col_Url (3);
-const int UrlDisplay::Col_Time (4);
-const int UrlDisplay::Col_Browse (1);
-
 UrlDisplay::UrlDisplay (QWidget * parent)
   :QWidget (parent),
    db (0),
@@ -67,20 +62,18 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    locked (false),
    searchId (-1),
    refreshUrls (0),
-   slowTimer (0),
    refreshPeriod (18),
    autoRefresh (false),
    maxUrlsShown (500)
 {
   search = new Search (this);
   ui.setupUi (this);
+
+  urlDisplayView = NULL;
+  DisplayUrlsAsTable(Settings ().value ("urldisplay/urldisplayastable", false).toBool());
+
   //ui.fakeButton->setEnabled (false);
   browseIcon = QIcon (":/images/kugar.png");
-  allowSort = ui.urlTable->isSortingEnabled ();
-  connect (ui.urlTable, SIGNAL (currentCellChanged (int, int, int, int)),
-           this, SLOT (ActiveCell (int, int, int, int)));
-  connect (ui.urlTable, SIGNAL (itemDoubleClicked (QTableWidgetItem *)),
-           this, SLOT (Picked (QTableWidgetItem*)));
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
   connect (ui.recentButton, SIGNAL (clicked ()),
@@ -108,12 +101,14 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   } else {
     refreshUrls->stop ();
   }
-  int slowPeriod (5*60); 
+
+  int slowPeriod (5*60);
   slowPeriod = Settings ().value ("urldisplay/slowperiod",
-                                 slowPeriod).toInt();
+                                  slowPeriod).toInt();
   Settings().setValue ("urldisplay/slowperiod",slowPeriod);
   slowTimer->start (slowPeriod*1000);
   QTimer::singleShot (10*1000, this, SLOT (SlowUpdate()));
+
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
                             maxUrlsShown).toInt();
   Settings().setValue ("urldisplay/maxshown",maxUrlsShown);
@@ -137,10 +132,7 @@ UrlDisplay::AddButton ()
 void
 UrlDisplay::RecentButton ()
 {
-  ui.urlTable->clearSelection ();
-  ui.urlTable->clearContents();
-  ui.urlTable->setAlternatingRowColors(false);
-  ui.urlTable->setStyleSheet("background-color: black");
+  urlDisplayView->Updating();
   ui.bottomLabel->setText (tr("Updating .........."));
   if (db) {
     db->ResetUrlAddCount ();
@@ -154,8 +146,7 @@ UrlDisplay::Refresh (bool whenHidden)
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
                                    maxUrlsShown).toInt();
   ShowRecent (maxUrlsShown, whenHidden);
-  ui.urlTable->setStyleSheet("background-color: white");
-  ui.urlTable->setAlternatingRowColors(true);
+  urlDisplayView->UpdatingFinished();
   if (refreshUrls) {
     if (!refreshUrls->isActive() && autoRefresh) {
       refreshUrls->start (refreshPeriod*1000); 
@@ -180,62 +171,8 @@ UrlDisplay::Unlock ()
 void
 UrlDisplay::ShowUrls (AradoUrlList & urls)
 {
-  QList <QTableWidgetItem*> selection = ui.urlTable->selectedItems();
-  if (!selection.isEmpty()) {
-    return;
-  }
-  ui.urlTable->clearContents ();
-  ui.urlTable->setRowCount (urls.size());
-  ui.urlTable->setEditTriggers (0);
-  ui.urlTable->setColumnWidth (Col_Browse, 
-               browseIcon.availableSizes().at(0).width());
-  for (int u=0; u<urls.size(); u++) {
-    quint64 stamp;
-    AradoUrl url = urls[u];
-    stamp = url.Timestamp ();
-    Lock ();
-    ui.urlTable->setSortingEnabled (false);
-    QTableWidgetItem * item = new QTableWidgetItem (QString(url.Hash().toUpper()));
-    item->setData (Url_Celltype, Cell_Hash);
-    item->setToolTip (tr("Arado-Flashmark"));
-    ui.urlTable->setItem (u,Col_Mark,item);
+  urlDisplayView->ShowUrls(urls);
 
-    item = new QTableWidgetItem (url.Description ());
-    item->setData (Url_Celltype, Cell_Desc);
-    item->setData (Url_Keywords, url.Keywords ());
-    QString words = url.Keywords().join("\n");
-    if (words.length() < 1) {
-      words = tr ("no keywords");
-    }
-    item->setToolTip (words);
-    ui.urlTable->setItem (u,Col_Title,item);
-
-    item = new QTableWidgetItem (url.Url().toString());
-    item->setData (Url_Celltype, Cell_Url);
-    ui.urlTable->setItem (u,Col_Url,item);
-
-    QString time = QDateTime::fromTime_t (stamp).toString(Qt::ISODate);
-    time.replace ('T'," ");
-    item = new QTableWidgetItem (time);
-    item->setData (Url_Celltype, Cell_Time);
-    ui.urlTable->setItem (u,Col_Time,item);
-    Unlock ();
-    ui.urlTable->setSortingEnabled (allowSort);
-    QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
-    labelTime.replace ('T'," ");
-    QString labelText (tr("Recent Consciousness to %1")
-                           .arg (labelTime));
-    ui.bottomLabel->setText (labelText);
-    item = new QTableWidgetItem (tr(""));
-    item->setToolTip (tr("Browse"));
-    item->setData (Url_Celltype, Cell_Browse);
-    item->setIcon (browseIcon);
-    ui.urlTable->setItem (u, Col_Browse, item);
-  }
-  if (ui.urlTable->rowCount() > 0) {
-    normalRowHeight = ui.urlTable->rowHeight (0);
-    bigRowHeight = qMin (3*normalRowHeight, ui.urlTable->size().height());
-  }
   ShowAddCount ();
 }
 
@@ -274,61 +211,12 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
   if (db && !locked && (whenHidden || isVisible ())) {
     AradoUrlList urls = db->GetRecent (howmany);
     ShowUrls (urls);
-    ui.urlTable->sortByColumn(Col_Time,Qt::DescendingOrder);
-  }
-}
-
-void
-UrlDisplay::ActiveCell (int row, int col, int oldRow, int oldCol)
-{
-  QTableWidgetItem * item = ui.urlTable->item (row, col);
-  QTableWidgetItem * oldItem = ui.urlTable->item (oldRow, oldCol);
-  if (oldItem) {
-    ui.urlTable->setRowHeight (oldRow, normalRowHeight);
-  }
-  if (item) {
-    UrlCellType ctype = UrlCellType (item->data (Url_Celltype).toInt());
-    if (ctype == Cell_Desc) {
-      ui.urlTable->setRowHeight (row, bigRowHeight);
-    } else if (ctype == Cell_Browse) {
-      QUrl url;
-      QTableWidgetItem * urlItem (0);
-      for (int c=0; c<ui.urlTable->columnCount(); c++) {
-        urlItem = ui.urlTable->item (row, c);
-        if (urlItem && 
-            UrlCellType (urlItem->data (Url_Celltype).toInt()) 
-             == Cell_Url) {
-          DoOpenUrl (urlItem);
-          break;
-        }
-      }
-    }
-  }
-}
-
-void
-UrlDisplay::resizeEvent (QResizeEvent * event)
-{
-  if (event) {
-    bigRowHeight = qMin (3*normalRowHeight, ui.urlTable->size().height());
-  }
-}
-
-void
-UrlDisplay::DoOpenUrl (QTableWidgetItem * urlItem)
-{
-  QTableWidgetItem * current (0);
-  if (urlItem == 0) {
-    current = ui.urlTable->currentItem ();
-  } else {
-    current = urlItem;
-  }
-  if (current) {
-    if (UrlCellType (current->data(Url_Celltype).toInt()) 
-        == Cell_Url) {
-      QUrl target (current->text ());    
-      QDesktopServices::openUrl (target);
-    }
+    urlDisplayView->SortByTime(Qt::DescendingOrder);
+    QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
+    labelTime.replace ('T'," ");
+    QString labelText (tr("Recent Consciousness to %1")
+                           .arg (labelTime));
+    SetStatusMessage (labelText);
   }
 }
 
@@ -337,7 +225,7 @@ UrlDisplay::DoSearch ()
 {
   searchId = -1;
   if (search) {
-    ui.urlTable->clearContents ();
+    urlDisplayView->ClearContents();
     searchData = ui.textInput->text();
     searchId = search->Liberal (searchData);
     ui.textInput->setStyleSheet("background-color: black; border: 2px solid black");
@@ -350,7 +238,7 @@ UrlDisplay::DoHashLookup ()
 {
   searchId = -1;
   if (search) {
-    ui.urlTable->clearContents ();
+    urlDisplayView->ClearContents();
     searchData = ui.textInput->text();
     searchId = search->Hash (searchData);
     ui.textInput->setStyleSheet("background-color: black; border: 2px solid black");
@@ -377,7 +265,7 @@ UrlDisplay::GetSearchResult (int resultId)
         urls.append (url);
       }
     }
-    ui.urlTable->clearSelection ();
+    urlDisplayView->ClearSelection();
     ShowUrls (urls);
     ui.textInput->setStyleSheet("background-color: white; border: 2px solid #079E00;");
     ui.bottomLabel->setText (tr("Search Experience for: %1").arg (searchData));
@@ -391,169 +279,28 @@ UrlDisplay::SlowUpdate ()
   ui.middleLabel->setText (tr("Search within about %1 entries.").arg(numUrls));
 }
 
-
-void
-UrlDisplay::Picked (QTableWidgetItem *item)
-{
-  if (item) {
-    Lock ();
-    UrlCellType  tipo;
-    tipo = UrlCellType (item->data(Url_Celltype).toInt());
-    if (tipo == Cell_Url) {
-      CellMenuUrl (item);
-    } else if (tipo == Cell_Desc) {
-      CellMenuDesc (item);
-    } else if (tipo == Cell_Hash) {
-      CellMenu (item);
-    } else if (tipo == Cell_Time) {
-      CellMenuTime (item);
-    } else {
-      CellMenu (item);
-    } 
-    Unlock ();
-  }
-}
-
-
-QAction *
-UrlDisplay::CellMenu (const QTableWidgetItem *item,
-                      const QList<QAction *>  extraActions)
-{
-  if (item == 0) {
-    return 0;
-  }
-  QMenu menu (this);
-  QAction * copyAction = new QAction (tr("Copy Text"),this);
-  copyAction->setIcon(QPixmap(":/images/copy.png"));
-  QAction * mailAction = new QAction (tr("Mail Text"),this);
-  mailAction->setIcon(QPixmap(":/images/mail.png"));
-  menu.addAction (copyAction);
-  menu.addAction (mailAction);
-  if (extraActions.size() > 0) {
-    menu.addSeparator ();
-  }
-  for (int a=0; a < extraActions.size(); a++) {
-    menu.addAction (extraActions.at (a));
-  }
-  
-  QAction * select = menu.exec (QCursor::pos());
-  if (select == copyAction) {
-    QClipboard *clip = QApplication::clipboard ();
-    if (clip) {
-      clip->setText (item->text());  
-    }
-    return 0;
-  } else if (select == mailAction) {
-    QStringList mailBodytotal;
-    QString mailBody = item->text();
-    QString blankline (tr("    "));
-    QString webpageline (tr("Discover http://arado.sf.net Websearch - Syncs, shortens "
-                             "and searches within (y)our URLs and Bookmarks."));
-    mailBodytotal << mailBody
-                  << blankline
-                  << webpageline ;
-    QString urltext = tr("mailto:?subject=Aradofied\%20Web\%20Alert\%20for\%20you&body=%1")
-                      .arg (mailBodytotal.join("\r\n"));
-    QDesktopServices::openUrl (urltext);
-    return 0;
-  } else {
-    return select;
-  }
-}
-
-void
-UrlDisplay::CellMenuUrl (const QTableWidgetItem * item)
-{
-  if (item == 0) {
-    return;
-  }
-  //
-  QString convertedurl (item->text());
-
-  if (convertedurl.trimmed().toLower().startsWith("http://www.youtube.com/watch?v="))
-   {
-    convertedurl = convertedurl.replace("http://www.youtube.com/watch?v=", "http://www.youtube-mp3.org/get?video_id=");
-
-    QAction * playAction = new QAction (tr("Convert Youtube-URL to MP3"),this);
-    playAction->setIcon(QPixmap(":/images/youtubemp3play.png"));
-
-    QList<QAction*> list;
-    list.append (playAction);
-
-    QAction * select = CellMenu (item, list);
-    if (select == playAction) {
-      QDesktopServices::openUrl (convertedurl);
-    }
-   }
-   else
-  {
-  //
-  QAction * openAction = new QAction (tr("Browse URL"),this);
-  openAction->setIcon(QPixmap(":/images/kugar.png"));
-  QList<QAction*> list;
-  list.append (openAction);
-
-  QAction * select = CellMenu (item, list);
-  if (select == openAction) {
-    QUrl url (item->text());
-    QDesktopServices::openUrl (url);
-  }
-  }
-}
-
-
-void
-UrlDisplay::CellMenuTime (const QTableWidgetItem * item)
-{
-  if (item == 0) {
-    return;
-  }
-  QList<QAction*> list;
-
-  CellMenu (item, list);
-}
-
-
-void
-UrlDisplay::CellMenuDesc (const QTableWidgetItem * item)
-{
-  if (item == 0) {
-    return;
-  }
-  QAction *copyKeysAction = new QAction (tr("Copy Keywords"), this);
-  copyKeysAction->setIcon(QPixmap(":/images/copy.png"));
-  QAction *mailKeysAction = new QAction (tr("Mail Keywords"), this);
-  mailKeysAction->setIcon(QPixmap(":/images/mail.png"));
-  QList <QAction*> list;
-  list.append (copyKeysAction);
-  list.append (mailKeysAction);
-
-  QAction * select = CellMenu (item, list);
-  QString mailBody;
-  bool    mailit (false);
-  if (select == copyKeysAction) {
-    QClipboard * clip = QApplication::clipboard ();
-    if (clip) {
-      QString keytext = item->data (Url_Keywords).toStringList().join("\n");
-      clip->setText (keytext);
-    }
-  } else if (select == mailKeysAction) {
-    mailBody = item->data (Url_Keywords).toStringList().join("\n");
-    mailit = (mailBody.length() > 0);
-  }
-  if (mailit) {
-    QString urltext = tr("mailto:?subject=Arado\%20Data&body=%1")
-                      .arg (mailBody);
-    QDesktopServices::openUrl (urltext);
-  }
-}
-
 void
 UrlDisplay::SetStatusMessage (const QString & msg)
 {
   ui.bottomLabel->setText (msg);
 }
 
+void
+UrlDisplay::DisplayUrlsAsTable(bool table)
+{
+    if (urlDisplayView) {
+        delete urlDisplayView;
+    }
+
+    if (table) {
+        urlDisplayView = new UrlDisplayTableView();
+    } else {
+        urlDisplayView = new UrlDisplayWebView();
+    }
+
+    ui.urlDisplayLayout->addWidget(urlDisplayView);
+    urlDisplayView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
 
 } // namespace
 

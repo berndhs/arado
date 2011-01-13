@@ -121,6 +121,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
   // mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));  // Bug: does not load feedurl database
+  SetupDisplayUrlsAction();
 
 }
 
@@ -389,6 +390,9 @@ AradoMain::Connect ()
     connect (rssPoll, SIGNAL (SigPolledRss (QString)),
              this, SLOT (CatchPolledRss (QString)));
   }
+
+  connect(mainUi.actionToggleUrlDisplay, SIGNAL(triggered()),
+            this, SLOT(ToggleUrlsDisplay()));
 }
 
 /// \brief Close down
@@ -781,6 +785,27 @@ AradoMain::CatchPolledRss (QString nick)
     urlDisplay->SetStatusMessage ("");
   }
   urlDisplay->ShowAddCount ();
+}
+
+void
+AradoMain::ToggleUrlsDisplay()
+{
+    bool table = !Settings().value("urldisplay/urldisplayastable").toBool();
+    Settings().setValue("urldisplay/urldisplayastable", table);
+    SetupDisplayUrlsAction();
+    urlDisplay->DisplayUrlsAsTable(table);
+}
+
+void
+AradoMain::SetupDisplayUrlsAction()
+{
+    if (Settings().value("urldisplay/urldisplayastable").toBool()) {
+        mainUi.actionToggleUrlDisplay->setText(tr("View URLs in webpage"));
+        mainUi.actionToggleUrlDisplay->setIcon(QPixmap(":/images/webviewer.png"));
+    } else {
+        mainUi.actionToggleUrlDisplay->setText(tr("View URLs in table"));
+        mainUi.actionToggleUrlDisplay->setIcon(QPixmap(":/images/kmid.png"));
+    }
 }
 
 } // namespace

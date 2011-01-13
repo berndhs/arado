@@ -38,6 +38,7 @@ namespace arado
 
 class DBManager;
 class Search ;
+class UrlDisplayView;
 
 class UrlDisplay : public QWidget 
 {
@@ -68,42 +69,28 @@ public:
 public slots:
 
   void  Refresh (bool whenHidden = false);
-  void  Picked (QTableWidgetItem *item);
   void  AddButton ();
-  void  DoOpenUrl (QTableWidgetItem * urlItem = 0);
   void  DoSearch ();
   void  DoHashLookup ();
   void  GetSearchResult (int resultid);
   void  UrlsAdded (int numAdded);
   void  ShowAddCount ();
+  void  DisplayUrlsAsTable(bool);
 
 private slots:
 
   void RecentButton ();
   void SlowUpdate ();
 
-  void ActiveCell (int row, int col, int oldRow, int oldCol);
-
 signals:
 
   void AddUrl (QString urlString);
-
-protected:
- 
-  void resizeEvent ( QResizeEvent * event );
-
 
 private:
 
   void     Lock ();
   void     Unlock ();
   void     ShowUrls (AradoUrlList & urls);
-  void     CellMenuUrl (const QTableWidgetItem * item);
-  void     CellMenuDesc (const QTableWidgetItem * item);
-  void     CellMenuTime (const QTableWidgetItem * item);
-  QAction* CellMenu (const QTableWidgetItem *item,
-                    const QList <QAction*> extraActions
-                          = QList <QAction*>() );
 
   Ui_UrlDisplay     ui;
   DBManager        *db;
@@ -120,12 +107,7 @@ private:
   int               normalRowHeight;
   int               bigRowHeight;
   QIcon             browseIcon;
-
-  static const int Col_Mark;
-  static const int Col_Title;
-  static const int Col_Url;
-  static const int Col_Time;
-  static const int Col_Browse;
+  UrlDisplayView  * urlDisplayView;
 
 };
 
