@@ -5,33 +5,35 @@
 
 class QUrl;
 
-namespace Ui {
-    class UrlDisplayWebViewTab;
+namespace Ui
+{
+class UrlDisplayWebViewTab;
 }
 
-namespace arado {
+namespace arado
+{
 
 class UrlDisplayWebViewTab : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit UrlDisplayWebViewTab(const QUrl &, QWidget *parent = 0);
-    ~UrlDisplayWebViewTab();
+  explicit UrlDisplayWebViewTab(const QUrl &, QWidget *parent = 0);
+  ~UrlDisplayWebViewTab();
 
 private slots:
-    void UrlChanged(const QUrl &);
-    void FinishedLoading(bool);
-    void StartedLoading();
-    void ClosePage();
-    void OpenInBrowser();
+  void UrlChanged(const QUrl &);
+  void FinishedLoading(bool);
+  void StartedLoading();
+  void ClosePage();
+  void OpenInBrowser();
 
 private:
-    Ui::UrlDisplayWebViewTab *ui;
+  Ui::UrlDisplayWebViewTab *ui;
 
 signals:
-    void PageNameChanged(UrlDisplayWebViewTab *, const QString &);
-    void CloseTab(UrlDisplayWebViewTab *);
+  void PageNameChanged(UrlDisplayWebViewTab *, const QString &);
+  void CloseTab(UrlDisplayWebViewTab *);
 };
 
 }

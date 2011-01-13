@@ -5,21 +5,22 @@
 
 class AradoUrl;
 
-namespace arado {
+namespace arado
+{
 
 class UrlDisplayViewItem
 {
 public:
-    UrlDisplayViewItem(const AradoUrl);
+  UrlDisplayViewItem(const AradoUrl);
 
-    QString Html();
+  QString Html();
 
 private:
-    AradoUrl url;
+  AradoUrl url;
 
-    QString Timestamp();
-    QString Keywords();
-    QString Flashmark();
+  QString Timestamp();
+  QString Keywords();
+  QString Flashmark();
 };
 
 }

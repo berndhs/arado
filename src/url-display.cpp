@@ -17,7 +17,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
@@ -91,10 +91,10 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   connect (slowTimer, SIGNAL (timeout()), this, SLOT (SlowUpdate()));
 
   refreshPeriod = Settings ().value ("urldisplay/refreshperiod",
-                                 refreshPeriod).toInt();
+                                     refreshPeriod).toInt();
   Settings().setValue ("urldisplay/refreshperiod",refreshPeriod);
   autoRefresh = Settings ().value ("urldisplay/autorefresh",
-                                 autoRefresh).toBool();
+                                   autoRefresh).toBool();
   Settings().setValue ("urldisplay/autorefresh",autoRefresh);
   if (autoRefresh) {
     refreshUrls->start (refreshPeriod*1000);
@@ -110,7 +110,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   QTimer::singleShot (10*1000, this, SLOT (SlowUpdate()));
 
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
-                            maxUrlsShown).toInt();
+                                   maxUrlsShown).toInt();
   Settings().setValue ("urldisplay/maxshown",maxUrlsShown);
 }
 
@@ -149,7 +149,7 @@ UrlDisplay::Refresh (bool whenHidden)
   urlDisplayView->UpdatingFinished();
   if (refreshUrls) {
     if (!refreshUrls->isActive() && autoRefresh) {
-      refreshUrls->start (refreshPeriod*1000); 
+      refreshUrls->start (refreshPeriod*1000);
     } else if (!autoRefresh) {
       refreshUrls->stop ();
     }
@@ -186,7 +186,7 @@ UrlDisplay::ShowAddCount ()
   QString countText;
   if (urlAddCount > 0) {
     countText = tr("Show Recent: %1")
-                      .arg (urlAddCount);
+                .arg (urlAddCount);
   } else {
     countText = tr("Show Recent");
   }
@@ -197,8 +197,8 @@ void
 UrlDisplay::UrlsAdded (int numAdded)
 {
   QString labelText = tr("Last update at %1")
-                       .arg(QDateTime::currentDateTime()
-                         .toString("hh:mm:ss"));
+                      .arg(QDateTime::currentDateTime()
+                           .toString("hh:mm:ss"));
   ui.bottomLabel->setText (labelText);
   if (numAdded > 0) {
     ShowAddCount ();
@@ -215,7 +215,7 @@ UrlDisplay::ShowRecent (int howmany, bool whenHidden)
     QString labelTime = QDateTime::currentDateTime ().toString(Qt::ISODate);
     labelTime.replace ('T'," ");
     QString labelText (tr("Recent Consciousness to %1")
-                           .arg (labelTime));
+                       .arg (labelTime));
     SetStatusMessage (labelText);
   }
 }
@@ -288,18 +288,18 @@ UrlDisplay::SetStatusMessage (const QString & msg)
 void
 UrlDisplay::DisplayUrlsAsTable(bool table)
 {
-    if (urlDisplayView) {
-        delete urlDisplayView;
-    }
+  if (urlDisplayView) {
+    delete urlDisplayView;
+  }
 
-    if (table) {
-        urlDisplayView = new UrlDisplayTableView();
-    } else {
-        urlDisplayView = new UrlDisplayWebView();
-    }
+  if (table) {
+    urlDisplayView = new UrlDisplayTableView();
+  } else {
+    urlDisplayView = new UrlDisplayWebView();
+  }
 
-    ui.urlDisplayLayout->addWidget(urlDisplayView);
-    urlDisplayView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  ui.urlDisplayLayout->addWidget(urlDisplayView);
+  urlDisplayView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } // namespace

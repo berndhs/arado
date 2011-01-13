@@ -19,7 +19,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 #include <Qt>
@@ -40,27 +40,27 @@ class DBManager;
 class Search ;
 class UrlDisplayView;
 
-class UrlDisplay : public QWidget 
+class UrlDisplay : public QWidget
 {
-Q_OBJECT
+  Q_OBJECT
 
 public:
 
   enum ModelData {
-       Url_Keywords = Qt::UserRole + 1,
-       Url_Celltype = Qt::UserRole + 2
-       };
+    Url_Keywords = Qt::UserRole + 1,
+    Url_Celltype = Qt::UserRole + 2
+  };
   enum UrlCellType {
-       Cell_None = 0,
-       Cell_Hash = 1,
-       Cell_Desc = 2,
-       Cell_Url = 3,
-       Cell_Time = 4,
-       Cell_Browse = 5
-       };
+    Cell_None = 0,
+    Cell_Hash = 1,
+    Cell_Desc = 2,
+    Cell_Url = 3,
+    Cell_Time = 4,
+    Cell_Browse = 5
+  };
 
   UrlDisplay (QWidget *parent);
-  
+
   void  SetDB (DBManager *dbm);
 
   void  ShowRecent (int howmany, bool whenHidden = false);

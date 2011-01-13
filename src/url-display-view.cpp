@@ -3,10 +3,11 @@
 #include "url-display-viewitem.h"
 #include "arado-url.h"
 
-namespace arado {
+namespace arado
+{
 
 UrlDisplayView::UrlDisplayView(QWidget *parent)
-        :QWidget (parent)
+  :QWidget (parent)
 {
 }
 
