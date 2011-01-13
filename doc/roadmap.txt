@@ -10,12 +10,6 @@ ideas for possible things to implement by occasion:
 
 05) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
-06) status bar: show recent button deletes the connection info, maybe this should be added?
-   -- what does this mean ? There never was any connection into in the status
-      bar. It currently contains the status of what has recently been done.
-
-07) about help message:  Date could be like in the table and a new line (paragraph) after the version number.
-    -- NO. 
 
 08) a top pulldown menu to copy out or mail the whole line of the data entry, not only a cell
     -- Yes, this would be a nice thing to have. Maybe in a context menu of
@@ -90,25 +84,27 @@ but extended search should not ask Arado nodes, as this search is done locally a
     http://127.0.0.1/arado?request=recent&count=5   -> might need to be extended then with "&webgui=true", to know get requestes to create 10 thumbnails
     are of interest.
 
-30) add crawler to Arado for StartingUrls (grub, or any other)
+30) add crawler to Arado for StartingUrls, for all incoming urls, only for browsed urls
 
 32) Run URL Database in RAM-cache only modus for 10 MB of urls (new entries deleting the oldest)
 
 33) Implement Range Load of urls, ideally not a random chunk of urls, but systematically
 
-34) allow A and B Peers to download full database over Range function
-
 35) RSS item display in a temp / RAM SQL-Database for RSS items only in the RSS tab
-
-36) SQL Search pattern optimization to have shorter search time for keywords
 
 37) IRC-like Chat over http protocol for A and B peers
 
 38) miniupnp implementation with gethostinfo from a DHT, to allow natted peers to be a server.
 
-39) Add keywords to RSS urls from description´s first 100 characters.
-
 40) Damned Splitter: RSS Tab: If unchecked the Edit checkbox, splitter should be moved, expanded, resized or streteched to the max right side.
+
+41) Context menue for webview
+
+42) Webview: If the keyword_cell is empty, do not show "keywords: , "
+
+43) Webview: Icon for youtube-url, download for MP3 conversion
+
+44) webview: display time ranges for search results of keywordsearch, e.g. urls for the keyword, within the last week..
 
 
 
