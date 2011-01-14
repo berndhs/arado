@@ -22,8 +22,12 @@ UrlDisplayViewItem::Html()
                   "<img src=\"qrc:/html/html/images/kugar.png\">"
                   "</a></div>"
              "<small>";
-  html_str.append(QObject::tr("Keywords:"));
-  html_str.append(" %4, \n");
+  if (url.Keywords().count() > 0) {
+    html_str.append(QObject::tr("<span style=\"font-style:italic\">"
+                                "Keywords: %4 </span>"));
+  } else {
+    html_str.append(" %4 \n");   
+  }
   html_str.append(QObject::tr("Arado-Flashmark:"));
   html_str.append(" %5<br>\n"
                   "%1</small>\n"
@@ -45,7 +49,7 @@ UrlDisplayViewItem::Timestamp()
 QString
 UrlDisplayViewItem::Keywords()
 {
-  return url.Keywords().join(" ");
+  return url.Keywords().join("; ");
 }
 
 QString
