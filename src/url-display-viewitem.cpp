@@ -15,12 +15,12 @@ UrlDisplayViewItem::Html()
 {
   QString html_str;
   html_str = "<div class=\"item\">\n"
-             "<h4>"
-             "<span style=\"font-size:smaller; font-weight:normal\">%3 &nbsp;</span>"
-             "<a href=\"%1\">%2</a></h4>\n"
              "<div class=\"kugar\"><a href=\"%1\">"
                   "<img src=\"qrc:/html/html/images/kugar.png\">"
                   "</a></div>"
+             "<h4>"
+             "<span style=\"font-size:smaller; font-weight:normal\">%3 &nbsp;</span>"
+             "<a href=\"%1\">%2</a></h4>\n"
              "<small>";
   if (url.Keywords().count() > 0) {
     html_str.append(QObject::tr("<span style=\"font-style:italic\">"
