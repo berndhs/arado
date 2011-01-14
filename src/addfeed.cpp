@@ -128,7 +128,7 @@ AddRssFeed::MakeKeywords (AradoUrl & aurl, const QString & description)
                                       QString::SkipEmptyParts);
       qSort (words.begin(), words.end(), LongerString);
       int nw = words.count();
-      for (int w=0; w < nw && w < 8; w++) {
+      for (int w=0; w < nw && w < 10; w++) {
         aurl.AddKeyword (words.at(w));
       }
     }
