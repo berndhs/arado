@@ -15,10 +15,12 @@ UrlDisplayViewItem::Html()
 {
   QString html_str;
   html_str = "<div class=\"item\">\n"
-             "<h4><a href=\"%1\">%2</a></h4>\n"
-             "<div class=\"kugar\"><a href=\"%1\"><img src=\"qrc:/html/html/images/kugar.png\"></a></div>"
-             "<p>\n"
-             "%3</p>"
+             "<h4>"
+             "<span style=\"font-size:smaller; font-weight:normal\">%3 &nbsp;</span>"
+             "<a href=\"%1\">%2</a></h4>\n"
+             "<div class=\"kugar\"><a href=\"%1\">"
+                  "<img src=\"qrc:/html/html/images/kugar.png\">"
+                  "</a></div>"
              "<small>";
   html_str.append(QObject::tr("Keywords:"));
   html_str.append(" %4, \n");
@@ -27,7 +29,11 @@ UrlDisplayViewItem::Html()
                   "%1</small>\n"
                   "</div>\n");
 
-  return html_str.arg(url.Url().toString()).arg(url.Description()).arg(Timestamp()).arg(Keywords()).arg(Flashmark());
+  return html_str.arg(url.Url().toString())
+                 .arg(url.Description())
+                 .arg(Timestamp())
+                 .arg(Keywords())
+                 .arg(Flashmark());
 }
 
 QString
