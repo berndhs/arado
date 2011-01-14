@@ -19,25 +19,32 @@ UrlDisplayViewItem::Html()
                   "<img src=\"qrc:/html/html/images/kugar.png\">"
                   "</a></div>"
              "<h4>"
-             "<span style=\"font-size:smaller; font-weight:normal\">%3 &nbsp;</span>"
              "<a href=\"%1\">%2</a></h4>\n"
              "<small>";
-  if (url.Keywords().count() > 0) {
+  bool haveKeywords = url.Keywords().count() > 0;
+  if (haveKeywords) {
     html_str.append(QObject::tr("<span style=\"font-style:italic\">"
-                                "Keywords: %4 </span>"));
-  } else {
-    html_str.append(" %4 \n");   
+                                "Keywords: %5 </span><br>"));
   }
+  html_str.append (
+             "<span style=\"font-size:smaller;"
+             " font-weight:normal\">%3 &nbsp;</span>");
   html_str.append(QObject::tr("Arado-Flashmark:"));
-  html_str.append(" %5<br>\n"
+  html_str.append(" %4<br>\n"
                   "%1</small>\n"
                   "</div>\n");
-
-  return html_str.arg(url.Url().toString())
+  if (haveKeywords) {
+    return html_str.arg(url.Url().toString())
                  .arg(url.Description())
                  .arg(Timestamp())
-                 .arg(Keywords())
+                 .arg(Flashmark())
+                 .arg(Keywords());
+  } else {
+    return html_str.arg(url.Url().toString())
+                 .arg(url.Description())
+                 .arg(Timestamp())
                  .arg(Flashmark());
+  }
 }
 
 QString
