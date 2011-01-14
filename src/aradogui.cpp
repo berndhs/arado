@@ -408,6 +408,9 @@ AradoMain::DoneAddFeed (bool changed)
   if (rssList) {
     int tabNum = mainUi.tabWidget->indexOf (rssList);
     mainUi.tabWidget->removeTab (tabNum);
+    if (changed && enginePipe) {
+      enginePipe->write (QByteArray ("RSSRESTART\n"));
+    }
   }
 }
 

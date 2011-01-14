@@ -88,7 +88,6 @@ AradoEngine::StartServer ()
   if (parts.at(0) == "SERVE" && parts.count () > 1) {
     QString serviceName = QString ("aradoen%1").arg(parts.at(1));
     bool ok = listen (serviceName);
-qDebug () << " AradoEngine listen on " << serviceName;
     if (!ok) {
       Bailout ("AradoEngine exiting: cannot listen to pipe");
       return;
@@ -146,16 +145,21 @@ AradoEngine::Bailout (const char * msg)
 void
 AradoEngine::ReadPipe ()
 {
-  QByteArray data = mainPipe->read (16*1024);
+  QByteArray data = mainPipe->readLine (16*1024);
   qDebug () << " AradoEngine reads " << data;
-  if (data.startsWith(QByteArray ("CLOSE\n"))) {
+  if (data.startsWith(QByteArray ("CLOSE"))) {
     Quit ();
     return;
   }
   QStringList parts = QString(data).split (QRegExp("\\s"),
                                            QString::SkipEmptyParts);
   QString cmd = parts.at(0);
-  if (cmd == "CRAWL") {
+  qDebug () << " AradoEngine ReadPipe " << data;
+  if (cmd.startsWith ("RSSRESTART")) {
+    if (rssPoll) {
+      rssPoll->Stop ();
+      rssPoll->Start ();
+    }
   }
 }
 

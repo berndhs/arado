@@ -62,6 +62,7 @@ private slots:
 private:
 
   void Bailout (const char * msg);
+  void RestartRss ();
 
   QApplication   *app;
   QFile          *stdinFromMain;
