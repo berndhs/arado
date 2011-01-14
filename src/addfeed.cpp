@@ -52,8 +52,6 @@ AddRssFeed::httpFinished (QNetworkReply *reply)
     db->StartTransaction();
     for (int u=0; u<count; u++) {
       AradoUrl newUrl (newUrls.at(u));
-qDebug () << " RssFeed adding url " << newUrl.Description() 
-          << " with keys " << newUrl.Keywords ();
       db->AddUrl (newUrl);
     }
     db->CloseTransaction();
@@ -132,7 +130,6 @@ AddRssFeed::MakeKeywords (AradoUrl & aurl, const QString & description)
       int nw = words.count();
       for (int w=0; w < nw && w < 8; w++) {
         aurl.AddKeyword (words.at(w));
-qDebug () << " RssFeed adding word " << words.at(w);
       }
     }
   }

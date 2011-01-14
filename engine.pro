@@ -26,7 +26,7 @@
 TEMPLATE	= app
 LANGUAGE	= C++
 CONFIG		+= qt warn_on build_all
-QT		+= network sql xml
+QT		+= network sql xml webkit
 
 !include ("options.pri") {
   message ("using defaults, no options.pri")
@@ -56,20 +56,44 @@ TARGET		= bin/arado-engine
 PROJECTNAME	= ARADO
 
 
+RESOURCES        = arado.qrc
+
 UI_DIR = tmp/ui
 MOC_DIR = tmp/moc
 RCC_DIR = tmp/rcc
 OBJECTS_DIR = tmp/obj
+
+FORMS		=	ui/DebugLog.ui \
 
 include ("translate.pri")
 
 HEADERS = src/arado-engine.h \
           src/version.h \
           src/deliberate.h \
+          src/delib-debug.h \
           src/cmdoptions.h \
+          src/db-manager.h \
+          src/delib-rng.h \
+          src/arado-peer.h \
+          src/arado-feed.h \
+          src/arado-url.h \
+          src/rss-poll.h \
+          src/addfeed.h \
+          src/policy.h \
+          src/networkaccessmanager.h \
 
 SOURCES = src/enginemain.cpp \
           src/arado-engine.cpp \
           src/version.cpp \
           src/deliberate.cpp \
+          src/delib-debug.cpp \
           src/cmdoptions.cpp \
+          src/db-manager.cpp \
+          src/delib-rng.cpp \
+          src/arado-peer.cpp \
+          src/arado-feed.cpp \
+          src/arado-url.cpp \
+          src/rss-poll.cpp \
+          src/addfeed.cpp \
+          src/policy.cpp \
+          src/networkaccessmanager.cpp \

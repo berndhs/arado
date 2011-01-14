@@ -26,11 +26,17 @@
 #include <QApplication>
 #include <QLocalServer>
 
+#include "db-manager.h"
+
 class QFile;
 class QLocalSocket;
 
 namespace arado
 {
+
+class Policy;
+class RssPoll;
+
 class AradoEngine : public QLocalServer 
 {
 Q_OBJECT
@@ -51,6 +57,7 @@ private slots:
   void GetNewConnection ();
   void Disconnected ();
   void ReadPipe ();
+  void ReportRssPoll (QString  nick);
 
 private:
 
@@ -59,6 +66,10 @@ private:
   QApplication   *app;
   QFile          *stdinFromMain;
   QLocalSocket   *mainPipe;
+
+  DBManager       dbm;
+  Policy         *policy;
+  RssPoll        *rssPoll;
 
 };
 

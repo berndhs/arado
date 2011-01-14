@@ -50,7 +50,6 @@ class AddPeerDialog;
 class ListenerEdit;
 class PollSequence;
 class RssList;
-class RssPoll;
 class UPnPClient;
 class CrawlerSettings;
 
@@ -63,6 +62,7 @@ public:
   AradoMain (QWidget *parent, QApplication * pa);
 
   void Start ();
+  void DebugOpts (bool showD, bool logD, const QString & logF);
 
   void closeEvent (QCloseEvent * event);
 
@@ -105,6 +105,7 @@ private slots:
   void ConnectEngine ();
   void EngineConnected ();
   void EngineDisconnected ();
+  void ReadEnginePipe ();
 
   void Restart ();
 
@@ -135,7 +136,6 @@ private:
   Policy             *policy;
   PollSequence       *sequencer;
   RssList            *rssList;
-  RssPoll            *rssPoll;
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;
@@ -146,6 +146,10 @@ private:
   QProcess           *engineProcess;
   QLocalSocket       *enginePipe;
   QString             engineService;
+
+  bool                showDebug;
+  bool                logDebug;
+  QString             logFile;
 
 #if USE_MINIUPNP
   UPnPClient *uPnPClient;

@@ -86,8 +86,8 @@ main (int argc, char *argv[])
 
   deliberate::StartDebugLog (showDebug);
   bool logDebug = opts.SeenOpt ("logdebug");
+  QString logfile ("/dev/null");
   if (logDebug) {
-    QString logfile ("/dev/null");
     opts.SetStringOpt ("logdebug",logfile);
     deliberate::StartFileLog (logfile);
   }
@@ -113,6 +113,7 @@ main (int argc, char *argv[])
 
     arado.setWindowIcon (QIcon (":/arado-logo-colo-128.png"));
     app.setWindowIcon (arado.windowIcon());
+    arado.DebugOpts (showDebug, logDebug, logfile);
     arado.Start ();
 
     appresult = app.exec ();

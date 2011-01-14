@@ -29,6 +29,7 @@
 #include <QTextCodec>
 #include <QDebug>
 #include "deliberate.h"
+#include "delib-debug.h"
 #include "version.h"
 #include "cmdoptions.h"
 
@@ -42,10 +43,10 @@ main (int argc, char * argv[])
   QCoreApplication::setApplicationVersion (pv.VersionNumber());
   deliberate::DSettings  settings;
   deliberate::SetSettings (settings);
-  deliberate::Settings().SetPrefix ("post_");
+  deliberate::Settings().SetPrefix ("engine_");
   settings.setValue ("program",QString ("%1-post").arg(pv.MyName()));
 
-  QApplication app (argc, argv, false);
+  QApplication app (argc, argv);
 
   QString locale = QLocale::system().name();
   QTranslator  translate;
@@ -59,6 +60,31 @@ main (int argc, char * argv[])
   opts.AddStringOption ("logdebug","L",QObject::tr("write Debug log to file"));
   opts.AddStringOption ("lang","l",
                    QObject::tr("language (2-letter lower case)"));
+
+  deliberate::UseMyOwnMessageHandler ();
+
+  bool optsOk = opts.Parse (argc, argv);
+  if (!optsOk) {
+    opts.Usage ();
+    exit(1);
+  }
+  if (opts.WantHelp ()) {
+    opts.Usage ();
+    exit (0);
+  }
+  pv.CLIVersion ();
+  if (opts.WantVersion ()) {
+    exit (0);
+  }
+  bool showDebug = opts.SeenOpt ("debug");
+
+  deliberate::StartDebugLog (showDebug);
+  bool logDebug = opts.SeenOpt ("logdebug");
+  if (logDebug) {
+    QString logfile ("/dev/null");
+    opts.SetStringOpt ("logdebug",logfile);
+    deliberate::StartFileLog (logfile);
+  }
 
 
   if (opts.SeenOpt ("lang")) {

@@ -31,6 +31,9 @@
 #include <stdio.h>
 #include <QDebug>
 
+#include "policy.h"
+#include "rss-poll.h"
+
 namespace arado
 {
 
@@ -38,8 +41,17 @@ AradoEngine::AradoEngine (QObject *parent)
   :QLocalServer (parent),
    app (0),
    stdinFromMain (0),
-   mainPipe (0)
+   mainPipe (0),
+   dbm (this),
+   policy (0),
+   rssPoll (0)
 {
+  policy = new Policy (this);
+  rssPoll = new RssPoll (this);
+  rssPoll->SetDB (&dbm);
+  connect (rssPoll, SIGNAL (SigPolledRss (QString)),
+          this, SLOT (ReportRssPoll (QString)));
+  dbm.SetPolicy (policy);
 }
 
 AradoEngine::~AradoEngine ()
@@ -76,6 +88,7 @@ AradoEngine::StartServer ()
   if (parts.at(0) == "SERVE" && parts.count () > 1) {
     QString serviceName = QString ("aradoen%1").arg(parts.at(1));
     bool ok = listen (serviceName);
+qDebug () << " AradoEngine listen on " << serviceName;
     if (!ok) {
       Bailout ("AradoEngine exiting: cannot listen to pipe");
       return;
@@ -84,13 +97,18 @@ AradoEngine::StartServer ()
     Bailout ("AradoEngine exiting: stdin protocol failure");
     return;
   }
+  dbm.Start ();
+  if (policy) {
+    policy->Load (&dbm);
+  }
 }
 
 void
 AradoEngine::GetNewConnection ()
 {
+  qDebug () << "AradoEngine new connection for " << serverName();
   if (mainPipe) {
-    qWarning ("AradoEngine: refect second connection");
+    qWarning ("AradoEngine: reject second connection");
     return;
   }
   mainPipe = nextPendingConnection ();
@@ -100,6 +118,10 @@ AradoEngine::GetNewConnection ()
   }
   connect (mainPipe, SIGNAL (disconnected()), this, SLOT (Disconnected()));
   connect (mainPipe, SIGNAL (readyRead()), this, SLOT (ReadPipe()));
+  if (rssPoll) {
+    rssPoll->Start ();
+  }
+  mainPipe->write (QByteArray ("RUNNING\n"));
 }
 
 void
@@ -126,8 +148,25 @@ AradoEngine::ReadPipe ()
 {
   QByteArray data = mainPipe->read (16*1024);
   qDebug () << " AradoEngine reads " << data;
-  if (data == QByteArray ("CLOSE\n")) {
+  if (data.startsWith(QByteArray ("CLOSE\n"))) {
     Quit ();
+    return;
+  }
+  QStringList parts = QString(data).split (QRegExp("\\s"),
+                                           QString::SkipEmptyParts);
+  QString cmd = parts.at(0);
+  if (cmd == "CRAWL") {
+  }
+}
+
+void
+AradoEngine::ReportRssPoll (QString nick)
+{
+qDebug () << " report rss poll " << nick << " to pipe " << mainPipe;
+  if (mainPipe) {
+    QString msgPat ("RSSPOLL %1\n");
+    mainPipe->write (msgPat.arg(nick).toUtf8());
+    mainPipe->flush ();
   }
 }
 
@@ -141,6 +180,9 @@ AradoEngine::Quit ()
     stdinFromMain = 0;
   }
   close ();
+  if (rssPoll) {
+    rssPoll->Stop ();
+  }
   if (mainPipe) {
     mainPipe->disconnect ();
     delete mainPipe;

@@ -33,7 +33,6 @@
 #include "listener-edit.h"
 #include "addfeed.h"
 #include "rss-list.h"
-#include "rss-poll.h"
 #include "crawler-settings.h"
 #if USE_MINIUPNP
 #include "upnpclient.h"
@@ -82,7 +81,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    policy (0),
    sequencer (0),
    rssList (0),
-   rssPoll (0),
    httpServer (0),
    httpClient (0),
    httpPoll (0),
@@ -113,8 +111,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   sequencer->SetDB (&dbMgr);
   rssList = new RssList (this);
   rssList->SetDB (&dbMgr);
-  rssPoll = new RssPoll (this);
-  rssPoll->SetDB (&dbMgr);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
@@ -127,6 +123,14 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   // mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));  // Bug: does not load feedurl database
   SetupDisplayUrlsAction();
 
+}
+
+void
+AradoMain::DebugOpts (bool showD, bool logD, const QString & logF)
+{
+  showDebug = showD;
+  logDebug = logD;
+  logFile = logF;
 }
 
 /// \brief Start the main window, initialize
@@ -188,9 +192,6 @@ AradoMain::Start ()
   StartClients ();
   RefreshPeers ();
   StartSequencer ();
-  if (rssPoll) {
-    rssPoll->Start ();
-  }
   if (dbMgr.NumPeers () < 1) {
     QTimer::singleShot (5000,this,SLOT (InitSystem()));
   }
@@ -211,9 +212,6 @@ AradoMain::Restart ()
   StopEngine ();
   StopServers ();
   StopClients ();
-  if (rssPoll) {
-    rssPoll->Stop ();
-  }
   Quit ();
 }
 
@@ -228,7 +226,13 @@ AradoMain::StartEngine ()
   engineProcess = new QProcess (this);
   engineProcess->setProcessChannelMode (QProcess::ForwardedChannels);
   QString exepath = QCoreApplication::applicationDirPath();
-  QString fullBackName = QString ("%1/arado-engine").arg(exepath);
+  QString cmdArgs (QString ("%1%2")
+                     .arg (showDebug ? " -D " : "")
+                     .arg (logDebug ? QString (" -L %1").arg(logFile) : ""));
+  QString fullBackName = QString ("%1/arado-engine%2")
+                                 .arg (exepath)
+                                 .arg (cmdArgs);
+qDebug () << " start engine process " << fullBackName;
   engineProcess->start (fullBackName);
   connect (engineProcess, SIGNAL (started()), this, SLOT (InitEngine()));
 }
@@ -244,7 +248,8 @@ AradoMain::InitEngine ()
                                            - now.secsTo (then)));
     engineProcess->write (QString ("SERVE %1\n").arg (postNum).toUtf8());
     engineService = QString ("aradoen%1").arg(postNum);
-    QTimer::singleShot (100, this, SLOT (ConnectEngine()));
+    QThread::yieldCurrentThread ();
+    QTimer::singleShot (5*1000, this, SLOT (ConnectEngine()));
   }
 }
 
@@ -258,22 +263,49 @@ AradoMain::ConnectEngine ()
   }
   enginePipe = new QLocalSocket (this);
   if (enginePipe) {
+qDebug () << " try to connect to engine " << engineService;
     enginePipe->connectToServer (engineService, QLocalSocket::ReadWrite);
     connect (enginePipe, SIGNAL (connected ()), 
               this, SLOT (EngineConnected ()));
     connect (enginePipe, SIGNAL (disconnected ()),
               this, SLOT (EngineDisconnected ()));
+    connect (enginePipe, SIGNAL (readyRead ()),
+              this, SLOT (ReadEnginePipe ()));
   }
 }
 
 void
 AradoMain::EngineConnected ()
 {
+qDebug () << " AradoMain: aradoengine pipe connected ";
 }
 
 void
 AradoMain::EngineDisconnected ()
 {
+qDebug () << " AradoMain: aradoengine pipe dis-connected ";
+}
+
+void
+AradoMain::ReadEnginePipe ()
+{
+  QByteArray bytes = enginePipe->readLine (4*1024);
+  if (bytes.size() < 1) {
+    return;
+  }
+  QString message (QString::fromUtf8(bytes.data(),bytes.size()));
+  QStringList parts = message.split (QRegExp("\\s"),QString::SkipEmptyParts);
+  if (parts.count() < 1) {
+     return;
+  }
+  QString cmd = parts.at(0);
+  if (cmd == "RSSPOLL") {
+    parts.removeFirst();
+    if (parts.count() < 1) {
+      parts << " ";
+    }
+    CatchPolledRss (parts.join(" "));
+  }
 }
 
 void
@@ -377,10 +409,6 @@ AradoMain::DoneAddFeed (bool changed)
     int tabNum = mainUi.tabWidget->indexOf (rssList);
     mainUi.tabWidget->removeTab (tabNum);
   }
-  if (rssPoll && changed) {
-    rssPoll->Stop ();
-    rssPoll->Start ();
-  }
 }
 
 void
@@ -468,10 +496,6 @@ AradoMain::Connect ()
   if (rssList) {
     connect (rssList, SIGNAL (Closed(bool)),
              this, SLOT (DoneAddFeed (bool)));
-  }
-  if (rssPoll) {
-    connect (rssPoll, SIGNAL (SigPolledRss (QString)),
-             this, SLOT (CatchPolledRss (QString)));
   }
 
   connect(mainUi.actionToggleUrlDisplay, SIGNAL(triggered()),
@@ -561,16 +585,10 @@ AradoMain::DoneConfigEdit (bool saved)
       StopSequencer ();
       StopServers ();
       StopClients ();
-      if (rssPoll) {
-        rssPoll->Stop();
-      }
       StartServers ();
       StartClients ();
       StartSequencer ();
       StartEngine ();
-      if (rssPoll) {
-        rssPoll->Start ();
-      }
     }
   }
 }
