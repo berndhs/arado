@@ -3,11 +3,14 @@
 
 #include "url-display-viewitem.h"
 #include "url-display-webviewtab.h"
+#include "deliberate.h"
 
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
 #include <QDesktopServices>
+
+using namespace deliberate;
 
 namespace arado
 {
@@ -22,6 +25,12 @@ UrlDisplayWebView::UrlDisplayWebView(QWidget *parent) :
   ui->urlView->setContextMenuPolicy(Qt::NoContextMenu);
   QObject::connect(ui->urlView, SIGNAL(linkClicked(const QUrl &)),
                    this, SLOT(UrlViewLinkClicked(const QUrl &)));
+  int iconHeight (16);
+  int iconWidth (16);
+  iconHeight = Settings().value ("urldisplay/aiconheight",iconHeight).toInt();
+  Settings().setValue ("urldisplay/aiconheight",iconHeight);
+  iconWidth = Settings().value ("urldisplay/aiconwidth",iconWidth).toInt();
+  Settings().setValue ("urldisplay/aiconwidth",iconWidth);
 }
 
 UrlDisplayWebView::~UrlDisplayWebView()

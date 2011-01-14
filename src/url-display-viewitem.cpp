@@ -1,13 +1,19 @@
 #include "url-display-viewitem.h"
-
+#include "deliberate.h"
 #include <QDateTime>
+
+using namespace deliberate;
 
 namespace arado
 {
 
 UrlDisplayViewItem::UrlDisplayViewItem(const arado::AradoUrl url)
+  :iconHeight (16),
+   iconWidth (16)
 {
   this->url = url;
+  iconHeight = Settings().value ("urldisplay/aiconheight",iconHeight).toInt();
+  iconWidth = Settings().value ("urldisplay/aiconwidth",iconWidth).toInt();
 }
 
 QString
@@ -27,9 +33,14 @@ UrlDisplayViewItem::Html()
                                 "Keywords: %5 </span><br>"));
   }
   html_str.append (
-             "<span style=\"font-size:smaller;"
+             "<span style=\""
              " font-weight:normal\">%3 &nbsp;</span>");
-  html_str.append(QObject::tr("Arado-Flashmark:"));
+  QString aicon (QString("<img src=\"qrc:/arado-logo-colo-128.png\""
+                   " height=%1px weight=%2px >"
+                   " &nbsp;Flashmark:&nbsp;")
+                   .arg (iconHeight).arg(iconWidth));
+ // html_str.append(QObject::tr("Arado-Flashmark:"));
+  html_str.append (aicon);
   html_str.append(" %4<br>\n"
                   "%1</small>\n"
                   "</div>\n");

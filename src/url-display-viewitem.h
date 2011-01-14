@@ -21,6 +21,9 @@ private:
   QString Timestamp();
   QString Keywords();
   QString Flashmark();
+
+  int iconHeight;
+  int iconWidth;
 };
 
 }
