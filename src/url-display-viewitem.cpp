@@ -24,6 +24,11 @@ UrlDisplayViewItem::Html()
              "<div class=\"kugar\"><a href=\"%1\">"
                   "<img src=\"qrc:/html/html/images/kugar.png\">"
                   "</a></div>"
+
+                  "<div class=\"thumb\"><a href=\"%1\">"
+                       "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
+                       "</a></div>"
+
              "<h4>"
              "<a href=\"%1\">%2</a></h4>"
 
@@ -36,15 +41,15 @@ UrlDisplayViewItem::Html()
   html_str.append(QObject::tr("Arado-Flashmark: "));
   html_str.append (
              "<span style=\"font-size:small;"
-             " font-weight:normal\">%3 &nbsp;</span>");
+             " font-weight:normal\">%3 &nbsp; &bull; &nbsp;</span>");
 
-  QString aicon (QString("<img src=\"qrc:/arado-logo-colo-128.png\""
+  /*QString aicon (QString("<img src=\"qrc:/arado-logo-colo-128.png\""
                    " height=%1px weight=%2px >")
                    .arg (iconHeight).arg(iconWidth));
-  html_str.append (aicon);
+  html_str.append (aicon); */
 
   html_str.append(" %4\n"
-                  " - [ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%1\">Translation</a> ]\n"
+                  "&nbsp; &bull; &nbsp; [ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%1\">Translation</a> ]\n"
                   "<br>"
 
                    "<div class=\"url\">"

@@ -108,5 +108,6 @@
     <qresource prefix="/html">
         <file>html/url-display-view.html</file>
         <file>html/images/kugar.png</file>
+        <file>html/images/arado-logo-colo-32.png</file>
     </qresource>
 </RCC>
