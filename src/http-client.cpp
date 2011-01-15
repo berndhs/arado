@@ -54,22 +54,22 @@ HttpClient::HttpClient (QObject *parent)
   network = new NetworkAccessManager (this);
   connect (network, SIGNAL (finished (QNetworkReply *)),
            this, SLOT (HandleReply (QNetworkReply *)));
-  askGet = Settings().value ("http/getask",askGet).toBool();
-  Settings ().setValue ("http/getask",askGet);
-  offerPut = Settings().value("http/putoffer",offerPut).toBool();
-  Settings ().setValue ("http/putoffer",offerPut);
-  tradeAddr = Settings().value ("transfer/addresses",tradeAddr).toBool();
-  Settings().setValue ("transfer/addresses", tradeAddr);
-  tradeUrl = Settings().value ("transfer/urls",tradeUrl).toBool();
-  Settings().setValue ("transfer/urls", tradeUrl);
+  askGet = Settings().simpleValue ("http/getask",askGet).toBool();
+  Settings ().setSimpleValue ("http/getask",askGet);
+  offerPut = Settings().simpleValue("http/putoffer",offerPut).toBool();
+  Settings ().setSimpleValue ("http/putoffer",offerPut);
+  tradeAddr = Settings().simpleValue ("transfer/addresses",tradeAddr).toBool();
+  Settings().setSimpleValue ("transfer/addresses", tradeAddr);
+  tradeUrl = Settings().simpleValue ("transfer/urls",tradeUrl).toBool();
+  Settings().setSimpleValue ("transfer/urls", tradeUrl);
 
   serverSelf = new AradoPeer;
   serverSelf->SetNick ("self");
-  serverSelf->SetAddr (Settings().value ("http/address").toString());
-  serverSelf->SetPort (Settings().value ("http/port").toUInt());
+  serverSelf->SetAddr (Settings().simpleValue ("http/address").toString());
+  serverSelf->SetPort (Settings().simpleValue ("http/port").toUInt());
   serverSelf->SetLevel ("A");
-  bool selfRunning = Settings().value("http/run").toBool();
-  serverSelf->SetUuid (QUuid(Settings().value ("personal/uuid").toString()));
+  bool selfRunning = Settings().simpleValue("http/run").toBool();
+  serverSelf->SetUuid (QUuid(Settings().simpleValue ("personal/uuid").toString()));
   if (selfRunning) {
     serverSelf->SetState (AradoPeer::State_Alive);
   } else {

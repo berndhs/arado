@@ -33,6 +33,9 @@
 
 #include "policy.h"
 #include "rss-poll.h"
+#include "http-server.h"
+#include "http-client.h"
+#include "poll-sequence.h"
 
 namespace arado
 {
@@ -42,16 +45,26 @@ AradoEngine::AradoEngine (QObject *parent)
    app (0),
    stdinFromMain (0),
    mainPipe (0),
-   dbm (this),
+   dbMgr (this),
    policy (0),
-   rssPoll (0)
+   rssPoll (0),
+   httpDefaultPort (29998),
+   sequencer (0),
+   httpServer (0),
+   httpClient (0),
+   httpPoll (0)
 {
   policy = new Policy (this);
   rssPoll = new RssPoll (this);
-  rssPoll->SetDB (&dbm);
+  rssPoll->SetDB (&dbMgr);
   connect (rssPoll, SIGNAL (SigPolledRss (QString)),
           this, SLOT (ReportRssPoll (QString)));
-  dbm.SetPolicy (policy);
+  dbMgr.SetPolicy (policy);
+  sequencer = new PollSequence (this);
+  sequencer->SetDB (&dbMgr);
+  httpServer = new HttpServer (this);
+  httpClient = new HttpClient (this);
+  httpPoll = new QTimer (this);
 }
 
 AradoEngine::~AradoEngine ()
@@ -96,9 +109,124 @@ AradoEngine::StartServer ()
     Bailout ("AradoEngine exiting: stdin protocol failure");
     return;
   }
-  dbm.Start ();
+  dbMgr.Start ();
   if (policy) {
-    policy->Load (&dbm);
+    policy->Load (&dbMgr);
+  }
+  StartHttpServers ();
+  StartHttpClients ();
+  RefreshPeers ();
+  StartSequencer ();
+}
+
+void
+AradoEngine::StartHttpServers ()
+{
+  if (httpServer) {
+    httpServer->SetDB (&dbMgr);
+    httpServer->SetPolicy (policy);
+    httpServer->Start ();
+  }
+}
+
+void
+AradoEngine::StopHttpServers ()
+{
+  if (httpServer) {
+    httpServer->Stop ();
+  }
+}
+
+void
+AradoEngine::StartHttpClients ()
+{
+  if (httpPoll && httpClient) {
+    connect (httpPoll, SIGNAL (timeout()),
+             this, SLOT (Poll()));
+    httpPoll->start (2*60*1000);
+    httpClient->SetDB (&dbMgr);
+    httpClient->SetPolicy (policy);
+    QTimer::singleShot (3000, this, SLOT (Poll()));
+  }
+}
+
+void
+AradoEngine::StopHttpClients ()
+{
+  if (httpPoll) {
+    httpPoll->stop ();
+  }
+  if (httpClient) {
+    httpClient->DropAllServers ();
+  }
+}
+
+void
+AradoEngine::StartSequencer ()
+{
+  if (sequencer) {
+    sequencer->Start ();
+  }
+}
+
+void
+AradoEngine::StopSequencer ()
+{
+  if (sequencer) {
+    sequencer->Stop ();
+  }
+}
+
+void
+AradoEngine::Connect ()
+{
+  if (httpServer) {
+    connect (httpServer, SIGNAL (AddedPeers (int)),
+             this, SLOT (PeersAdded (int)));
+  }
+  if (httpClient && httpPoll) {
+    connect (httpPoll, SIGNAL (timeout()), this, SLOT (Poll()));
+  }
+  if (httpClient) {
+    connect (httpClient, SIGNAL (AddedUrls (int)),
+             this, SLOT (UrlsAdded (int)));
+    connect (httpClient, SIGNAL (AddedPeers (int)),
+             this, SLOT (PeersAdded (int)));
+  }
+}
+
+void
+AradoEngine::UrlsAdded (int numNew)
+{
+  if (mainPipe) {
+    mainPipe->write (QString("ADDEDURLS %1\n").arg(numNew).toAscii());
+  }
+}
+
+void
+AradoEngine::PeersAdded (int numNew)
+{
+  if (mainPipe) {
+    mainPipe->write (QString("ADDEDPEERS %1\n").arg(numNew).toAscii());
+  }
+}
+
+void
+AradoEngine::RefreshPeers ()
+{
+  if (httpClient) {
+    httpClient->DropAllServers ();
+    httpClient->ReloadServers ("A");
+    httpClient->ReloadServers ("B");
+    httpClient->ReloadServers ("C");
+  }
+}
+void
+AradoEngine::Poll (bool haveNew)
+{
+  Q_UNUSED (haveNew)
+  if (sequencer && httpClient) {
+    sequencer->PollClient (httpClient);
   }
 }
 
@@ -169,7 +297,7 @@ AradoEngine::ReportRssPoll (QString nick)
 qDebug () << " report rss poll " << nick << " to pipe " << mainPipe;
   if (mainPipe) {
     QString msgPat ("RSSPOLL %1\n");
-    mainPipe->write (msgPat.arg(nick).toUtf8());
+    mainPipe->write (msgPat.arg(nick).toAscii());
     mainPipe->flush ();
   }
 }

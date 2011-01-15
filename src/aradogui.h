@@ -44,11 +44,8 @@ class ConnectionDisplay;
 class EntryForm;
 class AradoUrl;
 class Policy;
-class HttpServer;
-class HttpClient;
 class AddPeerDialog;
 class ListenerEdit;
-class PollSequence;
 class RssList;
 class UPnPClient;
 class CrawlerSettings;
@@ -91,7 +88,6 @@ private slots:
   void PeersAdded (int howmany = 1);
   void UrlsAdded (int howmany);
   void HaveNewPeer (QString peerid);
-  void Poll (bool haveNew=false);
   void PollNow (bool haveNew);
   void EditListener ();
   void MailUuid ();
@@ -106,6 +102,7 @@ private slots:
   void EngineConnected ();
   void EngineDisconnected ();
   void ReadEnginePipe ();
+  void SequenceRestart ();
 
   void Restart ();
 
@@ -134,11 +131,7 @@ private:
   CrawlerSettings    *crawler;
   DBManager           dbMgr;
   Policy             *policy;
-  PollSequence       *sequencer;
   RssList            *rssList;
-  HttpServer         *httpServer;
-  HttpClient         *httpClient;
-  QTimer             *httpPoll;
   int                 httpDefaultPort;
   QUuid               ownUuid;
   bool                runAgain;

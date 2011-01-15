@@ -25,6 +25,8 @@
 #include <QObject>
 #include <QApplication>
 #include <QLocalServer>
+#include <QUuid>
+
 
 #include "db-manager.h"
 
@@ -36,6 +38,9 @@ namespace arado
 
 class Policy;
 class RssPoll;
+class PollSequence;
+class HttpServer;
+class HttpClient;
 
 class AradoEngine : public QLocalServer 
 {
@@ -58,19 +63,35 @@ private slots:
   void Disconnected ();
   void ReadPipe ();
   void ReportRssPoll (QString  nick);
+  void UrlsAdded (int numNew);
+  void PeersAdded (int numNew);
+  void Poll (bool haveNew);
 
 private:
 
+  void Connect ();
   void Bailout (const char * msg);
   void RestartRss ();
+  void StartHttpServers ();
+  void StartHttpClients ();
+  void StopHttpServers ();
+  void StopHttpClients ();
+  void StartSequencer ();
+  void StopSequencer ();
+  void RefreshPeers ();
 
   QApplication   *app;
   QFile          *stdinFromMain;
   QLocalSocket   *mainPipe;
 
-  DBManager       dbm;
-  Policy         *policy;
-  RssPoll        *rssPoll;
+  DBManager           dbMgr;
+  Policy             *policy;
+  RssPoll            *rssPoll;
+  int                 httpDefaultPort;
+  PollSequence       *sequencer;
+  HttpServer         *httpServer;
+  HttpClient         *httpClient;
+  QTimer             *httpPoll;
 
 };
 

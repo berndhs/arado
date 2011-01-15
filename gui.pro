@@ -86,7 +86,6 @@ HEADERS		=	src/aradogui.h \
                    src/comm-base.h \
                    src/collector-base.h \
                    src/file-comm.h \
-                   src/arado-stream-parser.h \
                    src/file-buffer.h \
                    src/db-manager.h \
                    src/url-display.h \
@@ -94,15 +93,8 @@ HEADERS		=	src/aradogui.h \
                    src/entry-form.h \
                    src/policy.h \
                    src/search.h \
-                   src/http-server.h \
-                   src/http-client.h \
-                   src/http-sender.h \
-                   src/control-message.h \
                    src/add-peer.h \
                    src/arado-peer.h \
-                   src/poll-sequence.h \
-                   src/http-client-reply.h \
-                   src/http-types.h \
                    src/listener-edit.h \
                    src/addfeed.h \
                    src/rss-list.h \
@@ -111,6 +103,8 @@ HEADERS		=	src/aradogui.h \
                    src/arado-feed.h \
                    src/crawler-settings.h \
                    src/delib-rng.h \
+                   src/arado-stream-parser.h \
+                   src/control-message.h \
                    src/url-display-view.h \
                    src/url-display-viewitem.h \
                    src/url-display-webview.h \
@@ -150,7 +144,6 @@ SOURCES		=	src/aradogui.cpp \
                    src/comm-base.cpp \
                    src/collector-base.cpp \
                    src/file-comm.cpp \
-                   src/arado-stream-parser.cpp \
                    src/file-buffer.cpp \
                    src/db-manager.cpp \
                    src/url-display.cpp \
@@ -158,14 +151,8 @@ SOURCES		=	src/aradogui.cpp \
                    src/entry-form.cpp \
                    src/policy.cpp \
                    src/search.cpp \
-                   src/http-server.cpp \
-                   src/http-client.cpp \
-                   src/http-sender.cpp \
-                   src/control-message.cpp \
                    src/add-peer.cpp \
                    src/arado-peer.cpp \
-                   src/poll-sequence.cpp \
-                   src/http-client-reply.cpp \
                    src/listener-edit.cpp \
                    src/addfeed.cpp \
                    src/rss-list.cpp \
@@ -174,6 +161,8 @@ SOURCES		=	src/aradogui.cpp \
                    src/networkaccessmanager.cpp \
                    src/crawler-settings.cpp \
                    src/delib-rng.cpp \
+                   src/arado-stream-parser.cpp \
+                   src/control-message.cpp \
                    src/url-display-view.cpp \
                    src/url-display-viewitem.cpp \
                    src/url-display-webview.cpp \

@@ -44,7 +44,7 @@ main (int argc, char * argv[])
   deliberate::DSettings  settings;
   deliberate::SetSettings (settings);
   deliberate::Settings().SetPrefix ("engine_");
-  settings.setValue ("program",QString ("%1-post").arg(pv.MyName()));
+  settings.setValue ("program",QString ("%1-engine").arg(pv.MyName()));
 
   QApplication app (argc, argv);
 

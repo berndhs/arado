@@ -25,10 +25,7 @@
 #include "entry-form.h"
 #include "add-peer.h"
 #include "policy.h"
-#include "poll-sequence.h"
 #include "search.h"
-#include "http-server.h"
-#include "http-client.h"
 #include "arado-stream-parser.h"
 #include "listener-edit.h"
 #include "addfeed.h"
@@ -79,11 +76,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    listenerEdit (0),
    dbMgr (this),
    policy (0),
-   sequencer (0),
    rssList (0),
-   httpServer (0),
-   httpClient (0),
-   httpPoll (0),
    httpDefaultPort (29998),
    ownUuid (QUuid()),
    runAgain (false),
@@ -107,13 +100,8 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   listenerEdit = new ListenerEdit (this);
   policy = new Policy (this);
   dbMgr.SetPolicy (policy);
-  sequencer = new PollSequence (this);
-  sequencer->SetDB (&dbMgr);
   rssList = new RssList (this);
   rssList->SetDB (&dbMgr);
-  httpServer = new HttpServer (this);
-  httpClient = new HttpClient (this);
-  httpPoll = new QTimer (this);
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
   crawler = new CrawlerSettings (this);
@@ -298,13 +286,20 @@ AradoMain::ReadEnginePipe ()
   if (parts.count() < 1) {
      return;
   }
-  QString cmd = parts.at(0);
+  QString cmd = parts.takeFirst();
   if (cmd == "RSSPOLL") {
-    parts.removeFirst();
     if (parts.count() < 1) {
       parts << " ";
     }
     CatchPolledRss (parts.join(" "));
+  } else if (cmd == "ADDEDURLS") {
+    if (parts.count() > 0) {
+      UrlsAdded (parts.at(0).toInt());
+    }
+  } else if (cmd == "ADDEDPEERS") {
+    if (parts.count() > 0) {
+      PeersAdded (parts.at(0).toInt());
+    }
   }
 }
 
@@ -325,64 +320,6 @@ AradoMain::StopEngine ()
     QThread::yieldCurrentThread();
     bool stopped = engineProcess->waitForFinished (250);
     qDebug () << " stopped is " << stopped;
-  }
-}
-
-void
-AradoMain::StartServers ()
-{
-  if (httpServer) {
-    httpServer->SetDB (&dbMgr);
-    httpServer->SetPolicy (policy);
-    httpServer->Start ();
-  }
-}
-
-void
-AradoMain::StopServers ()
-{
-  if (httpServer) {
-    httpServer->Stop ();
-  }
-}
-
-void
-AradoMain::StartClients ()
-{
-  if (httpPoll && httpClient) {
-    connect (httpPoll, SIGNAL (timeout()),
-             this, SLOT (Poll()));
-    httpPoll->start (2*60*1000);
-    httpClient->SetDB (&dbMgr);
-    httpClient->SetPolicy (policy);
-    QTimer::singleShot (3000, this, SLOT (Poll()));
-  }
-}
-
-void
-AradoMain::StopClients ()
-{
-  if (httpPoll) {
-    httpPoll->stop ();
-  }
-  if (httpClient) {
-    httpClient->DropAllServers ();
-  }
-}
-
-void
-AradoMain::StartSequencer ()
-{
-  if (sequencer) {
-    sequencer->Start ();
-  }
-}
-
-void
-AradoMain::StopSequencer ()
-{
-  if (sequencer) {
-    sequencer->Stop ();
   }
 }
 
@@ -430,8 +367,6 @@ AradoMain::Connect ()
            this, SLOT (DoEntry ()));
   connect (mainUi.actionAddServer, SIGNAL (triggered()),
            this, SLOT (AddServer ()));
-  connect (mainUi.actionPoll, SIGNAL (triggered()),
-           this, SLOT (Poll ()));
   connect (mainUi.actionAddFeed, SIGNAL (triggered()),
            this, SLOT (AddFeed ()));
   connect (mainUi.actionExportIP, SIGNAL (triggered()),
@@ -468,29 +403,14 @@ AradoMain::Connect ()
   if (urlDisplay) {
     connect (urlDisplay, SIGNAL (AddUrl(QString)),
              this, SLOT (DoEntry (QString)));
-    if (httpClient) {
-      connect (httpClient, SIGNAL (AddedUrls (int)),
-               urlDisplay, SLOT (UrlsAdded (int)));
-      connect (httpClient, SIGNAL (AddedPeers (int)),
-               this, SLOT (PeersAdded (int)));
-    }
-  }
-  if (httpServer) {
-    connect (httpServer, SIGNAL (AddedPeers (int)),
-             this, SLOT (PeersAdded (int)));
   }
   if (connDisplay) {
     connect (connDisplay, SIGNAL (WantEditListener()),
             this, SLOT (EditListener()));
     connect (connDisplay, SIGNAL (AddDevice()), this, SLOT (AddServer()));
     connect (connDisplay, SIGNAL (StartSync(bool)), this, SLOT (PollNow(bool)));
-    if (sequencer) {
-      connect (connDisplay, SIGNAL (TrafficParamsChanged ()),
-               sequencer, SLOT (Restart()));
-    }
-  }
-  if (httpClient && httpPoll) {
-    connect (httpPoll, SIGNAL (timeout()), this, SLOT (Poll()));
+    connect (connDisplay, SIGNAL (TrafficParamsChanged ()),
+               this, SLOT (SequenceRestart()));
   }
   if (listenerEdit) {
     connect (listenerEdit, SIGNAL (SuggestRestart()),
@@ -594,6 +514,61 @@ AradoMain::DoneConfigEdit (bool saved)
       StartEngine ();
     }
   }
+}
+
+void
+AradoMain::StartServers ()
+{
+  if (enginePipe) {
+    enginePipe->write ("STARTSERVERS\n");
+  }
+}
+
+void
+AradoMain::StartClients ()
+{
+  if (enginePipe) {
+    enginePipe->write ("STARTCLIENTS\n");
+  }
+}
+
+void
+AradoMain::StartSequencer ()
+{
+  if (enginePipe) {
+    enginePipe->write ("STARTSEQUENCER\n");
+  }
+}
+
+void
+AradoMain::StopServers ()
+{
+  if (enginePipe) {
+    enginePipe->write ("STOPSERVERS\n");
+  }
+}
+
+void
+AradoMain::StopClients ()
+{
+  if (enginePipe) {
+    enginePipe->write ("STOPCLIENTS\n");
+  }
+}
+
+void
+AradoMain::StopSequencer ()
+{
+  if (enginePipe) {
+    enginePipe->write ("STOPSEQUENCER\n");
+  }
+}
+
+void
+AradoMain::SequenceRestart ()
+{
+  StopSequencer ();
+  StartSequencer ();
 }
 
 void
@@ -747,11 +722,8 @@ AradoMain::DoIpExport ()
 void
 AradoMain::RefreshPeers ()
 {
-  if (httpClient) {
-    httpClient->DropAllServers ();
-    httpClient->ReloadServers ("A");
-    httpClient->ReloadServers ("B");
-    httpClient->ReloadServers ("C");
+  if (enginePipe) {
+    enginePipe->write ("REFRESHPEERS\n");
   }
 }
 
@@ -783,20 +755,12 @@ AradoMain::UrlsAdded (int howmany)
   }
 }
 
-void
-AradoMain::Poll (bool haveNew)
-{
-  Q_UNUSED (haveNew)
-  if (sequencer && httpClient) {
-    sequencer->PollClient (httpClient);
-  }
-}
 
 void
 AradoMain::PollNow (bool haveNew)
 {
-  if (sequencer && httpClient) {
-    sequencer->PollClient (httpClient, haveNew);
+  if (enginePipe) {
+    enginePipe->write ("POLLNOW\n");
   }
 }
 

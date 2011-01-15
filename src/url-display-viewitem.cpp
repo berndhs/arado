@@ -69,7 +69,7 @@ UrlDisplayViewItem::Html()
 QString
 UrlDisplayViewItem::Timestamp()
 {
-  return QDateTime::fromTime_t(url.Timestamp()).toString(Qt::ISODate);
+  return QDateTime::fromTime_t(url.Timestamp()).toString("yyyy-MM-dd");
 }
 
 QString

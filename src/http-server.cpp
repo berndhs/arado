@@ -52,27 +52,27 @@ HttpServer::HttpServer (QObject *parent)
    tradeUrl (true)
 {
   connect (&acceptCleaner, SIGNAL (timeout()), this, SLOT (CleanAccept()));
-  grantGet = Settings().value ("http/getgrant",grantGet).toBool();
-  Settings ().setValue ("http/getgrant",grantGet);
-  allowPut = Settings().value("http/putallow",allowPut).toBool();
-  Settings ().setValue ("http/putallow",allowPut);
-  tradeAddr = Settings().value ("transfer/addresses",tradeAddr).toBool();
-  Settings().setValue ("transfer/addresses", tradeAddr);
-  tradeUrl = Settings().value ("transfer/urls",tradeUrl).toBool();
-  Settings().setValue ("transfer/urls", tradeUrl);
+  grantGet = Settings().simpleValue ("http/getgrant",grantGet).toBool();
+  Settings ().setSimpleValue ("http/getgrant",grantGet);
+  allowPut = Settings().simpleValue("http/putallow",allowPut).toBool();
+  Settings ().setSimpleValue ("http/putallow",allowPut);
+  tradeAddr = Settings().simpleValue ("transfer/addresses",tradeAddr).toBool();
+  Settings().setSimpleValue ("transfer/addresses", tradeAddr);
+  tradeUrl = Settings().simpleValue ("transfer/urls",tradeUrl).toBool();
+  Settings().setSimpleValue ("transfer/urls", tradeUrl);
 }
 
 bool
 HttpServer::Start ()
 {
-  runServer = Settings().value ("http/run",runServer).toBool ();
-  Settings().setValue ("http/run",runServer);
-  serverAddrString = Settings().value ("http/address",serverAddrString).toString();
-  Settings().setValue ("http/address",serverAddrString);
-  serverPort = Settings().value ("http/port",serverPort).toUInt();
-  Settings().setValue ("http/port",serverPort);
-  acceptPause = Settings().value ("http/coolingtime",acceptPause).toInt();
-  Settings().setValue ("http/coolingtime",acceptPause);
+  runServer = Settings().simpleValue ("http/run",runServer).toBool ();
+  Settings().setSimpleValue ("http/run",runServer);
+  serverAddrString = Settings().simpleValue ("http/address",serverAddrString).toString();
+  Settings().setSimpleValue ("http/address",serverAddrString);
+  serverPort = Settings().simpleValue ("http/port",serverPort).toUInt();
+  Settings().setSimpleValue ("http/port",serverPort);
+  acceptPause = Settings().simpleValue ("http/coolingtime",acceptPause).toInt();
+  Settings().setSimpleValue ("http/coolingtime",acceptPause);
   if (runServer) {
     Listen (serverAddrString, serverPort);
   }

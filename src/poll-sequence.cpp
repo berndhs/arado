@@ -189,9 +189,9 @@ PollSequence::SaveRatios ()
 void
 PollSequence::SaveRatio (QString level)
 {
-  Settings().setValue (QString("traffic/maxrecent%1").arg(level),
+  Settings().setSimpleValue (QString("traffic/maxrecent%1").arg(level),
                           maxRecent[level]);
-  Settings().setValue (QString("traffic/maxrandom%1").arg(level),
+  Settings().setSimpleValue (QString("traffic/maxrandom%1").arg(level),
                           maxRandom[level]);
 }
 
@@ -200,9 +200,9 @@ PollSequence::FindRatio (QString level)
 {
   int maxRec (50);
   int maxRand (50);
-  maxRec = Settings().value (QString("traffic/maxrecent%1").arg(level),
+  maxRec = Settings().simpleValue (QString("traffic/maxrecent%1").arg(level),
                                   maxRec).toInt();
-  maxRand = Settings().value (QString("traffic/maxrandom%1").arg(level),
+  maxRand = Settings().simpleValue (QString("traffic/maxrandom%1").arg(level),
                                   maxRand).toInt();
   maxRecent[level] = maxRec;
   maxRandom[level] = maxRand;
@@ -211,18 +211,18 @@ PollSequence::FindRatio (QString level)
 void
 PollSequence::RefreshParams ()
 {
-  urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
-  urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
-  urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
+  urlFreqA = Settings().simpleValue ("traffic/urlFrequencyA",urlFreqA).toDouble();
+  urlFreqB = Settings().simpleValue ("traffic/urlFrequencyB",urlFreqB).toDouble();
+  urlFreqC = Settings().simpleValue ("traffic/urlFrequencyC",urlFreqC).toDouble();
   FindRatios ();
 }
 
 void
 PollSequence::SaveParams ()
 {
-  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
-  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
-  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  Settings().setSimpleValue ("traffic/urlFrequencyA",urlFreqA);
+  Settings().setSimpleValue ("traffic/urlFrequencyB",urlFreqB);
+  Settings().setSimpleValue ("traffic/urlFrequencyC",urlFreqC);
   SaveRatios ();
   Settings().sync();    
 }

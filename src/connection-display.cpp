@@ -110,9 +110,9 @@ void
 ConnectionDisplay::ShowPeers ()
 {
   LoadTrafficParams ();
-  QString addr = deliberate::Settings().value ("http/address").toString();
-  quint16 port = deliberate::Settings().value ("http/port").toUInt();
-  bool listening = deliberate::Settings().value ("http/run").toBool ();
+  QString addr = deliberate::Settings().simpleValue ("http/address").toString();
+  quint16 port = deliberate::Settings().simpleValue ("http/port").toUInt();
+  bool listening = deliberate::Settings().simpleValue ("http/run").toBool ();
   if (addr == "localhost") {
     ui.listenAddr->setText (tr("<- - - - - Please Configure External Address !"));
   } else {
@@ -367,12 +367,12 @@ ConnectionDisplay::MoveRight ()
 void
 ConnectionDisplay::LoadTrafficParams ()
 {
-  urlFreqA = Settings().value ("traffic/urlFrequencyA",urlFreqA).toDouble();
-  urlFreqB = Settings().value ("traffic/urlFrequencyB",urlFreqB).toDouble();
-  urlFreqC = Settings().value ("traffic/urlFrequencyC",urlFreqC).toDouble();
-  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
-  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
-  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  urlFreqA = Settings().simpleValue ("traffic/urlFrequencyA",urlFreqA).toDouble();
+  urlFreqB = Settings().simpleValue ("traffic/urlFrequencyB",urlFreqB).toDouble();
+  urlFreqC = Settings().simpleValue ("traffic/urlFrequencyC",urlFreqC).toDouble();
+  Settings().setSimpleValue ("traffic/urlFrequencyA",urlFreqA);
+  Settings().setSimpleValue ("traffic/urlFrequencyB",urlFreqB);
+  Settings().setSimpleValue ("traffic/urlFrequencyC",urlFreqC);
   ui.freqABox->setValue (urlFreqA);
   ui.freqBBox->setValue (urlFreqB);
   ui.freqCBox->setValue (urlFreqC);
@@ -380,15 +380,15 @@ ConnectionDisplay::LoadTrafficParams ()
   levels << "A" << "B" << "C";
   for (int i=0; i<levels.count(); i++) {
     QString lev = levels.at(i);
-    maxRecent[lev] = Settings().value(QString("traffic/maxrecent%1")
+    maxRecent[lev] = Settings().simpleValue(QString("traffic/maxrecent%1")
                                           .arg(lev),
                                            maxRecent[lev]).toInt();
-    maxRandom[lev] = Settings().value(QString("traffic/maxrandom%1")
+    maxRandom[lev] = Settings().simpleValue(QString("traffic/maxrandom%1")
                                           .arg(lev),
                                            maxRandom[lev]).toInt();
-    Settings().setValue (QString("traffic/maxrecent%1").arg(lev),
+    Settings().setSimpleValue (QString("traffic/maxrecent%1").arg(lev),
                           maxRecent[lev]);
-    Settings().setValue (QString("traffic/maxrandom%1").arg(lev),
+    Settings().setSimpleValue (QString("traffic/maxrandom%1").arg(lev),
                           maxRandom[lev]);
   }
   ui.ratioSliderA->setMaximum (maxRecent["A"] + maxRandom["A"]);
@@ -411,16 +411,16 @@ ConnectionDisplay::ChangeTrafficParams ()
   maxRandom["B"] = ui.ratioSliderB->maximum() - maxRecent["B"];
   maxRecent["C"] = ui.ratioSliderC->value();
   maxRandom["C"] = ui.ratioSliderC->maximum() - maxRecent["C"];
-  Settings().setValue ("traffic/urlFrequencyA",urlFreqA);
-  Settings().setValue ("traffic/urlFrequencyB",urlFreqB);
-  Settings().setValue ("traffic/urlFrequencyC",urlFreqC);
+  Settings().setSimpleValue ("traffic/urlFrequencyA",urlFreqA);
+  Settings().setSimpleValue ("traffic/urlFrequencyB",urlFreqB);
+  Settings().setSimpleValue ("traffic/urlFrequencyC",urlFreqC);
   QStringList levels;
   levels << "A" << "B" << "C";
   for (int i=0; i<levels.count(); i++) {
     QString lev = levels.at(i);
-    Settings().setValue (QString("traffic/maxrecent%1").arg(lev),
+    Settings().setSimpleValue (QString("traffic/maxrecent%1").arg(lev),
                           maxRecent[lev]);
-    Settings().setValue (QString("traffic/maxrandom%1").arg(lev),
+    Settings().setSimpleValue (QString("traffic/maxrandom%1").arg(lev),
                           maxRandom[lev]);
   }
   Settings().sync();
@@ -431,8 +431,8 @@ ConnectionDisplay::ChangeTrafficParams ()
 void ConnectionDisplay::checkAdvViewBox(bool show)
 {
   LoadTrafficParams ();
-  QString addr = deliberate::Settings().value ("http/address").toString();
-  bool listening = deliberate::Settings().value ("http/run").toBool ();
+  QString addr = deliberate::Settings().simpleValue ("http/address").toString();
+  bool listening = deliberate::Settings().simpleValue ("http/run").toBool ();
   bool showaddr = (show || addr == "localhost" || !listening);
 
   ui.freqABox->setVisible(show);
