@@ -46,56 +46,58 @@ UrlDisplayViewItem::UrlDisplayViewItem(const arado::AradoUrl url)
 QString
 UrlDisplayViewItem::Html()
 {
+  /** Elements:
+    *   %1 title-link
+    *   %2 title text
+    *   %3 hash-link
+    *   %4 hash text
+    *   %5 url-local-browse-link
+    *   %6 url-external-browse-link
+    *   %7 url text
+    *   %8 timestamp
+    *   %9 keyword-list-link
+    *   %10 keyword-list text
+    
+   */
   QString html_str;
   html_str = "<div class=\"item\">\n"
 
-             "<div class=\"thumb\"><a href=\"%1\">"
+             "<div class=\"thumb\"><a class=\"thumb\" href=\"%5\">"
                     "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
                     "</a></div>"
 
-             "<div class=\"kugar\"><a href=\"%1\">"
+             "<div class=\"kugar\"><a class=\"kugar\" href=\"%6\">"
                   "<img src=\"qrc:/html/html/images/kugar.png\">"
                   "</a></div>"
 
-             "<h4>"
-             "<a href=\"%1\">%2</a></h4>"
-
-             "<small>";
+             "<div class=\"title\">"
+             "<a class=\"title\" href=\"%1\">%2</a></div>";
   bool haveKeywords = url.Keywords().count() > 0;
   if (haveKeywords) {
-    html_str.append(QObject::tr("<span style=\"font-style:italic\">"
-                                "Keywords: %5 </span><br>"));
+    html_str.append(QObject::tr("<a href=\"%9\" class=\"keywords\">"
+                               "Keywords: %10<a><br>"));
   }
+  html_str.append ("<a href=\"%3\" class=\"flash\">");
   html_str.append(QObject::tr("Arado-Flashmark: "));
   html_str.append (
              "<span style=\"font-size:small;"
-             " font-weight:normal\">%3 &nbsp; &bull; &nbsp;</span>");
-
-  /*QString aicon (QString("<img src=\"qrc:/arado-logo-colo-128.png\""
-                   " height=%1px weight=%2px >")
-                   .arg (iconHeight).arg(iconWidth));
-  html_str.append (aicon); */
-
-  html_str.append(" %4\n");
+             " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
+  html_str.append ("<span class=\"timestamp\">%8</span>");
   html_str.append ("&nbsp; &bull; &nbsp; "
-    "[ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%1\">");
-  html_str.append (QString ("%1</a> ]\n"
-                   "<div class=\"url\">").arg("Translation"));
-  html_str.append ("%1</small>\n"
+    "[ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%5\">");
+  html_str.append (QString ("%1</a> ]\n").arg("Translation"));
+  html_str.append ("<div class=\"url\">");
+  html_str.append ("%7\n"
                    "</div>"
                   "</div>\n");
-  if (haveKeywords) {
-    return html_str.arg(url.Url().toString())
-                 .arg(url.Description())
-                 .arg(Flashmark())
-                 .arg(Timestamp())
-                 .arg(Keywords());
-  } else {
-    return html_str.arg(url.Url().toString())
-                 .arg(url.Description())
-                 .arg(Flashmark())
-                 .arg(Timestamp());
-  }
+  return html_str.arg (FlashLink ("description")) .arg (url.Description())
+                 .arg (FlashLink ("hash")) . arg (Flashmark())
+                 .arg (FlashLink ("localbrowse"))
+                 .arg (FlashLink ("externbrowse"))
+                 .arg (url.Url().toString())
+                 .arg (Timestamp ())
+                 .arg (FlashLink ("keywords"))
+                 .arg (Keywords());
 }
 
 QString
@@ -114,6 +116,16 @@ QString
 UrlDisplayViewItem::Flashmark()
 {
   return QString(url.Hash().toUpper());
+}
+
+QString
+UrlDisplayViewItem::FlashLink (const QString & type)
+{
+  QUrl flashUrl;
+  flashUrl.setScheme ("aradolink");
+  flashUrl.setHost (type);
+  flashUrl.setPath (url.Hash());
+  return flashUrl.toString();
 }
 
 }
