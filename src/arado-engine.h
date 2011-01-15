@@ -65,7 +65,7 @@ private slots:
   void ReportRssPoll (QString  nick);
   void UrlsAdded (int numNew);
   void PeersAdded (int numNew);
-  void Poll (bool haveNew);
+  void Poll (bool haveNew=false);
 
 private:
 

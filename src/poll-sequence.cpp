@@ -57,6 +57,7 @@ void
 PollSequence::PollClient(HttpClient *httpClient, bool force)
 {
   client = httpClient;
+qDebug () << " PollSequence::PollClient db " << db;
   if (db) {
     AradoPeerList list = db->GetPeers ("A");
     QStringList bigList;
