@@ -44,7 +44,7 @@ UrlDisplayViewItem::Html()
   html_str.append (aicon);
 
   html_str.append(" %4\n"
-                  "[ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%1\">Translate this page</a> ]\n"
+                  " - [ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%1\">Translate this page</a> ]\n"
                   "<br>"
 
                    "<div class=\"url\">"
