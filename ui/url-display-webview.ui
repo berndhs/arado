@@ -32,6 +32,12 @@
        </property>
        <item>
         <widget class="QWebView" name="urlView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>50</horstretch>
+           <verstretch>50</verstretch>
+          </sizepolicy>
+         </property>
          <property name="url">
           <url>
            <string>about:blank</string>

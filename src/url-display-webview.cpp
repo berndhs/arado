@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QDesktopServices>
+#include <QDebug>
 
 using namespace deliberate;
 
@@ -46,8 +47,8 @@ UrlDisplayWebView::Html()
 
   for (int i = 0; i < items.count(); ++i) {
     itemsHtml.append(items.at(i)->Html());
+    itemsHtml.append("<hr style=\"width:30%\">");
   }
-
   return HtmlBase().arg(itemsHtml);
 }
 
