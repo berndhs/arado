@@ -100,11 +100,13 @@ but extended search should not ask Arado nodes, as this search is done locally a
 
 41) Context menue for webview
 
-42) Webview: If the keyword_cell is empty, do not show "keywords: , "
-
 43) Webview: Icon for youtube-url, download for MP3 conversion
 
 44) webview: display time ranges for search results of keywordsearch, e.g. urls for the keyword, within the last week..
+
+45) Algorithm for displaying the order of the search results by keywordsearch, they are not displayed ascvending by time like the recent button, 
+	maybe 3 wikipedia-domain urls and 3 latest-timestamp urls and 3 urls wich contain the searchterm in the title and 3 searchresults which contain the searchterm
+	in the url, should be displayed alternating as the top 12 results, and then the other results fuzzy as now.. or (next 20 urls by time) and then fuzzy.
 
 
 
