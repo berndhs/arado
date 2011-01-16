@@ -127,7 +127,10 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
       } else if (function == "externbrowse") {
         QDesktopServices::openUrl (aUrl.Url());
       } else {
-        qDebug () << " context menu goes here";
+        QMessageBox menuBox;
+        menuBox.setText ("This is where the context menu goes");
+        menuBox.setInformativeText (url.toString());
+        menuBox.exec ();
       }
     } else {
       qDebug () << " BAD internal link " << url.toString();

@@ -93,6 +93,7 @@ main (int argc, char *argv[])
   }
 
 
+  QString shortLang (locale.left(2));
   if (opts.SeenOpt ("lang")) {
     QString newlocale (locale);
     opts.SetStringOpt ("lang",newlocale);
@@ -102,9 +103,12 @@ main (int argc, char *argv[])
       translate.load (xlateFile, langDir);
       QTextCodec::setCodecForTr (QTextCodec::codecForName ("utf8"));
       app.installTranslator (&translate);
+      shortLang = newlocale.left(2);
     }
   }
-
+  shortLang = deliberate::Settings().value ("personal/language",shortLang)
+                         .toString();
+  deliberate::Settings().setValue ("personal/language",shortLang);
   /** the real main program starts here **/
   int appresult (0);
   bool again (false);

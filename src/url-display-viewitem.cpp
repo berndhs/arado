@@ -26,7 +26,6 @@
 
 #include "deliberate.h"
 #include <QDateTime>
-#include <QDebug>
 
 
 using namespace deliberate;
@@ -59,6 +58,8 @@ UrlDisplayViewItem::Html()
     *   %10 keyword-list text
     
    */
+  QString homeLang("en");
+  homeLang = Settings().value ("personal/language",homeLang).toString();
   QString html_str;
   html_str = "<div class=\"item\">\n"
 
@@ -84,13 +85,16 @@ UrlDisplayViewItem::Html()
              " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
   html_str.append ("<span class=\"timestamp\">%8</span>");
   html_str.append ("&nbsp; &bull; &nbsp; "
-    "[ <a href=\"http://translate.google.com/translate?hl=de&sl=en&u=%5\">");
+    "[ <a href=\"http://translate.google.com/translate?hl=");
+  html_str.append (homeLang);
+  html_str.append ("&sl=auto&u=%7\">");
   html_str.append (QString ("%1</a> ]\n").arg("Translation"));
   html_str.append ("<div class=\"url\">");
   html_str.append ("%7\n"
                    "</div>"
                   "</div>\n");
-  return html_str.arg (FlashLink ("description")) .arg (url.Description())
+  if (haveKeywords) {
+    return html_str.arg (FlashLink ("description")) .arg (url.Description())
                  .arg (FlashLink ("hash")) . arg (Flashmark())
                  .arg (FlashLink ("localbrowse"))
                  .arg (FlashLink ("externbrowse"))
@@ -98,6 +102,14 @@ UrlDisplayViewItem::Html()
                  .arg (Timestamp ())
                  .arg (FlashLink ("keywords"))
                  .arg (Keywords());
+  } else {
+    return html_str.arg (FlashLink ("description")) .arg (url.Description())
+                 .arg (FlashLink ("hash")) . arg (Flashmark())
+                 .arg (FlashLink ("localbrowse"))
+                 .arg (FlashLink ("externbrowse"))
+                 .arg (url.Url().toString())
+                 .arg (Timestamp ());
+  }
 }
 
 QString
