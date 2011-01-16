@@ -112,5 +112,6 @@
         <file>html/images/copy.png</file>
         <file>html/images/mail.png</file>
         <file>html/images/youtubemp3play.png</file>
+        <file>html/images/openmielke.png</file>
     </qresource>
 </RCC>

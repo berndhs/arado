@@ -105,6 +105,17 @@ UrlDisplayViewItem::Html()
              //
              //
              "&nbsp; <img src=\"qrc:/html/html/images/youtubemp3play.png\">"
+             //
+             // Function to crawl in deamon process what links to this url
+             // using this lookup:
+             // e.g. http://blekko.com/ws/http:%2F%2Fdooble.sf.net%2F+/links
+             // as code:
+             // "http://blekko.com/ws/
+             // "%1" (THE URL)- e.g.: html_str.append (QString ("%1").arg);
+             // "%2F+/links"
+             "&nbsp; <img src=\"qrc:/html/html/images/openmielke.png\">"
+             // Tooltip: "Aradofy what links to this URL."
+             //
              "</span>\n "
              "<div class=\"url\">");
   html_str.append ("%7\n"
