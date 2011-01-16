@@ -75,6 +75,7 @@ AradoEngine::~AradoEngine ()
 void
 AradoEngine::Start ()
 {
+  qDebug () << " AradoEngine Start";
   stdinFromMain = new QFile (this);
   stdinFromMain->open (stdin, QFile::ReadOnly);
   connect (this, SIGNAL (newConnection()), this, 
@@ -85,10 +86,12 @@ AradoEngine::Start ()
 void
 AradoEngine::StartServer ()
 {
+  qDebug () << " AradoEngine StartServer";
   if (stdinFromMain == 0 || !stdinFromMain->isOpen()) {
     Bailout ("AradoEngine no stdin");
     return;
   }
+  qDebug () << " AradoEngine read stdin for Hello";
   QString data = stdinFromMain->readLine (2048);
   qDebug () << " AradoEngine got Hello " << data;
   if (data != "HELLO\n") {
@@ -234,7 +237,7 @@ AradoEngine::Poll (bool haveNew)
 void
 AradoEngine::GetNewConnection ()
 {
-  qDebug () << "AradoEngine new connection for " << serverName();
+  qDebug () << "AradoEngine New Connection for " << serverName();
   if (mainPipe) {
     qWarning ("AradoEngine: reject second connection");
     return;
