@@ -75,20 +75,20 @@ UrlDisplayViewItem::Html()
              "<a class=\"title\" href=\"%1\">%2</a></div>";
   bool haveKeywords = url.Keywords().count() > 0;
   if (haveKeywords) {
-    html_str.append(QObject::tr("<a href=\"%9\" class=\"keywords\">"
-                               "Keywords: %10<a><br>"));
+    html_str.append(QObject::tr("<a href=\"%9\" span class=\"keywords\">"
+                               "Keywords: %10</a></span><br>"));
   }
   html_str.append ("<a href=\"%3\" class=\"flash\">");
   html_str.append(QObject::tr("Arado-Flashmark: "));
   html_str.append (
              "<span style=\"font-size:small;"
              " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
-  html_str.append ("<span class=\"timestamp\">%8</span>");
-  html_str.append ("&nbsp; &bull; &nbsp; "
-    "[ <a href=\"http://translate.google.com/translate?hl=");
+  html_str.append ("<span class=\"timestamp\">%8");
+  html_str.append ("&nbsp; &bull; &nbsp;"
+                   "[ <a href=\"http://translate.google.com/translate?hl=");
   html_str.append (homeLang);
   html_str.append ("&sl=auto&u=%7\">");
-  html_str.append (QString ("%1</a> ]\n").arg(QObject::tr("Translation")));
+  html_str.append (QString ("%1</a>&nbsp;]</span>\n").arg(QObject::tr("Translation")));
   html_str.append ("<div class=\"url\">");
   html_str.append ("%7\n"
                    "</div>"
