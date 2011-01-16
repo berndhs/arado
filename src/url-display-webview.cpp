@@ -115,7 +115,7 @@ void
 UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
 {
   QString scheme = url.scheme();
-  if (scheme != "aradolink") {
+  if (scheme != "arado") {
     QDesktopServices::openUrl (url);
   } else {
     QString function = url.host();

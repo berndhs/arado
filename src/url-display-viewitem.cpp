@@ -95,7 +95,7 @@ UrlDisplayViewItem::Html()
                   "</div>\n");
   if (haveKeywords) {
     return html_str.arg (FlashLink ("description")) .arg (url.Description())
-                 .arg (FlashLink ("hash")) . arg (Flashmark())
+                 .arg (FlashLink ("flashmark")) . arg (Flashmark())
                  .arg (FlashLink ("localbrowse"))
                  .arg (FlashLink ("externbrowse"))
                  .arg (url.Url().toString())
@@ -104,7 +104,7 @@ UrlDisplayViewItem::Html()
                  .arg (Keywords());
   } else {
     return html_str.arg (FlashLink ("description")) .arg (url.Description())
-                 .arg (FlashLink ("hash")) . arg (Flashmark())
+                 .arg (FlashLink ("flashmark")) . arg (Flashmark())
                  .arg (FlashLink ("localbrowse"))
                  .arg (FlashLink ("externbrowse"))
                  .arg (url.Url().toString())
@@ -134,7 +134,7 @@ QString
 UrlDisplayViewItem::FlashLink (const QString & type)
 {
   QUrl flashUrl;
-  flashUrl.setScheme ("aradolink");
+  flashUrl.setScheme ("arado");
   flashUrl.setHost (type);
   flashUrl.setPath (url.Hash());
   return flashUrl.toString();
