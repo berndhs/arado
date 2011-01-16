@@ -90,6 +90,21 @@ UrlDisplayViewItem::Html()
              "<img src=\"qrc:/html/html/images/kugar.png\"></a>"
              "&nbsp; <img src=\"qrc:/html/html/images/mail.png\">"
              "&nbsp; <img src=\"qrc:/html/html/images/copy.png\">"
+             //
+             //
+             /*QString convertedurl (item->text());
+
+             if (convertedurlwebview.trimmed().toLower().startsWith("http://www.youtube.com/watch?v=")) {
+               convertedurlwebview = convertedurlwebview.replace("http://www.youtube.com/watch?v=", "http://www.youtube-mp3.org/get?video_id=");
+
+               QAction * playAction = new QAction (tr("Convert Youtube-URL to MP3"),this);
+               playAction->setIcon(QPixmap(":/images/youtubemp3play.png"));
+
+               QList<QAction*> list;
+               list.append (playAction);*/
+             //
+             //
+             "&nbsp; <img src=\"qrc:/html/html/images/youtubemp3play.png\">"
              "</span>\n "
              "<div class=\"url\">");
   html_str.append ("%7\n"

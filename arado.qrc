@@ -111,5 +111,6 @@
         <file>html/images/arado-logo-colo-32.png</file>
         <file>html/images/copy.png</file>
         <file>html/images/mail.png</file>
+        <file>html/images/youtubemp3play.png</file>
     </qresource>
 </RCC>
