@@ -59,6 +59,7 @@ RssPoll::Start ()
   int period (5*60); // 5 minutes
   period = Settings().value ("rss/pollperiod",period).toInt();
   Settings().setValue ("rss/pollperiod",period);
+  Settings().sync ();
   lastPolled = feedList.begin();
   if (dbm) {
     feedList = dbm->GetFeeds();

@@ -54,8 +54,11 @@ UrlDisplayViewItem::Html()
     *   %6 url-external-browse-link
     *   %7 url text
     *   %8 timestamp
-    *   %9 keyword-list-link
-    *   %10 keyword-list text
+    *   %9 mail-link
+    *   %10 copy-link
+    *   %11 crawl-link
+    *   %12 keyword-list-link
+    *   %13 keyword-list text
     
    */
   QString homeLang("en");
@@ -70,10 +73,13 @@ UrlDisplayViewItem::Html()
              "<div class=\"title\">"
              "<a class=\"title\" href=\"%1\">%2</a></div>";
   bool haveKeywords = url.Keywords().count() > 0;
+  QString keywordPart;
   if (haveKeywords) {
-    html_str.append(QObject::tr("<a href=\"%9\" span class=\"keywords\">"
-                               "Keywords: %10</a></span><br>"));
+    keywordPart = QString ("<a href=\"%12\" span class=\"keywords\">")
+                  + QObject::tr ("Keywords:")
+                  + QString (" %13</a></span><br>");
   }
+  html_str.append (keywordPart);
   html_str.append ("<a href=\"%3\" class=\"flash\">");
   html_str.append(QObject::tr("Arado-Flashmark: "));
   html_str.append (
@@ -84,27 +90,15 @@ UrlDisplayViewItem::Html()
                    "[ <a href=\"http://translate.google.com/translate?hl=");
   html_str.append (homeLang);
   html_str.append ("&sl=auto&u=%7\">");
-  html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>").arg(QObject::tr("Translation")));
+  html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>")
+                     .arg(QObject::tr("Translation")));
   html_str.append (
              "<span class=\"kugar\"><a class=\"kugar\" href=\"%6\">"
              "<img src=\"qrc:/html/html/images/kugar.png\"></a>"
-             "&nbsp; <img src=\"qrc:/html/html/images/mail.png\">"
-             "&nbsp; <img src=\"qrc:/html/html/images/copy.png\">"
-             //
-             //
-             /*QString convertedurl (item->text());
-
-             if (convertedurlwebview.trimmed().toLower().startsWith("http://www.youtube.com/watch?v=")) {
-               convertedurlwebview = convertedurlwebview.replace("http://www.youtube.com/watch?v=", "http://www.youtube-mp3.org/get?video_id=");
-
-               QAction * playAction = new QAction (tr("Convert Youtube-URL to MP3"),this);
-               playAction->setIcon(QPixmap(":/images/youtubemp3play.png"));
-
-               QList<QAction*> list;
-               list.append (playAction);*/
-             //
-             //
-             "&nbsp; <img src=\"qrc:/html/html/images/youtubemp3play.png\">"
+             "&nbsp; <a class=\"mailbutton\" href=\"%9\">"
+              "<img src=\"qrc:/html/html/images/mail.png\"></a>"
+             "&nbsp; <a class=\"copybutton\" href=\"%10\">"
+              "<img src=\"qrc:/html/html/images/copy.png\"></a>"
              //
              // Function to crawl in deamon process what links to this url
              // using this lookup:
@@ -113,7 +107,8 @@ UrlDisplayViewItem::Html()
              // "http://blekko.com/ws/
              // "%1" (THE URL)- e.g.: html_str.append (QString ("%1").arg);
              // "%2F+/links"
-             "&nbsp; <img src=\"qrc:/html/html/images/openmielke.png\">"
+             "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
+              "<img src=\"qrc:/html/html/images/openmielke.png\"></a>"
              // Tooltip: "Aradofy what links to this URL."
              //
              "</span>\n "
@@ -123,20 +118,26 @@ UrlDisplayViewItem::Html()
                   "</div>\n");
   if (haveKeywords) {
     return html_str.arg (FlashLink ("description")) .arg (url.Description())
-                 .arg (FlashLink ("flashmark")) . arg (Flashmark())
+                 .arg (FlashLink ("hash")) . arg (Flashmark())
                  .arg (FlashLink ("localbrowse"))
                  .arg (FlashLink ("externbrowse"))
                  .arg (url.Url().toString())
                  .arg (Timestamp ())
+                 .arg (FlashLink ("mail"))
+                 .arg (FlashLink ("copy"))
+                 .arg (FlashLink ("crawl"))
                  .arg (FlashLink ("keywords"))
                  .arg (Keywords());
   } else {
     return html_str.arg (FlashLink ("description")) .arg (url.Description())
-                 .arg (FlashLink ("flashmark")) . arg (Flashmark())
+                 .arg (FlashLink ("hash")) . arg (Flashmark())
                  .arg (FlashLink ("localbrowse"))
                  .arg (FlashLink ("externbrowse"))
                  .arg (url.Url().toString())
-                 .arg (Timestamp ());
+                 .arg (Timestamp ())
+                 .arg (FlashLink ("mail"))
+                 .arg (FlashLink ("copy"))
+                 .arg (FlashLink ("crawl"));
   }
 }
 
