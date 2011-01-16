@@ -99,6 +99,7 @@ private slots:
   void SetupDisplayUrlsAction();
   void InitEngine ();
   void ConnectEngine ();
+  void TimedConnectEngine ();
   void EngineConnected ();
   void EngineDisconnected ();
   void ReadEnginePipe ();

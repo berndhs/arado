@@ -56,6 +56,7 @@ RssPoll::SetDB (DBManager *db)
 void
 RssPoll::Start ()
 {
+  qDebug () << " RssPoll Start";
   int period (5*60); // 5 minutes
   period = Settings().value ("rss/pollperiod",period).toInt();
   Settings().setValue ("rss/pollperiod",period);
@@ -90,6 +91,7 @@ RssPoll::Stop ()
 void
 RssPoll::Poll ()
 {
+  qDebug () << "RssPoll list length " << feedList.count();
   if (feedList.empty ()) {
     return;
   }

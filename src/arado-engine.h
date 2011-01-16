@@ -53,12 +53,15 @@ public:
   
   void SetApp (QApplication & qapp) { app = &qapp;}
 
-  void Start ();
+  void Start (const QString & serviceId);
+
+public slots:
+
+  void StartServer ();
 
 private slots:
 
   void Quit ();
-  void StartServer ();
   void GetNewConnection ();
   void Disconnected ();
   void ReadPipe ();
@@ -81,7 +84,6 @@ private:
   void RefreshPeers ();
 
   QApplication   *app;
-  QFile          *stdinFromMain;
   QLocalSocket   *mainPipe;
 
   DBManager           dbMgr;
@@ -92,6 +94,7 @@ private:
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;
+  QString             serviceName;
 
 };
 

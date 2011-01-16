@@ -27,6 +27,7 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QTextCodec>
+#include <QTimer>
 #include <QDebug>
 #include "deliberate.h"
 #include "delib-debug.h"
@@ -60,6 +61,8 @@ main (int argc, char * argv[])
   opts.AddStringOption ("logdebug","L",QObject::tr("write Debug log to file"));
   opts.AddStringOption ("lang","l",
                    QObject::tr("language (2-letter lower case)"));
+  opts.AddStringOption ("service","S",
+                   QObject::tr("service id"));
 
   deliberate::UseMyOwnMessageHandler ();
 
@@ -98,12 +101,17 @@ main (int argc, char * argv[])
       app.installTranslator (&translate);
     }
   }
+  QString servId ("0");
+  if (opts.SeenOpt ("service")) {
+    opts.SetStringOpt ("service",servId);
+  }
 
   /** the real main program starts here **/
   arado::AradoEngine  engine;
   engine.SetApp (app);
-  engine.Start ();
+  engine.Start (servId);
 
+  QTimer::singleShot (100, &engine, SLOT(StartServer ()));
   int appresult = app.exec ();
   
   return appresult;

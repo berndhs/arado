@@ -28,7 +28,6 @@
 #include <QStringList>
 #include <QByteArray>
 #include <QString>
-#include <stdio.h>
 #include <QDebug>
 
 #include "policy.h"
@@ -43,7 +42,6 @@ namespace arado
 AradoEngine::AradoEngine (QObject *parent)
   :QLocalServer (parent),
    app (0),
-   stdinFromMain (0),
    mainPipe (0),
    dbMgr (this),
    policy (0),
@@ -73,46 +71,26 @@ AradoEngine::~AradoEngine ()
 }
 
 void
-AradoEngine::Start ()
+AradoEngine::Start (const QString & serviceId)
 {
   qDebug () << " AradoEngine Start";
-  stdinFromMain = new QFile (this);
-  stdinFromMain->open (stdin, QFile::ReadOnly);
-  connect (this, SIGNAL (newConnection()), this, 
-                     SLOT (GetNewConnection()));
-  QTimer::singleShot (250, this, SLOT(StartServer ()));
+  serviceName = QString ("aradoen%1").arg(serviceId);
+  qDebug () << " AradoEngine service name " << serviceName;
 }
 
 void
 AradoEngine::StartServer ()
 {
   qDebug () << " AradoEngine StartServer";
-  if (stdinFromMain == 0 || !stdinFromMain->isOpen()) {
-    Bailout ("AradoEngine no stdin");
+  bool ok = listen (serviceName);
+  if (!ok) {
+    Bailout ("AradoEngine exiting: cannot listen to pipe");
     return;
   }
-  qDebug () << " AradoEngine read stdin for Hello";
-  QString data = stdinFromMain->readLine (2048);
-  qDebug () << " AradoEngine got Hello " << data;
-  if (data != "HELLO\n") {
-    Bailout ("AradoEngine exiting: bad initial message");
-    return;
-  }
-  data = stdinFromMain->readLine (2048);
-  stdinFromMain->close ();
-  qDebug () << " AradoEngine got service message " << data;
-  QStringList parts = QString(data).split (QRegExp("\\s+"));
-  if (parts.at(0) == "SERVE" && parts.count () > 1) {
-    QString serviceName = QString ("aradoen%1").arg(parts.at(1));
-    bool ok = listen (serviceName);
-    if (!ok) {
-      Bailout ("AradoEngine exiting: cannot listen to pipe");
-      return;
-    }
-  } else {
-    Bailout ("AradoEngine exiting: stdin protocol failure");
-    return;
-  }
+  bool conOk = connect (this, SIGNAL (newConnection()), this, 
+                     SLOT (GetNewConnection()));
+  qDebug () << " AradoEngine listening on " << serverName() 
+            << " conOk " << conOk;
   dbMgr.Start ();
   if (policy) {
     policy->Load (&dbMgr);
@@ -121,6 +99,9 @@ AradoEngine::StartServer ()
   StartHttpClients ();
   RefreshPeers ();
   StartSequencer ();
+  if (rssPoll) {
+    rssPoll->Start ();
+  }
 }
 
 void
@@ -310,11 +291,6 @@ void
 AradoEngine::Quit ()
 {
   qDebug () << " AradoEngine quitting";
-  if (stdinFromMain) {
-    stdinFromMain->close();
-    delete stdinFromMain;
-    stdinFromMain = 0;
-  }
   close ();
   if (rssPoll) {
     rssPoll->Stop ();

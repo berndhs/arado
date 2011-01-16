@@ -214,45 +214,62 @@ AradoMain::StartEngine ()
   engineProcess = new QProcess (this);
   engineProcess->setProcessChannelMode (QProcess::ForwardedChannels);
   QString exepath = QCoreApplication::applicationDirPath();
+  QDateTime now = QDateTime::currentDateTime();
+  QDateTime then = QDateTime (QDate(2112,12,12));
+  QString postNum = QString::number(qAbs(now.msecsTo(then)
+                                           - now.secsTo (then)));
+  engineService = QString ("aradoen%1").arg(postNum);
+  QString engineLogFile;
+  if (logDebug) {
+    engineLogFile = QString ("%1-e").arg(logFile);
+  }
   QString cmdArgs (QString ("%1%2")
                      .arg (showDebug ? " -D " : "")
-                     .arg (logDebug ? QString (" -L %1").arg(logFile) : ""));
+                     .arg (logDebug ? QString (" -L %1").arg(engineLogFile) : ""));
+  cmdArgs.append (QString (" -S %1").arg(postNum));
   QString fullBackName = QString ("%1/arado-engine%2")
                                  .arg (exepath)
                                  .arg (cmdArgs);
-qDebug () << " start engine process " << fullBackName;
+qDebug () << " AradoMain: start engine process " << fullBackName;
   engineProcess->start (fullBackName);
-  connect (engineProcess, SIGNAL (started()), this, SLOT (InitEngine()));
+  //connect (engineProcess, SIGNAL (started()), this, SLOT (ConnectEngine()));
+  InitEngine ();
 }
 
 void
 AradoMain::InitEngine ()
 {
   if (engineProcess) {
-    engineProcess->write ("HELLO\n");
-    QDateTime now = QDateTime::currentDateTime();
-    QDateTime then = QDateTime (QDate(2112,12,12));
-    QString postNum = QString::number(qAbs(now.msecsTo(then)
-                                           - now.secsTo (then)));
-    engineProcess->write (QString ("SERVE %1\n").arg (postNum).toUtf8());
-    engineService = QString ("aradoen%1").arg(postNum);
     QThread::yieldCurrentThread ();
-    QTimer::singleShot (5*1000, this, SLOT (ConnectEngine()));
+    QTimer::singleShot (10*1000, this, SLOT (TimedConnectEngine()));
   }
+}
+
+void
+AradoMain::TimedConnectEngine ()
+{
+  qDebug () << " AradoMain timed connect to engine";
+  ConnectEngine ();
 }
 
 void
 AradoMain::ConnectEngine ()
 {
+  qDebug () << " AradoMain try to connect to engine " << engineService;
   if (enginePipe) {
-    disconnect (enginePipe, 0,0,0);
-    enginePipe->deleteLater();
-    enginePipe = 0;
+    return;
   }
   enginePipe = new QLocalSocket (this);
   if (enginePipe) {
-qDebug () << " try to connect to engine " << engineService;
+qDebug () << " AradoMain conneting to engine " << engineService;
     enginePipe->connectToServer (engineService, QLocalSocket::ReadWrite);
+qDebug () << " AradoMain localsocket error " << enginePipe->error ();
+    if (enginePipe->error() == QLocalSocket::ServerNotFoundError) {
+      enginePipe->deleteLater ();
+      enginePipe = 0;
+      QTimer::singleShot (15*1000, this, SLOT (TimedConnectEngine()));
+      return;
+    }
     connect (enginePipe, SIGNAL (connected ()), 
               this, SLOT (EngineConnected ()));
     connect (enginePipe, SIGNAL (disconnected ()),
