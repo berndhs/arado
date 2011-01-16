@@ -26,6 +26,7 @@
 
 #include "deliberate.h"
 #include <QDateTime>
+#include <QDebug>
 
 
 using namespace deliberate;

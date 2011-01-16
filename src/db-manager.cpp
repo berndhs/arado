@@ -609,7 +609,8 @@ AradoUrl
 DBManager::GetOneRandom (qint64 limit)
 {
   QSqlQuery  select (urlBase);
-  qint64 rownum = ranGen.Random (qAbs (limit));
+  qint64 rownum = ranGen.Random (qAbs (limit)-1);
+qDebug () << " get random row " << rownum << " out of " << limit;
   QString  cmd = QString ("select url, description, hashid from urltable "
                           " where rowid = \"%1\"").arg (rownum);
   bool ok = select.exec (cmd);
