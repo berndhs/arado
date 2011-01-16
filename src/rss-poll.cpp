@@ -104,6 +104,8 @@ RssPoll::Poll ()
   feeder->PollFeed (nextPoll->Url().toString());
   lastNick = nextPoll->Nick();
   lastPolled = nextPoll;
+  Settings().setValue ("rss/lastpolled",lastNick);
+  Settings().sync ();
   emit SigPolledRss (lastNick);
 }
 

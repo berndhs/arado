@@ -92,6 +92,7 @@ ConfigEdit::Load ()
     configModel->removeRows (0,nr);
   }
   Qt::ItemFlags  flags;
+  Settings().sync ();
   QSettings & Zett = Settings();
   QString   name, data;
   fileName->setText (Zett.fileName());
