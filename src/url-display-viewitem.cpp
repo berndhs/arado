@@ -67,10 +67,6 @@ UrlDisplayViewItem::Html()
                     "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
                     "</a></div>"
 
-             "<div class=\"kugar\"><a class=\"kugar\" href=\"%6\">"
-                  "<img src=\"qrc:/html/html/images/kugar.png\">"
-                  "</a></div>"
-
              "<div class=\"title\">"
              "<a class=\"title\" href=\"%1\">%2</a></div>";
   bool haveKeywords = url.Keywords().count() > 0;
@@ -88,8 +84,12 @@ UrlDisplayViewItem::Html()
                    "[ <a href=\"http://translate.google.com/translate?hl=");
   html_str.append (homeLang);
   html_str.append ("&sl=auto&u=%7\">");
-  html_str.append (QString ("%1</a>&nbsp;]</span>\n").arg(QObject::tr("Translation")));
-  html_str.append ("<div class=\"url\">");
+  html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>").arg(QObject::tr("Translation")));
+  html_str.append (
+             "<span class=\"kugar\"><a class=\"kugar\" href=\"%6\">"
+             "<img src=\"qrc:/html/html/images/kugar.png\">"
+             "</a></span>\n "
+             "<div class=\"url\">");
   html_str.append ("%7\n"
                    "</div>"
                   "</div>\n");
