@@ -65,6 +65,7 @@ AradoEngine::AradoEngine (QObject *parent)
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
+  ConnectSignals ();
 }
 
 AradoEngine::~AradoEngine ()
@@ -178,7 +179,7 @@ AradoEngine::StopSequencer ()
 }
 
 void
-AradoEngine::Connect ()
+AradoEngine::ConnectSignals ()
 {
   if (httpServer) {
     connect (httpServer, SIGNAL (AddedPeers (int)),

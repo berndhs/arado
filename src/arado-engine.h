@@ -69,7 +69,7 @@ private slots:
 
 private:
 
-  void Connect ();
+  void ConnectSignals ();
   void Bailout (const char * msg);
   void RestartRss ();
   void StartHttpServers ();

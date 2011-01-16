@@ -88,7 +88,7 @@ UrlDisplayViewItem::Html()
     "[ <a href=\"http://translate.google.com/translate?hl=");
   html_str.append (homeLang);
   html_str.append ("&sl=auto&u=%7\">");
-  html_str.append (QString ("%1</a> ]\n").arg("Translation"));
+  html_str.append (QString ("%1</a> ]\n").arg(QObject::tr("Translation")));
   html_str.append ("<div class=\"url\">");
   html_str.append ("%7\n"
                    "</div>"

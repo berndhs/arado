@@ -318,7 +318,7 @@ AradoMain::StopEngine ()
     QThread::yieldCurrentThread();
     engineProcess->terminate ();
     QThread::yieldCurrentThread();
-    bool stopped = engineProcess->waitForFinished (250);
+    bool stopped = engineProcess->waitForFinished (2000);
     qDebug () << " stopped is " << stopped;
   }
 }
