@@ -87,8 +87,10 @@ UrlDisplayViewItem::Html()
   html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>").arg(QObject::tr("Translation")));
   html_str.append (
              "<span class=\"kugar\"><a class=\"kugar\" href=\"%6\">"
-             "<img src=\"qrc:/html/html/images/kugar.png\">"
-             "</a></span>\n "
+             "<img src=\"qrc:/html/html/images/kugar.png\"></a>"
+             "&nbsp; <img src=\"qrc:/html/html/images/mail.png\">"
+             "&nbsp; <img src=\"qrc:/html/html/images/copy.png\">"
+             "</span>\n "
              "<div class=\"url\">");
   html_str.append ("%7\n"
                    "</div>"
