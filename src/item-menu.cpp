@@ -40,7 +40,7 @@ ItemMenu::ItemMenu (QWidget *parent)
    mailUrlAction (0),
    mailHashAction (0)
 {
-  actions.append ( new QAction (QObject::tr("Copy URL"),parentWidget));
+  copyUrlAction = new QAction (QObject::tr("Copy URL"),parentWidget);
   copyHashAction = new QAction (QObject::tr("Copy Flashmark"),parentWidget);
   mailUrlAction = new QAction (QObject::tr("Mail Url"),parentWidget);
   mailHashAction = new QAction (QObject::tr("Mail Flashmark"),parentWidget);
