@@ -115,7 +115,7 @@ void
 UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
 {
   QString scheme = url.scheme();
-  if (scheme != "arado") {
+  if (scheme != "aradolink") {
     QDesktopServices::openUrl (url);
   } else {
     QString function = url.host();
@@ -127,10 +127,7 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
       } else if (function == "externbrowse") {
         QDesktopServices::openUrl (aUrl.Url());
       } else {
-        QMessageBox menuBox;
-        menuBox.setText ("This is where the context menu goes");
-        menuBox.setInformativeText (url.toString());
-        menuBox.exec ();
+        itemMenu.BasicExec (aUrl);
       }
     } else {
       qDebug () << " BAD internal link " << url.toString();
@@ -165,6 +162,13 @@ UrlDisplayWebView::CloseTab(UrlDisplayWebViewTab * tab)
     ui->browserTabWidget->removeTab(ui->browserTabWidget->indexOf(tab));
     delete tab;
   }
+}
+
+void
+UrlDisplayWebView::ClearContents ()
+{
+  urlMap.clear ();
+  ClearItemsList ();
 }
 
 void

@@ -151,7 +151,7 @@ UrlDisplayViewItem::Timestamp()
 QString
 UrlDisplayViewItem::Keywords()
 {
-  return url.Keywords().join("; ");
+  return url.Keywords().join(QObject::tr("; "));
 }
 
 QString
@@ -164,7 +164,7 @@ QString
 UrlDisplayViewItem::FlashLink (const QString & type)
 {
   QUrl flashUrl;
-  flashUrl.setScheme ("arado");
+  flashUrl.setScheme ("aradolink");
   flashUrl.setHost (type);
   flashUrl.setPath (url.Hash());
   return flashUrl.toString();

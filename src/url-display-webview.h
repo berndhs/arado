@@ -27,6 +27,7 @@
 #include "url-display-view.h"
 #include <QMap>
 #include <QList>
+#include "item-menu.h"
 
 class QUrl;
 
@@ -51,9 +52,7 @@ public:
   void ShowUrls(QList<AradoUrl> & urls);
   void Updating() {}
   void UpdatingFinished() {}
-  void ClearContents() {
-    ClearItemsList();
-  }
+  void ClearContents(); 
   void ClearSelection() {}
   void ClearItemsList();
   void SortByTime(Qt::SortOrder) {}
@@ -72,7 +71,8 @@ private:
 
   QList<UrlDisplayViewItem *> items;
   QMap <QString, AradoUrl>    urlMap;
-  Ui::UrlDisplayWebView *ui;
+  Ui::UrlDisplayWebView      *ui;
+  ItemMenu                    itemMenu;
 };
 
 }
