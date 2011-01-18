@@ -69,6 +69,7 @@ private slots:
   void UrlsAdded (int numNew);
   void PeersAdded (int numNew);
   void Poll (bool haveNew=false);
+  void LiveCheck ();
 
 private:
 
@@ -95,6 +96,7 @@ private:
   HttpClient         *httpClient;
   QTimer             *httpPoll;
   QString             serviceName;
+  QTimer             *liveCheck;
 
 };
 

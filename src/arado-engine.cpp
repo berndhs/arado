@@ -63,6 +63,9 @@ AradoEngine::AradoEngine (QObject *parent)
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
   httpPoll = new QTimer (this);
+  liveCheck = new QTimer (this);
+  connect (liveCheck, SIGNAL (timeout()), this, SLOT (LiveCheck()));
+  liveCheck->start (2*60*1000);
   ConnectSignals ();
 }
 
@@ -246,6 +249,18 @@ AradoEngine::Disconnected ()
       QTimer::singleShot (100, this, SLOT(Quit ()));
     }
   }
+}
+
+void
+AradoEngine::LiveCheck ()
+{
+  if (mainPipe) {
+    if (mainPipe->isValid()
+       && mainPipe->state () == QLocalSocket::ConnectedState) {
+      return;
+    }
+  }
+  Bailout ("AradoEngine: Bad State, try to quit");
 }
 
 void
