@@ -51,15 +51,15 @@ ItemMenu::ItemMenu (QWidget *parent)
 }
 
 QAction *
-ItemMenu::BasicExec (const AradoUrl & url,
+ItemMenu::MenuBasic (const AradoUrl & url,
                                const QList<QAction *>  extraActions)
 {
   QMenu menu (parentWidget);
-  menu.addActions (standardActions);
   if (extraActions.size() > 0) {
+    menu.addActions (extraActions);
     menu.addSeparator ();
   }
-  menu.addActions (extraActions);
+  menu.addActions (standardActions);
 
   QAction * select = menu.exec (QCursor::pos());
   if (select == copyUrlAction) {
@@ -83,6 +83,94 @@ ItemMenu::BasicExec (const AradoUrl & url,
   } else {
     return select;
   }
+}
+
+void
+ItemMenu::MenuMail (const AradoUrl & aurl)
+{
+  QAction * mailAction = new QAction (QObject::tr("Mail All Details"),
+                                parentWidget);
+  QList <QAction*> alist;
+  alist << mailAction;
+  QAction * choice = MenuBasic (aurl, alist);
+  if (choice == 0) {
+    return;
+  }
+  QStringList details;
+  details << QObject::tr ("Url: ") + aurl.Url().toString();
+  details << QObject::tr ("Arado-Flashmark: " ) + aurl.Hash().toUpper();
+  details << QObject::tr ("Title: ") + aurl.Description();
+  details << QObject::tr ("Keywords: ");
+  details << aurl.Keywords ();
+  if (choice == mailAction) {
+    MailString (details.join ("\r\n"));
+  }
+}
+
+void
+ItemMenu::MenuCopy (const AradoUrl & aurl)
+{
+  QAction * allAction = new QAction (QObject::tr("Copy All Details"),
+                                parentWidget);
+  QAction * keyAction = new QAction (QObject::tr("Copy Keywords"),
+                                parentWidget);
+  QList <QAction*> alist;
+  alist << allAction << keyAction;
+  QAction * choice = MenuBasic (aurl, alist);
+  if (choice == 0) {
+    return;
+  }
+  QClipboard * clip = QApplication::clipboard ();
+  if (clip == 0) {
+    return;
+  }
+  if (choice == keyAction) {
+    clip->setText (aurl.Keywords().join ("\n"));
+  } else if (choice == allAction) {
+    QStringList details;
+    details << QObject::tr ("Url: ") + aurl.Url().toString();
+    details << QObject::tr ("Arado-Flashmark: " ) + aurl.Hash().toUpper();
+    details << QObject::tr ("Title: ") + aurl.Description();
+    details << QObject::tr ("Keywords: ");
+    details << aurl.Keywords ();
+    clip->setText (details.join ("\n"));
+  }
+}
+void
+ItemMenu::MenuKeywords (const AradoUrl & aurl)
+{
+  QAction * mailAction = new QAction (QObject::tr("Mail All Keywords"),
+                                parentWidget);
+  QAction * copyAction = new QAction (QObject::tr("Copy All Keywords"),
+                                parentWidget);
+  QList <QAction*> alist;
+  alist << copyAction << mailAction;
+  QAction * choice = MenuBasic (aurl, alist);
+  if (choice == 0) {
+    return;
+  }
+  QStringList details;
+  details << aurl.Keywords ();
+  if (choice == mailAction) {
+    MailString (details.join ("\r\n"));
+  } else if (choice == copyAction) {
+    if (choice == copyAction) {
+      QClipboard *clip = QApplication::clipboard ();
+      if (clip) {
+        clip->setText (details.join ("\n"));
+      }
+    }
+  }
+}
+
+void
+ItemMenu::MenuCrawl (const AradoUrl & aurl)
+{
+  QAction * copyAction = new QAction (QObject::tr("Crawl Coming Soon!"),
+                                parentWidget);
+  QList <QAction*> alist;
+  alist << copyAction;
+  MenuBasic (aurl, alist);
 }
 
 void

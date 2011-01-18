@@ -38,9 +38,13 @@ public:
 
   ItemMenu (QWidget *parent=0);
 
-  QAction * BasicExec (const AradoUrl & url,
+  QAction * MenuBasic (const AradoUrl & url,
                       const QList<QAction *>  extraActions
                            = QList<QAction*> ());
+  void MenuMail (const AradoUrl & aurl);
+  void MenuKeywords (const AradoUrl & aurl);
+  void MenuCrawl (const AradoUrl & aurl);
+  void MenuCopy (const AradoUrl & aurl);
 
 private:
 

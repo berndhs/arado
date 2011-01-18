@@ -73,12 +73,14 @@ UrlDisplayViewItem::Html()
 
              "<div class=\"title\">"
              "<a class=\"title\" href=\"%1\">%2</a></div>";
-  bool haveKeywords = url.Keywords().count() > 0;
+  bool haveKeywords = (url.Keywords().count() > 0);
   QString keywordPart;
   if (haveKeywords) {
     keywordPart = QString ("<a href=\"%12\" span class=\"keywords\">")
                   + QObject::tr ("Keywords:")
                   + QString (" %13</a></span><br>");
+  } else {
+    keywordPart = QString (" ");
   }
   html_str.append (keywordPart);
   html_str.append ("<a href=\"%3\" class=\"flash\">");

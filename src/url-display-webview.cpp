@@ -126,8 +126,16 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
         BrowseUrl (aUrl.Url());
       } else if (function == "externbrowse") {
         QDesktopServices::openUrl (aUrl.Url());
+      } else if (function == "mail") {
+        itemMenu.MenuMail (aUrl);
+      } else if (function == "keywords") {
+        itemMenu.MenuKeywords (aUrl);
+      } else if (function == "copy") {
+        itemMenu.MenuCopy (aUrl);
+      } else if (function == "crawl") {
+        itemMenu.MenuCrawl (aUrl);
       } else {
-        itemMenu.BasicExec (aUrl);
+        itemMenu.MenuBasic (aUrl);
       }
     } else {
       qDebug () << " BAD internal link " << url.toString();

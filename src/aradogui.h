@@ -98,7 +98,6 @@ private slots:
   void ToggleUrlsDisplay();
   void SetupDisplayUrlsAction();
   void InitEngine ();
-  void ConnectEngine ();
   void TimedConnectEngine ();
   void EngineConnected ();
   void EngineDisconnected ();

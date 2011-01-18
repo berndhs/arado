@@ -235,13 +235,6 @@ AradoMain::InitEngine ()
 void
 AradoMain::TimedConnectEngine ()
 {
-  qDebug () << " AradoMain timed connect to engine";
-  ConnectEngine ();
-}
-
-void
-AradoMain::ConnectEngine ()
-{
   qDebug () << " AradoMain try to connect to engine " << engineService;
   if (enginePipe) {
     return;
