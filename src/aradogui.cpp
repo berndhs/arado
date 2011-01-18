@@ -80,7 +80,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    httpDefaultPort (29998),
    ownUuid (QUuid()),
    runAgain (false),
-   engineProcess (0),
    enginePipe (0)
 #if USE_MINIUPNP
 ,
@@ -108,7 +107,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   crawler->hide();
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
-  // mainUi.tabWidget->addTab (rssList, tr("RSS Feeds"));  // Bug: does not load feedurl database
   SetupDisplayUrlsAction();
 
 }
@@ -206,13 +204,6 @@ AradoMain::Restart ()
 void
 AradoMain::StartEngine ()
 {
-  if (engineProcess) {
-    disconnect (engineProcess, 0,0,0);
-    delete engineProcess;
-    engineProcess = 0;
-  }
-  engineProcess = new QProcess (this);
-  engineProcess->setProcessChannelMode (QProcess::ForwardedChannels);
   QString exepath = QCoreApplication::applicationDirPath();
   QDateTime now = QDateTime::currentDateTime();
   QDateTime then = QDateTime (QDate(2112,12,12));
@@ -231,18 +222,14 @@ AradoMain::StartEngine ()
                                  .arg (exepath)
                                  .arg (cmdArgs);
 qDebug () << " AradoMain: start engine process " << fullBackName;
-  engineProcess->start (fullBackName);
-  //connect (engineProcess, SIGNAL (started()), this, SLOT (ConnectEngine()));
+  QProcess::startDetached (fullBackName);
   InitEngine ();
 }
 
 void
 AradoMain::InitEngine ()
 {
-  if (engineProcess) {
-    QThread::yieldCurrentThread ();
-    QTimer::singleShot (10*1000, this, SLOT (TimedConnectEngine()));
-  }
+  QTimer::singleShot (10*1000, this, SLOT (TimedConnectEngine()));
 }
 
 void
@@ -261,7 +248,7 @@ AradoMain::ConnectEngine ()
   }
   enginePipe = new QLocalSocket (this);
   if (enginePipe) {
-qDebug () << " AradoMain conneting to engine " << engineService;
+qDebug () << " AradoMain connecting to engine " << engineService;
     enginePipe->connectToServer (engineService, QLocalSocket::ReadWrite);
 qDebug () << " AradoMain localsocket error " << enginePipe->error ();
     if (enginePipe->error() == QLocalSocket::ServerNotFoundError) {
@@ -329,14 +316,6 @@ AradoMain::StopEngine ()
     disconnect (enginePipe, 0,0,0);
     enginePipe->deleteLater();
     enginePipe = 0;
-  }
-  if (engineProcess) {
-    qDebug () << " wait for engine stop";
-    QThread::yieldCurrentThread();
-    engineProcess->terminate ();
-    QThread::yieldCurrentThread();
-    bool stopped = engineProcess->waitForFinished (2000);
-    qDebug () << " stopped is " << stopped;
   }
 }
 

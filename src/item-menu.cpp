@@ -44,10 +44,10 @@ ItemMenu::ItemMenu (QWidget *parent)
   copyHashAction = new QAction (QObject::tr("Copy Flashmark"),parentWidget);
   mailUrlAction = new QAction (QObject::tr("Mail Url"),parentWidget);
   mailHashAction = new QAction (QObject::tr("Mail Flashmark"),parentWidget);
-  actions.append (copyUrlAction);
-  actions.append (copyHashAction);
-  actions.append (mailUrlAction);
-  actions.append (mailHashAction);
+  standardActions.append (copyUrlAction);
+  standardActions.append (copyHashAction);
+  standardActions.append (mailUrlAction);
+  standardActions.append (mailHashAction);
 }
 
 QAction *
@@ -55,13 +55,11 @@ ItemMenu::BasicExec (const AradoUrl & url,
                                const QList<QAction *>  extraActions)
 {
   QMenu menu (parentWidget);
-  menu.addActions (actions);
+  menu.addActions (standardActions);
   if (extraActions.size() > 0) {
     menu.addSeparator ();
   }
-  for (int a=0; a < extraActions.size(); a++) {
-    menu.addAction (extraActions.at (a));
-  }
+  menu.addActions (extraActions);
 
   QAction * select = menu.exec (QCursor::pos());
   if (select == copyUrlAction) {

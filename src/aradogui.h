@@ -137,7 +137,7 @@ private:
   QUuid               ownUuid;
   bool                runAgain;
 
-  QProcess           *engineProcess;
+  //QProcess           *engineProcess;
   QLocalSocket       *enginePipe;
   QString             engineService;
 

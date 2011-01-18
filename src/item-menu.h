@@ -46,12 +46,12 @@ private:
 
   void MailString (const QString & message);
 
-  QWidget     *parentWidget;
-  QList <QAction*>  actions;
-  QAction     *copyUrlAction;
-  QAction     *copyHashAction;
-  QAction     *mailUrlAction;
-  QAction     *mailHashAction;
+  QWidget           *parentWidget;
+  QList <QAction*>   standardActions;
+  QAction           *copyUrlAction;
+  QAction           *copyHashAction;
+  QAction           *mailUrlAction;
+  QAction           *mailHashAction;
 
 };
 
