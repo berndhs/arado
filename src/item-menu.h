@@ -36,27 +36,42 @@ class ItemMenu
 
 public:
 
+  enum Parts {
+    Menu_None = 0,
+    Menu_Copy = 1,
+    Menu_Mail = 2
+  };
+
   ItemMenu (QWidget *parent=0);
 
   QAction * MenuBasic (const AradoUrl & url,
+                       Parts parts = Parts (Menu_Copy | Menu_Mail),
                       const QList<QAction *>  extraActions
                            = QList<QAction*> ());
   void MenuMail (const AradoUrl & aurl);
   void MenuKeywords (const AradoUrl & aurl);
   void MenuCrawl (const AradoUrl & aurl);
   void MenuCopy (const AradoUrl & aurl);
+  void MenuHash (const AradoUrl & aurl);
+  void MenuUrlText (const AradoUrl & aurl);
 
 private:
 
   void MailString (const QString & message);
+  void Mail (const QAction * action, const AradoUrl & aurl);
+  void Copy (const QAction * action, const AradoUrl & aurl);
 
   QWidget           *parentWidget;
-  QList <QAction*>   standardActions;
+  QList <QAction*>   copyActions;
+  QList <QAction*>   mailActions;
   QAction           *copyUrlAction;
   QAction           *copyHashAction;
+  QAction           *copyKeyAction;
+  QAction           *copyTitleAction;
   QAction           *mailUrlAction;
   QAction           *mailHashAction;
-
+  QAction           *mailKeyAction;
+  QAction           *mailTitleAction;
 };
 
 } // namespace

@@ -47,19 +47,20 @@ QString
 UrlDisplayViewItem::Html()
 {
   /** Elements:
-    *   %1 title-link
+    *   %1 url-local-browse-link
     *   %2 title text
     *   %3 hash-link
     *   %4 hash text
-    *   %5 url-local-browse-link
+    *   %5 empty
     *   %6 url-external-browse-link
     *   %7 url text
     *   %8 timestamp
     *   %9 mail-link
     *   %10 copy-link
     *   %11 crawl-link
-    *   %12 keyword-list-link
-    *   %13 keyword-list text
+    *   %12 url-text-link
+    *   %13 keyword-list-link
+    *   %14 keyword-list text
     
    */
   QString homeLang("en");
@@ -67,20 +68,20 @@ UrlDisplayViewItem::Html()
   QString html_str;
   html_str = "<div class=\"item\">\n"
 
-             "<div class=\"thumb\"><a class=\"thumb\" href=\"%5\">"
-                    "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
-                    "</a></div>"
+             "<div class=\"thumb\"><a class=\"thumb\" href=\"%6\">"
+               "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
+               "</a></div>"
 
              "<div class=\"title\">"
-             "<a class=\"title\" href=\"%1\">%2</a></div>";
+               "<a class=\"title\" href=\"%1\">%2</a></div>";
   bool haveKeywords = (url.Keywords().count() > 0);
   QString keywordPart;
   if (haveKeywords) {
-    keywordPart = QString ("<a href=\"%12\" span class=\"keywords\">")
+    keywordPart = QString ("<a href=\"%13\" span class=\"keywords\">")
                   + QObject::tr ("Keywords:")
-                  + QString (" %13</a></span><br>");
+                  + QString (" %14</a></span><br>");
   } else {
-    keywordPart = QString (" ");
+    keywordPart = QString ("");
   }
   html_str.append (keywordPart);
   html_str.append ("<a href=\"%3\" class=\"flash\">");
@@ -88,7 +89,8 @@ UrlDisplayViewItem::Html()
   html_str.append (
              "<span style=\"font-size:small;"
              " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
-  html_str.append ("<span class=\"timestamp\">%8");
+  html_str.append ("%5");
+  html_str.append ("<span class=\"timestamp\">Time %8");
   html_str.append ("&nbsp; &bull; &nbsp;"
                    "[ <a href=\"http://translate.google.com/translate?hl=");
   html_str.append (homeLang);
@@ -96,51 +98,46 @@ UrlDisplayViewItem::Html()
   html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>")
                      .arg(QObject::tr("Translation")));
   html_str.append (
-             "<span class=\"kugar\"><a class=\"kugar\" href=\"%6\">"
-             "<img src=\"qrc:/html/html/images/kugar.png\"></a>"
+             "<span class=\"kugar\">"
              "&nbsp; <a class=\"mailbutton\" href=\"%9\">"
               "<img src=\"qrc:/html/html/images/mail.png\"></a>"
              "&nbsp; <a class=\"copybutton\" href=\"%10\">"
               "<img src=\"qrc:/html/html/images/copy.png\"></a>"
-             //
-             // Function to crawl in deamon process what links to this url
-             // using this lookup:
-             // e.g. http://blekko.com/ws/http:%2F%2Fdooble.sf.net%2F+/links
-             // as code:
-             // "http://blekko.com/ws/
-             // "%1" (THE URL)- e.g.: html_str.append (QString ("%1").arg);
-             // "%2F+/links"
              "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
               "<img src=\"qrc:/html/html/images/openmielke.png\"></a>"
-             // Tooltip: "Aradofy what links to this URL."
-             //
              "</span>\n "
              "<div class=\"url\">");
-  html_str.append ("%7\n"
+  html_str.append ("<a class=\"url\" href=\"%12\">%7</a>\n"
                    "</div>"
                   "</div>\n");
   if (haveKeywords) {
-    return html_str.arg (FlashLink ("description")) .arg (url.Description())
-                 .arg (FlashLink ("hash")) . arg (Flashmark())
-                 .arg (FlashLink ("localbrowse"))
+    return html_str.arg (FlashLink ("localbrowse")) 
+                 .arg (url.Description())
+                 .arg (FlashLink ("hash")) 
+                 .arg (Flashmark())
+                 .arg (QString(""))
                  .arg (FlashLink ("externbrowse"))
                  .arg (url.Url().toString())
                  .arg (Timestamp ())
                  .arg (FlashLink ("mail"))
                  .arg (FlashLink ("copy"))
                  .arg (FlashLink ("crawl"))
+                 .arg (FlashLink ("urltext"))
                  .arg (FlashLink ("keywords"))
                  .arg (Keywords());
   } else {
-    return html_str.arg (FlashLink ("description")) .arg (url.Description())
-                 .arg (FlashLink ("hash")) . arg (Flashmark())
-                 .arg (FlashLink ("localbrowse"))
+    return html_str.arg (FlashLink ("localbrowse")) 
+                 .arg (url.Description())
+                 .arg (FlashLink ("hash")) 
+                 .arg (Flashmark())
+                 .arg (QString(""))
                  .arg (FlashLink ("externbrowse"))
                  .arg (url.Url().toString())
                  .arg (Timestamp ())
                  .arg (FlashLink ("mail"))
                  .arg (FlashLink ("copy"))
-                 .arg (FlashLink ("crawl"));
+                 .arg (FlashLink ("crawl"))
+                 .arg (FlashLink ("urltext"));
   }
 }
 

@@ -42,47 +42,83 @@ ItemMenu::ItemMenu (QWidget *parent)
 {
   copyUrlAction = new QAction (QObject::tr("Copy URL"),parentWidget);
   copyHashAction = new QAction (QObject::tr("Copy Flashmark"),parentWidget);
-  mailUrlAction = new QAction (QObject::tr("Mail Url"),parentWidget);
+  copyKeyAction = new QAction (QObject::tr("Copy Keywords"),parentWidget);
+  copyTitleAction = new QAction (QObject::tr("Copy Title"),parentWidget);
+  mailUrlAction = new QAction (QObject::tr("Mail URL"),parentWidget);
   mailHashAction = new QAction (QObject::tr("Mail Flashmark"),parentWidget);
-  standardActions.append (copyUrlAction);
-  standardActions.append (copyHashAction);
-  standardActions.append (mailUrlAction);
-  standardActions.append (mailHashAction);
+  mailKeyAction = new QAction (QObject::tr("Mail Keywords"),parentWidget);
+  mailTitleAction = new QAction (QObject::tr("Mail Title"),parentWidget);
+  copyActions << copyTitleAction
+              << copyHashAction 
+              << copyKeyAction
+              << copyUrlAction;
+  mailActions << mailTitleAction
+              << mailHashAction 
+              << mailKeyAction
+              << mailUrlAction;
 }
 
 QAction *
-ItemMenu::MenuBasic (const AradoUrl & url,
-                               const QList<QAction *>  extraActions)
+ItemMenu::MenuBasic (const AradoUrl & aurl,
+                     Parts parts,
+                     const QList<QAction *>  extraActions)
 {
   QMenu menu (parentWidget);
   if (extraActions.size() > 0) {
     menu.addActions (extraActions);
-    menu.addSeparator ();
   }
-  menu.addActions (standardActions);
+  if (parts & Menu_Copy) {
+    menu.addActions (copyActions);
+  }
+  if (parts & Menu_Mail) {
+    menu.addActions (mailActions);
+  }
 
   QAction * select = menu.exec (QCursor::pos());
-  if (select == copyUrlAction) {
-    QClipboard *clip = QApplication::clipboard ();
-    if (clip) {
-      clip->setText (url.Url().toString());
-    }
+  if (mailActions.contains (select)) {
+    Mail (select, aurl);
     return 0;
-  } else if (select == copyHashAction) {
-    QClipboard *clip = QApplication::clipboard ();
-    if (clip) {
-      clip->setText (url.Hash().toUpper());
-    }
-    return 0;
-  } else if (select == mailUrlAction) {
-    MailString (url.Url().toString());
-    return 0;
-  } else if (select == mailHashAction) {
-    MailString (url.Hash());
+  } else if (copyActions.contains (select)) {
+    Copy (select, aurl);
     return 0;
   } else {
     return select;
   }
+}
+
+void
+ItemMenu::Copy (const QAction * action, const AradoUrl & aurl)
+{
+  QString copy;
+  if (action == copyUrlAction) {
+    copy = aurl.Url().toString ();
+  } else if (action == copyHashAction) {
+    copy = aurl.Hash().toUpper ();
+  } else if (action == copyKeyAction ) {
+    copy = aurl.Keywords().join ("\n");
+  } else if (action == copyTitleAction) {
+    copy = aurl.Description();
+  }
+  QClipboard * clip = QApplication::clipboard ();
+  if (clip) {
+    clip->setText (copy);
+  }
+}
+
+void
+ItemMenu::Mail (const QAction * action, const AradoUrl & aurl)
+{
+  QString mail;
+  if (action == mailUrlAction) {
+    mail = aurl.Url().toString ();
+  } else if (action == mailHashAction) {
+    mail = aurl.Hash().toUpper ();
+  } else if (action == mailKeyAction ) {
+    mail = aurl.Keywords().join ("\n");
+  } else if (action == mailTitleAction) {
+    mail = aurl.Description();
+  }
+  MailString (mail);
 }
 
 void
@@ -92,14 +128,14 @@ ItemMenu::MenuMail (const AradoUrl & aurl)
                                 parentWidget);
   QList <QAction*> alist;
   alist << mailAction;
-  QAction * choice = MenuBasic (aurl, alist);
+  QAction * choice = MenuBasic (aurl, Menu_Mail, alist);
   if (choice == 0) {
     return;
   }
   QStringList details;
-  details << QObject::tr ("Url: ") + aurl.Url().toString();
-  details << QObject::tr ("Arado-Flashmark: " ) + aurl.Hash().toUpper();
-  details << QObject::tr ("Title: ") + aurl.Description();
+  details << QObject::tr ("Url: ") + aurl.Url().toString() ;
+  details << QObject::tr ("Arado-Flashmark: " ) + aurl.Hash().toUpper() ;
+  details << QObject::tr ("Title: ") + aurl.Description() ;
   details << QObject::tr ("Keywords: ");
   details << aurl.Keywords ();
   if (choice == mailAction) {
@@ -112,11 +148,9 @@ ItemMenu::MenuCopy (const AradoUrl & aurl)
 {
   QAction * allAction = new QAction (QObject::tr("Copy All Details"),
                                 parentWidget);
-  QAction * keyAction = new QAction (QObject::tr("Copy Keywords"),
-                                parentWidget);
   QList <QAction*> alist;
-  alist << allAction << keyAction;
-  QAction * choice = MenuBasic (aurl, alist);
+  alist << allAction;
+  QAction * choice = MenuBasic (aurl, Menu_Copy, alist);
   if (choice == 0) {
     return;
   }
@@ -124,9 +158,7 @@ ItemMenu::MenuCopy (const AradoUrl & aurl)
   if (clip == 0) {
     return;
   }
-  if (choice == keyAction) {
-    clip->setText (aurl.Keywords().join ("\n"));
-  } else if (choice == allAction) {
+  if (choice == allAction) {
     QStringList details;
     details << QObject::tr ("Url: ") + aurl.Url().toString();
     details << QObject::tr ("Arado-Flashmark: " ) + aurl.Hash().toUpper();
@@ -136,16 +168,17 @@ ItemMenu::MenuCopy (const AradoUrl & aurl)
     clip->setText (details.join ("\n"));
   }
 }
+
 void
 ItemMenu::MenuKeywords (const AradoUrl & aurl)
 {
-  QAction * mailAction = new QAction (QObject::tr("Mail All Keywords"),
+  QAction * mailAction = new QAction (QObject::tr("Mail Keywords"),
                                 parentWidget);
-  QAction * copyAction = new QAction (QObject::tr("Copy All Keywords"),
+  QAction * copyAction = new QAction (QObject::tr("Copy Keywords"),
                                 parentWidget);
   QList <QAction*> alist;
   alist << copyAction << mailAction;
-  QAction * choice = MenuBasic (aurl, alist);
+  QAction * choice = MenuBasic (aurl, Menu_None, alist);
   if (choice == 0) {
     return;
   }
@@ -164,13 +197,64 @@ ItemMenu::MenuKeywords (const AradoUrl & aurl)
 }
 
 void
+ItemMenu::MenuHash (const AradoUrl & aurl)
+{
+  QAction * mailAction = new QAction (QObject::tr("Mail Flashmark"),
+                                parentWidget);
+  QAction * copyAction = new QAction (QObject::tr("Copy Flashmark"),
+                                parentWidget);
+  QList <QAction*> alist;
+  alist << copyAction << mailAction;
+  QAction * choice = MenuBasic (aurl, Menu_None, alist);
+  if (choice == 0) {
+    return;
+  }
+  if (choice == mailAction) {
+    MailString (aurl.Hash().toUpper());
+  } else if (choice == copyAction) {
+    if (choice == copyAction) {
+      QClipboard *clip = QApplication::clipboard ();
+      if (clip) {
+        clip->setText (aurl.Hash().toUpper());
+      }
+    }
+  }
+}
+
+void
+ItemMenu::MenuUrlText (const AradoUrl & aurl)
+{
+  QAction * mailAction = new QAction (QObject::tr("Mail Url"),
+                                parentWidget);
+  QAction * copyAction = new QAction (QObject::tr("Copy Url"),
+                                parentWidget);
+  QList <QAction*> alist;
+  alist << copyAction << mailAction;
+  QAction * choice = MenuBasic (aurl, Menu_None, alist);
+  if (choice == 0) {
+    return;
+  }
+  if (choice == mailAction) {
+    MailString (aurl.Url().toString());
+  } else if (choice == copyAction) {
+    if (choice == copyAction) {
+      QClipboard *clip = QApplication::clipboard ();
+      if (clip) {
+        clip->setText (aurl.Url().toString());
+      }
+    }
+  }
+}
+
+
+void
 ItemMenu::MenuCrawl (const AradoUrl & aurl)
 {
   QAction * copyAction = new QAction (QObject::tr("Crawl Coming Soon!"),
                                 parentWidget);
   QList <QAction*> alist;
   alist << copyAction;
-  MenuBasic (aurl, alist);
+  MenuBasic (aurl, Menu_None, alist);
 }
 
 void
@@ -185,7 +269,7 @@ ItemMenu::MailString (const QString & message)
                 << webpageline ;
   QString urltext = QObject::tr("mailto:?subject=Aradofied\%20Web\%20Alert\%20for\%20you&body=%1")
                     .arg (mailBodytotal.join("\r\n"));
-qDebug () << "ItemMeny try to mail " << urltext;
+  qDebug () << "ItemMenu try to mail " << urltext;
   QDesktopServices::openUrl (QUrl(urltext));
 }
 

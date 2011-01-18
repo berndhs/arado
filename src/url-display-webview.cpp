@@ -134,7 +134,14 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
         itemMenu.MenuCopy (aUrl);
       } else if (function == "crawl") {
         itemMenu.MenuCrawl (aUrl);
+      } else if (function == "hash") {
+        itemMenu.MenuHash (aUrl);
+      } else if (function == "urltext") {
+        itemMenu.MenuUrlText (aUrl);
       } else {
+        QMessageBox box;
+        box.setText (function);
+        box.exec ();
         itemMenu.MenuBasic (aUrl);
       }
     } else {
