@@ -73,6 +73,7 @@ private:
   QMap <QString, AradoUrl>    urlMap;
   Ui::UrlDisplayWebView      *ui;
   ItemMenu                    itemMenu;
+  int                         menuBusy;
 };
 
 }

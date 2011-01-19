@@ -45,7 +45,8 @@ namespace arado
 
 UrlDisplayWebView::UrlDisplayWebView(QWidget *parent) :
   UrlDisplayView(parent),
-  ui(new Ui::UrlDisplayWebView)
+  ui(new Ui::UrlDisplayWebView),
+  menuBusy (0)
 {
   ui->setupUi(this);
 
@@ -101,6 +102,9 @@ UrlDisplayWebView::ShowUrls (QList<arado::AradoUrl> & urls)
 void
 UrlDisplayWebView::Load(const QList<arado::AradoUrl> & list)
 {
+  if (menuBusy > 0) {
+    return;
+  }
   ClearItemsList();
   urlMap.clear ();
   for (int i = 0; i < list.count(); ++i) {
@@ -127,22 +131,33 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
       } else if (function == "externbrowse") {
         QDesktopServices::openUrl (aUrl.Url());
       } else if (function == "mail") {
+        menuBusy++;
         itemMenu.MenuMail (aUrl);
+        menuBusy--;
       } else if (function == "keywords") {
+        menuBusy++;
         itemMenu.MenuKeywords (aUrl);
+        menuBusy--;
       } else if (function == "copy") {
+        menuBusy++;
         itemMenu.MenuCopy (aUrl);
+        menuBusy--;
       } else if (function == "crawl") {
+        menuBusy++;
         itemMenu.MenuCrawl (aUrl);
+        menuBusy--;
       } else if (function == "hash") {
+        menuBusy++;
         itemMenu.MenuHash (aUrl);
+        menuBusy--;
       } else if (function == "urltext") {
+        menuBusy++;
         itemMenu.MenuUrlText (aUrl);
+        menuBusy--;
       } else {
-        QMessageBox box;
-        box.setText (function);
-        box.exec ();
+        menuBusy++;
         itemMenu.MenuBasic (aUrl);
+        menuBusy--;
       }
     } else {
       qDebug () << " BAD internal link " << url.toString();
