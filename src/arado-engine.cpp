@@ -271,20 +271,22 @@ AradoEngine::ReadPipe ()
     Bailout ("AradoEngine: Signal from non-existant socked");
     return;
   }
-  QByteArray data = mainPipe->readLine (16*1024);
-  qDebug () << " AradoEngine reads " << data;
-  if (data.startsWith(QByteArray ("CLOSE"))) {
-    Quit ();
-    return;
-  }
-  QStringList parts = QString(data).split (QRegExp("\\s"),
+  while (mainPipe->canReadLine()) {
+    QByteArray data = mainPipe->readLine (16*1024);
+    qDebug () << " AradoEngine reads " << data;
+    if (data.startsWith(QByteArray ("CLOSE"))) {
+      Quit ();
+      return;
+    }
+    QStringList parts = QString(data).split (QRegExp("\\s"),
                                            QString::SkipEmptyParts);
-  QString cmd = parts.at(0);
-  qDebug () << " AradoEngine ReadPipe " << data;
-  if (cmd.startsWith ("RSSRESTART")) {
-    if (rssPoll) {
-      rssPoll->Stop ();
-      rssPoll->Start ();
+    QString cmd = parts.at(0);
+    qDebug () << " AradoEngine ReadPipe " << data;
+    if (cmd.startsWith ("RSSRESTART")) {
+      if (rssPoll) {
+        rssPoll->Stop ();
+        rssPoll->Start ();
+      }
     }
   }
 }

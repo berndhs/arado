@@ -63,6 +63,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    searchId (-1),
    refreshUrls (0),
    refreshPeriod (18),
+   slowTimer (0),
    autoRefresh (false),
    maxUrlsShown (500)
 {
@@ -72,7 +73,6 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   urlDisplayView = NULL;
   DisplayUrlsAsTable(Settings ().value ("urldisplay/urldisplayastable", false).toBool());
 
-  //ui.fakeButton->setEnabled (false);
   browseIcon = QIcon (":/images/kugar.png");
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
@@ -143,12 +143,13 @@ UrlDisplay::RecentButton ()
 void
 UrlDisplay::Refresh (bool whenHidden)
 {
+qDebug () << "UrlDisplay:: Refresh autoRefresh " << autoRefresh;
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
                                    maxUrlsShown).toInt();
   ShowRecent (maxUrlsShown, whenHidden);
   urlDisplayView->UpdatingFinished();
   if (refreshUrls) {
-    if (!refreshUrls->isActive() && autoRefresh) {
+    if (autoRefresh) {
       refreshUrls->start (refreshPeriod*1000);
     } else if (!autoRefresh) {
       refreshUrls->stop ();
