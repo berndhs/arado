@@ -242,13 +242,7 @@ AradoEngine::GetNewConnection ()
 void
 AradoEngine::Disconnected ()
 {
-  QObject *sigSource = sender ();
-  if (sigSource) {
-    QLocalSocket * sock = dynamic_cast<QLocalSocket*> (sigSource);
-    if (sock && sock == mainPipe) {
-      QTimer::singleShot (100, this, SLOT(Quit ()));
-    }
-  }
+  QTimer::singleShot (100, this, SLOT(Quit ()));  
 }
 
 void
@@ -273,6 +267,10 @@ AradoEngine::Bailout (const char * msg)
 void
 AradoEngine::ReadPipe ()
 {
+  if (mainPipe == 0) {
+    Bailout ("AradoEngine: Signal from non-existant socked");
+    return;
+  }
   QByteArray data = mainPipe->readLine (16*1024);
   qDebug () << " AradoEngine reads " << data;
   if (data.startsWith(QByteArray ("CLOSE"))) {
