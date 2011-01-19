@@ -738,7 +738,7 @@ void
 AradoMain::UrlsAdded (int howmany)
 {
   if (howmany > 0) {
-    if (urlDisplay) {
+    if (urlDisplay && urlDisplay->AutoRefreshOn()) {
       urlDisplay->Refresh ();
     }
   }

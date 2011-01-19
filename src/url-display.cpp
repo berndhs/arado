@@ -123,6 +123,12 @@ UrlDisplay::SetDB (DBManager *dbm)
   }
 }
 
+bool
+UrlDisplay::AutoRefreshOn ()
+{
+  return autoRefresh;
+}
+
 void
 UrlDisplay::AddButton ()
 {
@@ -143,7 +149,6 @@ UrlDisplay::RecentButton ()
 void
 UrlDisplay::Refresh (bool whenHidden)
 {
-qDebug () << "UrlDisplay:: Refresh autoRefresh " << autoRefresh;
   maxUrlsShown = Settings().value ("urldisplay/maxshown",
                                    maxUrlsShown).toInt();
   ShowRecent (maxUrlsShown, whenHidden);
@@ -151,7 +156,7 @@ qDebug () << "UrlDisplay:: Refresh autoRefresh " << autoRefresh;
   if (refreshUrls) {
     if (autoRefresh) {
       refreshUrls->start (refreshPeriod*1000);
-    } else if (!autoRefresh) {
+    } else {
       refreshUrls->stop ();
     }
   }

@@ -66,6 +66,8 @@ public:
   void  ShowRecent (int howmany, bool whenHidden = false);
   void  SetStatusMessage (const QString &msg);
 
+  bool  AutoRefreshOn ();
+
 public slots:
 
   void  Refresh (bool whenHidden = false);
