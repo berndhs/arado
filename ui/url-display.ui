@@ -278,6 +278,9 @@ background: white;</string>
          </item>
          <item row="2" column="2">
           <widget class="QLabel" name="middleLabel">
+           <property name="toolTip">
+            <string>Arado Websearch • The Open Source Websearch built collaboratively: Everybody feeds Everybody.</string>
+           </property>
            <property name="text">
             <string/>
            </property>
