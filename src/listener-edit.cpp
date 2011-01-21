@@ -39,17 +39,27 @@ ListenerEdit::ListenerEdit (QWidget *parent)
   ui.setupUi (this);
   connect (ui.saveButton, SIGNAL (clicked()), this, SLOT (Save ()));
   connect (ui.cancelButton, SIGNAL (clicked()), this, SLOT (Cancel ()));
-
+  connect (ui.uuidButton, SIGNAL (clicked()), this, SLOT (NewUuid ()));
   /* Hide Proxy gui elements */
   useproxyguicheckbox(false);
-  connect(ui.useproxyguicheckbox, SIGNAL(toggled(bool)), this, SLOT(useproxyguicheckbox(bool)));
+  connect(ui.useproxyguicheckbox, SIGNAL(toggled(bool)), 
+                     this, SLOT(useproxyguicheckbox(bool)));
   //
   connect (ui.lineEdit_proxyhost, SIGNAL (clicked()), this, SLOT (Proxyhost ()));
   connect (ui.comboBox_proxytype, SIGNAL (clicked()), this, SLOT (Proxytype ()));
   connect (ui.lineEdit_proxyport, SIGNAL (clicked()), this, SLOT (Proxyport ()));
-  connect (ui.lineEdit_proxyusername, SIGNAL (clicked()), this, SLOT (Proxyusername ()));
-  connect (ui.lineEdit_proxypassword, SIGNAL (clicked()), this, SLOT (Proxypassword ()));
+  connect (ui.lineEdit_proxyusername, SIGNAL (clicked()), 
+                     this, SLOT (Proxyusername ()));
+  connect (ui.lineEdit_proxypassword, SIGNAL (clicked()), 
+                     this, SLOT (Proxypassword ()));
   //
+}
+
+void
+ListenerEdit::NewUuid ()
+{
+  QUuid uuid = QUuid::createUuid();
+  ui.uuidEdit->setText (uuid.toString());
 }
 
 void
@@ -66,7 +76,8 @@ ListenerEdit::Run ()
   runServer = Settings().value ("http/run",runServer).toBool ();
   //
   QString useproxyguicheckbox ("");
-  useproxyguicheckbox = Settings().value ("proxy/useproxy",useproxyguicheckbox).toString();
+  useproxyguicheckbox = Settings().value ("proxy/useproxy",useproxyguicheckbox)
+                                  .toString();
 
   QString proxyhost ("");
   proxyhost = Settings().value ("proxy/host",proxyhost).toString();
@@ -89,13 +100,17 @@ ListenerEdit::Run ()
   ui.onCheck->setChecked (runServer);
   ui.offCheck->setChecked (!runServer);
   //
-  ui.useproxyguicheckbox->setChecked(Settings().value("proxy/useproxy",false).toBool());
-  int idx=ui.comboBox_proxytype->findText(Settings().value("proxy/type","").toString());
+  ui.useproxyguicheckbox->setChecked(Settings().value("proxy/useproxy",false)
+                                               .toBool());
+  int idx=ui.comboBox_proxytype->findText(Settings().value("proxy/type","")
+                                               .toString());
   if(idx>=0)  ui.comboBox_proxytype->setCurrentIndex(idx);
   ui.lineEdit_proxyhost->setText(Settings().value("proxy/host","").toString());
   ui.lineEdit_proxyport->setText(Settings().value("proxy/port","").toString());
-  ui.lineEdit_proxyusername->setText(Settings().value("proxy/user","").toString());
-  ui.lineEdit_proxypassword->setText(Settings().value("proxy/password","").toString());
+  ui.lineEdit_proxyusername->setText(Settings().value("proxy/user","")
+                                               .toString());
+  ui.lineEdit_proxypassword->setText(Settings().value("proxy/password","")
+                                               .toString());
   show ();
 }
 

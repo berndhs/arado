@@ -42,6 +42,7 @@ private slots:
   void Save ();
   void Cancel ();
   void useproxyguicheckbox(bool show);
+  void NewUuid ();
 
 signals:
 
