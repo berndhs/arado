@@ -62,8 +62,8 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    locked (false),
    searchId (-1),
    refreshUrls (0),
-   refreshPeriod (18),
    slowTimer (0),
+   refreshPeriod (18),
    autoRefresh (false),
    maxUrlsShown (500)
 {
@@ -82,6 +82,8 @@ UrlDisplay::UrlDisplay (QWidget * parent)
            this, SLOT (DoSearch ()));
   connect (ui.findHashButton, SIGNAL (clicked()),
            this, SLOT (DoHashLookup ()));
+  connect (ui.autoCheck, SIGNAL (stateChanged(int)),
+           this, SLOT (ChangedAutoRefresh (int)));
   ui.searchButton->setShortcut(QKeySequence(Qt::Key_Return));
   connect (search, SIGNAL (Ready (int)), this, SLOT (GetSearchResult (int)));
   refreshUrls = new QTimer (this);
@@ -96,6 +98,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   autoRefresh = Settings ().value ("urldisplay/autorefresh",
                                    autoRefresh).toBool();
   Settings().setValue ("urldisplay/autorefresh",autoRefresh);
+  ui.autoCheck->setChecked (autoRefresh);
   if (autoRefresh) {
     refreshUrls->start (refreshPeriod*1000);
   } else {
@@ -127,6 +130,23 @@ bool
 UrlDisplay::AutoRefreshOn ()
 {
   return autoRefresh;
+}
+
+void
+UrlDisplay::ChangedAutoRefresh (int newstate)
+{
+  autoRefresh = ui.autoCheck->isChecked ();
+  Settings().setValue ("urldisplay/autorefresh",autoRefresh);
+  if (autoRefresh) {
+    refreshPeriod = 18;
+    refreshPeriod = Settings ().value ("urldisplay/refreshperiod",
+                                     refreshPeriod).toInt();
+    Settings().setValue ("urldisplay/refreshperiod",refreshPeriod);
+    refreshUrls->start (refreshPeriod*1000);
+  } else {
+    refreshUrls->stop ();
+  }
+  Settings().sync ();
 }
 
 void

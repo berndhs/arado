@@ -83,6 +83,7 @@ private slots:
 
   void RecentButton ();
   void SlowUpdate ();
+  void ChangedAutoRefresh (int newstate);
 
 signals:
 
