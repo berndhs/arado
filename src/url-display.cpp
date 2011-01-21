@@ -23,7 +23,6 @@
 
 #include "url-display.h"
 #include "url-display-webview.h"
-#include "url-display-tableview.h"
 #include "db-manager.h"
 #include "arado-url.h"
 #include "search.h"
@@ -71,8 +70,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   ui.setupUi (this);
 
   urlDisplayView = NULL;
-  DisplayUrlsAsTable(Settings ().value ("urldisplay/urldisplayastable", false).toBool());
-
+  DisplayUrlsAsTable (false);
   browseIcon = QIcon (":/images/kugar.png");
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
@@ -316,14 +314,11 @@ UrlDisplay::DisplayUrlsAsTable(bool table)
 {
   if (urlDisplayView) {
     delete urlDisplayView;
+    urlDisplayView = 0;
   }
 
-  if (table) {
-    urlDisplayView = new UrlDisplayTableView();
-  } else {
-    urlDisplayView = new UrlDisplayWebView();
-  }
-
+  urlDisplayView = new UrlDisplayWebView();
+ 
   ui.urlDisplayLayout->addWidget(urlDisplayView);
   urlDisplayView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }

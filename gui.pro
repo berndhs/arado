@@ -72,7 +72,6 @@ FORMS		=	ui/aradomain.ui \
                         ui/rss-list.ui \
                         ui/crawler-settings.ui \
                         ui/url-display-webview.ui \
-                        ui/url-display-tableview.ui \
                         ui/url-display-webviewtab.ui
 
 HEADERS		=	src/aradogui.h \
@@ -108,7 +107,6 @@ HEADERS		=	src/aradogui.h \
                    src/url-display-view.h \
                    src/url-display-viewitem.h \
                    src/url-display-webview.h \
-                   src/url-display-tableview.h \
                    src/url-display-webviewtab.h \
                    src/item-menu.h \
 
@@ -167,7 +165,6 @@ SOURCES		=	src/aradogui.cpp \
                    src/url-display-view.cpp \
                    src/url-display-viewitem.cpp \
                    src/url-display-webview.cpp \
-                   src/url-display-tableview.cpp \
                    src/url-display-webviewtab.cpp \
                    src/item-menu.cpp \
 
