@@ -220,9 +220,7 @@ UrlDisplayTableView::CellMenuUrl (const QTableWidgetItem * item)
   //
   QString convertedurl (item->text());
 
-  if (convertedurl.trimmed().toLower().startsWith("http://www.youtube.com/watch?v=")) {
-    convertedurl = convertedurl.replace("http://www.youtube.com/watch?v=", "http://www.youtube-mp3.org/get?video_id=");
-
+  if (UrlDisplayView::GetConvertedYoutubeUrl(convertedurl)) {
     QAction * playAction = new QAction (tr("Convert Youtube-URL to MP3"),this);
     playAction->setIcon(QPixmap(":/images/youtubemp3play.png"));
 

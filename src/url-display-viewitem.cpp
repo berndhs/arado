@@ -25,6 +25,7 @@
 
 
 #include "deliberate.h"
+#include "url-display-view.h"
 #include <QDateTime>
 #include <QDebug>
 
@@ -104,7 +105,9 @@ UrlDisplayViewItem::Html()
              "&nbsp; <a class=\"copybutton\" href=\"%10\">"
               "<img src=\"qrc:/html/html/images/copy.png\"></a>"
              "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
-              "<img src=\"qrc:/html/html/images/openmielke.png\"></a>"
+              "<img src=\"qrc:/html/html/images/openmielke.png\"></a>");
+  html_str.append(YoutubePlay());
+  html_str.append(
              "</span>\n "
              "<div class=\"url\">");
   html_str.append ("<a class=\"url\" href=\"%12\">%7</a>\n"
@@ -167,6 +170,18 @@ UrlDisplayViewItem::FlashLink (const QString & type)
   flashUrl.setHost (type);
   flashUrl.setPath (url.Hash());
   return flashUrl.toString();
+}
+
+QString
+UrlDisplayViewItem::YoutubePlay()
+{
+    QString convertedurl(url.Url().toString());
+    if (UrlDisplayView::GetConvertedYoutubeUrl(convertedurl)) {
+        return QString("&nbsp; <a href=\"%1\">"
+                       "<img src=\"qrc:/html/html/images/youtubemp3play.png\">"
+                       "</a>").arg(convertedurl);
+    }
+    return QString();
 }
 
 }
