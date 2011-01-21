@@ -18,7 +18,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
@@ -85,7 +85,7 @@ RssList::DoAdd ()
 {
   qDebug () << "RssList  DoAdd";
   int newrow = ui.feedTable->rowCount();
-qDebug () << " RssList add Item row " << newrow;
+  qDebug () << " RssList add Item row " << newrow;
   ui.feedTable->setRowCount (newrow+1);
   QTableWidgetItem * nickItem = new QTableWidgetItem (tr("New Feed"));
   ui.feedTable->setItem (newrow, 0, nickItem);
@@ -150,7 +150,7 @@ RssList::DoSave ()
 void
 RssList::ListFeeds ()
 {
-qDebug () << "RssList List Feeds dbm " << dbm;
+  qDebug () << "RssList List Feeds dbm " << dbm;
   AradoFeedList feeds;
   if (dbm) {
     ui.feedTable->clearContents ();
@@ -167,7 +167,7 @@ void
 RssList::ListFeed (const AradoFeed & feed)
 {
   int newrow = ui.feedTable->rowCount();
-qDebug () << " RssList add Item row " << newrow;
+  qDebug () << " RssList add Item row " << newrow;
   ui.feedTable->setRowCount (newrow+1);
   QTableWidgetItem * nickItem = new QTableWidgetItem (feed.Nick());
   ui.feedTable->setItem (newrow, 0, nickItem);
@@ -183,6 +183,15 @@ void RssList::rsseditadvancedview(bool show)
   ui.newButton->setVisible(show);
   ui.feedTable->setVisible(show);
   ui.splitter->setCollapsible (0, false);
+
+  QList<int> splitter_sizes;
+  splitter_sizes << 1;
+  if (show) {
+    splitter_sizes << 1;
+  } else {
+    splitter_sizes << 0;
+  }
+  ui.splitter->setSizes(splitter_sizes);
 }
 
 } // namespace

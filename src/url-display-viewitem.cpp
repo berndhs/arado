@@ -18,7 +18,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
@@ -62,7 +62,7 @@ UrlDisplayViewItem::Html()
     *   %12 url-text-link
     *   %13 keyword-list-link
     *   %14 keyword-list text
-    
+
    */
   QString homeLang("en");
   homeLang = Settings().value ("personal/language",homeLang).toString();
@@ -70,11 +70,11 @@ UrlDisplayViewItem::Html()
   html_str = "<div class=\"item\">\n"
 
              "<div class=\"thumb\"><a class=\"thumb\" href=\"%6\">"
-               "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
-               "</a></div>"
+             "<img src=\"qrc:/html/html/images/arado-logo-colo-32.png\">"
+             "</a></div>"
 
              "<div class=\"title\">"
-               "<a class=\"title\" href=\"%1\">%2</a></div>";
+             "<a class=\"title\" href=\"%1\">%2</a></div>";
   bool haveKeywords = (url.Keywords().count() > 0);
   QString keywordPart;
   if (haveKeywords) {
@@ -88,8 +88,8 @@ UrlDisplayViewItem::Html()
   html_str.append ("<a href=\"%3\" class=\"flash\">");
   html_str.append(QObject::tr("Arado-Flashmark: "));
   html_str.append (
-             "<span style=\"font-size:small;"
-             " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
+    "<span style=\"font-size:small;"
+    " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
   html_str.append ("%5");
   html_str.append ("<span class=\"timestamp\">Time %8");
   html_str.append ("&nbsp; &bull; &nbsp;"
@@ -97,50 +97,50 @@ UrlDisplayViewItem::Html()
   html_str.append (homeLang);
   html_str.append ("&sl=auto&u=%7\">");
   html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>")
-                     .arg(QObject::tr("Translation")));
+                   .arg(QObject::tr("Translation")));
   html_str.append (
-             "<span class=\"kugar\">"
-             "&nbsp; <a class=\"mailbutton\" href=\"%9\">"
-              "<img src=\"qrc:/html/html/images/mail.png\"></a>"
-             "&nbsp; <a class=\"copybutton\" href=\"%10\">"
-              "<img src=\"qrc:/html/html/images/copy.png\"></a>"
-             "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
-              "<img src=\"qrc:/html/html/images/openmielke.png\"></a>");
+    "<span class=\"kugar\">"
+    "&nbsp; <a class=\"mailbutton\" href=\"%9\">"
+    "<img src=\"qrc:/html/html/images/mail.png\"></a>"
+    "&nbsp; <a class=\"copybutton\" href=\"%10\">"
+    "<img src=\"qrc:/html/html/images/copy.png\"></a>"
+    "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
+    "<img src=\"qrc:/html/html/images/openmielke.png\"></a>");
   html_str.append(YoutubePlay());
   html_str.append(
-             "</span>\n "
-             "<div class=\"url\">");
+    "</span>\n "
+    "<div class=\"url\">");
   html_str.append ("<a class=\"url\" href=\"%12\">%7</a>\n"
                    "</div>"
-                  "</div>\n");
+                   "</div>\n");
   if (haveKeywords) {
-    return html_str.arg (FlashLink ("localbrowse")) 
-                 .arg (url.Description())
-                 .arg (FlashLink ("hash")) 
-                 .arg (Flashmark())
-                 .arg (QString(""))
-                 .arg (FlashLink ("externbrowse"))
-                 .arg (url.Url().toString())
-                 .arg (Timestamp ())
-                 .arg (FlashLink ("mail"))
-                 .arg (FlashLink ("copy"))
-                 .arg (FlashLink ("crawl"))
-                 .arg (FlashLink ("urltext"))
-                 .arg (FlashLink ("keywords"))
-                 .arg (Keywords());
+    return html_str.arg (FlashLink ("localbrowse"))
+           .arg (url.Description())
+           .arg (FlashLink ("hash"))
+           .arg (Flashmark())
+           .arg (QString(""))
+           .arg (FlashLink ("externbrowse"))
+           .arg (url.Url().toString())
+           .arg (Timestamp ())
+           .arg (FlashLink ("mail"))
+           .arg (FlashLink ("copy"))
+           .arg (FlashLink ("crawl"))
+           .arg (FlashLink ("urltext"))
+           .arg (FlashLink ("keywords"))
+           .arg (Keywords());
   } else {
-    return html_str.arg (FlashLink ("localbrowse")) 
-                 .arg (url.Description())
-                 .arg (FlashLink ("hash")) 
-                 .arg (Flashmark())
-                 .arg (QString(""))
-                 .arg (FlashLink ("externbrowse"))
-                 .arg (url.Url().toString())
-                 .arg (Timestamp ())
-                 .arg (FlashLink ("mail"))
-                 .arg (FlashLink ("copy"))
-                 .arg (FlashLink ("crawl"))
-                 .arg (FlashLink ("urltext"));
+    return html_str.arg (FlashLink ("localbrowse"))
+           .arg (url.Description())
+           .arg (FlashLink ("hash"))
+           .arg (Flashmark())
+           .arg (QString(""))
+           .arg (FlashLink ("externbrowse"))
+           .arg (url.Url().toString())
+           .arg (Timestamp ())
+           .arg (FlashLink ("mail"))
+           .arg (FlashLink ("copy"))
+           .arg (FlashLink ("crawl"))
+           .arg (FlashLink ("urltext"));
   }
 }
 
@@ -175,13 +175,13 @@ UrlDisplayViewItem::FlashLink (const QString & type)
 QString
 UrlDisplayViewItem::YoutubePlay()
 {
-    QString convertedurl(url.Url().toString());
-    if (UrlDisplayView::GetConvertedYoutubeUrl(convertedurl)) {
-        return QString("&nbsp; <a href=\"%1\">"
-                       "<img src=\"qrc:/html/html/images/youtubemp3play.png\">"
-                       "</a>").arg(convertedurl);
-    }
-    return QString();
+  QString convertedurl(url.Url().toString());
+  if (UrlDisplayView::GetConvertedYoutubeUrl(convertedurl)) {
+    return QString("&nbsp; <a href=\"%1\">"
+                   "<img src=\"qrc:/html/html/images/youtubemp3play.png\">"
+                   "</a>").arg(convertedurl);
+  }
+  return QString();
 }
 
 }
