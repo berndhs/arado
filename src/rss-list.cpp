@@ -24,10 +24,13 @@
 
 #include "arado-feed.h"
 #include "db-manager.h"
+#include "deliberate.h"
 #include <QTableWidgetItem>
 #include <QList>
 #include <QSet>
 #include <QDebug>
+
+using namespace deliberate;
 
 namespace arado
 {
@@ -65,8 +68,13 @@ RssList::Connect ()
   connect (ui.saveButton, SIGNAL (clicked()), this, SLOT (DoSave()));
 
   /* Hide Advanced gui */
-  rsseditadvancedview(false);
-  connect(ui.rsseditadvancedview, SIGNAL(toggled(bool)), this, SLOT(rsseditadvancedview(bool)));
+  bool showDetails (true); 
+  showDetails = Settings().value ("rssview/advanced",showDetails).toBool();
+  Settings().setValue ("rssview/advanced",showDetails);
+  ui.rsseditadvancedview->setChecked (showDetails);
+  rsseditadvancedview(showDetails);
+  connect(ui.rsseditadvancedview, SIGNAL(toggled(bool)), 
+                                  this, SLOT(rsseditadvancedview(bool)));
   //
 
 }
@@ -177,6 +185,7 @@ RssList::ListFeed (const AradoFeed & feed)
 
 void RssList::rsseditadvancedview(bool show)
 {
+  Settings().setValue ("rssview/advanced",show);
   ui.saveButton->setVisible(show);
   ui.closeButton2->setVisible(show);
   ui.deleteButton->setVisible(show);

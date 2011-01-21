@@ -95,8 +95,6 @@ private slots:
   void InitSystem ();
   void CatchPolledRss (QString nick);
   void Crawl ();
-  void ToggleUrlsDisplay();
-  void SetupDisplayUrlsAction();
   void InitEngine ();
   void TimedConnectEngine ();
   void EngineConnected ();

@@ -77,7 +77,7 @@ public slots:
   void  GetSearchResult (int resultid);
   void  UrlsAdded (int numAdded);
   void  ShowAddCount ();
-  void  DisplayUrlsAsTable(bool);
+  void  LoadDisplay();
 
 private slots:
 

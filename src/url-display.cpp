@@ -70,7 +70,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   ui.setupUi (this);
 
   urlDisplayView = NULL;
-  DisplayUrlsAsTable (false);
+  LoadDisplay ();
   browseIcon = QIcon (":/images/kugar.png");
   connect (ui.addUrlButton, SIGNAL (clicked()),
            this, SLOT (AddButton ()));
@@ -310,7 +310,7 @@ UrlDisplay::SetStatusMessage (const QString & msg)
 }
 
 void
-UrlDisplay::DisplayUrlsAsTable(bool table)
+UrlDisplay::LoadDisplay ()
 {
   if (urlDisplayView) {
     delete urlDisplayView;
@@ -320,7 +320,8 @@ UrlDisplay::DisplayUrlsAsTable(bool table)
   urlDisplayView = new UrlDisplayWebView();
  
   ui.urlDisplayLayout->addWidget(urlDisplayView);
-  urlDisplayView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  urlDisplayView->setSizePolicy(QSizePolicy::Expanding, 
+                                QSizePolicy::Expanding);
 }
 
 } // namespace
