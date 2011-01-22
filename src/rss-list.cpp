@@ -26,6 +26,7 @@
 #include "arado-url.h"
 #include "addfeed.h"
 #include "db-manager.h"
+#include "aradogui.h"
 #include "deliberate.h"
 #include <QDesktopServices>
 #include <QTableWidgetItem>
@@ -84,7 +85,7 @@ RssList::Connect ()
   connect (ui.rssitemTable, SIGNAL (cellClicked(int,int)), this,
              SLOT (ListNewItemClicked(int,int)) );
   connect (ui.rssitemsrefreshdisplayButton, SIGNAL (clicked()), this,
-             SLOT (ListNewItemClicked()) );
+             SLOT (AddFeed()) );
 
 }
 
@@ -201,7 +202,12 @@ RssList::ListNewItemClicked(int row,int col) {
     qDebug() << "ListNewItemClicked: " << row;
     if(dbm && row<newItems.count()) {
         const AradoUrl &url=  newItems.at(row);
-        QDesktopServices::openUrl (url.Url());
+        // if cell = kugar, then {
+        // QDesktopServices::openUrl (url.Url());
+        // QString hash=QString(url.Hash());
+        // dbm->DeleteNewFeedItem(hash);
+        // ListNewItems ();
+        // } else {
         QString hash=QString(url.Hash());
         dbm->DeleteNewFeedItem(hash);
         ListNewItems ();
