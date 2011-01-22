@@ -64,7 +64,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
    slowTimer (0),
    refreshPeriod (18),
    autoRefresh (false),
-   maxUrlsShown (500)
+   maxUrlsShown (150)
 {
   search = new Search (this);
   ui.setupUi (this);
