@@ -83,6 +83,8 @@ RssList::Connect ()
   //
   connect (ui.rssitemTable, SIGNAL (cellClicked(int,int)), this,
              SLOT (ListNewItemClicked(int,int)) );
+  connect (ui.rssitemsrefreshdisplayButton, SIGNAL (clicked()), this,
+             SLOT (ListNewItemClicked()) );
 
 }
 
