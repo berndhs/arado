@@ -321,7 +321,7 @@ void
 AradoMain::AddFeed ()
 {
   if (rssList) {
-    int tabnum = mainUi.tabWidget->addTab (rssList,tr("RSS Feeds"));
+    int tabnum = mainUi.tabWidget->addTab (rssList,tr("News Ticker"));
         mainUi.tabWidget->setCurrentIndex (tabnum);
     rssList->Show();
   }

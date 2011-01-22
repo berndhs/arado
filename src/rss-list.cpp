@@ -187,7 +187,7 @@ RssList::ListNewItem (const AradoUrl &url)
     ui.rssitemTable->setRowCount (newrow+1);
 
     QIcon icon=QIcon(QPixmap(":/images/kugar.png"));
-    QTableWidgetItem * browse = new QTableWidgetItem( icon,"Browse");
+    QTableWidgetItem * browse = new QTableWidgetItem( icon,"");
     ui.rssitemTable->setItem (newrow, 0,browse);
 
     QTableWidgetItem * nickItem = new QTableWidgetItem (url.Description());
