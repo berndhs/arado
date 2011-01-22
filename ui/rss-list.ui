@@ -192,6 +192,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Arado News-Ticker - The Pad for the Media People.</string>
+     </property>
      <property name="text">
       <string>My RSS-Feeds</string>
      </property>
@@ -288,7 +291,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>Look for an update now manually.</string>
+      <string>Update now manually.</string>
      </property>
      <property name="text">
       <string/>
@@ -311,6 +314,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="../arado.qrc"/>
   <include location="../arado.qrc"/>
  </resources>
  <connections/>
