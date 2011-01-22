@@ -84,6 +84,7 @@ private slots:
 
   void AddServer ();
   void AddFeed ();
+  void TabChanged(int tab);
   void RefreshPeers ();
   void PeersAdded (int howmany = 1);
   void UrlsAdded (int howmany);

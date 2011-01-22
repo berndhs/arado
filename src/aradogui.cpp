@@ -317,6 +317,19 @@ AradoMain::AddServer ()
   addPeerDialog->Run ();
 }
 
+
+void
+AradoMain::TabChanged(int tab) {
+    if(rssList) {
+        int rsstabNum = mainUi.tabWidget->indexOf (rssList);
+        if(rsstabNum==tab) {
+            // maybe there should be a timer here to call Show
+            // to update the rss when it is visible
+            rssList->Show();
+        }
+    }
+}
+
 void
 AradoMain::AddFeed ()
 {
@@ -408,6 +421,9 @@ AradoMain::Connect ()
     connect (rssList, SIGNAL (Closed(bool)),
              this, SLOT (DoneAddFeed (bool)));
   }
+
+  connect(mainUi.tabWidget, SIGNAL(currentChanged(int)),
+             this, SLOT(TabChanged(int)));
 
   connect(mainUi.actionToggleUrlDisplay, SIGNAL(triggered()),
             this, SLOT(ToggleUrlsDisplay()));
