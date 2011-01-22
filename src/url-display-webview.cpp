@@ -54,12 +54,12 @@ UrlDisplayWebView::UrlDisplayWebView(QWidget *parent) :
   ui->urlView->setContextMenuPolicy(Qt::NoContextMenu);
   QObject::connect(ui->urlView, SIGNAL(linkClicked(const QUrl &)),
                    this, SLOT(UrlViewLinkClicked(const QUrl &)));
-  int iconHeight (16);
+  /* int iconHeight (16);
   int iconWidth (16);
   iconHeight = Settings().value ("urldisplay/aiconheight",iconHeight).toInt();
   Settings().setValue ("urldisplay/aiconheight",iconHeight);
   iconWidth = Settings().value ("urldisplay/aiconwidth",iconWidth).toInt();
-  Settings().setValue ("urldisplay/aiconwidth",iconWidth);
+  Settings().setValue ("urldisplay/aiconwidth",iconWidth);  */
 }
 
 UrlDisplayWebView::~UrlDisplayWebView()
