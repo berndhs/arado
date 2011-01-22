@@ -23,6 +23,7 @@
  ****************************************************************/
 #include <QWidget>
 #include "ui_rss-list.h"
+#include "arado-url.h"
 
 namespace arado
 {
@@ -50,6 +51,7 @@ private slots:
   void  DoClose ();
   void  DoSave ();
   void  rsseditadvancedview(bool show);
+  void  ListNewItemClicked(int row,int col);
 
 signals:
 
@@ -60,11 +62,14 @@ private:
   void Connect ();
   void ListFeeds ();
   void ListFeed (const AradoFeed & feed);
+  void ListNewItems ();
+  void ListNewItem (const AradoUrl &url);
 
   Ui_RssFeedList  ui;
   DBManager      *dbm;
   bool            changedSomething;
-  
+  QList<AradoUrl> newItems;
+
 };
 
 } // namespace

@@ -89,7 +89,9 @@ AddRssFeed::ParseItems (QDomNodeList & itemList)
       }
       if (newurl.IsValid ()) {
         newUrls.append (newurl);
-        db->AddUrl (newurl);
+        if(db->AddUrl (newurl)) {
+            db->AddNewFeedItem(newurl);
+        }
       }
     }
   }

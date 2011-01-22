@@ -23,8 +23,11 @@
  ****************************************************************/
 
 #include "arado-feed.h"
+#include "arado-url.h"
+#include "addfeed.h"
 #include "db-manager.h"
 #include "deliberate.h"
+#include <QDesktopServices>
 #include <QTableWidgetItem>
 #include <QList>
 #include <QSet>
@@ -38,7 +41,8 @@ namespace arado
 RssList::RssList (QWidget *parent)
   :QWidget (parent),
    dbm (0),
-   changedSomething (false)
+   changedSomething (false),
+   newItems()
 {
   ui.setupUi (this);
   hide ();
@@ -48,6 +52,7 @@ RssList::RssList (QWidget *parent)
 void
 RssList::Show ()
 {
+  ListNewItems ();
   ListFeeds ();
   show ();
 }
@@ -76,6 +81,8 @@ RssList::Connect ()
   connect(ui.rsseditadvancedview, SIGNAL(toggled(bool)), 
                                   this, SLOT(rsseditadvancedview(bool)));
   //
+  connect (ui.rssitemTable, SIGNAL (cellClicked(int,int)), this,
+             SLOT (ListNewItemClicked(int,int)) );
 
 }
 
@@ -153,6 +160,50 @@ RssList::DoSave ()
   }
   ui.feedTable->clearSelection ();
   changedSomething = true;
+}
+
+void
+RssList::ListNewItems ()
+{
+    newItems.clear();
+    dbm->GetNewFeedItems(newItems);
+    qDebug() << "RssList::ListNewItems count:" << newItems.count();
+    ui.rssitemTable->clearContents();
+    ui.rssitemTable->setRowCount (0);
+    if(dbm) {
+        QList<AradoUrl>::const_iterator i;
+        for (i = newItems.constBegin(); i != newItems.constEnd(); ++i) {
+            ListNewItem(*i);
+        }
+    }
+}
+
+void
+RssList::ListNewItem (const AradoUrl &url)
+{
+    int newrow = ui.rssitemTable->rowCount();
+    ui.rssitemTable->setRowCount (newrow+1);
+
+    QIcon icon=QIcon(QPixmap(":/images/kugar.png"));
+    QTableWidgetItem * browse = new QTableWidgetItem( icon,"Browse");
+    ui.rssitemTable->setItem (newrow, 0,browse);
+
+    QTableWidgetItem * nickItem = new QTableWidgetItem (url.Description());
+    ui.rssitemTable->setItem (newrow, 1, nickItem);
+    QTableWidgetItem * urlItem = new QTableWidgetItem (url.Url().toString());
+    ui.rssitemTable->setItem (newrow, 2, urlItem);
+}
+
+void
+RssList::ListNewItemClicked(int row,int col) {
+    qDebug() << "ListNewItemClicked: " << row;
+    if(dbm && row<newItems.count()) {
+        const AradoUrl &url=  newItems.at(row);
+        QDesktopServices::openUrl (url.Url());
+        QString hash=QString(url.Hash());
+        dbm->DeleteNewFeedItem(hash);
+        ListNewItems ();
+    }
 }
 
 void

@@ -127,6 +127,7 @@ DBManager::Start ()
 
   QStringList feedElements;
   feedElements << "rssfeeds"
+               << "newfeeditems"
                << "uniquerssfeeds";
   CheckDBComplete (feedBase, feedElements);
 
@@ -137,6 +138,9 @@ DBManager::Start ()
   ranGen.Seed (qAbs (timeDiff));
   qDebug () << " DBManager random Seed " << qAbs (timeDiff);
   dbRunning = true;
+
+  ClearNewFeedItems();
+
   emit InitComplete (dbRunning);
 }
 
@@ -659,6 +663,63 @@ DBManager::GetMatching (QStringList & hashList,
   }
   return (ok);
 }
+
+bool
+DBManager::ClearNewFeedItems ()
+{
+    QString cmd ("delete from newfeeditems");
+    QSqlQuery del (feedBase);
+    return del.exec (cmd);
+}
+bool
+DBManager::DeleteNewFeedItem(QString &hash)
+{
+    QString cmd ("delete from newfeeditems where hashid = ?");
+
+    QSqlQuery del (feedBase);
+    del.prepare(cmd);
+    del.addBindValue(hash);
+    return del.exec ();
+}
+
+
+bool
+DBManager::AddNewFeedItem (AradoUrl &url)
+{
+    qDebug () << "DBManager::AddNewFeedItem" ;
+
+    QString cmd ("insert into newfeeditems values(?)");
+    QSqlQuery insert(feedBase);
+    insert.prepare(cmd);
+    QString hash(url.Hash());
+    insert.addBindValue(hash);
+
+    bool ok=insert.exec ();
+    QList<AradoUrl> urls;
+    GetNewFeedItems(urls);
+    return ok;
+}
+
+bool
+DBManager::GetNewFeedItems (QList<AradoUrl> &urls)
+{
+    qDebug () << "DBManager::GetNewFeedItems";
+    QString cmd ("select hashid from newfeeditems");
+    urls.clear();
+    QSqlQuery select (feedBase);
+    bool ok = select.exec (cmd);
+    while (ok && select.next ()) {
+      AradoUrl url;
+      QString hash = select.value(0).toString();
+      if(ReadUrl(hash,url)) {
+          urls.append(url);
+      } else {
+          qDebug () << "DBManager::GetNewFeedItems, cannot find url hash: "<<hash;
+      }
+    }
+    return ok;
+}
+
 
 bool
 DBManager::SearchAny (QStringList & hashList, 

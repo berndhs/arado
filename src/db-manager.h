@@ -103,7 +103,10 @@ public:
   bool  RemoveFeed (const QString & nick);
 
   AradoFeedList  GetFeeds ();
-  
+  bool ClearNewFeedItems ();
+  bool DeleteNewFeedItem(QString &hash);
+  bool AddNewFeedItem(AradoUrl &url);
+  bool GetNewFeedItems (QList<AradoUrl> &urls);
 
   bool  StartTransaction (DBType  t = DB_Url);
   bool  CloseTransaction (DBType  t = DB_Url);
