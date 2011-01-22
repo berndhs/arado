@@ -114,5 +114,6 @@
         <file>html/images/mail.png</file>
         <file>html/images/youtubemp3play.png</file>
         <file>html/images/openmielke.png</file>
+        <file>images/plugin.png</file>
     </qresource>
 </RCC>
