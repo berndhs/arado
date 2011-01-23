@@ -168,50 +168,51 @@ RssList::DoSave ()
 void
 RssList::ListNewItems ()
 {
-    newItems.clear();
-    dbm->GetNewFeedItems(newItems);
-    qDebug() << "RssList::ListNewItems count:" << newItems.count();
-    ui.rssitemTable->clearContents();
-    ui.rssitemTable->setRowCount (0);
-    if(dbm) {
-        QList<AradoUrl>::const_iterator i;
-        for (i = newItems.constBegin(); i != newItems.constEnd(); ++i) {
-            ListNewItem(*i);
-        }
+  newItems.clear();
+  dbm->GetNewFeedItems(newItems);
+  qDebug() << "RssList::ListNewItems count:" << newItems.count();
+  ui.rssitemTable->clearContents();
+  ui.rssitemTable->setRowCount (0);
+  if (dbm) {
+    QList<AradoUrl>::const_iterator i;
+    for (i = newItems.constBegin(); i != newItems.constEnd(); ++i) {
+      ListNewItem(*i);
     }
+  }
 }
 
 void
 RssList::ListNewItem (const AradoUrl &url)
 {
-    int newrow = ui.rssitemTable->rowCount();
-    ui.rssitemTable->setRowCount (newrow+1);
+  int newrow = ui.rssitemTable->rowCount();
+  ui.rssitemTable->setRowCount (newrow+1);
 
-    QIcon icon=QIcon(QPixmap(":/images/kugar.png"));
-    QTableWidgetItem * browse = new QTableWidgetItem( icon,"");
-    ui.rssitemTable->setItem (newrow, 0,browse);
+  QIcon icon=QIcon(QPixmap(":/images/kugar.png"));
+  QTableWidgetItem * browse = new QTableWidgetItem( icon,"");
+  ui.rssitemTable->setItem (newrow, 0,browse);
 
-    QTableWidgetItem * nickItem = new QTableWidgetItem (url.Description());
-    ui.rssitemTable->setItem (newrow, 1, nickItem);
-    QTableWidgetItem * urlItem = new QTableWidgetItem (url.Url().toString());
-    ui.rssitemTable->setItem (newrow, 2, urlItem);
+  QTableWidgetItem * nickItem = new QTableWidgetItem (url.Description());
+  ui.rssitemTable->setItem (newrow, 1, nickItem);
+  QTableWidgetItem * urlItem = new QTableWidgetItem (url.Url().toString());
+  ui.rssitemTable->setItem (newrow, 2, urlItem);
 }
 
 void
-RssList::ListNewItemClicked(int row,int col) {
-    qDebug() << "ListNewItemClicked: " << row;
-    if(dbm && row<newItems.count()) {
-        const AradoUrl &url=  newItems.at(row);
-        // if cell = kugar, then {
-        // QDesktopServices::openUrl (url.Url());
-        // QString hash=QString(url.Hash());
-        // dbm->DeleteNewFeedItem(hash);
-        // ListNewItems ();
-        // } else {
-        QString hash=QString(url.Hash());
-        dbm->DeleteNewFeedItem(hash);
-        ListNewItems ();
-    }
+RssList::ListNewItemClicked(int row,int col) 
+{
+  qDebug() << "ListNewItemClicked: " << row;
+  if (dbm && row<newItems.count()) {
+    const AradoUrl &url=  newItems.at(row);
+   // if cell = kugar, then {
+   // QDesktopServices::openUrl (url.Url());
+   // QString hash=QString(url.Hash());
+   // dbm->DeleteNewFeedItem(hash);
+   // ListNewItems ();
+   // } else {
+   QString hash=QString(url.Hash());
+   dbm->DeleteNewFeedItem(hash);
+   ListNewItems ();
+ }
 }
 
 void

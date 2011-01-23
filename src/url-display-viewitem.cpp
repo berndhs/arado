@@ -36,12 +36,8 @@ namespace arado
 {
 
 UrlDisplayViewItem::UrlDisplayViewItem(const arado::AradoUrl url)
- // :iconHeight (16),
- //  iconWidth (16)
 {
   this->url = url;
- // iconHeight = Settings().value ("urldisplay/aiconheight",iconHeight).toInt();
- // iconWidth = Settings().value ("urldisplay/aiconwidth",iconWidth).toInt();
 }
 
 QString
