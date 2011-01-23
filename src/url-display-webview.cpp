@@ -115,14 +115,26 @@ UrlDisplayWebView::LoadJavascript (QString & javascript)
   builtIn << "Translate";
   for (int b=0; b<builtIn.count(); b++) {
     QString name = builtIn.at(b);
-    QFile file (QString (":/builtinjs/%1.js").arg(name.toLower()));
+    QFile file (QString (":/builtinjs/%1.js").arg(name));
     file.open (QFile::ReadOnly);
     QString jscode = file.readAll ();
     file.close ();
     javascript.append (headHtml);
     javascript.append (jscode);
     javascript.append (tailHtml);
-    jsInterface.AddPlugin (name);
+    //jsInterface.AddPlugin (name);
+  }
+  QStringList userDefined;
+  userDefined = pluginManager.InstalledPlugins();
+  for (int u=0; u<userDefined.count(); u++) {
+    QString name = userDefined.at(u);
+    QString jscode;
+    if (pluginManager.LoadJavascript (name, jscode)) {
+      javascript.append (headHtml);
+      javascript.append (jscode);
+      javascript.append (tailHtml);
+      jsInterface.AddPlugin (name);
+    }
   }
 }
 
@@ -195,7 +207,7 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
         jsInterface.Menu (ui->urlView->page()->mainFrame(), aUrl);
       } else if (function == "translate") {
         jsInterface.Call (ui->urlView->page()->mainFrame(), "Translate", 
-                             aUrl.Url());
+                             aUrl.Hash().toUpper());
       } else {
         menuBusy++;
         itemMenu.MenuBasic (aUrl);

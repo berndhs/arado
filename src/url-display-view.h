@@ -24,7 +24,6 @@ public:
   virtual void ClearSelection() = 0;
   virtual void SortByTime(Qt::SortOrder) = 0;
 
-  static bool GetConvertedYoutubeUrl(QString &);
 };
 
 }

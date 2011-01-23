@@ -58,7 +58,6 @@ public:
   void setLang (const QString & lang);
 
   void Menu (QWebFrame * frame, const AradoUrl & aUrl);
-  void Call (QWebFrame * frame, const QString & plugName, const QUrl & url);
   void Call (QWebFrame * frame, const QString & plugName, 
                                 const QString & param);
   void AddPlugin (const QString & name);

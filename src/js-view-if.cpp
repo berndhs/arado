@@ -53,8 +53,8 @@ JsViewInterface::openUrl (const QString & urlString)
 QString
 JsViewInterface::getUrl (const QString & key)
 {
-  if (urlMap.contains (key)) {
-    return urlMap[key].Url().toString();
+  if (urlMap.contains (key.toUpper())) {
+    return urlMap[key.toUpper()].Url().toString();
   } else {
     return QString ();
   }
@@ -69,7 +69,7 @@ JsViewInterface::getLanguage ()
 void
 JsViewInterface::setUrl (const QString & key, const AradoUrl & aUrl)
 {
-  urlMap[key] = aUrl;
+  urlMap[key.toUpper()] = aUrl;
 }
 
 void
@@ -87,7 +87,9 @@ JsViewInterface::clear ()
 void
 JsViewInterface::AddPlugin (const QString & name)
 {
-  pluginList.append (name);
+  if (!pluginList.contains (name)) {
+    pluginList.append (name);
+  }
 }
 
 void
@@ -97,7 +99,7 @@ JsViewInterface::Menu (QWebFrame * frame, const AradoUrl & aUrl)
   if (plugName.length() < 1) {
     return;
   }
-  Call (frame, plugName, aUrl.Url());
+  Call (frame, plugName, aUrl.Hash().toUpper());
 }
 
 QString
@@ -119,19 +121,6 @@ JsViewInterface::MenuSelectPlugin ()
     return select->data ().toString();
   }
   return QString ();
-}
-
-void
-JsViewInterface::Call (QWebFrame * frame, 
-                       const QString & plugName, 
-                       const QUrl & url)
-{
-  if (frame) {
-    QString jscmd = QString ("Plugin%1('%2')").arg(plugName)
-                                              .arg(url.toString()); 
-    qDebug () << " JsViewInterface call " << jscmd;
-    frame->documentElement().evaluateJavaScript (jscmd);
-  }
 }
 
 void

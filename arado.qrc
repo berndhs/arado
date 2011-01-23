@@ -66,7 +66,7 @@
         <file alias="helpman.html">helpfiles/helpman.html</file>
     </qresource>
     <qresource prefix="/builtinjs">
-       <file alias="translate.js">js/translate.js</file>
+       <file alias="Translate.js">js/Translate.js</file>
     </qresource>
     <qresource prefix="/translate">
         <file alias="arado_de.qm">translate/arado_de.qm</file>
@@ -117,6 +117,6 @@
         <file>html/images/mail.png</file>
         <file>html/images/youtubemp3play.png</file>
         <file>html/images/openmielke.png</file>
-        <file>images/plugin.png</file>
+        <file>html/images/plugin.png</file>
     </qresource>
 </RCC>

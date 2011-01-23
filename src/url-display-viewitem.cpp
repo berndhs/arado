@@ -104,6 +104,10 @@ UrlDisplayViewItem::Html()
     "<img src=\"qrc:/html/html/images/copy.png\"></a>"
     "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
     "<img src=\"qrc:/html/html/images/openmielke.png\"></a>");
+  html_str.append ("&nbsp;"
+    "<a class=\"pluginbutton\" href=\""
+    + FlashLink ("plugin")
+    + "\"><img src=\"qrc:/html/html/images/plugin.png\"></a>");
   html_str.append(
     "</span>\n "
     "<div class=\"url\">");

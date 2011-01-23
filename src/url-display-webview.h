@@ -29,6 +29,7 @@
 #include <QList>
 #include "item-menu.h"
 #include "js-view-if.h"
+#include "plugin-manager.h"
 
 class QUrl;
 
@@ -78,6 +79,7 @@ private:
   ItemMenu                    itemMenu;
   int                         menuBusy;
   JsViewInterface             jsInterface;
+  PluginManager               pluginManager;
 };
 
 }
