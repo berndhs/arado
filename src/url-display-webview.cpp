@@ -36,6 +36,8 @@
 #include <QDesktopServices>
 #include <QMap>
 #include <QList>
+#include <QWebSettings>
+#include <QWebFrame>
 #include <QDebug>
 
 using namespace deliberate;
@@ -51,21 +53,29 @@ UrlDisplayWebView::UrlDisplayWebView(QWidget *parent) :
   ui->setupUi(this);
 
   ui->urlView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+  QWebSettings * wsets = ui->urlView->page()->settings();
+  wsets->setAttribute (QWebSettings::JavascriptEnabled, true);
+  wsets->setAttribute (QWebSettings::JavascriptCanAccessClipboard, true);
   ui->urlView->setContextMenuPolicy(Qt::NoContextMenu);
   QObject::connect(ui->urlView, SIGNAL(linkClicked(const QUrl &)),
                    this, SLOT(UrlViewLinkClicked(const QUrl &)));
-  /* int iconHeight (16);
-  int iconWidth (16);
-  iconHeight = Settings().value ("urldisplay/aiconheight",iconHeight).toInt();
-  Settings().setValue ("urldisplay/aiconheight",iconHeight);
-  iconWidth = Settings().value ("urldisplay/aiconwidth",iconWidth).toInt();
-  Settings().setValue ("urldisplay/aiconwidth",iconWidth);  */
+  QWebFrame * frame = ui->urlView->page()->mainFrame();
+  QObject::connect(frame, SIGNAL (javaScriptWindowObjectCleared()),
+                   this, SLOT (AddJsInterface ()));
+  AddJsInterface ();
 }
 
 UrlDisplayWebView::~UrlDisplayWebView()
 {
   ClearItemsList();
   delete ui;
+}
+
+void
+UrlDisplayWebView::AddJsInterface ()
+{
+  ui->urlView->page()->mainFrame()->addToJavaScriptWindowObject 
+                   ("AradoInterface", &jsInterface, QScriptEngine::QtOwnership);
 }
 
 QString
@@ -88,7 +98,32 @@ UrlDisplayWebView::HtmlBase()
   in.setCodec("UTF-8");
   file.setFileName(":html/html/url-display-view.html");
   file.open(QIODevice::ReadOnly | QIODevice::Text);
-  return in.readAll();
+  QString basic = in.readAll();
+  QString headJavascript;
+  LoadJavascript (headJavascript);
+  basic.replace ("%%HEAD_JAVASCRIPT%%", headJavascript);
+  return basic;
+}
+
+void
+UrlDisplayWebView::LoadJavascript (QString & javascript)
+{
+  javascript.clear ();
+  QString headHtml ("\n<script type=\"text/javascript\">\n");
+  QString tailHtml ("\n</script>\n");
+  QStringList  builtIn;
+  builtIn << "Translate";
+  for (int b=0; b<builtIn.count(); b++) {
+    QString name = builtIn.at(b);
+    QFile file (QString (":/builtinjs/%1.js").arg(name.toLower()));
+    file.open (QFile::ReadOnly);
+    QString jscode = file.readAll ();
+    file.close ();
+    javascript.append (headHtml);
+    javascript.append (jscode);
+    javascript.append (tailHtml);
+    jsInterface.AddPlugin (name);
+  }
 }
 
 void
@@ -107,11 +142,13 @@ UrlDisplayWebView::Load(const QList<arado::AradoUrl> & list)
   }
   ClearItemsList();
   urlMap.clear ();
+  jsInterface.clear ();
   for (int i = 0; i < list.count(); ++i) {
     AradoUrl aurl (list.at(i));
     UrlDisplayViewItem * item = new UrlDisplayViewItem(aurl);
     items.append(item);
     urlMap [aurl.Hash()] = aurl;
+    jsInterface.setUrl (aurl.Hash(), aurl);
   }
 }
 
@@ -154,6 +191,11 @@ UrlDisplayWebView::UrlViewLinkClicked (const QUrl & url)
         menuBusy++;
         itemMenu.MenuUrlText (aUrl);
         menuBusy--;
+      } else if (function == "plugin") {
+        jsInterface.Menu (ui->urlView->page()->mainFrame(), aUrl);
+      } else if (function == "translate") {
+        jsInterface.Call (ui->urlView->page()->mainFrame(), "Translate", 
+                             aUrl.Url());
       } else {
         menuBusy++;
         itemMenu.MenuBasic (aUrl);
@@ -171,14 +213,16 @@ UrlDisplayWebView::BrowseUrl (const QUrl & url)
   UrlDisplayWebViewTab * tab = new UrlDisplayWebViewTab(url, ui->browserTabWidget);
   QObject::connect(tab, SIGNAL(PageNameChanged(UrlDisplayWebViewTab*,QString)),
                    this, SLOT(TabNameChanged(UrlDisplayWebViewTab*,QString)));
-  QObject::connect(tab, SIGNAL(CloseTab(UrlDisplayWebViewTab*)), this, SLOT(CloseTab(UrlDisplayWebViewTab*)));
+  QObject::connect(tab, SIGNAL(CloseTab(UrlDisplayWebViewTab*)), 
+                   this, SLOT(CloseTab(UrlDisplayWebViewTab*)));
 
   ui->browserTabWidget->addTab(tab, url.toString());
   ui->browserTabWidget->setCurrentWidget(tab);
 }
 
 void
-UrlDisplayWebView::TabNameChanged(UrlDisplayWebViewTab * tab, const QString & name)
+UrlDisplayWebView::TabNameChanged(UrlDisplayWebViewTab * tab, 
+                                  const QString & name)
 {
   if (tab) {
     ui->browserTabWidget->setTabText(ui->browserTabWidget->indexOf(tab), name);
@@ -198,6 +242,7 @@ void
 UrlDisplayWebView::ClearContents ()
 {
   urlMap.clear ();
+  jsInterface.clear ();
   ClearItemsList ();
 }
 

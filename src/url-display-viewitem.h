@@ -44,7 +44,6 @@ private:
   QString Timestamp();
   QString Keywords();
   QString Flashmark();
-  QString YoutubePlay();
 
   AradoUrl url;
 

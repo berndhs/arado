@@ -28,6 +28,7 @@
 #include <QMap>
 #include <QList>
 #include "item-menu.h"
+#include "js-view-if.h"
 
 class QUrl;
 
@@ -58,14 +59,16 @@ public:
   void SortByTime(Qt::SortOrder) {}
 
 private slots:
-  void UrlViewLinkClicked(const QUrl &);
-  void TabNameChanged(UrlDisplayWebViewTab *, const QString &);
-  void CloseTab(UrlDisplayWebViewTab *);
+  void UrlViewLinkClicked(const QUrl & url);
+  void TabNameChanged(UrlDisplayWebViewTab * tab, const QString & name);
+  void CloseTab(UrlDisplayWebViewTab * tab);
+  void AddJsInterface ();
 
 private:
   QString Html();
   QString HtmlBase();
   void BrowseUrl (const QUrl & url);
+  void LoadJavascript (QString & javascript);
 
   void Load(const QList<arado::AradoUrl> &);
 
@@ -74,6 +77,7 @@ private:
   Ui::UrlDisplayWebView      *ui;
   ItemMenu                    itemMenu;
   int                         menuBusy;
+  JsViewInterface             jsInterface;
 };
 
 }

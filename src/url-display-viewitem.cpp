@@ -60,8 +60,6 @@ UrlDisplayViewItem::Html()
     *   %14 keyword-list text
 
    */
-  QString homeLang("en");
-  homeLang = Settings().value ("personal/language",homeLang).toString();
   QString html_str;
   html_str = "<div class=\"item\">\n"
 
@@ -85,15 +83,19 @@ UrlDisplayViewItem::Html()
   html_str.append(QObject::tr("Arado-Flashmark: "));
   html_str.append (
     "<span style=\"font-size:small;"
-    " font-weight:normal\">%4 &nbsp; &bull; &nbsp;</span></a>");
+    " font-weight:normal\">%4 </span></a>");
   html_str.append ("%5");
-  html_str.append ("<span class=\"timestamp\">Time %8");
-  html_str.append ("&nbsp; &bull; &nbsp;"
-                   "[ <a href=\"http://translate.google.com/translate?hl=");
-  html_str.append (homeLang);
-  html_str.append ("&sl=auto&u=%7\">");
-  html_str.append (QString ("%1</a>&nbsp;] &nbsp; </span>")
-                   .arg(QObject::tr("Translation")));
+  html_str.append ("<span class=\"timestamp\">"
+                   "&nbsp; &bull; &nbsp;" 
+                    "Time %8"
+                   "&nbsp; &bull; &nbsp;"
+                    "</span>");
+  html_str.append (QString("<span class=\"translate\" >&nbsp;["
+                     "<a class=\"translate\" href=\"") 
+                  + FlashLink ("translate")
+                  + "\">");
+  html_str.append (QObject::tr("Translation")
+                   +QString ("</a>] &nbsp;</span>"));
   html_str.append (
     "<span class=\"kugar\">"
     "&nbsp; <a class=\"mailbutton\" href=\"%9\">"
@@ -102,7 +104,6 @@ UrlDisplayViewItem::Html()
     "<img src=\"qrc:/html/html/images/copy.png\"></a>"
     "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
     "<img src=\"qrc:/html/html/images/openmielke.png\"></a>");
-  html_str.append(YoutubePlay());
   html_str.append(
     "</span>\n "
     "<div class=\"url\">");
@@ -168,16 +169,5 @@ UrlDisplayViewItem::FlashLink (const QString & type)
   return flashUrl.toString();
 }
 
-QString
-UrlDisplayViewItem::YoutubePlay()
-{
-  QString convertedurl(url.Url().toString());
-  if (UrlDisplayView::GetConvertedYoutubeUrl(convertedurl)) {
-    return QString("&nbsp; <a href=\"%1\">"
-                   "<img src=\"qrc:/html/html/images/youtubemp3play.png\">"
-                   "</a>").arg(convertedurl);
-  }
-  return QString();
-}
 
 }

@@ -65,6 +65,9 @@
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
         <file alias="helpman.html">helpfiles/helpman.html</file>
     </qresource>
+    <qresource prefix="/builtinjs">
+       <file alias="translate.js">js/translate.js</file>
+    </qresource>
     <qresource prefix="/translate">
         <file alias="arado_de.qm">translate/arado_de.qm</file>
         <file alias="arado_es.qm">translate/arado_es.qm</file>

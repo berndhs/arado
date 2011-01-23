@@ -108,6 +108,7 @@ HEADERS		=	src/aradogui.h \
                    src/url-display-viewitem.h \
                    src/url-display-webview.h \
                    src/url-display-webviewtab.h \
+                   src/js-view-if.h \
                    src/item-menu.h \
 
 use_miniupnp {
@@ -166,6 +167,7 @@ SOURCES		=	src/aradogui.cpp \
                    src/url-display-viewitem.cpp \
                    src/url-display-webview.cpp \
                    src/url-display-webviewtab.cpp \
+                   src/js-view-if.cpp \
                    src/item-menu.cpp \
 
 use_miniupnp {
