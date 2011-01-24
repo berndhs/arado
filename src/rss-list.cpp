@@ -81,7 +81,7 @@ RssList::Connect ()
   rsseditadvancedview(showDetails);
   connect(ui.rsseditadvancedview, SIGNAL(toggled(bool)), 
                                   this, SLOT(rsseditadvancedview(bool)));
-  //
+  
   connect (ui.rssitemTable, SIGNAL (cellClicked(int,int)), this,
              SLOT (ListNewItemClicked(int,int)) );
   connect (ui.rssitemsrefreshdisplayButton, SIGNAL (clicked()), this,
@@ -188,12 +188,14 @@ RssList::ListNewItem (const AradoUrl &url)
   ui.rssitemTable->setRowCount (newrow+1);
 
   QIcon icon=QIcon(QPixmap(":/images/kugar.png"));
-  QTableWidgetItem * browse = new QTableWidgetItem( icon,"");
+  QTableWidgetItem * browse = new QTableWidgetItem( icon,"", int (Cell_Kugar));
   ui.rssitemTable->setItem (newrow, 0,browse);
 
-  QTableWidgetItem * nickItem = new QTableWidgetItem (url.Description());
+  QTableWidgetItem * nickItem = new QTableWidgetItem (url.Description(),
+                                                int (Cell_Desc));
   ui.rssitemTable->setItem (newrow, 1, nickItem);
-  QTableWidgetItem * urlItem = new QTableWidgetItem (url.Url().toString());
+  QTableWidgetItem * urlItem = new QTableWidgetItem (url.Url().toString(),
+                                                int (Cell_Url));
   ui.rssitemTable->setItem (newrow, 2, urlItem);
 }
 
@@ -202,17 +204,19 @@ RssList::ListNewItemClicked(int row,int col)
 {
   qDebug() << "ListNewItemClicked: " << row;
   if (dbm && row<newItems.count()) {
+    CellType tipo (Cell_None);
     const AradoUrl &url=  newItems.at(row);
-   // if cell = kugar, then {
-   // QDesktopServices::openUrl (url.Url());
-   // QString hash=QString(url.Hash());
-   // dbm->DeleteNewFeedItem(hash);
-   // ListNewItems ();
-   // } else {
-   QString hash=QString(url.Hash());
-   dbm->DeleteNewFeedItem(hash);
-   ListNewItems ();
- }
+    QTableWidgetItem * cell = ui.rssitemTable->item (row,col);
+    if (cell) {
+      tipo = CellType (cell->type());
+    }
+    if (tipo == Cell_Kugar) {
+      QDesktopServices::openUrl (url.Url());
+    }
+    QString hash=QString(url.Hash());
+    dbm->DeleteNewFeedItem(hash);
+    ListNewItems ();
+  }
 }
 
 void

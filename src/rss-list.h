@@ -59,6 +59,13 @@ signals:
 
 private:
 
+  enum CellType {
+    Cell_None = 0,
+    Cell_Kugar = 1,
+    Cell_Desc = 2,  
+    Cell_Url = 3
+  };
+
   void Connect ();
   void ListFeeds ();
   void ListFeed (const AradoFeed & feed);

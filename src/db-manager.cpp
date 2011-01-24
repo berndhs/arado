@@ -695,8 +695,6 @@ DBManager::AddNewFeedItem (AradoUrl &url)
   insert.addBindValue(hash);
 
   bool ok=insert.exec ();
-  QList<AradoUrl> urls;
-  GetNewFeedItems(urls);
   return ok;
 }
 

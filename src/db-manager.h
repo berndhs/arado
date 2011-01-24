@@ -104,8 +104,8 @@ public:
 
   AradoFeedList  GetFeeds ();
   bool ClearNewFeedItems ();
-  bool DeleteNewFeedItem(QString &hash);
-  bool AddNewFeedItem(AradoUrl &url);
+  bool DeleteNewFeedItem (QString &hash);
+  bool AddNewFeedItem (AradoUrl &url);
   bool GetNewFeedItems (QList<AradoUrl> &urls);
 
   bool  StartTransaction (DBType  t = DB_Url);
