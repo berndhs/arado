@@ -45,6 +45,11 @@ public:
     */
 
   Q_INVOKABLE   QString  getUrl  (const QString & flashmark);
+  Q_INVOKABLE   QString  getTitle  (const QString & flashmark);
+  Q_INVOKABLE   QString  getKeywords (const QString & flashmark);
+  Q_INVOKABLE   QString  getTimestampFormatted (const QString & flashmark,
+                                                const QString & format);
+  Q_INVOKABLE   QString  getTimestampRaw (const QString & flashmark);
   Q_INVOKABLE   QString  getLanguage ();
   Q_INVOKABLE   void     openUrl (const QString & urlString);
 

@@ -30,10 +30,12 @@ There are only a few, so Pay Attention Please.
 
 - Line Length
 
-  Keep lines to 80 characters or less when possible. It is almost always possible.
+  Keep lines to 80 characters or less when possible. It is almost always 
+  possible.
 
 - IDE specific formating
 
-  If your IDE does not support these convention, get another IDE. Or file a bug report
-  for your IDE provider. They have no business telling other people how to write their code.
+  If your IDE does not support these convention, get another IDE. Or file a 
+  bug report for your IDE provider. They have no business telling other 
+  people how to write their code.
 

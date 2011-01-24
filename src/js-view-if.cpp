@@ -30,6 +30,7 @@
 #include <QWebFrame>
 #include <QWebElement>
 #include <QMenu>
+#include <QDateTime>
 
 namespace arado
 {
@@ -55,6 +56,48 @@ JsViewInterface::getUrl (const QString & key)
 {
   if (urlMap.contains (key.toUpper())) {
     return urlMap[key.toUpper()].Url().toString();
+  } else {
+    return QString ();
+  }
+}
+
+QString
+JsViewInterface::getTitle (const QString & key)
+{
+  if (urlMap.contains (key.toUpper())) {
+    return urlMap[key.toUpper()].Description();
+  } else {
+    return QString ();
+  }
+}
+
+QString
+JsViewInterface::getKeywords (const QString & key)
+{
+  if (urlMap.contains (key.toUpper())) {
+    return urlMap[key.toUpper()].Keywords().join (";");
+  } else {
+    return QString ();
+  }
+}
+
+QString
+JsViewInterface::getTimestampRaw (const QString & key)
+{
+  if (urlMap.contains (key.toUpper())) {
+    return QString::number (urlMap[key.toUpper()].Timestamp ());
+  } else {
+    return QString ();
+  }
+}
+
+QString
+JsViewInterface::getTimestampFormatted (const QString & key,
+                                        const QString & format)
+{
+  if (urlMap.contains (key.toUpper())) {
+    qint64 time = urlMap[key.toUpper()].Timestamp ();
+    return QDateTime::fromTime_t (time).toString (format);
   } else {
     return QString ();
   }
