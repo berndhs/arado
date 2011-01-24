@@ -10,7 +10,7 @@
 ;--------------------------------
 ; Define your application name
   !define APPNAME "Arado"
-  !define VERSION "0.1.6"
+  !define VERSION "0.1.14"
   !define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
 
 ;--------------------------------
@@ -150,9 +150,13 @@ LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it f
   file .\release\*.gz
   file .\release\*.zip
   file .\release\arado.exe
+	file .\release\arado-engine.exe
+	file .\release\feedbase.sql
 
 	SetOutPath "$INSTDIR\sqldrivers\"
   file .\release\sqldrivers\*.dll
+	
+	SetOutPath "$INSTDIR\arado-plugins\"
 
 ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -182,6 +186,8 @@ LangString stillRunning ${LANG_ENGLISH} "Arado is still active. Please stop it f
   WriteRegStr HKCU "Software\Arado\arado\database" "ipbase"   "$INSTDIR\ipbase.sql" 
   WriteRegStr HKCU "Software\Arado\arado\database" "urlbase"   "$INSTDIR\urlbase.sql" 
   WriteRegStr HKCU "Software\Arado\arado\database" "feedbase"   "$INSTDIR\feedbase.sql" 
+	
+	WriteRegStr HKCU "Software\Arado\arado\plugins"  "dirpath"   "$INSTDIR\arado-plugins" 
 
   WriteRegStr HKCU "Software\Arado\arado\http" "run"   "true" 
   WriteRegDWORD HKCU "Software\Arado\arado\http" "port"   "80"
