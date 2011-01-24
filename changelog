@@ -1,0 +1,29 @@
+* Mon Jan 24 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.14-1
+- plugin facility for javascript to do special things with urls
+- remove outdated url table view module
+- more rss functions
+
+* Tue Jan 18 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.12-1
+- improved context menus for url-webview
+- improved shutdown for engine
+- engine poll bug fixes
+
+* Sat Jan 15 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.11-1
+- do all network polling from background engine
+
+* Fri Jan 14 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.10-1
+- Webview display for url list
+- separate process for background engine
+
+* Wed Dec 22 2010 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.6-1
+- Rss Feed Reader optimization, bug fixes, gui optimizations
+
+* Thu Dec 16 2010 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.5-1
+- new features including RSS/Atom feed source for URLs
+
+* Mon Nov 01 2010 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.0-1
+- Initial RPM release
+
+
+
+
