@@ -34,8 +34,8 @@ PeerSweeper::PeerSweeper (DBManager *dbMgr, QObject *parent)
   :QObject (parent),
    dbm (dbMgr),
    sweepTimer (0),
-   mainPeriod (30*60*1000),    // 30 minutes
-   maxAge (3*24*60*60*1000)    // 3 days
+   mainPeriod (30*60),    // 30 minutes
+   maxAge (3*24*60*60)    // 3 days
 {
   mainPeriod = Settings().value ("peersweep/period",mainPeriod).toInt();
   Settings().setValue ("peersweep/period",mainPeriod);
