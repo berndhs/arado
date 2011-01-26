@@ -143,8 +143,8 @@ private:
   void SendAddrOfferGet (const QUrl & basicUrl, const QString & nick);
   void SendAddrRequestGet (const QUrl & basicUrl, const QString & nick);
 
-  void ReceiveUrls (AradoStreamParser & parser);
-  void ReceiveAddrs (AradoStreamParser & parser);
+  int ReceiveUrls (AradoStreamParser & parser);
+  int ReceiveAddrs (AradoStreamParser & parser);
 
   void SkipWhite (QIODevice *dev);
   void ProcessRequestReply (HttpClientReply * reply);

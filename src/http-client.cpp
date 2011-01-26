@@ -447,25 +447,27 @@ qDebug () << " EXTRA BUFFER raw reply " << inbuf.buffer();
     SkipWhite (netReply);
     parser.SetInDevice (netReply, false);
 #endif
+    int receiveCount (0);
     if (hcReply->DataType() == HDT_Url) {
-      ReceiveUrls (parser);
+      receiveCount = ReceiveUrls (parser);
     } else if (hcReply->DataType() == HDT_Addr) {
-      ReceiveAddrs (parser);
+      receiveCount = ReceiveAddrs (parser);
     }
-    if (db) {
+    if (db && receiveCount > 0) {
       db->MarkPeerTime (peerNick, QDateTime::currentDateTime().toTime_t());
     }
   }
   qDebug () << replyMsg;
 }
 
-void
+int
 HttpClient::ReceiveUrls (AradoStreamParser & parser)
 {
   AradoUrlList urls = parser.ReadAradoUrlList ();
 qDebug () << " got " << urls.size() << " URLs in message ";
   int numAdded (0);
   bool added (false);
+  int numInMessage (urls.count());
   AradoUrlList::iterator  cuit;
   if (db) {
     for (cuit = urls.begin(); cuit != urls.end(); cuit++) {
@@ -482,15 +484,17 @@ qDebug () << " got " << urls.size() << " URLs in message ";
   if (numAdded > 0) {
     emit AddedUrls (numAdded);
   }
+  return numInMessage;
 }
 
-void
+int
 HttpClient::ReceiveAddrs (AradoStreamParser & parser)
 {
   AradoPeerList peers = parser.ReadAradoPeerList ();
 qDebug () << " HttpClient got " << peers.size() << " Peers in message ";
   int numAdded (0);
   bool added (false);
+  int numInMessage (peers.count());
   AradoPeerList::iterator  cuit;
   if (db) {
     quint64 seq = QDateTime::currentDateTime().toTime_t();
@@ -512,6 +516,7 @@ qDebug () << " HttpClient got " << peers.size() << " Peers in message ";
   }
   qDebug () << " emit AddedPeers " << numAdded;
   emit AddedPeers (numAdded);
+  return numInMessage;
 }
 
 void
