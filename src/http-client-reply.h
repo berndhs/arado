@@ -44,22 +44,26 @@ public:
   static HttpClientReply * Get (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
-              HttpDataType            hdt);
+              HttpDataType            hdt,
+              const QString         & nick);
   static HttpClientReply * Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
+              const QString         & nick,
               QIODevice             * data);
   static HttpClientReply * Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
+              const QString         & nick,
               QByteArray            & data);
 
   QNetworkReply    *Reply ()    const   { return netReply; }
   HttpRequestType   Type ()     const   { return reqType; }
   HttpDataType      DataType () const   { return dataType; }
   QUrl              OrigUrl ()  const   { return origUrl; }
+  QString           PeerNick () const   { return peerNick; }
 
   void              SetOrigUrl (const QUrl & url) { origUrl = url; }
               
@@ -69,12 +73,14 @@ private:
   HttpClientReply ();
   HttpClientReply (QNetworkReply     *nr,
                    HttpRequestType    hrt,
-                   HttpDataType       hdt);
+                   HttpDataType       hdt,
+                   const QString     &nick);
 
   QNetworkReply     * netReply;
   HttpRequestType     reqType;
   HttpDataType        dataType;
   QUrl                origUrl;
+  QString             peerNick;
 
 };
 

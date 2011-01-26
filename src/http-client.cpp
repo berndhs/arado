@@ -154,10 +154,10 @@ HttpClient::PollPeer (const QString & nick,
     int serverNum = peers[nick];
     if (servers.contains (serverNum)) {
       if (tradeUrl) {
-        Poll (servers[serverNum], maxRecent, maxRandom);
+        Poll (servers[serverNum], nick, maxRecent, maxRandom);
       }
       if (tradeAddr) {
-        PollAddr (servers[serverNum]);
+        PollAddr (servers[serverNum], nick);
       }
     } else {
       qDebug () << " NO server " << serverNum << " for " << nick << " server " << servers[serverNum].ident;
@@ -166,25 +166,11 @@ HttpClient::PollPeer (const QString & nick,
 }
 
 void
-HttpClient::PollAll (bool reloadServers)
-{
-  qDebug () << " HttpClient Poll start reload " << reloadServers;
-  if (reloadServers) {
-    ReloadServers ();
-  }
-  ServerMap::iterator sit;
-  for (sit = servers.begin(); sit != servers.end(); sit++) {
-    PollAddr (*sit);
-    //Poll (*sit);
-  }
-  qDebug () << " HttpClient Poll done ";
-}
-
-void
-HttpClient::Poll (HttpAddress & addr, int maxRecent, int maxRandom)
+HttpClient::Poll (HttpAddress & addr, const QString & nick, 
+                  int maxRecent, int maxRandom)
 {
   if (network) {
-    qDebug () << " POLL try for " << addr.ident;
+    qDebug () << " POLL try for " << addr.ident << nick;
     QUrl  basicUrl;
     if (addr.useUrl) {
       basicUrl = addr.url;
@@ -198,17 +184,17 @@ HttpClient::Poll (HttpAddress & addr, int maxRecent, int maxRandom)
     basicUrl.setPath ("/arado/query.php");
 
     if (askGet) {
-      SendUrlRequestGet (basicUrl, "recent", maxRecent);
-      SendUrlRequestGet (basicUrl, "random", maxRandom);
+      SendUrlRequestGet (basicUrl, nick, "recent", maxRecent);
+      SendUrlRequestGet (basicUrl, nick, "random", maxRandom);
     }
     if (offerPut) {
-      SendUrlOfferGet (basicUrl);
+      SendUrlOfferGet (basicUrl, nick);
     }
   }
 }
 
 void
-HttpClient::PollAddr (HttpAddress & addr)
+HttpClient::PollAddr (HttpAddress & addr, const QString & nick)
 {
   if (network) {
     qDebug () << " POLL Addr try for " << addr.ident;
@@ -225,10 +211,10 @@ HttpClient::PollAddr (HttpAddress & addr)
     basicUrl.setPath ("/arado/query.php");
 
     if (askGet) {
-      SendAddrRequestGet (basicUrl);
+      SendAddrRequestGet (basicUrl, nick);
     }
     if (offerPut) {
-      SendAddrOfferGet (basicUrl); 
+      SendAddrOfferGet (basicUrl, nick); 
     }
   }
 }
@@ -236,6 +222,7 @@ HttpClient::PollAddr (HttpAddress & addr)
 
 void
 HttpClient::SendUrlRequestGet (const QUrl & basicUrl,
+                               const QString & nick,
                                const QString & kind,
                                int   size)
 {
@@ -250,13 +237,13 @@ HttpClient::SendUrlRequestGet (const QUrl & basicUrl,
   qDebug () << " Url request query " << req.url();
   HttpClientReply * reply (0);
   if (network) {
-    reply = HttpClientReply::Get (network, req, HRT_Request, HDT_Url);
+    reply = HttpClientReply::Get (network, req, HRT_Request, HDT_Url, nick);
     SaveReply (reply);
   }
 }
 
 void
-HttpClient::SendUrlOfferGet (const QUrl & basicUrl)
+HttpClient::SendUrlOfferGet (const QUrl & basicUrl, const QString & nick)
 {
   QUrl  offerUrl (basicUrl);
   offerUrl.addQueryItem (QString ("offer"),QString ("data"));
@@ -267,14 +254,14 @@ HttpClient::SendUrlOfferGet (const QUrl & basicUrl)
   qDebug () << " Url offer query " << offer.url();
   HttpClientReply * reply;
   if (network) {
-    reply = HttpClientReply::Get (network, offer, HRT_Offer, HDT_Url);
+    reply = HttpClientReply::Get (network, offer, HRT_Offer, HDT_Url, nick);
     reply->SetOrigUrl (offer.url());
     SaveReply (reply);
   }
 }
 
 void
-HttpClient::SendAddrRequestGet (const QUrl & basicUrl)
+HttpClient::SendAddrRequestGet (const QUrl & basicUrl, const QString & nick)
 {
   QUrl requestUrl (basicUrl);
 
@@ -288,13 +275,13 @@ HttpClient::SendAddrRequestGet (const QUrl & basicUrl)
   qDebug () << " Addr request query " << req.url();
   HttpClientReply * reply;
   if (network) {
-    reply = HttpClientReply::Get (network, req, HRT_Request, HDT_Addr);
+    reply = HttpClientReply::Get (network, req, HRT_Request, HDT_Addr, nick);
     SaveReply (reply);
   }
 }
 
 void
-HttpClient::SendAddrOfferGet (const QUrl & basicUrl)
+HttpClient::SendAddrOfferGet (const QUrl & basicUrl, const QString & nick)
 {
   QUrl  offerUrl (basicUrl);
   offerUrl.addQueryItem (QString ("offer"),QString ("data"));
@@ -306,7 +293,7 @@ HttpClient::SendAddrOfferGet (const QUrl & basicUrl)
   qDebug () << " Addr offer query " << offer.url();
   HttpClientReply * reply;
   if (network) {
-    reply = HttpClientReply::Get (network, offer, HRT_Offer, HDT_Addr);
+    reply = HttpClientReply::Get (network, offer, HRT_Offer, HDT_Addr, nick);
     reply->SetOrigUrl (offer.url());
     SaveReply (reply);
   }
@@ -358,6 +345,7 @@ HttpClient::ProcessOfferReply (HttpClientReply * reply, const QUrl & origUrl)
   AradoStreamParser parser;
   QBuffer buf;
   buf.setData (reply->Reply()->readAll());
+  QString peerNick = reply->PeerNick ();
   qDebug () << " raw reply " << buf.buffer();
   buf.open (QBuffer::ReadOnly);
   buf.seek (0);
@@ -412,7 +400,7 @@ HttpClient::ProcessOfferReply (HttpClientReply * reply, const QUrl & origUrl)
 qDebug () << " Offer Reply datatype " << datatype;
 qDebug () << " Offer Reply upload to " << req.url ();
       HttpClientReply * hr = HttpClientReply::Put (network, req, 
-                                      HRT_Put, hdt, data);
+                                      HRT_Put, hdt, peerNick, data);
       putWait[hr] = data;
       SaveReply (hr);
     }
@@ -429,6 +417,7 @@ HttpClient::ProcessRequestReply (HttpClientReply * hcReply)
     qDebug () << " Bad Empty reply " << hcReply;
     return;
   }
+  QString peerNick = hcReply->PeerNick ();
   QStringList replyMsg;
   replyMsg << QString ("Network Reply");
   replyMsg << QString ("URL %1").arg(netReply->url().toString());
@@ -462,6 +451,9 @@ qDebug () << " EXTRA BUFFER raw reply " << inbuf.buffer();
       ReceiveUrls (parser);
     } else if (hcReply->DataType() == HDT_Addr) {
       ReceiveAddrs (parser);
+    }
+    if (db) {
+      db->MarkPeerTime (peerNick, QDateTime::currentDateTime().toTime_t());
     }
   }
   qDebug () << replyMsg;

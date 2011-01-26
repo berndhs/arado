@@ -131,16 +131,17 @@ private:
 
   typedef QMap <int, HttpAddress> ServerMap;
 
-  void Poll (HttpAddress & addr, int maxRecent, int maxRandom);
-  void PollAddr (HttpAddress & addr);
-  void PollAll (bool reloadServers = false);
+  void Poll (HttpAddress & addr, const QString & nick, 
+             int maxRecent, int maxRandom);
+  void PollAddr (HttpAddress & addr, const QString & nick);
 
-  void SendUrlOfferGet (const QUrl & basicUrl);
+  void SendUrlOfferGet (const QUrl & basicUrl, const QString & nick);
   void SendUrlRequestGet (const QUrl & basicUrl,
+                          const QString & nick,
                           const QString & kind = QString ("recent"),
                           int   size = 50);
-  void SendAddrOfferGet (const QUrl & basicUrl);
-  void SendAddrRequestGet (const QUrl & basicUrl);
+  void SendAddrOfferGet (const QUrl & basicUrl, const QString & nick);
+  void SendAddrRequestGet (const QUrl & basicUrl, const QString & nick);
 
   void ReceiveUrls (AradoStreamParser & parser);
   void ReceiveAddrs (AradoStreamParser & parser);

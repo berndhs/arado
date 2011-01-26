@@ -70,6 +70,11 @@ public:
                   const QString & newLevel, 
                   const QString & oldLevel);
 
+  void MarkPeerTime (const QString & peerid,
+                     qint64 timestamp);
+  bool GetPeerTime (const QString & peerid,
+                     qint64 & timestamp);
+
   int   NumPeers (const QString & kind = QString ("0"));
 
   qint64 NumUrls ();

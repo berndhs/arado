@@ -121,14 +121,18 @@ DBManager::Start ()
              << "ippeerindex"
              << "peeruuid"
              << "uuindex"
-             << "uniqueuu";
+             << "uniqueuu"
+             << "peerstamps"
+             << "peertimeindex"
+             ;
 
   CheckDBComplete (ipBase, ipElements);
 
   QStringList feedElements;
   feedElements << "rssfeeds"
                << "newfeeditems"
-               << "uniquerssfeeds";
+               << "uniquerssfeeds"
+               ;
   CheckDBComplete (feedBase, feedElements);
 
   QDateTime now = QDateTime::currentDateTime();
@@ -223,6 +227,38 @@ DBManager::MakeElement (QSqlDatabase & db, const QString & element)
   bool ok = query.exec ();
 qDebug () << " tried " << ok << " to create element with " 
           << query.executedQuery ();
+}
+
+void
+DBManager::MarkPeerTime (const QString & peerid,
+                         qint64 timestamp)
+{
+  QString cmd ("insert or replace into peerstamps"
+               " (peerid, timestamp) "
+               " values (?, ?)");
+  QSqlQuery mark (ipBase);
+  mark.prepare (cmd);
+  mark.bindValue (0, QVariant (peerid));
+  mark.bindValue (1, QVariant (timestamp));
+  bool ok = mark.exec ();
+  qDebug () << " tried " << ok << " to mark peer time " 
+          << mark.executedQuery ();
+}
+
+bool
+DBManager::GetPeerTime (const QString & peerid,
+                        qint64 & timestamp)
+{
+  timestamp = -1;
+  QString cmd ("select timestamp from peerstamps "
+                " where peerid=\"%1\"");
+  QSqlQuery select (ipBase);
+  bool ok = select.exec (cmd.arg(peerid));
+  if (ok && select.next()) {
+    timestamp = select.value(0).toLongLong();
+    return true;
+  }
+  return false;
 }
 
 bool

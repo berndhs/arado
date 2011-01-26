@@ -103,6 +103,8 @@
         <file alias="transientindex.sql">schemafiles/transientindex.sql</file>
         <file alias="ippeerindex.sql">schemafiles/ippeerindex.sql</file>
         <file alias="peeruuid.sql">schemafiles/peeruuid.sql</file>
+        <file alias="peerstamps.sql">schemafiles/peerstamps.sql</file>
+        <file alias="peertimeindex.sql">schemafiles/peertimeindex.sql</file>
         <file alias="uuindex.sql">schemafiles/uuindex.sql</file>
         <file alias="uniqueuu.sql">schemafiles/uniqueuu.sql</file>
         <file alias="rssfeeds.sql">schemafiles/rssfeeds.sql</file>

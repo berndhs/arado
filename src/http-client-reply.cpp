@@ -34,10 +34,12 @@ namespace arado
 
 HttpClientReply::HttpClientReply (QNetworkReply   *nr,
                                   HttpRequestType  hrt,
-                                  HttpDataType     hdt)
+                                  HttpDataType     hdt,
+                                  const QString   &nick)
   :netReply (nr),
    reqType (hrt),
-   dataType (hdt)
+   dataType (hdt),
+   peerNick (nick)
 {
 }
 
@@ -59,13 +61,14 @@ HttpClientReply *
 HttpClientReply::Get (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
-              HttpDataType            hdt)
+              HttpDataType            hdt,
+              const QString         & nick)
 {
   if (nam) {
     QNetworkReply * reply = nam->get (req);
     qDebug () << " sent GET to url " << req.url();
     if (reply) {
-      return new HttpClientReply (reply, hrt, hdt);
+      return new HttpClientReply (reply, hrt, hdt, nick);
     }
   }
   return 0;
@@ -76,13 +79,14 @@ HttpClientReply::Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
+              const QString         & nick,
               QIODevice             * data)
 {
   if (nam) {
     QNetworkReply * reply = nam->put (req, data);
     qDebug () << " sent PUT1 to url " << req.url();
     if (reply) {
-      return new HttpClientReply (reply, hrt, hdt);
+      return new HttpClientReply (reply, hrt, hdt, nick);
     }
   }
   return 0;
@@ -93,13 +97,14 @@ HttpClientReply::Put (NetworkAccessManager * nam,
               QNetworkRequest       & req, 
               HttpRequestType         hrt,
               HttpDataType            hdt,
+              const QString         & nick,
               QByteArray            & data)
 {
   if (nam) {
     QNetworkReply * reply = nam->put (req, data);
     qDebug () << " sent PUT2 to url " << req.url();
     if (reply) {
-      return new HttpClientReply (reply, hrt, hdt);
+      return new HttpClientReply (reply, hrt, hdt, nick);
     }
   }
   return 0;
