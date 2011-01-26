@@ -1,3 +1,6 @@
+* Web Jan 26 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.15-1
+- peer sweeper removes dead peers from C list
+
 * Mon Jan 24 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.14-1
 - plugin facility for javascript to do special things with urls
 - remove outdated url table view module
