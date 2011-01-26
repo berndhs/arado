@@ -80,16 +80,17 @@ HEADERS = src/arado-engine.h \
           src/rss-poll.h \
           src/addfeed.h \
           src/policy.h \
-                   src/http-server.h \
-                   src/http-client.h \
-                   src/http-sender.h \
-                   src/poll-sequence.h \
-                   src/http-client-reply.h \
-                   src/http-types.h \
-                   src/arado-peer.h \
+          src/http-server.h \
+          src/http-client.h \
+          src/http-sender.h \
+          src/poll-sequence.h \
+          src/http-client-reply.h \
+          src/http-types.h \
+          src/arado-peer.h \
           src/networkaccessmanager.h \
-                   src/arado-stream-parser.h \
-                   src/control-message.h \
+          src/arado-stream-parser.h \
+          src/control-message.h \
+          src/peer-sweeper.h \
 
 SOURCES = src/enginemain.cpp \
           src/arado-engine.cpp \
@@ -105,11 +106,12 @@ SOURCES = src/enginemain.cpp \
           src/rss-poll.cpp \
           src/addfeed.cpp \
           src/policy.cpp \
-                   src/http-server.cpp \
-                   src/http-client.cpp \
-                   src/http-sender.cpp \
-                   src/poll-sequence.cpp \
-                   src/http-client-reply.cpp \
+          src/http-server.cpp \
+          src/http-client.cpp \
+          src/http-sender.cpp \
+          src/poll-sequence.cpp \
+          src/http-client-reply.cpp \
           src/networkaccessmanager.cpp \
-                   src/arado-stream-parser.cpp \
-                   src/control-message.cpp \
+          src/arado-stream-parser.cpp \
+          src/control-message.cpp \
+          src/peer-sweeper.cpp \

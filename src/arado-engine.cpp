@@ -35,6 +35,7 @@
 #include "http-server.h"
 #include "http-client.h"
 #include "poll-sequence.h"
+#include "peer-sweeper.h"
 
 namespace arado
 {
@@ -50,7 +51,8 @@ AradoEngine::AradoEngine (QObject *parent)
    sequencer (0),
    httpServer (0),
    httpClient (0),
-   httpPoll (0)
+   httpPoll (0),
+   peerSweep (0)
 {
   policy = new Policy (this);
   rssPoll = new RssPoll (this);
@@ -62,6 +64,7 @@ AradoEngine::AradoEngine (QObject *parent)
   sequencer->SetDB (&dbMgr);
   httpServer = new HttpServer (this);
   httpClient = new HttpClient (this);
+  peerSweep = new PeerSweeper (&dbMgr, this);
   httpPoll = new QTimer (this);
   liveCheck = new QTimer (this);
   connect (liveCheck, SIGNAL (timeout()), this, SLOT (LiveCheck()));
@@ -102,6 +105,9 @@ AradoEngine::StartServer ()
   StartHttpClients ();
   RefreshPeers ();
   StartSequencer ();
+  if (peerSweep) {
+    peerSweep->Start ();
+  }
   if (rssPoll) {
     rssPoll->Start ();
   }
@@ -307,6 +313,9 @@ AradoEngine::Quit ()
 {
   qDebug () << " AradoEngine quitting";
   close ();
+  if (peerSweep) {
+    peerSweep->Stop ();
+  }
   if (rssPoll) {
     rssPoll->Stop ();
   }

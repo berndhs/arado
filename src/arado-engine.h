@@ -41,6 +41,7 @@ class RssPoll;
 class PollSequence;
 class HttpServer;
 class HttpClient;
+class PeerSweeper;
 
 class AradoEngine : public QLocalServer 
 {
@@ -95,6 +96,7 @@ private:
   HttpServer         *httpServer;
   HttpClient         *httpClient;
   QTimer             *httpPoll;
+  PeerSweeper        *peerSweep;
   QString             serviceName;
   QTimer             *liveCheck;
 
