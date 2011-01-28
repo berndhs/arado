@@ -100,6 +100,8 @@ public:
                      bool combineAnd = true);
   bool  SearchAny (QStringList & hashList,
                    const QStringList & keys);
+  bool  SearchAll (QStringList & hashList,
+                   const QStringList & keys);
 
   bool  SearchByHash (QStringList & hashList,
                    const QStringList & hashCandidates);

@@ -69,7 +69,7 @@ qDebug () << " they want search for single " << key;
 }
 
 int
-Search::Liberal (const QString & keystring)
+Search::Or (const QString & keystring)
 {
 qDebug () << " Liberal search";
   if (busy) {
@@ -80,6 +80,21 @@ qDebug () << " Liberal search";
   results.clear ();
   searchId++;
   QTimer::singleShot (10,this,SLOT (DoAnySearch ()));
+  return searchId;
+}
+
+int
+Search::And (const QString & keystring)
+{
+qDebug () << " Liberal search";
+  if (busy) {
+    return -1;
+  }
+  keys.clear ();
+  keys.append (keystring.split (QRegExp("\\s+"),QString::SkipEmptyParts));
+  results.clear ();
+  searchId++;
+  QTimer::singleShot (10,this,SLOT (DoAllSearch ()));
   return searchId;
 }
 
@@ -159,6 +174,21 @@ Search::DoAnySearch ()
   if (db) {
     results.clear ();
     db->SearchAny (results, keys);
+    emit Ready (searchId);
+    busy = false;
+  } else {
+    results.clear ();
+    emit Ready (searchId);
+    busy = false;
+  }
+}
+
+void
+Search::DoAllSearch ()
+{
+  if (db) {
+    results.clear ();
+    db->SearchAll (results, keys);
     emit Ready (searchId);
     busy = false;
   } else {

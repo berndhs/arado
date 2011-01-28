@@ -78,8 +78,6 @@ UrlDisplay::UrlDisplay (QWidget * parent)
            this, SLOT (RecentButton ()));
   connect (ui.searchButton, SIGNAL (clicked ()),
            this, SLOT (DoSearch ()));
-  connect (ui.findHashButton, SIGNAL (clicked()),
-           this, SLOT (DoHashLookup ()));
   connect (ui.autoCheck, SIGNAL (stateChanged(int)),
            this, SLOT (ChangedAutoRefresh (int)));
   ui.searchButton->setShortcut(QKeySequence(Qt::Key_Return));
@@ -102,6 +100,7 @@ UrlDisplay::UrlDisplay (QWidget * parent)
   } else {
     refreshUrls->stop ();
   }
+  ui.findOrButton->setChecked (true);
 
   int slowPeriod (5*60);
   slowPeriod = Settings ().value ("urldisplay/slowperiod",
@@ -133,6 +132,7 @@ UrlDisplay::AutoRefreshOn ()
 void
 UrlDisplay::ChangedAutoRefresh (int newstate)
 {
+  Q_UNUSED (newstate)
   autoRefresh = ui.autoCheck->isChecked ();
   Settings().setValue ("urldisplay/autorefresh",autoRefresh);
   if (autoRefresh) {
@@ -248,10 +248,16 @@ void
 UrlDisplay::DoSearch ()
 {
   searchId = -1;
-  if (search) {
+  if (ui.findHashButton->isChecked()) {
+    DoHashLookup ();
+  } else if (search) {
     urlDisplayView->ClearContents();
     searchData = ui.textInput->text();
-    searchId = search->Liberal (searchData);
+    if (ui.findOrButton->isChecked()) {
+      searchId = search->Or (searchData);
+    } else if (ui.findAndButton->isChecked()) {
+      searchId = search->And (searchData);
+    }
     ui.textInput->setStyleSheet("background-color: black; border: 2px solid black");
     ui.bottomLabel->setText (tr("Searching ... %1 ............").arg (searchData));
   }

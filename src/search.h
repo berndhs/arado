@@ -61,7 +61,8 @@ public:
                            Combine combine = Words_All,
                            Result resType = Res_List);
 
-  virtual int Liberal (const QString & keystring);
+  virtual int Or (const QString & keystring);
+  virtual int And (const QString & keyString);
   virtual int Hash (const QString & keyString);
 
   virtual bool ResultReady (int resultId);
@@ -77,6 +78,7 @@ private slots:
 
   virtual void  DoSearch ();
   virtual void  DoAnySearch ();
+  virtual void  DoAllSearch ();
   virtual void  DoHashSearch ();
 
 signals:
