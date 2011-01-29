@@ -135,6 +135,9 @@ private:
   QString ElementType (QSqlDatabase & db, const QString & name);
   void    MakeElement (QSqlDatabase & db, const QString & element);
   bool    AddUrlTimestamp (const QString & hash, quint64 & ts);
+  bool  SearchCompound (QStringList & hashList,
+                   const QStringList & keys,
+                   const QString & combine);
 
   void    FillPeerUuids (AradoPeerList & list);
 

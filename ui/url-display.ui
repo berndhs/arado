@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>882</width>
+    <width>916</width>
     <height>420</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="0">
+   <item row="0" column="0">
     <layout class="QVBoxLayout" name="urlDisplayLayout">
      <item>
       <layout class="QGridLayout" name="gridLayout">
@@ -53,7 +53,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2" colspan="3">
+       <item row="1" column="2" colspan="4">
         <widget class="QLineEdit" name="textInput">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -93,23 +93,78 @@ background: white;</string>
        <item row="1" column="6">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QFrame" name="searchGroup">
+          <widget class="QWidget" name="searchGroup" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>10</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <property name="lineWidth">
-            <number>2</number>
+           <property name="styleSheet">
+            <string notr="true">QWidget {background-color:#f0f7f0;}</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="searchButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>43</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>43</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Search for the entered keyword(s).</string>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton { 
+border-image: url(:/images/btn1.png) 4;
+border-width: 4;
+padding: 0px 6px;
+font-size: 12px;
+}
+
+*{
+color: black;
+}
+
+QPushButton:hover {
+border-image: url(:/images/btn2.png) 4;
+}
+
+QPushButton:pressed{
+border-image: url(:/images/btn3.png) 4;
+}</string>
+              </property>
+              <property name="text">
+               <string>Search</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../arado.qrc">
+                <normaloff>:/images/viewmag.png</normaloff>:/images/viewmag.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>32</width>
+                <height>32</height>
+               </size>
+              </property>
+             </widget>
+            </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
@@ -203,88 +258,7 @@ background: white;</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QFrame" name="recentGroup">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>10</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <property name="lineWidth">
-            <number>2</number>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2"/>
-          </widget>
-         </item>
         </layout>
-       </item>
-       <item row="1" column="5">
-        <widget class="QPushButton" name="searchButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>43</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>120</width>
-           <height>43</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Search for the entered keyword(s).</string>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton { 
-border-image: url(:/images/btn1.png) 4;
-border-width: 4;
-padding: 0px 6px;
-font-size: 12px;
-}
-
-*{
-color: black;
-}
-
-QPushButton:hover {
-border-image: url(:/images/btn2.png) 4;
-}
-
-QPushButton:pressed{
-border-image: url(:/images/btn3.png) 4;
-}</string>
-         </property>
-         <property name="text">
-          <string>Search</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../arado.qrc">
-           <normaloff>:/images/viewmag.png</normaloff>:/images/viewmag.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label">
@@ -320,20 +294,23 @@ border-image: url(:/images/btn3.png) 4;
          </property>
         </widget>
        </item>
-       <item row="4" column="3" colspan="2">
+       <item row="4" column="3" colspan="3">
         <widget class="QLabel" name="middleLabel">
          <property name="toolTip">
           <string>Arado Websearch • The Open Source Websearch empowering common people.</string>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
           <string/>
          </property>
          <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="4" column="5" colspan="2">
+       <item row="4" column="6">
         <widget class="QLabel" name="bottomLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -362,7 +339,7 @@ border-image: url(:/images/btn3.png) 4;
           <string>URL Database</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>

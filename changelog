@@ -1,5 +1,6 @@
-* Wed Jan 26 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.15-1
+* Fri Jan 28 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.15-1
 - peer sweeper removes dead peers from C list
+- search Flashmark, as well as key/drescription/url AND/OR
 
 * Mon Jan 24 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.14-1
 - plugin facility for javascript to do special things with urls

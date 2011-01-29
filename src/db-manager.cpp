@@ -759,25 +759,40 @@ bool
 DBManager::SearchAny (QStringList & hashList, 
                         const QStringList & keys)
 {
+  return SearchCompound (hashList, keys, "UNION");
+}
+
+bool
+DBManager::SearchAll (QStringList & hashList, 
+                        const QStringList & keys)
+{
+  return SearchCompound (hashList, keys, "INTERSECT");
+}
+
+bool
+DBManager::SearchCompound (QStringList & hashList, 
+                        const QStringList & keys,
+                        const QString & combine)
+{
   hashList.clear ();
   if (keys.size() < 1) {
     return false;
   }
-  QString cmd ("select hashid from (");
-  QString wherePhrase ("select hashid from urltable where "
+  QString cmd;
+  QString coreSelect (" select hashid from "
+                        "(select hashid from urltable where "
                         " (description LIKE \"\%%1\%\" "
                         " OR url LIKE \"\%%1\%\" )"
                         " UNION "
                         " select hashid from keywords where "
-                        "   keyword LIKE \"\%%1\%\" ");
-  QString combine (" UNION ");
+                        "   keyword LIKE \"\%%1\%\" ) "
+                     );
   
-  cmd.append (wherePhrase.arg (keys.at(0)));
+  cmd.append (coreSelect.arg (keys.at(0)));
   for (int i=1; i<keys.size(); i++) {
     cmd.append (combine);
-    cmd.append (wherePhrase.arg (keys.at(i)));
+    cmd.append (coreSelect.arg (keys.at(i)));
   }
-  cmd.append (" )");
   QSqlQuery select (urlBase);
   bool ok = select.exec (cmd);
   qDebug () << "SEARCH command " << cmd;
@@ -791,41 +806,6 @@ DBManager::SearchAny (QStringList & hashList,
   return (ok);
 }
 
-bool
-DBManager::SearchAll (QStringList & hashList, 
-                        const QStringList & keys)
-{
-  hashList.clear ();
-  if (keys.size() < 1) {
-    return false;
-  }
-  QString cmd ("select hashid from (");
-  QString wherePhrase ("select hashid from urltable where "
-                        " (description LIKE \"\%%1\%\" "
-                        " OR url LIKE \"\%%1\%\" )"
-                        " UNION "
-                        " select hashid from keywords where "
-                        "   keyword LIKE \"\%%1\%\" ");
-  QString combine (" INTERSECT ");
-  
-  cmd.append (wherePhrase.arg (keys.at(0)));
-  for (int i=1; i<keys.size(); i++) {
-    cmd.append (combine);
-    cmd.append (wherePhrase.arg (keys.at(i)));
-  }
-  cmd.append (" )");
-  QSqlQuery select (urlBase);
-  bool ok = select.exec (cmd);
-  qDebug () << "SEARCH command " << cmd;
-  qDebug () << "SEARCH words " << ok << " for " << select.executedQuery();
-  QString hash;
-  while (ok && select.next ()) {
-    hash = select.value(0).toString();
-    hashList.append (hash);
-  }
-  qDebug () << " SEARCH got " << hashList.size() << " results";
-  return (ok);
-}
 
 
 bool
