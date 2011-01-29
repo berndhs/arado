@@ -90,7 +90,7 @@ background: white;</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="6">
+       <item row="1" column="7">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QWidget" name="searchGroup" native="true">
@@ -101,77 +101,19 @@ background: white;</string>
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">QWidget {background-color:#f0f7f0;}</string>
+            <string notr="true"/>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QPushButton" name="searchButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>43</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>120</width>
-                <height>43</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Search for the entered keyword(s).</string>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton { 
-border-image: url(:/images/btn1.png) 4;
-border-width: 4;
-padding: 0px 6px;
-font-size: 12px;
-}
-
-*{
-color: black;
-}
-
-QPushButton:hover {
-border-image: url(:/images/btn2.png) 4;
-}
-
-QPushButton:pressed{
-border-image: url(:/images/btn3.png) 4;
-}</string>
-              </property>
-              <property name="text">
-               <string>Search</string>
-              </property>
-              <property name="icon">
-               <iconset resource="../arado.qrc">
-                <normaloff>:/images/viewmag.png</normaloff>:/images/viewmag.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
              <layout class="QVBoxLayout" name="verticalLayout">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QRadioButton" name="findOrButton">
                 <property name="font">
                  <font>
-                  <pointsize>9</pointsize>
+                  <pointsize>7</pointsize>
                  </font>
                 </property>
                 <property name="layoutDirection">
@@ -189,7 +131,7 @@ border-image: url(:/images/btn3.png) 4;
                <widget class="QRadioButton" name="findHashButton">
                 <property name="font">
                  <font>
-                  <pointsize>9</pointsize>
+                  <pointsize>7</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -204,7 +146,7 @@ border-image: url(:/images/btn3.png) 4;
                <widget class="QRadioButton" name="findAndButton">
                 <property name="font">
                  <font>
-                  <pointsize>9</pointsize>
+                  <pointsize>7</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -310,7 +252,7 @@ border-image: url(:/images/btn3.png) 4;
          </property>
         </widget>
        </item>
-       <item row="4" column="6">
+       <item row="4" column="6" colspan="2">
         <widget class="QLabel" name="bottomLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -333,13 +275,74 @@ border-image: url(:/images/btn3.png) 4;
           <string>Statusinfo.</string>
          </property>
          <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+          <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
           <string>URL Database</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
+        <widget class="QPushButton" name="searchButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>43</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>43</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Search for the entered keyword(s).</string>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton { 
+border-image: url(:/images/btn1.png) 4;
+border-width: 4;
+padding: 0px 6px;
+font-size: 12px;
+}
+
+*{
+color: black;
+}
+
+QPushButton:hover {
+border-image: url(:/images/btn2.png) 4;
+}
+
+QPushButton:pressed{
+border-image: url(:/images/btn3.png) 4;
+}</string>
+         </property>
+         <property name="text">
+          <string>Search</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../arado.qrc">
+           <normaloff>:/images/viewmag.png</normaloff>:/images/viewmag.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
          </property>
         </widget>
        </item>
