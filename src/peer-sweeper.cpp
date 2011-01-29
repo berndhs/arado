@@ -34,8 +34,8 @@ PeerSweeper::PeerSweeper (DBManager *dbMgr, QObject *parent)
   :QObject (parent),
    dbm (dbMgr),
    sweepTimer (0),
-   mainPeriod (30*60),    // 30 minutes
-   maxAge (3*24*60*60)    // 3 days
+   mainPeriod (45*60),    // each 45 minutes check is done
+   maxAge (9*24*60*60)    // peers inactive longer than 9 days get deleted
 {
   mainPeriod = Settings().value ("peersweep/period",mainPeriod).toInt();
   Settings().setValue ("peersweep/period",mainPeriod);
