@@ -170,7 +170,7 @@ void
 RssList::ListNewItems ()
 {
   newItems.clear();
-  dbm->GetNewFeedItems(newItems, 2);
+  dbm->GetNewFeedItems(newItems, 1000);
   qDebug() << "RssList::ListNewItems count:" << newItems.count();
   ui.rssitemTable->clearContents();
   ui.rssitemTable->setRowCount (0);
