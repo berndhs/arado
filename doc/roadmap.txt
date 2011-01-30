@@ -11,11 +11,6 @@ ideas for possible things to implement by occasion:
 05) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
 
-08) a top pulldown menu to copy out or mail the whole line of the data entry, not only a cell
-    -- Yes, this would be a nice thing to have. Maybe in a context menu of
-       one of the items on the line, where there already is a mailto function.
-
-
 10) settings option for enabled or disabled: "show time in display"-table
   -- what for? We don't want optional cloumns if we can avoid it. Add complexity
      when it actually adds funcitonality.
@@ -33,26 +28,12 @@ b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitd
 
 13) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
 
-14) set width of sha1-column max to contentmaximum length or by default minimum as long as the arado icon above it
-url-display.cpp 133:
-    //item->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
-    //item->setSizeHint (80);
-    //item->horizontalHeader()->resizeSection(0, 50); // column 0, width 50
-   -- fixed width is a really bad idea 
 
 15) Progress Bar steered by a timer if the search button is pressed.
   -- there is no good information to display a progress bar that makes any sense
 
-16) Url Display: Row Width
-- Fixed Width for header browse
-- Fixed Maximum With for Header Time
-- Default Widht for Sha1 Header, extenable as long as content, minimum as logo width
-
-17) Make the Browse icon a Browse Button with icon
 
 18)  Start Sync button or Menue switches to Url Display page and start the progress bar (timed)
-
-19) Settings allow to disable Time Row View on url display
 
 
 20) URL-Cell: Context Menu with command: "Rate Good", which overwrites the timestamp with the actual time,
@@ -62,8 +43,6 @@ which causes this Good Rated Url to be on top and spread again.
      won't update the URL.
 
 21) Extended Search: Second Press on Search Button could ask the connected peers for hash or keyword, option to disable in settings, default on
-
-22) No hardcoded url to webmailers for UUID Mailsent
 
 23) OWN Ip and UUID is sent over Sync Button-Press, but not by default, otherwise a lot of users will not connect.
 
@@ -90,17 +69,9 @@ but extended search should not ask Arado nodes, as this search is done locally a
 
 33) Implement Range Load of urls, ideally not a random chunk of urls, but systematically
 
-35) RSS item display in a temp / RAM SQL-Database for RSS items only in the RSS tab
-
 37) IRC-like Chat over http protocol for A and B peers
 
 38) miniupnp implementation with gethostinfo from a DHT, to allow natted peers to be a server.
-
-40) Damned Splitter: RSS Tab: If unchecked the Edit checkbox, splitter should be moved, expanded, resized or streteched to the max right side.
-
-41) Context menue for webview
-
-43) Webview: Icon for youtube-url, download for MP3 conversion
 
 44) webview: display time ranges for search results of keywordsearch, e.g. urls for the keyword, within the last week..
 
@@ -108,6 +79,13 @@ but extended search should not ask Arado nodes, as this search is done locally a
 	maybe 3 wikipedia-domain urls and 3 latest-timestamp urls and 3 urls wich contain the searchterm in the title and 3 searchresults which contain the searchterm
 	in the url, should be displayed alternating as the top 12 results, and then the other results fuzzy as now.. or (next 20 urls by time) and then fuzzy.
 
+46) Empty keywords field in rss should use 3 longest terms/keywords of the Description, so we have always keywords given, even if redundant with title.
+
+47) Analysis of urlbase.sql as tooltip over total database amount: function to sort all keywords by amount, show up in the tooltip the most used keywords for the last 50.000 entries of the database. Keywordranking of the last 50.000 database entries as tooltip over total url amount.
+
+48) random urls choosen only out of the range 0 - max given url amount, so empty urls are avoided from empty space (over cache or proper range with given urls)
+
+49) portal interface php -> urlbase.sql interaction
 
 
 
