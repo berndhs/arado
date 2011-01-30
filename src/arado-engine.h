@@ -54,7 +54,7 @@ public:
   
   void SetApp (QApplication & qapp) { app = &qapp;}
 
-  void Start (const QString & serviceId);
+  void Start (const QString & serviceId, bool alone);
 
 public slots:
 
@@ -87,6 +87,7 @@ private:
 
   QApplication   *app;
   QLocalSocket   *mainPipe;
+  bool            runAlone;
 
   DBManager           dbMgr;
   Policy             *policy;

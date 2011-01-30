@@ -113,7 +113,7 @@ public:
   bool ClearNewFeedItems ();
   bool DeleteNewFeedItem (QString &hash);
   bool AddNewFeedItem (AradoUrl &url);
-  bool GetNewFeedItems (QList<AradoUrl> &urls);
+  bool GetNewFeedItems (QList<AradoUrl> &urls, int maxItems = 5000);
 
   bool  StartTransaction (DBType  t = DB_Url);
   bool  CloseTransaction (DBType  t = DB_Url);
@@ -131,6 +131,8 @@ private:
                  const QString & dbFilename);
   void CheckFileExists (const QString & filename);
   void CheckDBComplete (QSqlDatabase & db,
+                        const QStringList & elements);
+  void CleanDB (QSqlDatabase & db,
                         const QStringList & elements);
   QString ElementType (QSqlDatabase & db, const QString & name);
   void    MakeElement (QSqlDatabase & db, const QString & element);

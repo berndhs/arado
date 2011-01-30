@@ -110,6 +110,7 @@
         <file alias="rssfeeds.sql">schemafiles/rssfeeds.sql</file>
         <file alias="uniquerssfeeds.sql">schemafiles/uniquerssfeeds.sql</file>
         <file alias="newfeeditems.sql">schemafiles/newfeeditems.sql</file>
+        <file alias="cleannewfeeds.sql">schemafiles/cleannewfeeds.sql</file>
     </qresource>
     <qresource prefix="/html">
         <file>html/url-display-view.html</file>

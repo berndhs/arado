@@ -44,6 +44,7 @@ AradoEngine::AradoEngine (QObject *parent)
   :QLocalServer (parent),
    app (0),
    mainPipe (0),
+   runAlone (true),
    dbMgr (this),
    policy (0),
    rssPoll (0),
@@ -77,11 +78,12 @@ AradoEngine::~AradoEngine ()
 }
 
 void
-AradoEngine::Start (const QString & serviceId)
+AradoEngine::Start (const QString & serviceId, bool alone)
 {
   qDebug () << " AradoEngine Start";
   serviceName = QString ("aradoen%1").arg(serviceId);
   qDebug () << " AradoEngine service name " << serviceName;
+  runAlone = alone;
 }
 
 void
@@ -109,7 +111,7 @@ AradoEngine::StartServer ()
     peerSweep->Start ();
   }
   if (rssPoll) {
-    rssPoll->Start ();
+    rssPoll->Start (!runAlone);
   }
 }
 
@@ -240,7 +242,7 @@ AradoEngine::GetNewConnection ()
   connect (mainPipe, SIGNAL (disconnected()), this, SLOT (Disconnected()));
   connect (mainPipe, SIGNAL (readyRead()), this, SLOT (ReadPipe()));
   if (rssPoll) {
-    rssPoll->Start ();
+    rssPoll->Start (!runAlone);
   }
   mainPipe->write (QByteArray ("RUNNING\n"));
 }
@@ -248,6 +250,9 @@ AradoEngine::GetNewConnection ()
 void
 AradoEngine::Disconnected ()
 {
+  if (rssPoll) {
+    rssPoll->SetSaveNew (false);
+  }
   QTimer::singleShot (100, this, SLOT(Quit ()));  
 }
 
@@ -284,6 +289,12 @@ AradoEngine::ReadPipe ()
       Quit ();
       return;
     }
+    if (data.startsWith(QByteArray ("RUNALONE"))) {
+      runAlone = true;
+      if (rssPoll) {
+        rssPoll->SetSaveNew (false);
+      }
+    }
     QStringList parts = QString(data).split (QRegExp("\\s"),
                                            QString::SkipEmptyParts);
     QString cmd = parts.at(0);
@@ -291,7 +302,7 @@ AradoEngine::ReadPipe ()
     if (cmd.startsWith ("RSSRESTART")) {
       if (rssPoll) {
         rssPoll->Stop ();
-        rssPoll->Start ();
+        rssPoll->Start (!runAlone);
       }
     }
   }

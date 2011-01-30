@@ -43,8 +43,9 @@ public:
   RssPoll (QObject *parent=0);
 
   void  SetDB (DBManager *db);
-  void  Start ();
+  void  Start (bool reportNew);
   void  Stop ();
+  void  SetSaveNew (bool saveNew);
 
   QString LastPolled ();
 
@@ -65,6 +66,7 @@ private:
   AradoFeedList            feedList;
   AradoFeedList::iterator  lastPolled;
   QString                  lastNick;
+  bool                     saveNewItems;
 
 };
 

@@ -289,7 +289,7 @@
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QPushButton" name="rssitemsrefreshdisplayButton">
+    <widget class="QPushButton" name="reloadButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>

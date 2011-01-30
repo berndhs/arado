@@ -89,7 +89,7 @@ AddRssFeed::ParseItems (QDomNodeList & itemList)
       }
       if (newurl.IsValid ()) {
         newUrls.append (newurl);
-        if(db->AddUrl (newurl)) {
+        if(db->AddUrl (newurl) && storeNewItems) {
             db->AddNewFeedItem(newurl);
         }
       }
@@ -98,8 +98,9 @@ AddRssFeed::ParseItems (QDomNodeList & itemList)
 }
 
 void
-AddRssFeed::PollFeed (QString urlText)
+AddRssFeed::PollFeed (QString urlText, bool saveNewItems)
 {
+  storeNewItems = saveNewItems;
   QUrl feedUrl=QUrl (urlText, QUrl::TolerantMode);
 
   QNetworkRequest request (feedUrl);

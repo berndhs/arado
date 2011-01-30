@@ -41,7 +41,7 @@ public:
   explicit AddRssFeed(QObject *parent = 0);
 
   void SetDB (DBManager *dbm) { db = dbm; }
-  void PollFeed (QString url);
+  void PollFeed (QString url, bool saveNewItems);
 
 
 signals:
@@ -57,7 +57,8 @@ private:
   NetworkAccessManager *qnam;
   DBManager             *db;
   QNetworkReply         *reply;
-  QList<AradoUrl>            newUrls;
+  QList<AradoUrl>        newUrls;
+  bool                   storeNewItems;
 
   static bool LongerString (const QString & s1, const QString & s2);
 };

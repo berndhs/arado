@@ -133,6 +133,9 @@ DBManager::Start ()
                << "newfeeditems"
                << "uniquerssfeeds"
                ;
+  QStringList cleanFeeds;
+  cleanFeeds << "cleannewfeeds";
+  CleanDB (feedBase, cleanFeeds);
   CheckDBComplete (feedBase, feedElements);
 
   QDateTime now = QDateTime::currentDateTime();
@@ -196,6 +199,16 @@ qDebug () << " element " << eltName << " is kind " << kind;
     if (kind != "TABLE" && kind != "INDEX") {
       MakeElement (db, eltName);
     }
+  }
+}
+
+void
+DBManager::CleanDB (QSqlDatabase & db,
+                            const QStringList & elements)
+{
+  for (int e=0; e<elements.size(); e++) {
+    QString eltName = elements.at(e);
+    MakeElement (db, eltName);
   }
 }
 
@@ -724,24 +737,26 @@ DBManager::AddNewFeedItem (AradoUrl &url)
 {
   qDebug () << "DBManager::AddNewFeedItem" ;
 
-  QString cmd ("insert into newfeeditems values(?)");
+  QString cmd ("insert into newfeeditems (hashid, timein) values(?,?)");
   QSqlQuery insert(feedBase);
   insert.prepare(cmd);
   QString hash(url.Hash());
-  insert.addBindValue(hash);
+  insert.bindValue (0, QVariant (hash));
+  insert.bindValue (1, QVariant (QDateTime::currentDateTime().toTime_t()));
 
   bool ok=insert.exec ();
   return ok;
 }
 
 bool
-DBManager::GetNewFeedItems (QList<AradoUrl> &urls)
+DBManager::GetNewFeedItems (QList<AradoUrl> &urls, int maxItems)
 {
   qDebug () << "DBManager::GetNewFeedItems";
-  QString cmd ("select hashid from newfeeditems");
+  QString cmd ("select hashid, timein from newfeeditems "
+               " order by timein DESC LIMIT %1");
   urls.clear();
   QSqlQuery select (feedBase);
-  bool ok = select.exec (cmd);
+  bool ok = select.exec (cmd.arg(maxItems));
   while (ok && select.next ()) {
     AradoUrl url;
     QString hash = select.value(0).toString();

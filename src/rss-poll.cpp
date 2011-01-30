@@ -38,7 +38,8 @@ RssPoll::RssPoll (QObject *parent)
   :QObject (parent),
    dbm (0),
    pollTimer (0),
-   feeder (0)
+   feeder (0),
+   saveNewItems (false)
 {
   feeder = new AddRssFeed (this);
   feedList.clear ();
@@ -54,9 +55,10 @@ RssPoll::SetDB (DBManager *db)
 }
 
 void
-RssPoll::Start ()
+RssPoll::Start (bool reportNew)
 {
   qDebug () << " RssPoll Start";
+  saveNewItems = reportNew;
   int period (5*60); // 5 minutes
   period = Settings().value ("rss/pollperiod",period).toInt();
   Settings().setValue ("rss/pollperiod",period);
@@ -89,6 +91,12 @@ RssPoll::Stop ()
 }
 
 void
+RssPoll::SetSaveNew (bool saveNew)
+{
+  saveNewItems = saveNew;
+}
+
+void
 RssPoll::Poll ()
 {
   qDebug () << "RssPoll list length " << feedList.count();
@@ -103,7 +111,8 @@ RssPoll::Poll ()
   if (nextPoll == feedList.end()) {  // empty list ?
     return;
   }
-  feeder->PollFeed (nextPoll->Url().toString());
+  qDebug () << " Poll Feed " << nextPoll->Nick() ;
+  feeder->PollFeed (nextPoll->Url().toString(), saveNewItems);
   lastNick = nextPoll->Nick();
   lastPolled = nextPoll;
   Settings().setValue ("rss/lastpolled",lastNick);

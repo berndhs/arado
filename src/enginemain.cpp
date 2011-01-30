@@ -63,6 +63,7 @@ main (int argc, char * argv[])
                    QObject::tr("language (2-letter lower case)"));
   opts.AddStringOption ("service","S",
                    QObject::tr("service id"));
+  opts.AddSoloOption ("nogui","G",QObject::tr("work without gui connection"));
 
   deliberate::UseMyOwnMessageHandler ();
 
@@ -106,10 +107,11 @@ main (int argc, char * argv[])
     opts.SetStringOpt ("service",servId);
   }
 
+  bool daemon = opts.SeenOpt ("nogui");
   /** the real main program starts here **/
   arado::AradoEngine  engine;
   engine.SetApp (app);
-  engine.Start (servId);
+  engine.Start (servId, daemon);
 
   QTimer::singleShot (100, &engine, SLOT(StartServer ()));
   int appresult = app.exec ();

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="layoutDirection">
+   <enum>Qt::RightToLeft</enum>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>2</number>
@@ -26,13 +29,19 @@
       <number>2</number>
      </property>
      <item>
-      <widget class="QPushButton" name="backButton">
+      <widget class="QPushButton" name="closeButton">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="text">
-        <string>Back</string>
+        <string>Close</string>
        </property>
        <property name="icon">
         <iconset resource="../arado.qrc">
-         <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
+         <normaloff>:/images/no.png</normaloff>:/images/no.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+W</string>
        </property>
        <property name="flat">
         <bool>true</bool>
@@ -40,13 +49,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="forwardButton">
+      <widget class="QPushButton" name="openInBrowserButton">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="text">
-        <string>Forward</string>
+        <string>Browser</string>
        </property>
        <property name="icon">
         <iconset resource="../arado.qrc">
-         <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
+         <normaloff>:/images/kugar.png</normaloff>:/images/kugar.png</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>
@@ -61,13 +73,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="openInBrowserButton">
+      <widget class="QPushButton" name="forwardButton">
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
        <property name="text">
-        <string>Browser</string>
+        <string>Forward</string>
        </property>
        <property name="icon">
         <iconset resource="../arado.qrc">
-         <normaloff>:/images/kugar.png</normaloff>:/images/kugar.png</iconset>
+         <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>
@@ -75,16 +90,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="closeButton">
+      <widget class="QPushButton" name="backButton">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="text">
-        <string>Close</string>
+        <string>Back</string>
        </property>
        <property name="icon">
         <iconset resource="../arado.qrc">
-         <normaloff>:/images/no.png</normaloff>:/images/no.png</iconset>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+W</string>
+         <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>
@@ -119,6 +134,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="../arado.qrc"/>
   <include location="../arado.qrc"/>
  </resources>
  <connections/>

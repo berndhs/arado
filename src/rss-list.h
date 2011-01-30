@@ -25,6 +25,8 @@
 #include "ui_rss-list.h"
 #include "arado-url.h"
 
+class QTimer;
+
 namespace arado
 {
 
@@ -52,6 +54,7 @@ private slots:
   void  DoSave ();
   void  rsseditadvancedview(bool show);
   void  ListNewItemClicked(int row,int col);
+  void  ListNewItems ();
 
 signals:
 
@@ -69,7 +72,6 @@ private:
   void Connect ();
   void ListFeeds ();
   void ListFeed (const AradoFeed & feed);
-  void ListNewItems ();
   void ListNewItem (const AradoUrl &url);
 
   Ui_RssFeedList  ui;

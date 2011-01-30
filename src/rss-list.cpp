@@ -32,6 +32,7 @@
 #include <QTableWidgetItem>
 #include <QList>
 #include <QSet>
+#include <QTimer>
 #include <QDebug>
 
 using namespace deliberate;
@@ -84,8 +85,8 @@ RssList::Connect ()
   
   connect (ui.rssitemTable, SIGNAL (cellClicked(int,int)), this,
              SLOT (ListNewItemClicked(int,int)) );
-  connect (ui.rssitemsrefreshdisplayButton, SIGNAL (clicked()), this,
-             SLOT (AddFeed()) );
+  connect (ui.reloadButton, SIGNAL (clicked()), this,
+             SLOT (ListNewItems()) );
 
 }
 
@@ -169,7 +170,7 @@ void
 RssList::ListNewItems ()
 {
   newItems.clear();
-  dbm->GetNewFeedItems(newItems);
+  dbm->GetNewFeedItems(newItems, 2);
   qDebug() << "RssList::ListNewItems count:" << newItems.count();
   ui.rssitemTable->clearContents();
   ui.rssitemTable->setRowCount (0);
