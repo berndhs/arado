@@ -240,7 +240,6 @@ void
 RssList::ListFeed (const AradoFeed & feed)
 {
   int newrow = ui.feedTable->rowCount();
-  qDebug () << " RssList add Item row " << newrow;
   ui.feedTable->setRowCount (newrow+1);
   QTableWidgetItem * nickItem = new QTableWidgetItem (feed.Nick());
   ui.feedTable->setItem (newrow, 0, nickItem);
