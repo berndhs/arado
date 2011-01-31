@@ -94,7 +94,7 @@
             <string>Example: 720 connections per hour = one connection each 5 seconds.</string>
            </property>
            <property name="text">
-            <string>Connections per Hour 
+            <string>Connections per Server per Hour 
 random &lt;-&gt; recent URLs</string>
            </property>
            <property name="alignment">
@@ -267,7 +267,7 @@ random &lt;-&gt; recent URLs</string>
             <string>Example: 60 connections per hour = one connection each 60 seconds.</string>
            </property>
            <property name="text">
-            <string>Connections per Hour 
+            <string>Connections per Server per Hour 
 random &lt;-&gt; recent URLs</string>
            </property>
            <property name="alignment">
@@ -450,7 +450,7 @@ random &lt;-&gt; recent URLs</string>
             <string>Example: 40 connections per hour = one connection each 90 seconds.</string>
            </property>
            <property name="text">
-            <string>Connections per Hour 
+            <string>Connections per Server per Hour 
 random &lt;-&gt; recent URLs</string>
            </property>
            <property name="alignment">

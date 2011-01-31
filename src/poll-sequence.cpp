@@ -46,7 +46,7 @@ PollSequence::PollSequence (QObject * parent)
    timerB (this),
    timerC (this)
 {
-  ComputePeriods ();
+  ComputePeriods (1,1,1);
   FindRatios ();
   connect (&timerA, SIGNAL (timeout()), this, SLOT (PollA()));
   connect (&timerB, SIGNAL (timeout()), this, SLOT (PollB()));
@@ -60,29 +60,24 @@ PollSequence::PollClient(HttpClient *httpClient, bool force)
 qDebug () << " PollSequence::PollClient db " << db;
   if (db) {
     AradoPeerList list = db->GetPeers ("A");
-    QStringList bigList;
     AradoPeerList::const_iterator ait;
     for (ait = list.constBegin(); ait != list.constEnd(); ait++) {
       nicksA.insert (ait->Nick());
-      if (force) {
-        bigList.append (ait->Nick());
-      }
     }
     list = db->GetPeers ("B");
     for (ait = list.constBegin(); ait != list.constEnd(); ait++) {
       nicksB.insert (ait->Nick());
-      if (force) {
-        bigList.append (ait->Nick());
-      }
     }
     list = db->GetPeers ("C");
     for (ait = list.constBegin(); ait != list.constEnd(); ait++) {
       nicksC.insert (ait->Nick());
-      if (force) {
-        bigList.append (ait->Nick());
-      }
     }
+    ComputePeriods (nicksA.count(), nicksB.count(), nicksC.count());
     if (force && httpClient) {
+      QStringList bigList;
+      bigList << nicksA.toList() 
+              << nicksB.toList()
+              << nicksC.toList();
       httpClient->PollPeers (bigList);  
     }
   }
@@ -94,7 +89,7 @@ PollSequence::Start ()
   qDebug () << " Sequence Start";
   RefreshParams ();
   SaveParams ();
-  ComputePeriods ();   
+  ComputePeriods (nicksA.count(), nicksB.count(), nicksC.count());   
   RestartTimers ();  
   pollItA = nicksA.begin();
   pollItB = nicksB.begin();
@@ -107,7 +102,7 @@ PollSequence::Restart ()
   qDebug () << " Sequence Restart";
   RefreshParams ();
   SaveParams ();
-  ComputePeriods ();
+  ComputePeriods (nicksA.count(), nicksB.count(), nicksC.count());
   RestartTimers ();
 }
 
@@ -161,12 +156,15 @@ PollSequence::Stop ()
 }
 
 void
-PollSequence::ComputePeriods ()
+PollSequence::ComputePeriods (int countA, int countB, int countC)
 {
-  qint64 msPerHour (60*60*1000);
-  periodA = msPerHour / urlFreqA;
-  periodB = msPerHour / urlFreqB;
-  periodC = msPerHour / urlFreqC;  
+  const qint64 msPerHour (60*60*1000);
+  if (countA < 1) { countA = 1; }
+  if (countB < 1) { countB = 1; }
+  if (countC < 1) { countC = 1; }
+  periodA = (msPerHour / urlFreqA) / countA;
+  periodB = (msPerHour / urlFreqB) / countB;
+  periodC = (msPerHour / urlFreqC) / countC;  
   qDebug () << " poll periods A " << periodA 
             << " B " << periodB << " C " << periodC;
 }

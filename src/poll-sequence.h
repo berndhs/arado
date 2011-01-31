@@ -64,7 +64,7 @@ private slots:
 
 private:
 
-  void    ComputePeriods ();
+  void    ComputePeriods (int countA, int countB, int countC);
   void    FindRatios ();
   void    FindRatio (QString level);
   void    SaveRatios ();
