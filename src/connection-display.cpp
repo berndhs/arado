@@ -446,6 +446,9 @@ void ConnectionDisplay::checkAdvViewBox(bool show)
   ui.labelipask_A->setVisible(show);
   ui.labelipask_B->setVisible(show);
   ui.labelipask_C->setVisible(show);
+  ui.label_A_2->setVisible(show);
+  ui.label_B_2->setVisible(show);
+  ui.label_C_2->setVisible(show);
   ui.ratioSliderA->setVisible(show);
   ui.ratioSliderB->setVisible(show);
   ui.ratioSliderC->setVisible(show);
