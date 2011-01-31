@@ -1,3 +1,6 @@
+* Mon Jan 31 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.16-1
+- poling sequence per server
+
 * Fri Jan 28 2011 Bernd Stramm <bernd.stramm@gmail.com> - 0.1.15-1
 - peer sweeper removes dead peers from C list
 - search Flashmark, as well as key/drescription/url AND/OR
