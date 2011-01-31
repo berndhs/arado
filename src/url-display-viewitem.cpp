@@ -54,10 +54,9 @@ UrlDisplayViewItem::Html()
     *   %8 timestamp
     *   %9 mail-link
     *   %10 copy-link
-    *   %11 crawl-link
-    *   %12 url-text-link
-    *   %13 keyword-list-link
-    *   %14 keyword-list text
+    *   %11 url-text-link
+    *   %12 keyword-list-link
+    *   %13 keyword-list text
 
    */
   QString html_str;
@@ -72,9 +71,9 @@ UrlDisplayViewItem::Html()
   bool haveKeywords = (url.Keywords().count() > 0);
   QString keywordPart;
   if (haveKeywords) {
-    keywordPart = QString ("<a href=\"%13\" span class=\"keywords\">")
+    keywordPart = QString ("<a href=\"%12\" span class=\"keywords\">")
                   + QObject::tr ("Keywords:")
-                  + QString (" %14</a></span><br>");
+                  + QString (" %13</a></span><br>");
   } else {
     keywordPart = QString ("");
   }
@@ -102,8 +101,7 @@ UrlDisplayViewItem::Html()
     "<img src=\"qrc:/html/html/images/mail.png\"></a>"
     "&nbsp; <a class=\"copybutton\" href=\"%10\">"
     "<img src=\"qrc:/html/html/images/copy.png\"></a>"
-    "&nbsp; <a class=\"crawlbutton\" href=\"%11\""
-    "<img src=\"qrc:/html/html/images/openmielke.png\"></a>");
+    );
   html_str.append ("&nbsp;"
     "<a class=\"pluginbutton\" href=\""
     + FlashLink ("plugin")
@@ -111,7 +109,7 @@ UrlDisplayViewItem::Html()
   html_str.append(
     "</span>\n "
     "<div class=\"url\">");
-  html_str.append ("<a class=\"url\" href=\"%12\">%7</a>\n"
+  html_str.append ("<a class=\"url\" href=\"%11\">%7</a>\n"
                    "</div>"
                    "</div>\n");
   if (haveKeywords) {
@@ -125,7 +123,7 @@ UrlDisplayViewItem::Html()
            .arg (Timestamp ())
            .arg (FlashLink ("mail"))
            .arg (FlashLink ("copy"))
-           .arg (FlashLink ("crawl"))
+           .arg (QString(" "))  //.arg (FlashLink ("crawl"))
            .arg (FlashLink ("urltext"))
            .arg (FlashLink ("keywords"))
            .arg (Keywords());
@@ -140,7 +138,6 @@ UrlDisplayViewItem::Html()
            .arg (Timestamp ())
            .arg (FlashLink ("mail"))
            .arg (FlashLink ("copy"))
-           .arg (FlashLink ("crawl"))
            .arg (FlashLink ("urltext"));
   }
 }

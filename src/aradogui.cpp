@@ -103,8 +103,6 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   rssList->SetDB (&dbMgr);
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
-  crawler = new CrawlerSettings (this);
-  crawler->hide();
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
   mainUi.tabWidget->addTab (entryForm, tr("Add URL"));
 
@@ -382,8 +380,6 @@ AradoMain::Connect ()
            this, SLOT (DisplayUuid ()));
   connect (mainUi.actionInitialize, SIGNAL (triggered()),
            this, SLOT (InitSystem()));
-  connect (mainUi.actionCrawl, SIGNAL (triggered()),
-           this, SLOT (Crawl()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -820,14 +816,6 @@ AradoMain::EditListener ()
 {
   if (listenerEdit) {
     listenerEdit->Run ();
-  }
-}
-
-void
-AradoMain::Crawl ()
-{
-  if (crawler) {
-    crawler->Run ();
   }
 }
 

@@ -73,8 +73,6 @@
     <addaction name="actionImportFile"/>
     <addaction name="actionExportFile"/>
     <addaction name="separator"/>
-    <addaction name="actionCrawl"/>
-    <addaction name="separator"/>
     <addaction name="actionAddFeed"/>
    </widget>
    <widget class="QMenu" name="menuNetwork">

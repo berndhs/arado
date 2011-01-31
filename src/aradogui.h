@@ -95,7 +95,6 @@ private slots:
   void DisplayUuid ();
   void InitSystem ();
   void CatchPolledRss (QString nick);
-  void Crawl ();
   void InitEngine ();
   void TimedConnectEngine ();
   void EngineConnected ();
@@ -127,7 +126,6 @@ private:
   EntryForm          *entryForm;
   AddPeerDialog      *addPeerDialog;
   ListenerEdit       *listenerEdit;
-  CrawlerSettings    *crawler;
   DBManager           dbMgr;
   Policy             *policy;
   RssList            *rssList;
@@ -135,7 +133,6 @@ private:
   QUuid               ownUuid;
   bool                runAgain;
 
-  //QProcess           *engineProcess;
   QLocalSocket       *enginePipe;
   QString             engineService;
 
