@@ -123,7 +123,6 @@ UrlDisplayViewItem::Html()
            .arg (Timestamp ())
            .arg (FlashLink ("mail"))
            .arg (FlashLink ("copy"))
-           .arg (QString(" "))  //.arg (FlashLink ("crawl"))
            .arg (FlashLink ("urltext"))
            .arg (FlashLink ("keywords"))
            .arg (Keywords());
