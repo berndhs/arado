@@ -1,4 +1,4 @@
-CREATE TEMPORARY TABLE "newfeeditems" (
+CREATE TABLE "newfeeditems" (
   "hashid" TEXT NOT NULL primary key,
   "timein" INTEGER
 )

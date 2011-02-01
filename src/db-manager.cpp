@@ -757,6 +757,9 @@ DBManager::GetNewFeedItems (QList<AradoUrl> &urls, int maxItems)
   urls.clear();
   QSqlQuery select (feedBase);
   bool ok = select.exec (cmd.arg(maxItems));
+qDebug () << " GetNewFeedItems command " << cmd.arg(maxItems);
+qDebug () << " GetNewFeedItems query   " << ok << select.executedQuery();
+qDebug () << "                 size    " << select.size();
   while (ok && select.next ()) {
     AradoUrl url;
     QString hash = select.value(0).toString();
