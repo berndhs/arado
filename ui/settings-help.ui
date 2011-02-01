@@ -67,14 +67,23 @@
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
-    <widget class="QTextBrowser" name="htmlView">
-     <property name="openLinks">
-      <bool>false</bool>
+    <widget class="QWebView" name="htmlView">
+     <property name="url">
+      <url>
+       <string>about:blank</string>
+      </url>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../arado.qrc"/>
   <include location="../arado.qrc"/>

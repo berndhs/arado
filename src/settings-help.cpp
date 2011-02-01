@@ -15,7 +15,7 @@ SettingsHelp::SettingsHelp (QWidget *parent)
 void
 SettingsHelp::Run ()
 {
-  ui.htmlView->setSource (QUrl("qrc:help/settingshelp.html"));
+  ui.htmlView->load (QUrl("qrc:help/settingshelp.html"));
   show ();
 }
 
