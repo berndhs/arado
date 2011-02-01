@@ -63,6 +63,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionSettingsHelp"/>
    </widget>
    <widget class="QMenu" name="menuData">
     <property name="title">
@@ -257,6 +258,11 @@
    </property>
    <property name="text">
     <string>View URLs in table</string>
+   </property>
+  </action>
+  <action name="actionSettingsHelp">
+   <property name="text">
+    <string>Settings Help</string>
    </property>
   </action>
  </widget>

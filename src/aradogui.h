@@ -49,6 +49,7 @@ class ListenerEdit;
 class RssList;
 class UPnPClient;
 class CrawlerSettings;
+class SettingsHelp;
 
 class AradoMain : public QMainWindow
 {
@@ -101,6 +102,8 @@ private slots:
   void EngineDisconnected ();
   void ReadEnginePipe ();
   void SequenceRestart ();
+  void DoSettingsHelp ();
+  void DoneSettingsHelp ();
 
   void Restart ();
 
@@ -129,6 +132,7 @@ private:
   DBManager           dbMgr;
   Policy             *policy;
   RssList            *rssList;
+  SettingsHelp       *settingsHelp;
   int                 httpDefaultPort;
   QUuid               ownUuid;
   bool                runAgain;

@@ -30,6 +30,7 @@
 #include "listener-edit.h"
 #include "addfeed.h"
 #include "rss-list.h"
+#include "settings-help.h"
 #include "crawler-settings.h"
 #if USE_MINIUPNP
 #include "upnpclient.h"
@@ -77,6 +78,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
    dbMgr (this),
    policy (0),
    rssList (0),
+   settingsHelp (0),
    httpDefaultPort (29998),
    ownUuid (QUuid()),
    runAgain (false),
@@ -101,6 +103,7 @@ AradoMain::AradoMain (QWidget *parent, QApplication *pa)
   dbMgr.SetPolicy (policy);
   rssList = new RssList (this);
   rssList->SetDB (&dbMgr);
+  settingsHelp = new SettingsHelp (this);
   connDisplay = new ConnectionDisplay (this);
   connDisplay->SetDB (&dbMgr);
   mainUi.tabWidget->addTab (connDisplay, tr("Network"));
@@ -380,6 +383,8 @@ AradoMain::Connect ()
            this, SLOT (DisplayUuid ()));
   connect (mainUi.actionInitialize, SIGNAL (triggered()),
            this, SLOT (InitSystem()));
+  connect (mainUi.actionSettingsHelp, SIGNAL (triggered()),
+           this, SLOT (DoSettingsHelp()));
   connect (addPeerDialog, 
              SIGNAL (NewPeer (QString)),
            this, 
@@ -416,6 +421,11 @@ AradoMain::Connect ()
   if (rssList) {
     connect (rssList, SIGNAL (Closed(bool)),
              this, SLOT (DoneAddFeed (bool)));
+  }
+  if (settingsHelp) {
+    connect (settingsHelp, SIGNAL (Done()), this, SLOT (DoneSettingsHelp()));
+    connect (settingsHelp, SIGNAL (EditSettings()),
+              this, SLOT (DoConfigEdit()));
   }
 
   connect(mainUi.tabWidget, SIGNAL(currentChanged(int)),
@@ -477,6 +487,25 @@ AradoMain::slotAbout ()
   mb.setIconPixmap(QPixmap(":/arado-logo-colo-128.png"));
   mb.setStyleSheet( "background-color: qlineargradient(spread:pad, x1:0.968, y1:0.932, x2:0.513, y2:0.5, stop:0 rgba(183, 235, 255, 255), stop:1 rgba(255, 255, 255, 255));" );
   mb.exec();
+}
+
+void
+AradoMain::DoSettingsHelp ()
+{
+  if (settingsHelp) {
+    int tabnum = mainUi.tabWidget->addTab (settingsHelp, tr("Settings Help"));
+    mainUi.tabWidget->setCurrentIndex (tabnum);
+    settingsHelp->Run ();
+  }
+}
+
+void
+AradoMain::DoneSettingsHelp ()
+{
+  if (settingsHelp) {
+    int tabnum = mainUi.tabWidget->indexOf (settingsHelp);
+    mainUi.tabWidget->removeTab (tabnum);
+  }
 }
 
 void

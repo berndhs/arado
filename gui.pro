@@ -72,7 +72,8 @@ FORMS		=	ui/aradomain.ui \
                         ui/rss-list.ui \
                         ui/crawler-settings.ui \
                         ui/url-display-webview.ui \
-                        ui/url-display-webviewtab.ui
+                        ui/url-display-webviewtab.ui \
+                        ui/settings-help.ui 
 
 HEADERS		=	src/aradogui.h \
                    src/cmdoptions.h \
@@ -111,6 +112,7 @@ HEADERS		=	src/aradogui.h \
                    src/js-view-if.h \
                    src/plugin-manager.h \
                    src/item-menu.h \
+                   src/settings-help.h \
 
 use_miniupnp {
 HEADERS += \
@@ -171,6 +173,7 @@ SOURCES		=	src/aradogui.cpp \
                    src/js-view-if.cpp \
                    src/plugin-manager.cpp \
                    src/item-menu.cpp \
+                   src/settings-help.cpp \
 
 use_miniupnp {
 SOURCES +=         \
