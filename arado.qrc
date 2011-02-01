@@ -60,6 +60,7 @@
         <file>images/forward.png</file>
         <file>images/kmid.png</file>
         <file>images/webviewer.png</file>
+        <file>images/help.png</file>
     </qresource>
     <qresource prefix="/help">
         <file alias="LICENSE.txt">helpfiles/LICENSE.txt</file>
@@ -67,7 +68,7 @@
         <file alias="settingshelp.html">html/settings_faq.html</file>
     </qresource>
     <qresource prefix="/builtinjs">
-       <file alias="Translate.js">js/Translate.js</file>
+        <file alias="Translate.js">js/Translate.js</file>
     </qresource>
     <qresource prefix="/translate">
         <file alias="arado_de.qm">translate/arado_de.qm</file>

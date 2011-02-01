@@ -16,15 +16,53 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QPushButton" name="closeButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Close the Tab.</string>
+     </property>
      <property name="text">
       <string>Close</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
     <widget class="QPushButton" name="editButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>43</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Open the Settings Editor.</string>
+     </property>
      <property name="text">
       <string>Edit Settings</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../arado.qrc">
+       <normaloff>:/images/misc.png</normaloff>:/images/misc.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </item>
@@ -38,6 +76,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="../arado.qrc"/>
   <include location="../arado.qrc"/>
  </resources>
  <connections/>
