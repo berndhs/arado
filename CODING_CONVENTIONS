@@ -12,6 +12,15 @@ There are only a few, so Pay Attention Please.
   Brackets (these { } ) are on a new line for functions and classes,
   and trailing on the same line for if, while, switch.
 
+- Optional Brackets
+
+  Compound statements are enclosed in { } brackets, even when
+  the compound statement is only one line:
+
+  if (foo) {
+    barFunction();
+  ]
+
 - Names
 
   Names are in Camel Case, like TheFunctionName
