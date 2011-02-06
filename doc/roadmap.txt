@@ -6,51 +6,51 @@ ideas for possible things to implement by occasion:
 02)  communicator throttling mechanisms
   - bucket algorithms for trusted/recommended/episodic sources of data
 
-04) copy out of the sha1 can have the prefix "Arado-ID" 
+03) copy out of the sha1 can have the prefix "Arado-ID" 
 
-05) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
+04) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
 
 
-11) find an ipv4 way of talking end-to-end with peers
+05) find an ipv4 way of talking end-to-end with peers
 a) finding the other IP => TBD over DHT, e.g. bitdht.sf.net (LGPL) or kadc.sf.net (GPL)
 
    communicator to collect/send IPs  - 3 of these
   - bitdht (or alternative, e.g. gnutella, kadc) that uses shared IP database
 
-12) find an ipv4 way of talking end-to-end with peers
+06) find an ipv4 way of talking end-to-end with peers
 b) and connecting to it => using the UDP Detection or STUN service, e.g. in bitdht for the dht network or in other protocols, e.g. torrent, gnutella.
 
-13) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
+07) Implement 3 Http Connection sercers for handling 3 network protocols, ipv4, ipv6, Qt Proxy localhost4444 (-> port definition in settings table, not in gui)
 
 
-15) Progress Bar steered by a timer if the search button is pressed.
+08) Progress Bar steered by a timer if the search button is pressed.
   -- there is no good information to display a progress bar that makes any sense
 
 
-18)  Start Sync button or Menue switches to Url Display page and start the progress bar (timed)
+09)  Start Sync button or Menue switches to Url Display page and start the progress bar (timed)
 
 
-20) URL-Cell: Context Menu with command: "Rate Good", which overwrites the timestamp with the actual time,
+10) URL-Cell: Context Menu with command: "Rate Good", which overwrites the timestamp with the actual time,
 which causes this Good Rated Url to be on top and spread again. 
   -- NO, this won't help spread the URL any more than it already is. The
      timestamp is local, and other nodes will recoginize the hash (sha) and
      won't update the URL.
 
-21) Extended Search: Second Press on Search Button could ask the connected peers for hash or keyword, option to disable in settings, default on
+11) Extended Search: Second Press on Search Button could ask the connected peers for hash or keyword, option to disable in settings, default on
 
-23) OWN Ip and UUID is sent over Sync Button-Press, but not by default, otherwise a lot of users will not connect.
+12) OWN Ip and UUID is sent over Sync Button-Press, but not by default, otherwise a lot of users will not connect.
 
-24) Move Database to another hard disk.
+13) Move Database to another hard disk.
 
-25) Get/api: replace "arado" in url-string with UUID. Mabye make "request" = "r" and count = "c" to be shorter?
+14) Get/api: replace "arado" in url-string with UUID. Mabye make "request" = "r" and count = "c" to be shorter?
 
-26) https?
+15) https?
 
-27) Extended Search: Second press on the Search button, with same searchterms, ask a few central searchengines, e.g. yacy Portals,
+16) Extended Search: Second press on the Search button, with same searchterms, ask a few central searchengines, e.g. yacy Portals,
 but extended search should not ask Arado nodes, as this search is done locally as filter only.
 
-28) Thumbnail-image: Search URL Cell for webloadable URL, if not found/loadable, do the same for keywords cell,
+17) Thumbnail-image: Search URL Cell for webloadable URL, if not found/loadable, do the same for keywords cell,
     load the url in a hidden Qtwebkit-window process and make a thumbnail
     Start this process and load the Weburl in case, the user clicks on the description cell with then higher Hight, and display the thumbnail png on the left.
     The Arado XML then might need an entryitem >thumbnail< which points to a hash for the image database cache with 1000 impage entries
@@ -58,31 +58,31 @@ but extended search should not ask Arado nodes, as this search is done locally a
     http://127.0.0.1/arado?request=recent&count=5   -> might need to be extended then with "&webgui=true", to know get requestes to create 10 thumbnails
     are of interest.
 
-30) add crawler to Arado for StartingUrls, for all incoming urls, only for browsed urls
+18) add crawler to Arado for StartingUrls, for all incoming urls, only for browsed urls
 
-32) Run URL Database in RAM-cache only modus for 10 MB of urls (new entries deleting the oldest)
+19) Run URL Database in RAM-cache only modus for 10 MB of urls (new entries deleting the oldest)
 
-33) Implement Range Load of urls, ideally not a random chunk of urls, but systematically
+20) Implement Range Load of urls, ideally not a random chunk of urls, but systematically
 
-37) IRC-like Chat over http protocol for A and B peers
+21) IRC-like Chat over http protocol for A and B peers
 
-38) miniupnp implementation with gethostinfo from a DHT, to allow natted peers to be a server.
+22) miniupnp implementation with gethostinfo from a DHT, to allow natted peers to be a server.
 
-44) webview: display time ranges for search results of keywordsearch, e.g. urls for the keyword, within the last week..
+23) webview: display time ranges for search results of keywordsearch, e.g. urls for the keyword, within the last week..
 
-45) Algorithm for displaying the order of the search results by keywordsearch, they are not displayed ascvending by time like the recent button, 
+24) Algorithm for displaying the order of the search results by keywordsearch, they are not displayed ascvending by time like the recent button, 
 	maybe 3 wikipedia-domain urls and 3 latest-timestamp urls and 3 urls wich contain the searchterm in the title and 3 searchresults which contain the searchterm
 	in the url, should be displayed alternating as the top 12 results, and then the other results fuzzy as now.. or (next 20 urls by time) and then fuzzy.
 
-46) Empty keywords field in rss should use 3 longest terms/keywords of the Description, so we have always keywords given, even if redundant with title.
+25) Empty keywords field in rss should use 3 longest terms/keywords of the Description, so we have always keywords given, even if redundant with title.
 
-47) Analysis of urlbase.sql as tooltip over total database amount: function to sort all keywords by amount, show up in the tooltip the most used keywords for the last 50.000 entries of the database. Keywordranking of the last 50.000 database entries as tooltip over total url amount.
+26) Analysis of urlbase.sql as tooltip over total database amount: function to sort all keywords by amount, show up in the tooltip the most used keywords for the last 50.000 entries of the database. Keywordranking of the last 50.000 database entries as tooltip over total url amount.
 
-48) random urls choosen only out of the range 0 - max given url amount, so empty urls are avoided from empty space (over cache or proper range with given urls)
+27) random urls choosen only out of the range 0 - max given url amount, so empty urls are avoided from empty space (over cache or proper range with given urls)
 
-49) portal interface php -> urlbase.sql interaction
+28) portal interface php -> urlbase.sql interaction
 
-50) crawl of arado search terms from scroogle page
+29) crawl of arado search terms from scroogle page
 
 
 
