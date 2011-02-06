@@ -11,11 +11,6 @@ ideas for possible things to implement by occasion:
 05) enter data : enter description, the paragraph makes a new line in the database. maybe the paragraph should be replaced by the BLANK , so that there is no line break?
 
 
-10) settings option for enabled or disabled: "show time in display"-table
-  -- what for? We don't want optional cloumns if we can avoid it. Add complexity
-     when it actually adds funcitonality.
-  -- Timestamp is already shown in url display, new option in settings would be, to not show timestamp column,
- 	if the recent button ic connected to a descending sortening, fresh on top.
 
 11) find an ipv4 way of talking end-to-end with peers
 a) finding the other IP => TBD over DHT, e.g. bitdht.sf.net (LGPL) or kadc.sf.net (GPL)
@@ -86,6 +81,8 @@ but extended search should not ask Arado nodes, as this search is done locally a
 48) random urls choosen only out of the range 0 - max given url amount, so empty urls are avoided from empty space (over cache or proper range with given urls)
 
 49) portal interface php -> urlbase.sql interaction
+
+50) crawl of arado search terms from scroogle page
 
 
 
