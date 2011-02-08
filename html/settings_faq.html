@@ -24,15 +24,25 @@
   </tr>
   <tr>
     <td width="194" class="Stil3">database/feedbase</td>
-    <td width="568" class="Stil3">Read your feeds with Arado Websearch. The feed URLs, which send the news items, are saved in this database: feedbase.sql. The settings value shows you the path, where the feedbase.sql file is located. You can edit this database by using the NewsTicker Tab and check the &quot;Edit&quot; checkbox. A new table opens with the RSS/Atom Feed-URLs,</td>
+    <td width="568" class="Stil3">The database  file name for RSS feeds, including the complete path.
+   When you read your feeds with Arado Websearch,
+                               the feed URLs, which send the news items, are saved in this 
+database. This file is usually named <i>feedbase.sql</i>.
+         The settings value shows you the path, where the feedbase.sql file is located. 
+You can edit this database by using the NewsTicker Tab and check the &quot;Edit&quot; 
+checkbox. A new table opens with the RSS/Atom Feed-URLs,</td>
   </tr>
   <tr>
     <td class="Stil3">database/ipbase</td>
-    <td class="Stil3">To network your devices with Arado Websearch you need to save the IP-Adresses of the other devices. This is done in the database: ipbase.sql. The settings value shows you the path, where the ipbase.sql is located. </td>
+    <td class="Stil3">The detabase file name for Devices (or Peers), including the complete path.
+To network your devices with Arado Websearch you need to 
+save the IP-Adresses of other devices which their users. 
+This file is usually named <i>ipbase.sql</i>.</td>
   </tr>
   <tr>
     <td class="Stil3">database/urlbase</td>
-    <td class="Stil3">All URLs of your Arado Websearch are stored in the file: urlbase.sql. The settings value shows you the path, where the urlbase is located. </td>
+    <td class="Stil3">The database file name for all URLs of your Arado Websearch.
+ This file is usually named <i>urlbase.sql</i>. The settings value shows you the path, where the urlbase is located. </td>
   </tr>
   <tr>
     <td class="Stil3">engine_peersweep/maxage</td>
@@ -44,7 +54,8 @@
   </tr>
   <tr>
     <td class="Stil3">engine_rss/lastpolled </td>
-    <td class="Stil3">This value shows the Feed-Nickname, which hass been polled the last time. </td>
+    <td class="Stil3">This value shows the Feed-Nickname, which hass been 
+polled the last time. </td>
   </tr>
   <tr>
     <td class="Stil3">engine_rss/pollperiod</td>
@@ -56,7 +67,9 @@
   </tr>
   <tr>
     <td class="Stil3">http/address</td>
-    <td class="Stil3">Your external IP adress is here set. Please lookup your external IP address e.g. here: www.whatismyip.com and enter the value. It works for IPv4, IPv6 and DynDNS entries. </td>
+    <td class="Stil3">Your external IP adress is here set. Please lookup 
+your external IP address e.g. here: www.whatismyip.com and enter the value. 
+It works for IPv4, IPv6 and DNS entries. </td>
   </tr>
   <tr>
     <td class="Stil3">http/coolingtime</td>
@@ -68,43 +81,63 @@
   </tr>
   <tr>
     <td class="Stil3">http/run </td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
+    <td class="Stil3">You can set the values true and false. 
+Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
    <tr>
     <td class="Stil3">http/getask</td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
+    <td class="Stil3">You can set the values true and false. 
+This flag indicates whether your arado node imports data and device (peer) IPs from 
+other arado nodex.
+Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
    <tr>
     <td class="Stil3">http/getgrant </td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
+    <td class="Stil3">You can set the values true and false. 
+This flag indicates whether your arado node sends data in response to other arado nodes' 
+request for data.
+Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
    <tr>
     <td class="Stil3">http/putallow</td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
+    <td class="Stil3">You can set the values true and false. 
+This flag indicates whether your arado node accepts data offered from other arado nodes.
+Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
    <tr>
     <td class="Stil3">http/putoffer </td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
-  </tr>
-  <tr>
-    <td class="Stil3">http/upnpenable </td>
-    <td class="Stil3">UPNP helps to connect through a firewalled router. Set it to true, if you want to connect to other devices. </td>
+    <td class="Stil3">You can set the values true and false. 
+This flag indicates whether your arado nodes offers to send data to other arado nodes.
+Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
   <tr>
     <td class="Stil3">personal/elvis </td>
-    <td class="Stil3">Elvis is the Prefix for each added device. You can rename it to any king name of your country or language. It is just a suggestion to name new devices, you have in any case the option to set the nickname of new added devices.. </td>
+    <td class="Stil3">Elvis is the Prefix for each added device. 
+You can rename it to any king name of your country or language. 
+It is just a suggestion to name new devices, you have in any case the option 
+to set the nickname of new added devices.. </td>
   </tr>
   <tr>
     <td class="Stil3">personal/language </td>
-    <td class="Stil3">Language defines your ISO language for e.g. the plugin &quot;translate&quot;. It sets the language, in which the webpage of the URL, you are going to browse, should be translated. </td>
+    <td class="Stil3">Language defines your ISO home language for  the 
+plugin &quot;translate&quot;. It sets the language, in which the webpage of the URL, you 
+are going to browse, should be translated. </td>
   </tr>
   <tr>
     <td class="Stil3">personal/uuid </td>
-    <td class="Stil3">UUID means Unique User IDentification. Each Arado Websearch Device has a unique UUID. You can change it here, but it is not recommended, as other devices then will not recognize you. You get with a new UUID a new Identity within your Arado Websearch Network. </td>
+    <td class="Stil3">UUID is a Universally Unique IDentifier. Each Arado 
+Websearch Device has a unique UUID. You can change it here, but it is not 
+recommended, as other devices then will not recognize you. You get with a new 
+UUID a new Identity within your Arado Websearch Network. </td>
   </tr>
   <tr>
     <td class="Stil3">plugins/dirpath</td>
-    <td class="Stil3">Arado Websearch allows to plug in services. Here the path is defined, where you save the plugins. Restart Arado Websearch and the plugins are visible. There are several plugins out e.g. to convert Youtube URLs to MP3 files for free, to translate webpages or post the URL to your favourite social network like Twitter, RetroShare or Facebook, Digg etc. Plugins are third party development and found on several locations and boards on the net. </td>
+    <td class="Stil3">Arado Websearch allows to plug in services. 
+Here the path is defined, where you save the plugins. Restart Arado Websearch 
+and the plugins are visible. There are several plugins out e.g. to convert Youtube 
+URLs to MP3 files for free, to translate webpages or post the URL to your favourite 
+social network like Twitter, RetroShare or Facebook, Digg etc. Plugins are third party 
+development and found on several locations and boards on the net. </td>
   </tr>
   <tr>
     <td class="Stil3">proxy/host</td>
@@ -132,19 +165,26 @@
   </tr>
    <tr>
     <td class="Stil3">rssview/advanced </td>
-    <td class="Stil3">Advanced view of RSS can be set to &quot;true&quot; or &quot;false&quot;. If you set it to &quot;true&quot;, the Interface of the RSS-Newsticker-Tab shows two tables, one in the left for your News, one in the right for the Feed-URLs. You can un-check the Edit Box in the Tab as well, to make the right table disappear. </td>
+    <td class="Stil3">Advanced view of RSS can be set to &quot;true&quot; 
+or &quot;false&quot;. If you set it to &quot;true&quot;, the Interface of the 
+RSS-Newsticker-Tab shows two tables, one in the left for your News, one in the 
+right for the Feed-URLs. You can un-check the Edit Box in the Tab as well, to make the 
+right table disappear. </td>
   </tr>
    <tr>
-    <td class="Stil3">traffic/maxrandom%1 </td>
+    <td class="Stil3">traffic/maxrandomA<br> traffix/maxrandomB<br>traffic/maxrandomC </td>
     <td class="Stil3"><p>Maxrandom defines, how many URLs within one transfer are included. A range of 40 - 80 URLs is appropriate for one chunk to be sent or requested. Random URLs are randomly picked out of the other devices, that means you have a good chance to get old URLs as well and backup that database. </p>     </td>
   </tr>
    <tr>
-    <td class="Stil3">traffic/maxrecent%1</td>
+    <td class="Stil3">traffic/maxrecentA<br>traffic/maxrecentB<br>traffic/maxrecentC</td>
     <td class="Stil3">Maxrecent defines, how many URLs within one transfer are included. A range of 40 - 80 URLs is appropriate for one chunk to be sent or requested. Recent URLs are the newest and freshest URLs of the other device, that means you get only the latest incmoing URLs of other devices and stay up to date. </td>
   </tr>
    <tr>
     <td class="Stil3">traffic/urlFrequencyA</td>
-    <td class="Stil3">Frequency A defines, how often an IP-Address in the Constant Devices List will be asked for recent or random URLs. As Constant Devices or A-Peers are mostly kown Friends with a good URL database, you can contact them e.g. 30 times per hour, that means each IP is asked for URLs every 2 minutes. </td>
+    <td class="Stil3">Frequency A defines, how often an IP-Address in the 
+Constant Devices List will be asked for recent or random URLs. As Constant 
+Devices or A-Peers are mostly kown Friends with a good URL database, you can 
+contact them e.g. 30 times per hour, that means each IP is asked for URLs every 2 minutes. </td>
   </tr>
    <tr>
     <td class="Stil3">traffic/urlFrequencyB </td>
@@ -156,11 +196,16 @@
   </tr>
    <tr>
     <td class="Stil3">transfer/addresses</td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
+    <td class="Stil3">You can set the values true and false. 
+This flag indicates whether or not your arado node exchanges device (peer) IP addresses
+with other arado nodes.
+Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
   <tr>
     <td class="Stil3">transfer/urls</td>
-    <td class="Stil3">You can set the values true and false. Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
+    <td class="Stil3">You can set the values true and false.
+This flag indicates whether or not your arado node exchanges URL data with other arado nodes.
+ Please set the value to &quot;true&quot;, if you want Arado Websearch networked. </td>
   </tr>
   <tr>
     <td class="Stil3">urldisplay/autorefresh</td>

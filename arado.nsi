@@ -10,7 +10,7 @@
 ;--------------------------------
 ; Define your application name
   !define APPNAME "Arado"
-  !define VERSION "0.2"
+  !define VERSION "0.2.0"
   !define APPNAMEANDVERSION "${APPNAME} ${VERSION}"
 
 ;--------------------------------
