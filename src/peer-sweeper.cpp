@@ -111,11 +111,12 @@ PeerSweeper::DoSweep ()
     qDebug () << " PeerSweeper checking " << nick;
     qint64 timestamp;
     bool isKnown = dbm->GetPeerTime (nick, timestamp);
-    if (isKnown) {
+    if (isKnown || timestamp < 0) {
       dbm->MarkPeerTime (nick, now);
     } else {
       qint64 age = now - timestamp;
-      qDebug () << " PeerSweeper seing age " << age;
+      qDebug () << " PeerSweeper seing age " << now << " - " << timestamp 
+                << " = " << age;
       if (age > maxAge) {
         qDebug () << " PeerSweeper removing " << nick;
         dbm->RemovePeerS (nick);

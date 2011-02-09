@@ -229,6 +229,7 @@ PollSequence::SaveParams ()
 void
 PollSequence::RestartTimers ()
 { 
+  qDebug () << "PollSequence::RestartTimers " << periodA << periodB << periodC;
   if (periodA > 0) {
     timerA.start (periodA);
   }
@@ -238,6 +239,9 @@ PollSequence::RestartTimers ()
   if (periodC > 0) {
     timerC.start (periodC);
   }    
+  qDebug () << "               Intervals " << timerA.interval ()
+                                           << timerB.interval ()
+                                           << timerC.interval ();
 }
 
 } // namespace

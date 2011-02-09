@@ -363,7 +363,9 @@ DBManager::MovePeer (const QString & peerid,
   query.prepare (insert);
   query.bindValue (0, QVariant (peerid));
   query.bindValue (1, QVariant (newLevel));
-  query.exec ();
+  bool ok = query.exec ();
+  qDebug () << " re-insert peer command " << insert;
+  qDebug () << "           result " << ok << query.executedQuery();
 }
 
 bool
@@ -384,7 +386,7 @@ DBManager::AddPeer (AradoPeer & peer)
   add.bindValue (1, QVariant (level));
   bool ok = add.exec ();
   qDebug () << " AddPeer Nick " << peer.Nick() << " level " << level;
-  qDebug () << " tried " << ok << " " << add.executedQuery();
+  qDebug () << " AddPeer tried " << ok << " " << add.executedQuery();
   if (ok) {
     cmd = QString ("insert or replace into peeruuid "
                    " (peerid, uuid) "
@@ -393,7 +395,7 @@ DBManager::AddPeer (AradoPeer & peer)
     add.bindValue (0, QVariant (peer.Nick()));
     add.bindValue (1, QVariant (peer.Uuid()));
     ok = add.exec ();
-    qDebug () << " tried " << ok << " " << add.executedQuery();
+    qDebug () << " AddPeer tried " << ok << " " << add.executedQuery();
   }
   if (ok) {
     cmd = QString ("insert or replace into ippeers "
@@ -408,10 +410,10 @@ DBManager::AddPeer (AradoPeer & peer)
     if (ok) {
       peerAddCount ++;
     }
-  qDebug () << " tried " << ok << " " << add.executedQuery();
+  qDebug () << " AddPeer tried query " << ok << " " << add.executedQuery();
+  qDebug () << " AddPeer url        " << peer.Addr ();
   }
   CloseTransaction (DB_Address);
-  qDebug () << " AddPeer return " << ok;
   return ok;
 }
 

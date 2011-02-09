@@ -161,6 +161,7 @@ void
 AradoEngine::StartSequencer ()
 {
   if (sequencer) {
+    RefreshPeers ();
     sequencer->Start ();
   }
 }
@@ -204,6 +205,9 @@ AradoEngine::PeersAdded (int numNew)
 {
   if (mainPipe) {
     mainPipe->write (QString("ADDEDPEERS %1\n").arg(numNew).toAscii());
+  }
+  if (numNew > 0) {
+    RefreshPeers ();
   }
 }
 
@@ -304,6 +308,10 @@ AradoEngine::ReadPipe ()
         rssPoll->Stop ();
         rssPoll->Start (!runAlone);
       }
+    } else if (cmd.startsWith ("POLLNOW")) {
+      Poll (true);
+    } else if (cmd.startsWith ("REFRESHPEERS")) {
+      RefreshPeers ();
     }
   }
 }

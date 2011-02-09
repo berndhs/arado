@@ -179,9 +179,6 @@ AradoMain::Start ()
   StartClients ();
   RefreshPeers ();
   StartSequencer ();
-  if (dbMgr.NumPeers () < 1) {
-    QTimer::singleShot (5000,this,SLOT (InitSystem()));
-  }
 }
 
 bool
@@ -257,6 +254,9 @@ qDebug () << " AradoMain localsocket error " << enginePipe->error ();
               this, SLOT (EngineDisconnected ()));
     connect (enginePipe, SIGNAL (readyRead ()),
               this, SLOT (ReadEnginePipe ()));
+    if (dbMgr.NumPeers () < 1) {
+      QTimer::singleShot (5000,this,SLOT (InitSystem()));
+    }
   }
 }
 
@@ -264,6 +264,9 @@ void
 AradoMain::EngineConnected ()
 {
 qDebug () << " AradoMain: aradoengine pipe connected ";
+  if (dbMgr.NumPeers () < 1) {
+    QTimer::singleShot (5000,this,SLOT (InitSystem()));
+  }
 }
 
 void
@@ -853,7 +856,7 @@ void
 AradoMain::InitSystem ()
 {
   AradoPeer initPeer;
-  initPeer.SetNick ("AradoElvis_1288111461");
+  initPeer.SetNick ("AradoElvis_1");
   initPeer.SetAddr ("arado.sourceforge.net");
   initPeer.SetAddrType ("name");
   initPeer.SetPort (80);
@@ -861,6 +864,7 @@ AradoMain::InitSystem ()
   dbMgr.AddPeer (initPeer);
   PeersAdded (1);
   PollNow (true);
+  qDebug () << "AradoMain added init peer " ;
 }
 
 void

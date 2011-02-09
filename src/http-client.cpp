@@ -150,6 +150,7 @@ HttpClient::PollPeer (const QString & nick,
                       int   maxRecent,
                       int   maxRandom)
 {
+  qDebug () << " HttpClient PollPeer " << nick << maxRecent << "/" << maxRandom;
   if (peers.contains (nick)) {
     int serverNum = peers[nick];
     if (servers.contains (serverNum)) {
@@ -160,8 +161,21 @@ HttpClient::PollPeer (const QString & nick,
         PollAddr (servers[serverNum], nick);
       }
     } else {
-      qDebug () << " NO server " << serverNum << " for " << nick << " server " << servers[serverNum].ident;
+      qDebug () << " HttpClient NO server " << serverNum << " for " << nick 
+                      << " server " << servers[serverNum].ident;
     }
+  } else {
+    qDebug () << " HttpClient unknown peer " << nick;
+    DumpKnownPeers ();
+  }
+}
+
+void
+HttpClient::DumpKnownPeers ()
+{
+  QMap <QString,int>::iterator pit;
+  for (pit = peers.begin(); pit !=peers.end(); pit++) {
+    qDebug () << "HttpClient knows peer " << pit.key() << " as " << pit.value();
   }
 }
 
@@ -169,8 +183,9 @@ void
 HttpClient::Poll (HttpAddress & addr, const QString & nick, 
                   int maxRecent, int maxRandom)
 {
+  qDebug () << "HttpClient  POLL try for " << addr.url << addr.ident << nick;
+  qDebug () << "HttpClient  network      " << network;
   if (network) {
-    qDebug () << " POLL try for " << addr.ident << nick;
     QUrl  basicUrl;
     if (addr.useUrl) {
       basicUrl = addr.url;
@@ -544,15 +559,18 @@ HttpClient::ReloadServers (const QString & kind)
       QString addr = it->Addr ();
       int     port = it->Port ();
       qDebug () << " address " << addr << " type " << tipo << " port " << port;
-      if (tipo == "4" || tipo == "6") {
+      if (tipo == "0" || tipo == "4" || tipo == "6") {
+        qDebug () << " HttpClient adding server " << tipo << addr;
         AddServer (it->Nick(), QHostAddress (addr), port);
       } else if (tipo == "name") {
         QUrl url ;
         url.setScheme ("http");
         url.setHost (addr);
-        qDebug () << " adding server " << url;
+        qDebug () << " HttpClient adding server " << tipo << url;
         AddServer (it->Nick(), url, port);
-      }
+      } else {
+        qDebug () << " HttpClient unknown server type " << tipo << addr;
+       }
     }
   }
 }

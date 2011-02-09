@@ -154,6 +154,8 @@ private:
   void              ForgetReply (const HttpClientReply * hcr);
   HttpClientReply * CheckReply (QNetworkReply * nr);
 
+  void DumpKnownPeers ();
+
 
   DBManager   *db;
   Policy      *policy;
