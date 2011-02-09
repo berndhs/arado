@@ -1,0 +1,39 @@
+html {
+    background: url(bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #FFF;
+}
+
+a {
+    color: #FFF;
+}
+a:visited  {text-decoration: underline}
+a:link  {text-decoration: underline}
+a:active  {text-decoration: underline}
+a:hover   {cursor: hand; text-decoration: underline}
+
+label {
+	font-weight: bold;
+}
+
+#search {
+    /* background:white url(i/search.png) no-repeat scroll 8px 8px; */
+    font-size: 16px;
+    height: 24px;
+    line-height: 24px;
+    padding: 3px 3px 3px 10px;
+}
+
+#header {
+	padding: 10px;
+	left: 0px;
+	height: 300px;
+}
