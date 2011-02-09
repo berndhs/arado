@@ -160,6 +160,7 @@ AradoEngine::StopHttpClients ()
 void
 AradoEngine::StartSequencer ()
 {
+  qDebug () << "AradoEngine::StartSequencer";
   if (sequencer) {
     RefreshPeers ();
     sequencer->Start ();
@@ -312,6 +313,18 @@ AradoEngine::ReadPipe ()
       Poll (true);
     } else if (cmd.startsWith ("REFRESHPEERS")) {
       RefreshPeers ();
+    } else if (cmd.startsWith ("STARTSERVERS")) {
+      StartHttpServers ();
+    } else if (cmd.startsWith ("STOPSERVERS")) {
+      StopHttpServers ();
+    } else if (cmd.startsWith ("STOPSEQUENCER")) {
+      StopSequencer ();
+    } else if (cmd.startsWith ("STARTSEQUENCER")) {
+      StartSequencer ();
+    } else if (cmd.startsWith ("STOPCLIENTS")) {
+      StopHttpClients();
+    } else if (cmd.startsWith ("STARTCLIENTS")) {
+      StartHttpClients();
     }
   }
 }

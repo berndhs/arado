@@ -56,7 +56,7 @@ main (int argc, char * argv[])
   translate.load (xlateFile, langDir);
   QTextCodec::setCodecForTr (QTextCodec::codecForName ("utf8"));
   app.installTranslator (&translate);
-  deliberate::CmdOptions  opts ("Arado-post");
+  deliberate::CmdOptions  opts ("Arado-engine");
   opts.AddSoloOption ("debug","D",QObject::tr("show Debug log window"));
   opts.AddStringOption ("logdebug","L",QObject::tr("write Debug log to file"));
   opts.AddStringOption ("lang","l",

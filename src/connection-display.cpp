@@ -414,6 +414,8 @@ ConnectionDisplay::ChangeTrafficParams ()
   Settings().setSimpleValue ("traffic/urlFrequencyA",urlFreqA);
   Settings().setSimpleValue ("traffic/urlFrequencyB",urlFreqB);
   Settings().setSimpleValue ("traffic/urlFrequencyC",urlFreqC);
+  qDebug () << "ConnectionDisplay::ChangeTrafficParams frequencies "
+            << urlFreqA << urlFreqB << urlFreqC;
   QStringList levels;
   levels << "A" << "B" << "C";
   for (int i=0; i<levels.count(); i++) {
@@ -422,6 +424,8 @@ ConnectionDisplay::ChangeTrafficParams ()
                           maxRecent[lev]);
     Settings().setSimpleValue (QString("traffic/maxrandom%1").arg(lev),
                           maxRandom[lev]);
+    qDebug () << "ConnectionDisplay::ChangeTrafficParams " << lev 
+              << maxRecent[lev] << "/" << maxRandom[lev];
   }
   Settings().sync();
   emit TrafficParamsChanged ();
