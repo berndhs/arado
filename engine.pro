@@ -22,6 +22,7 @@
 # ****************************************************************/
 #
 
+libspoton.commands = $(MAKE) -C LibSpotOn
 
 TEMPLATE	= app
 LANGUAGE	= C++
@@ -39,17 +40,24 @@ QT		+= network sql xml webkit
   win32 {
   }
 }
-QMAKE_CLEAN	+= ARADO
+QMAKE_CLEAN	+= ARADO LibSpotOn/*.o LibSpotOn/*.so LibSpotOn/test
 QMAKE_CXXFLAGS  += -Wall 
+QMAKE_EXTRA_TARGETS += libspoton
+PRE_TARGETDEPS = libspoton
 DEFINES         += DELIBERATE_DEBUG=0
 ICON		 = images/arado-logo-colo-128.png
 win32 {
   # LIBS            += -lws2_32
+  LIBS += -LLibSpotOn -LLibSpotOn\Libraries.win32 \
+          -lgcrypt-11 -lpthread -lspoton
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
+  INCLUDEPATH += LibSpotOn LibSpotOn\\Include.win32
 } else {
+  LIBS += -LLibSpotOn -lgcrypt -lspoton
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
+  INCLUDEPATH += LibSpotOn
 }
 
 TARGET		= bin/arado-engine
