@@ -69,14 +69,26 @@ AddRssFeed::ParseItems (QDomNodeList & itemList)
     for (unsigned int c=0; c<node.childNodes().length(); c++) {
       QDomNode child=node.childNodes().item(c);
       QString name = child.nodeName().toLower();
+
       if (name == "title") {
         title=child.firstChild().nodeValue();
-      } else if (name == "link") {
-        link=child.firstChild().nodeValue();
+
       } else if (name == "description") {
         description = child.firstChild().nodeValue ();
       } else if (name == "summary") {
         description = child.firstChild().nodeValue ();
+
+      } else if (name == "link") {
+        link=child.firstChild().nodeValue();
+
+         int firstUrlPos = link.indexOf ("url=");
+         QString rightUrl;
+         if (firstUrlPos > 4) {
+            rightUrl = link.mid (firstUrlPos+4, -1);
+            link = rightUrl;
+          }
+
+
       }
     }
     if (title.length()>0 && link.length()>0) {
