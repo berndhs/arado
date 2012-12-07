@@ -164,6 +164,8 @@ ListenerEdit::Save ()
 
 void ListenerEdit::useproxyguicheckbox(bool useproxyguicheckbox)
 {
+  Q_UNUSED(useproxyguicheckbox);
+
     if (ui.useproxyguicheckbox->isChecked()) {
         ui.label_proxyhost->setVisible(true);
         ui.lineEdit_proxyhost->setVisible(true);

@@ -276,7 +276,7 @@ AradoEngine::LiveCheck ()
 void
 AradoEngine::Bailout (const char * msg)
 {
-  qWarning (msg);
+  qWarning() << msg;
   Quit ();
 }
 

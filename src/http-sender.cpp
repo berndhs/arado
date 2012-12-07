@@ -330,6 +330,12 @@ HttpSender::ReplyRange (bool useNewest, quint64 newest,
                         const QString & datatype, 
                        const QString & level )
 {
+  Q_UNUSED(useNewest);
+  Q_UNUSED(newest);
+  Q_UNUSED(useOldest);
+  Q_UNUSED(oldest);
+  Q_UNUSED(datatype);
+  Q_UNUSED(level);
   ReplyInvalid (QString ("Not Implemented"), 501);
 }
 
@@ -338,6 +344,7 @@ HttpSender::ReplySome (int maxItems, const QString & datatype,
                         const QString & level,
                         bool random)
 {
+  Q_UNUSED(level);
   QStringList lines;
   lines << "HTTP/1.1 200 OK\r\n";
   lines << "Connection: close\r\n";
@@ -390,6 +397,7 @@ void
 HttpSender::ReplyOffer (const QString & datatype,
                         const QString & level)
 {
+  Q_UNUSED(level);
   if (0 && lastAccepted.contains (peerAddress.toString())) {
     ReplyInvalid (QString ("Too Many Requests"),403);
     return;
@@ -424,6 +432,7 @@ qDebug () << " offer expecting " << wholePath;
 void
 HttpSender::ProcessPut (const QString & urlText, const QString & proto)
 {
+  Q_UNUSED(proto);
   qDebug () << "HttpSender " << this << " received expected PUT " << urlText;
   qDebug () << expectPeer;
   if (inbuf.isReadable()) {

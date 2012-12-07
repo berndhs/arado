@@ -47,6 +47,8 @@ Search::ExactKeywords  (const QStringList & keyList,
                            Combine combine,
                            Result resType )
 {
+  Q_UNUSED(combine);
+  Q_UNUSED(resType);
 qDebug () << " they want search for list " << keyList;
   return -1;
 }
@@ -56,6 +58,8 @@ Search::ExactKeyword (const QString & key,
                            Combine combine ,
                            Result resType )
 {
+  Q_UNUSED(combine);
+  Q_UNUSED(resType);
 qDebug () << " they want search for single " << key;
   if (busy) {
     return -1;
@@ -115,18 +119,21 @@ qDebug () << " Liberal search";
 bool
 Search::ResultReady (int resultId)
 {
+  Q_UNUSED(resultId);
   return false;
 }
 
 int
 Search::ResultSize (int resultId)
 {
+  Q_UNUSED(resultId);
   return -1;
 }
 
 bool
 Search::ResultTable (int resultId, QString & tableName)
 {
+  Q_UNUSED(resultId);
   tableName.clear();
   return false;
 }
@@ -134,6 +141,7 @@ Search::ResultTable (int resultId, QString & tableName)
 bool
 Search::ResultList (int resultId, QStringList & hashList)
 {
+  Q_UNUSED(resultId);
   hashList = results;
   return true;
 }
@@ -141,6 +149,7 @@ Search::ResultList (int resultId, QStringList & hashList)
 bool
 Search::Clear (int resultId)
 {
+  Q_UNUSED(resultId);
   keys.clear ();
   busy = false;
   return true;

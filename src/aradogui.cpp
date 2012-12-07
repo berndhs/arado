@@ -792,6 +792,8 @@ AradoMain::UrlsAdded (int howmany)
 void
 AradoMain::PollNow (bool haveNew)
 {
+  Q_UNUSED(haveNew);
+
   if (enginePipe) {
     enginePipe->write ("POLLNOW\n");
   }
