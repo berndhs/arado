@@ -40,7 +40,14 @@ QT		+= network sql xml webkit
   win32 {
   }
 }
-QMAKE_CLEAN	+= ARADO LibSpotOn/*.o LibSpotOn/*.so LibSpotOn/test
+
+win32 {
+  QMAKE_CLEAN	+= ARADO LibSpotOn\\*.dll LibSpotOn\\*.o LibSpotOn\\test.exe
+}
+else {
+  QMAKE_CLEAN   += ARADO LibSpotOn/*.dylib LibSpoton/*.o LibSpotOn/*.so \
+                   ARADO LibSpotOn/test
+}
 QMAKE_CXXFLAGS  += -Wall 
 QMAKE_EXTRA_TARGETS += libspoton
 PRE_TARGETDEPS = libspoton
@@ -52,12 +59,12 @@ win32 {
           -lgcrypt-11 -lpthread -lspoton
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
-  INCLUDEPATH += LibSpotOn LibSpotOn\\Include.win32
+  INCLUDEPATH += LibSpotOn\\Include.win32
 } else {
   LIBS += -LLibSpotOn -lgcrypt -lspoton
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
-  INCLUDEPATH += LibSpotOn
+  INCLUDEPATH += .
 }
 
 TARGET		= bin/arado-engine

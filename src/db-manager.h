@@ -29,8 +29,10 @@
 #include "arado-peer.h"
 #include "arado-feed.h"
 #include "delib-rng.h"
-#include "libspoton.h"
-
+extern "C"
+{
+#include "LibSpotOn/libspoton.h"
+}
 namespace arado
 {
 
