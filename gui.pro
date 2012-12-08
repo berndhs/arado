@@ -56,7 +56,7 @@ win32 {
   # LIBS            += -lws2_32
   LIBS += -LLibSpotOn -LLibSpotOn\Libraries.win32 \
           -lgcrypt-11 -lpthread -lspoton
-  INCLUDEPATH += .
+  INCLUDEPATH += . LibSpotOn\\Include.win32
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
 } else {
