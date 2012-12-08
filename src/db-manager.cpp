@@ -35,6 +35,15 @@
 #include <QUuid>
 #include <QDebug>
 
+#ifdef Q_OS_WIN32
+#define LIBSPOTON_OS_WINDOWS 1
+#endif
+
+extern "C"
+{
+#include "LibSpotOn/libspoton.h"
+}
+
 using namespace deliberate;
 
 namespace arado
@@ -324,6 +333,23 @@ DBManager::PrivateAddUrl (AradoUrl & url)
   CloseTransaction (DB_Url);
   yieldCurrentThread ();
   AddKeywords (url);
+
+  QString description(url.Keywords().join(" "));
+
+  const char *dbpath = 0;
+  libspoton_error_t err = LIBSPOTON_ERROR_NONE;
+  libspoton_handle_t libspotonHandle;
+
+  if((err = libspoton_init(dbpath,
+			   &libspotonHandle)) == LIBSPOTON_ERROR_NONE)
+    err = libspoton_save_url
+      (url.Url().toEncoded(QUrl::StripTrailingSlash).constData(),
+       url.Description().toUtf8().constData(),
+       description.toUtf8().constData(),
+       &libspotonHandle);
+
+  libspoton_close(&libspotonHandle);
+
   return ok;
 }
 

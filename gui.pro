@@ -44,9 +44,14 @@ DEFINES         += DELIBERATE_DEBUG=1
 ICON		 = images/arado-logo-colo-128.png
 win32 {
   # LIBS            += -lws2_32
+  LIBS += -LLibSpotOn -LLibSpotOn\Libraries.win32 \
+          -lgcrypt-11 -lpthread -lspoton
+  INCLUDEPATH += LibSpotOn LibSpotOn\\Include.win32
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
 } else {
+  LIBS += -LLibSpotOn -lgcrypt -lspoton
+  INCLUDEPATH += LibSpotOn
   CONFIG -= use_miniupnp
   DEFINES += USE_MINIUPNP=0
 }
