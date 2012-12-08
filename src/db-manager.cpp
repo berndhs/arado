@@ -41,7 +41,7 @@
 
 extern "C"
 {
-#include "LibSpotOn/libspoton.h"
+#include "libspoton.h"
 }
 
 using namespace deliberate;
