@@ -106,6 +106,10 @@ main (int argc, char *argv[])
       shortLang = newlocale.left(2);
     }
   }
+  deliberate::Settings().setValue("personal/spoton_shared_db",
+				  QDir::homePath() + QDir::separator() +
+ 				  ".spot-on" + QDir::separator() +
+				  "shared.db");
   shortLang = deliberate::Settings().value ("personal/language",shortLang)
                          .toString();
   deliberate::Settings().setValue ("personal/language",shortLang);
