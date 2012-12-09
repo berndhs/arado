@@ -262,7 +262,7 @@ background-color: rgb(170, 170, 255);</string>
           <string/>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -367,7 +367,6 @@ border-image: url(:/images/btn3.png) 4;
   </layout>
  </widget>
  <resources>
-  <include location="../arado.qrc"/>
   <include location="../arado.qrc"/>
  </resources>
  <connections/>

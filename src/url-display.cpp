@@ -306,7 +306,17 @@ void
 UrlDisplay::SlowUpdate ()
 {
   qint64 numUrls = db->NumUrls();
-  ui.middleLabel->setText (tr("Search within about %1 entries.").arg(numUrls));
+
+  QString word = QString::number(numUrls, 10);
+  int w_size = word.size();
+  if (w_size > 3) {
+  word.insert(word.size() - 3, ".");
+  }
+  if (w_size > 6) {
+  word.insert(word.size() - 7, ".");
+  }
+
+  ui.middleLabel->setText (tr("Search within about %1 entries.").arg(word));
 }
 
 void
