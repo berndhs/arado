@@ -28,7 +28,11 @@ namespace deliberate
 Rng_LCG_GN::Rng_LCG_GN ()
   :A(1103515245),
    C(12345),
+#if defined(__LP64__) || defined(_LP64)
    M(0xffffffffffffffff),
+#else
+   M(0xffffffff)
+#endif
    Xn(12345)
 {
 }
