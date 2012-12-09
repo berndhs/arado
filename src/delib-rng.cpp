@@ -31,7 +31,7 @@ Rng_LCG_GN::Rng_LCG_GN ()
 #if defined(__LP64__) || defined(_LP64)
    M(0xffffffffffffffff),
 #else
-   M(0xffffffff)
+   M(0xffffffff),
 #endif
    Xn(12345)
 {
