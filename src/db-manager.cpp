@@ -344,12 +344,14 @@ DBManager::PrivateAddUrl (AradoUrl & url)
 			   &libspotonHandle)) == LIBSPOTON_ERROR_NONE)
     err = libspoton_save_url
       (url.Url().toEncoded(QUrl::StripTrailingSlash).constData(),
+       url.Url().toEncoded(QUrl::StripTrailingSlash).size(),
        url.Description().toUtf8().constData(),
+       url.Description().toUtf8().size(),
        description.toUtf8().constData(),
+       description.toUtf8().size(),
        &libspotonHandle);
 
   libspoton_close(&libspotonHandle);
-
   return ok;
 }
 
