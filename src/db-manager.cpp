@@ -349,6 +349,8 @@ DBManager::PrivateAddUrl (AradoUrl & url)
        url.Description().toUtf8().size(),
        description.toUtf8().constData(),
        description.toUtf8().size(),
+       "",
+       0,
        &libspotonHandle);
 
   libspoton_close(&libspotonHandle);
